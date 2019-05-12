@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+header{
+	background: rgb(61, 81, 113); 
+	height:50px; 
+	margin: 0 auto;
+}
+header > span{
+	cursor:pointer;
+	color: rgb(230, 240, 255);
+	font-weight: bold;
+	line-height: 50px;
+	height : 50px;
+	text-align: center;
+}
+header > span *{
+	height : 100%;
+	display: inline-block;
+	box-sizing: border-box;
+}
+header > span:hover{
+	cursor:pointer;
+	background : rgb(114, 164, 208);
+	color : white;
+}
+header > span:nth-child(1):hover{
+	cursor: auto;
+	background : rgb(114, 164, 208);
+	color: rgb(241, 196, 15);
+}
+header > span:nth-child(4) > *:hover{
+	cursor:pointer;
+}
+nav{
+	height: 50px;
+	border-bottom : 1px solid black;
+}
+.logo{
+	padding: 0 auto;
+	text-align:center;
+	height: 100%;
+}
+.logo img{
+	pointer:cursor;
+	height: 90%;
+}

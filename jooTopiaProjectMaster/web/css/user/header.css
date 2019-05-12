@@ -1,0 +1,101 @@
+@charset "UTF-8";
+
+header{
+	background: rgb(53, 15, 15); 
+	height:50px; 
+	margin: 0 auto;
+	
+}
+header > span{
+	cursor:pointer;
+	color: rgb(241, 196, 15);
+	font-weight: bold;
+	line-height: 50px;
+	height : 50px;
+	text-align: center;
+}
+header > span *{
+	height : 100%;
+	display: inline-block;
+	box-sizing: border-box;
+}
+header > span:hover{
+	cursor:pointer;
+	background : rgb(241, 196, 15);
+	color : rgb(53, 15, 15);
+}
+header > span:nth-child(4):hover{
+	cursor: auto;
+	background : rgb(53, 15, 15);
+	color: rgb(241, 196, 15);
+}
+header > span:nth-child(4) > *:hover{
+	cursor:pointer;
+}
+.logo{
+	padding: 0 auto;
+	text-align:center;
+	height: 100%;
+}
+.logo img{
+	pointer:cursor;
+	height: 90%;
+}
+.fixNav{
+	position: fixed;
+	top: 0;
+	opacity : 0.8;
+	width: 100%;		
+}
+.navbar, .navbar *{
+	background: white;	
+	z-index: 99999;
+}
+.navbar{
+	height : 52px;
+}
+.container-fluid{
+	padding-left: 7.4%;
+}
+.container-fluid > ul > *{
+	width: 20%;
+	text-align: center;
+	color : black;
+	font-weight : bold;
+	font-size: 1.1em;
+}
+.container-fluid > ul > *:hover{
+	background : rgb(150, 150, 150);
+}
+.container-fluid > .nav{
+	width: 	50%;
+}
+.dropdown-toggle{
+	color : black;	
+}
+.container-fluid .navbar-form{
+	margin-left: 20%;
+}
+
+
+.ckZip {
+	width: 100px;
+	background-color: white;
+	border: 1px solid black;
+	color: black;
+	padding: 15px 0;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 15px;
+	margin: 4px;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
+.ckZip:hover{
+	background-color: black;
+	color:white;
+}
+
+

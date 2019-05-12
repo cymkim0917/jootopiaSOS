@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+html, body {
+	height: 100%;
+}
+
+section {
+	padding: 50px 30px;
+	width: 80%;
+	margin: 0 auto;
+}
+
+.title {
+	font-weight: bold;
+	margin-left: 20px;
+	margin-bottom : 30px;
+}
+.btnArea {
+	padding: 30px;
+}
+.jBtn {
+	border-style: none;
+	border-radius: 10px;
+	background: rgb(241, 196, 15);
+	padding: 15px 50px;
+	font-weight: bold;
+	font-size: 1.2em;
+	margin: 70px 40px 30px;
+}
+.jBtn:hover {
+	color: rgb(241, 196, 15);
+	background: rgb(53, 15, 15);
+}
+.outline {
+	border: 2px solid black;
+}
+table{
+	border-collapse : collpase;	
+}
