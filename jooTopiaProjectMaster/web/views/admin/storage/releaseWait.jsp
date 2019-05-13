@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.jooTopia.release.model.vo.*, java.util.*"%>
+	
+<% ArrayList<ReleaseAdmin> list = (ArrayList<ReleaseAdmin>) request.getAttribute("list"); %>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,15 +41,23 @@
 						<th>위치번호</th>
 					</tr>
 				</thead>
+				<% for(ReleaseAdmin r : list){ %>
 				<tbody>
 					<tr>
-						<td>1</td>
+						<td><%= r.getno() %></td>
+						<td><%= r.getoNo() %></td>
+						<td><%= r.getdNo() %></td>
+						<td><%= r.gethNo() %></td>
+						<td><%= r.getLocationNo() %></td>
+						
+						<!-- <td>1</td>
 						<td>190101-001A</td>
 						<td>S123456</td>
 						<td>ZZ123</td>
-						<td>MO-1</td>
+						<td>MO-1</td> -->
 					</tr>
-					<tr>
+					<% } %>
+					<!-- <tr>
 						<td>2</td>
 						<td>190101-001A</td>
 						<td>S123456</td>
@@ -59,7 +70,7 @@
 						<td>S123456</td>
 						<td>ZZ123</td>
 						<td>MO-1</td>
-					</tr>
+					</tr> -->
 				</tbody>
 			</table>
 
@@ -101,6 +112,7 @@
 		</div>
 		
 	</section>
+	
 	<%@ include file="/views/common/adminFooter.jsp"%>
 	
 	<script>
@@ -113,7 +125,7 @@
 				var num = $(this).parent().children().eq(0).text();
 				console.log(num);
 				<%-- location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num; --%>
-				location.href="releaseRegist.jsp";
+				location.href="location.href='<%=request.getContextPath()%>/insertAdminRelease.do'";
 			})
 		})
 	</script>
