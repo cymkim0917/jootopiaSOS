@@ -20,7 +20,7 @@
 	} 
 	
 	#wrapper input[type="text"], input[type="password"], 
-	input[type="email"],input[type="phone"]
+	input[type="email"],input[type="date"],input[type="submit"]
 	{
 		font-family: "Source Sans Pro", Helvetica, sans-serif;
 		font-size: 10pt;
@@ -29,7 +29,6 @@
 		color: #444444;
 		height: 2.75em;
 		border-radius: 4px;
-		border: none;
 		border: solid 1px;
 		color: inherit;
 		width:100%;
@@ -39,7 +38,25 @@
 	
 	#wrapper > #tel1,#tel2,#tel3{
 		width:20px;
+		border-radius: 4px;
+		border: solid 1px;
+		color: inherit;
+		color: #444444;
 	}
+	
+	#searchArea > *{
+		text-align:center;
+		align:center;
+	}
+	
+	#searchId:hover{
+		color:red;
+	}
+	
+	#searchPwd:hover{
+		color:red;
+	}
+
 	
 
 	

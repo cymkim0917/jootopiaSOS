@@ -19,16 +19,14 @@ public class EncryptFilter implements Filter {
        
     }
 
-	public void destroy() {
-		
-	}
+	public void destroy() { }
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest hRequest = (HttpServletRequest)request;
 		
 		LoginWrapper lw = new LoginWrapper(hRequest);
 		
-		
+		System.out.println("doFilter");
 		//가공한 wrapper를 넘겨줌 
 		// lw = request 객체, 가공만 되었을 뿐이다.
 		

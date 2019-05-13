@@ -21,8 +21,11 @@ public class MemberLoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		System.out.println(request);
+		System.out.println(request.getParameter("userId") + " ~! " + request.getParameter("userPwd"));
 		
 		Member member = new MemberService().loginCheck(request.getParameter("userId"),request.getParameter("userPwd"));
+		
+		
 		System.out.println(member);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

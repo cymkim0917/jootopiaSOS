@@ -13,6 +13,7 @@ public class MemberService {
 		int result = 0;
 		
 		int checkId = new MemberDao().idCheck(con, member.getUserId());
+		System.out.println("checkId" + checkId);
 		
 		if(checkId == 0) {
 			result = new MemberDao().insertMember(con,member);
@@ -33,6 +34,14 @@ public class MemberService {
 		
 		
 		return result;
+	}
+
+	public Member userCheck(String userName, String email) {
+		Connection con = getConnection();
+		
+		Member member = new MemberDao().userCheck(userName,email,con);
+		
+		return member;
 	}
 
 }
