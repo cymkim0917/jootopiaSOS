@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
+     
 <%-- import="com.kh.jooTopia.product.model.vo.*, java.util.*, java.lang.*" --%>    
 <%--
 	int count = 1;
@@ -72,9 +73,9 @@
 					<td>1</td>
 					<td>판매안함</td>
 					<td>침실 / 침대</td>
-					<td><a href="productInsertForm.jsp">P20190510_01</a></td>
-					<td><a href="productInsertForm.jsp"><img src="/jootopia/images/logo2.png" width="60px" height="60px"></a></td>
-					<td><a href="productInsertForm.jsp">침대침대</a></td>
+					<td><a href="/jootopia/views/admin/product/productInsertForm.jsp">P20190510_01</a></td>
+					<td><a href="/jootopia/views/admin/product/productInsertForm.jsp"><img src="/jootopia/images/logo2.png" width="60px" height="60px"></a></td>
+					<td><a href="/jootopia/views/admin/product/productInsertForm.jsp">침대침대</a></td>
 					<td>200000</td>
 					<td>20000 (10%)</td>
 				</tr>
@@ -113,6 +114,7 @@
 <%@ include file="/views/common/adminFooter.jsp" %>
 
 <script>
+	
 	function pTypeChange(text) {
 		var answer = window.confirm("선택한 상품을 " + text + " 하시겠습니까?");
 		
