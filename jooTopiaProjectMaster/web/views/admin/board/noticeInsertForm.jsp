@@ -23,13 +23,13 @@
 	  <hr>
      
       	 <div id="insertArea" ailgn="center">
-      	 	<form>
+      	 	<form id="insertNoti" method="post">
       	 		<table id="insertTb" width="100%">
       	 			<tr>
       	 				<td><h3>분류</h3></td>
       	 				<td>
-      	 					<input type="radio" name="category" value="notice"> <label>공지사항</label>
-      	 					<input type="radio" name="category" value="event"> <label>이벤트</label>
+      	 					<input id="cate" type="radio" name="category" value="notice"> <label>공지사항</label>
+      	 					<input id="cate" type="radio" name="category" value="event"> <label>이벤트</label>
       	 				</td>
       	 			</tr>
       	 			<tr>
@@ -42,18 +42,30 @@
       	 			</tr>
       	 			<tr>
       	 				<td><h3>내용</h3></td>
-      	 				<td><textarea cols="92%" rows="30" style="resize:none"></textarea></td>
+      	 				<td><textarea cols="92%" rows="30" style="resize:none" name="content"></textarea></td>
       	 			</tr>
       	 		</table>
       	 		<br>
       	 			<div id="searchBtnArea" align="center">
-      	 				<input type="submit" value="등록">
+      	 				<input type="button" value="등록" onclick="insertNotice()">
 		   				<input type="reset" value="취소" >
       	 			</div>
       	 	</form>
       	 </div>
       </div>
    </section>
+   <script>
+   		function insertNotice(){
+   			var form = document.getElementById("insertArea");
+   			var type = $("#cate")
+			
+   			console.log(type.val());
+   			
+   		
+   		
+   	}
+   
+   </script>
    
 <%@ include file="/views/common/adminFooter.jsp" %>
 </body>

@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.jooTopia.board.model.vo.*, java.util.*"%>
+<%
+	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
+	int currentPage = pageInfo.getCurrentPage();
+	int maxPage = pageInfo.getMaxPage();
+	int startPage = pageInfo.getStartPage();
+	int endPage = pageInfo.getEndPage();
+%>
 <!DOCTYPE html>
 <html>   
 <head>   
@@ -68,13 +76,28 @@
 		   			<tr>
 		   				<th width="50px;">선택</th>
 		   				<th width="50px;">글번호</th>
-		   				<th width="100px;">제목</th>
-		   				<th width="100px;">날짜</th>
+		   				<th width="150px;">제목</th>
+		   				<th width="70px;">작성일</th>
+		   				<th width="70px;">수정일</th>
 		   				<th width="50px;">조회수</th>
-		   				<th width="100px;">분류</th>
-		   				
+		   				<th width="50px;">분류</th>
 		   			</tr>
-		   			
+		   			<%for(Board board:list){ %>
+		   			<tr>
+		   				<td><input type="checkbox"></td>
+		   				<td><%=board.getbId() %></td>
+		   				<td><%=board.getbTitle() %></td>
+		   				<td><%=board.getEnrollDate() %></td>
+		   				<td><%=board.getModifyDate() %></td>
+		   				<td><%=board.getbCount() %></td>
+		   				<td><%if(board.getbType()==1){%>
+		   					공지사항
+		   					<%}else{ %>
+		   					이벤트
+		   					<%} %>
+		   				</td>
+		   			</tr>
+		   			<%} %>
 		   		</table>
 		   	</form>
 		</div>	
@@ -86,7 +109,17 @@
 		   		<input type="button" value="삭제">
 		   	</div>
 		
-		
+		<div class="paging" align="center">
+		<ul class="pagination">
+			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=<%=currentPage-1%>">이전</a></li>
+			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=1">1</a></li>
+			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=2">2</a></li>
+			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=3">3</a></li>
+			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=4">4</a></li>
+			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=5">5</a></li>
+			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=<%=currentPage+1%>">다음</a></li>
+		</ul>
+		</div>
 		
 		
 		
