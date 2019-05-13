@@ -9,11 +9,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>JooTopia</title>
 <link rel="stylesheet" type="text/css" href="/jootopia/css/admin/adminCommon.css">
-<style>
-	*{
-		min-height:unset;
-	}
-</style>
 </head>
 <body>
 	<nav class="sideNav col-sm-2" align="center">
@@ -71,10 +66,13 @@
 		
 		<% }else if(root.equals("storage")) { %>
 		
-		<div class="sideMenu" id="sideMenu1"><div class="sideMenuBtn" id="">매입대기</div></div>
-		<div class="sideMenu" id="sideMenu2"><div class="sideMenuBtn" id="">매입진행</div></div>
-		<div class="sideMenu" id="sideMenu3"><div class="sideMenuBtn" id="">재고관리</div></div>
-		<div class="sideMenu" id="sideMenu1"><div class="sideMenuBtn" id="">출고관리</div></div>
+		
+
+		<div class="sideMenu" id="sideMenu1"><div class="sideMenuBtn" id="" onclick="location.href='buyWait.jsp'">상품등록</div></div>
+		<div class="sideMenu" id="sideMenu2"><div class="sideMenuBtn" id="" onclick="location.href='heapWait.jsp'">적치등록</div></div>
+		<div class="sideMenu" id="sideMenu3"><div class="sideMenuBtn" id="" onclick="location.href='releaseWait.jsp'">출고등록</div></div>
+		<div class="sideMenu" id="sideMenu4"><div class="sideMenuBtn" id="" onclick="location.href='releaseList.jsp'">출고리스트</div></div>
+		<div class="sideMenu" id="sideMenu5"><div class="sideMenuBtn" id="" onclick="location.href='stockList.jsp'">재고리스트</div></div>
 		
 		<% } %>
 	</nav>
