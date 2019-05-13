@@ -70,7 +70,7 @@
 
 		<div class="sideMenu" id="sideMenu1"><div class="sideMenuBtn" id="" onclick="location.href='buyWait.jsp'">상품등록</div></div>
 		<div class="sideMenu" id="sideMenu2"><div class="sideMenuBtn" id="" onclick="location.href='heapWait.jsp'">적치등록</div></div>
-		<div class="sideMenu" id="sideMenu3"><div class="sideMenuBtn" id="" onclick="location.href='releaseWait.jsp'">출고등록</div></div>
+		<div class="sideMenu" id="sideMenu3"><div class="sideMenuBtn" id="" onclick="location.href='<%=request.getContextPath()%>/selectAdminRelease.do'">출고등록</div></div>
 		<div class="sideMenu" id="sideMenu4"><div class="sideMenuBtn" id="" onclick="location.href='releaseList.jsp'">출고리스트</div></div>
 		<div class="sideMenu" id="sideMenu5"><div class="sideMenuBtn" id="" onclick="location.href='stockList.jsp'">재고리스트</div></div>
 		
