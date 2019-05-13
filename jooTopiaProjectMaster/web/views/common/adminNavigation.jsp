@@ -20,7 +20,7 @@
 		<span class="col-lg-1" onclick="location.href='/jootopia/views/admin/member/member.jsp'">
 			회원관리
 		</span>
-		<span class="col-lg-1" onclick="location.href='/jootopia/views/admin/board/notice.jsp'">
+		<span class="col-lg-1" onclick="location.href='/jootopia/adminBoardList.do'">
 			게시판관리
 		</span>
 		<span class="col-lg-1" onclick="location.href='/jootopia/views/admin/purchase/purchaseList.jsp'">
