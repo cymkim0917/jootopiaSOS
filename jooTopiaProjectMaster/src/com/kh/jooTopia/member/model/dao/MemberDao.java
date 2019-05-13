@@ -38,6 +38,7 @@ public class MemberDao {
 			pstmt.setString(7, member.getAddress());
 			pstmt.setString(8, member.getEmail());
 			result = pstmt.executeUpdate();	
+			System.out.println(result);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -97,7 +98,7 @@ public class MemberDao {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				result = 1;
+				result = rs.getInt(1);				
 			}
 			
 		} catch (SQLException e) {
@@ -106,6 +107,36 @@ public class MemberDao {
 		}
 		
 		return result;
+	}
+
+	public Member userCheck(String userName, String email, Connection con) {
+		Member member = null;		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("userCheck");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, userName);
+			pstmt.setString(2, email);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				member = new Member();
+				member.setUserName(userName);
+				member.setEmail(email);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return member;
 	}
 
 }

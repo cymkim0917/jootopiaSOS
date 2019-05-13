@@ -120,36 +120,49 @@
 	</script>
 	
 	<!-- loginModal -->
-	<div id="logModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
+	<div id="wrapper">
+		<div id="logModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
 
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Login</h4>
-				</div>
-				<div class="modal-body">
-					<form action="loginCheck.do" method="post">
-						<table align="center">
-							<tr>
-								<td><input type="text" name="userId" placeholder="ID"></td>
-								<td><input type="submit" value="로그인" colspan="2"></td>
-							</tr>
-							<tr>
-								<td><input type="password" name="password"
-									placeholder="Password"></td>
-							</tr>
-						</table>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Login</h4>
+					</div>
+					<div class="modal-body">
+						<form action="loginCheck.do" method="post">
+							<table align="center">
+								<tr><td colspan="2"><p>아이디</p></td></tr>
+								<tr>
+									<td><input type="text" name="userId" placeholder="ID">    </td>
+									<td><input type="submit" value="로그인" colspan="2"></td>
+								</tr>
+								<tr><td colspan="2"><p>비밀번호</p></td></tr>
+								<tr>
+									<td><input type="password" name="userPwd"
+										placeholder="Password"></td>
+								</tr>
+								
+			
+
+							</table>
+							
+						</form>
+						<div id="searchArea">
+							<p id="searchId">아이디 찾기</p>
+							<p id="searchPwd">비밀번호 찾기</p>
+						</div>
+						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	
+
+
 	<!-- joinModal -->
 	<div id="wrapper">
 		<div class="modal fade" id="joinModal" role="dialog">
@@ -176,12 +189,12 @@
 
 								</tr>
 								<tr>
-									<td><p>숫자+영문자+특수문자 조합 8자리 이상</p></td>
+									<td><p>숫자+영문자+특수문자 조합 8자리 이상</p> &nbsp; &nbsp; &nbsp;</td>
 									<td><p id="pwdArea" style="color: red;"></p></td>
 								</tr>
 								<tr>
 									<td><label for="">비밀번호 확인</label></td>
-									<td><input type="password" name="userPwd2" id="userPwd2" /></td>
+									<td><input type="password" name="userPwd2" id="userPwd2" /> &nbsp; &nbsp; &nbsp;</td>
 									<td><p id="pwdArea2" style="color: red;"></p></td>
 								</tr>
 								<tr>
