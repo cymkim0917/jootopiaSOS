@@ -5,11 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="/jootopia/images/favicon.ico">
-<!-- bootStrap -->
 <link rel="stylesheet" href="/jootopia/css/external/bootstrap.min.css">
 <script src="/jootopia/js/external/jquery-3.4.0.min.js"></script>
 <script src="/jootopia/js/external/bootstrap.min.js"></script>
-
 <link rel="stylesheet" href="/jootopia/css/admin/adminCommon.css">
 <title>JooTopia</title>
 </head>
@@ -20,20 +18,14 @@
       <div id="adminSection" class="col-sm-10">
  
  
- 	<h1><a href="buyWait3.jsp">매입대기</a></h1>
-	<h1><a href="buyWaitDetail4.jsp">매입대기상세</a></h1>
-	<h1><a href="buying5.jsp">매입진행</a></h1>
-	<h1><a href="buyCheck6.jsp">검수 및 매입</a></h1>
-	<h1><a href="buyEnd7.jsp">매입완료</a></h1>
-	<h1><a href="product8.jsp">상품등록</a></h1>
-	<h1><a href="heapWait9.jsp">상품적치 대기</a></h1>
-	<h1><a href="heapBarcode10.jsp">적치바코드 등록</a></h1>
-	<h1><a href="heapEnd11.jsp">상품적치완료</a></h1>
-	<h1><a href="heapDetail12.jsp">적치완료상품 상세</a></h1>
-	<h1><a href="stockList13.jsp">재고조회</a></h1>
-	<h1><a href="releaseList14.jsp">상품출고리스트</a></h1>
- 	
-	
+ 	<h1><a href="buyWait.jsp">매입리스트</a></h1>
+	<h1><a href="productreg.jsp">상품등록</a></h1>
+	<h1><a href="heapWait.jsp">적치대기</a></h1>
+	<h1><a href="heapRegist.jsp">적치등록</a></h1>
+	<h1><a href="stockList.jsp">재고리스트</a></h1>
+	<h1><a href="releaseWait.jsp">출고대기</a></h1>
+	<h1><a href="releaseRegist.jsp">출고등록</a></h1>
+	<h1><a href="releaseList.jsp">출고리스트</a></h1>	
 	
 	<hr>
 	<div align="center">
