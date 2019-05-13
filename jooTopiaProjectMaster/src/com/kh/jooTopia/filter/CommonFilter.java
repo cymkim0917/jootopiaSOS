@@ -8,15 +8,12 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
-
-import com.kh.jooTopia.wrapper.LoginWrapper;
 
 @WebFilter("*.do")
-public class EncryptFilter implements Filter {
-
-    public EncryptFilter() {
-       
+public class CommonFilter implements Filter {
+    public CommonFilter() {
+    	//기본 생성자
+    	System.out.println("CommonFilter Object Created");
     }
 
 	public void destroy() {
@@ -24,19 +21,19 @@ public class EncryptFilter implements Filter {
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest hRequest = (HttpServletRequest)request;
+		//가장 먼저 처리
+		request.setCharacterEncoding("UTF-8");
 		
-		LoginWrapper lw = new LoginWrapper(hRequest);
+		response.setContentType("text/html; charset=UTF-8");
+		System.out.println("인코딩 처리 완료");
 		
 		
-		//가공한 wrapper를 넘겨줌 
-		// lw = request 객체, 가공만 되었을 뿐이다.
-		
-		chain.doFilter(lw, response);
+		//더 이상 처리할 필터가 없으면 Servlet을 호출한다.
+		chain.doFilter(request, response);
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
+		
 	}
 
 }

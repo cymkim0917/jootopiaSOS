@@ -10,14 +10,28 @@ public class MemberService {
 
 	public int insertMember(Member member) {
 		Connection con = getConnection();
+		int result = 0;
 		
-		int result = new MemberDao().insertMember(con,member);
+		int checkId = new MemberDao().idCheck(con, member.getUserId());
 		
-		if(result >0) {
-			commit(con);
-		}else {
-			rollback(con);
-		}		
+		if(checkId == 0) {
+			result = new MemberDao().insertMember(con,member);
+			
+			if(result >0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}	
+		}
+		return result;
+	}
+
+	public Member loginCheck(String userId, String userPwd) {
+		Connection con = getConnection();
+		
+		Member result = new MemberDao().loginCheck(con,userId,userPwd);
+		
+		
 		return result;
 	}
 

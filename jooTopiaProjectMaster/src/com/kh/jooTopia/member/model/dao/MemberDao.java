@@ -30,21 +30,13 @@ public class MemberDao {
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member.getUserId());
-			System.out.println("1");
 			pstmt.setString(2, member.getUserPwd());
-			System.out.println("2");
 			pstmt.setString(3, member.getUserName());
-			System.out.println("3");
 			pstmt.setDate(4, member.getUserDate());
-			System.out.println("4	");
 			pstmt.setString(5, member.getPhone());
-			System.out.println("5");
 			pstmt.setString(6, member.getGender());
-			System.out.println("6");
 			pstmt.setString(7, member.getAddress());
-			System.out.println("7");
 			pstmt.setString(8, member.getEmail());
-			System.out.println("8");
 			result = pstmt.executeUpdate();	
 			
 		} catch (SQLException e) {
@@ -53,6 +45,66 @@ public class MemberDao {
 		}finally {
 			close(pstmt);
 		}
+		return result;
+	}
+
+	public Member loginCheck(Connection con, String userId, String userPwd) {
+		Member member = null;		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("loginCheck");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				member = new Member();
+				member.setUserId(userId);
+				member.setUserPwd(userPwd);
+				member.setUno(rs.getInt("UNO"));
+				member.setUserName(rs.getString(4));
+				member.setPhone(rs.getString(6));
+				member.setGender(rs.getString(7));
+				member.setAddress(rs.getString(8));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return member;
+	}
+
+	public int idCheck(Connection con, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("idCheck");
+		int result = 0;
+		
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = 1;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return result;
 	}
 
