@@ -1,6 +1,7 @@
 package com.kh.jooTopia.member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 
 import javax.servlet.ServletException;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.jooTopia.member.model.service.MemberService;
 import com.kh.jooTopia.member.model.vo.Member;
 
-@WebServlet("/insert.me")
+@WebServlet("/insert.do")
 public class MemberInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     public MemberInsertServlet() {
@@ -40,17 +41,25 @@ public class MemberInsertServlet extends HttpServlet {
 		String address = zipCode + "|" + address1 + "|" + address2;
 		String email = request.getParameter("email");
 		
-		
-		
 		Member member = new Member(userId,userPwd,userName,userDate,phone,gender,address,email);
 		
+		System.out.println(member);
+		
 		int result = new MemberService().insertMember(member);
-		String view = "";
+		PrintWriter out = response.getWriter();
+		String msg = "";
+		String view = "views/main/MainPage.jsp";
 		
 		if(result > 0 ) {
-			request.getSession().setAttribute("loginUser", member);
-			view = "views/member/memberInsertSuccessPage.jsp";
+			request.setAttribute("loginUser", member);
+			msg = "회원가입에 성공했습니다.";
+		}else {
+			msg= "회원가입에 실패했습니다.";
 		}
+		
+		out.println("<script>alert('"+ msg +"'); location.href='"+ view +"';</script>");
+		
+		
 		
 	}
 
