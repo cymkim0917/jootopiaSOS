@@ -170,7 +170,7 @@
 		
 		<br>
 		<div class="checkboxgroup">
-		<input type="checkbox" name="chk_info" value="name">이름
+		
 		<input type="checkbox" name="chk_info" value="title" checked="checked">제목
 		<input type="checkbox" name="chk_info" value="content">내용
 		<input type="text">&nbsp;

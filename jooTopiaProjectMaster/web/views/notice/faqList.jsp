@@ -88,20 +88,6 @@
 		</div>
 		
 		
-		
-		<!--  <div class = "bgstick" align="center">
-			<button style="submit" height="100px" width="200px">공지사항</button>&nbsp;
-			<button style="submit">상품후기</button>&nbsp;
-			<button style="submit">FAQ</button>
-			<input type="submit" value="회원가입" style="height:50px; width:100px; margin-top:50px;">&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="submit" value="개인정보" style="height:50px; width:100px; margin-top:50px;">&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="submit" value="상품구매" style="height:50px; width:100px; margin-top:50px;">&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="submit" value="주문절차/취소" style="height:50px; width:100px; margin-top:50px;">&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="submit" value="결제/배송" style="height:50px; width:100px; margin-top:50px;">&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="submit" value="교환/환불" style="height:50px; width:100px; margin-top:50px;">&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="submit" value="기타" style="height:50px; width:100px; margin-top:50px;">&nbsp;&nbsp;&nbsp;&nbsp;
-		</div>  -->
-		
 		<br><br><br><br>
 		
 		
@@ -201,52 +187,12 @@
 		
 		<br>
 		<div class="checkboxgroup">
-		<input type="checkbox" name="chk_info" value="name">이름
+		
 		<input type="checkbox" name="chk_info" value="title" checked="checked">제목
 		<input type="checkbox" name="chk_info" value="content">내용
 		<input type="text">&nbsp;
 		<button onclick="location.href='<%=request.getContextPath()%>/views/notice/faqList.jsp'">검색</button>
 		</div>
-		
-		
-		<%--페이지 처리 --%>
-		
-      <%-- <div class="pagingArea" align="center">
-         <button onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=1'"> << </button>
-         <% if(currentPage <= 1) { %>
-         <button disabled> < </button>
-         <% }else { %>
-         <button onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=<%= currentPage - 1 %>'"> < </button>
-         <% } %>
-         
-         <%for(int p = startPage; p <= endPage; p++){ 
-         		if(p == currentPage){      
-         %>
-         
-         	<button disabled><%= p %></button>
-         
-         <%}else{ %>
-         	<button onclick="location.href='<%=request.getContextPath() %>/selectList.bo?currentPage=<%=p %>'"><%=p %></button>
-         
-         <%    } %>
-         
-         <% } %>
-         
-         
-         
-         
-         
-         <% if(currentPage >= maxPage) { %>
-         <button disabled> > </button>
-         <% }else { %>
-         <button onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=<%= currentPage + 1 %>'"> > </button>
-         <% } %>
-         <button onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=<%= maxPage %>'"> >> </button>
-      </div>
-		 --%>
-		
-		
-		
 		
 		
 		
