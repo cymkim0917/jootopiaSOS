@@ -14,7 +14,7 @@
 <title>JooTopia</title>
 </head>
 <body>
-
+ 
 	<%@ include file="/views/common/adminNavigation.jsp" %>
 	
 	<section class="row">

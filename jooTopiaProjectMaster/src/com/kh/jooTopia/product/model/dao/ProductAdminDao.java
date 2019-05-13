@@ -20,7 +20,7 @@ public class ProductAdminDao {
 	
 	public ProductAdminDao() {
 		String fileName = ProductAdminDao.class.getResource("/sql/product/productAdmin-query.properties").getPath();
-		
+		 
 		try {
 			prop.load(new FileReader(fileName));
 		} catch (FileNotFoundException e) {

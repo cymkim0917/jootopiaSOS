@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class Product implements Serializable {
-	
+	 
 	private int pNo;
 	private String pName;
 	private int pPrice;

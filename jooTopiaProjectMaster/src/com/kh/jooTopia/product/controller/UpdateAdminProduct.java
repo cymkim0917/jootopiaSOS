@@ -37,7 +37,7 @@ public class UpdateAdminProduct extends HttpServlet {
 			// 웹 서버 컨테이너 경로 추출
 			String root = request
 							.getSession()
-							.getServletContext()  // contextRoot
+			 				.getServletContext()  // contextRoot
 							.getRealPath("/"); 	  // 절대경로 가져와라
 			
 			// 파일 저장 경로 설정
