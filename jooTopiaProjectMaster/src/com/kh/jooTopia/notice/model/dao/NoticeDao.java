@@ -10,11 +10,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
+import static com.kh.jooTopia.common.JDBCTemplate.*;
 
 import com.kh.jooTopia.member.model.dao.MemberDao;
 import com.kh.jooTopia.notice.model.vo.Notice;
+import com.kh.jooTopia.notice.model.vo.PageInfo;
 
-import static com.kh.jooTopia.common.JDBCTemplate.*;
 
 public class NoticeDao {
 	private Properties prop = new Properties();
@@ -29,16 +30,65 @@ public class NoticeDao {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		
 	}
 	
 	//전체출력
-	public ArrayList<Notice> selectList(Connection con){
+	public ArrayList<Notice> selectList(Connection con) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Notice> list = null;
+		
+		String query = prop.getProperty("selectList");
+		
+		/*int startRow = (pageInfo.getCurrentPage()-1)*pageInfo.getLimit()+1;
+		int endRow = startRow + pageInfo.getLimit()-1;
+		*/
+		try {
+			pstmt = con.prepareStatement(query);
+			/*pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);*/
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Notice>();
+			
+			while(rset.next()) {
+				Notice n = new Notice();
+				n.setbId(rset.getInt("BID"));
+				n.setbTitle(rset.getString("BTITLE"));
+				n.setbType(rset.getInt("BTYPE"));
+				n.setbCount(rset.getInt("BCOUNT"));
+				n.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				n.setModifyDate(rset.getDate("MODIFY_DATE"));
+				
+				list.add(n);
+				
+			}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		System.out.println("Dao 페이징 : " + list);
+		return list;
+		
+	}
+		
+	
+	/*public ArrayList<Notice> selectList(Connection con){
 		ArrayList<Notice> list = null;
 		Statement stmt = null;
 		ResultSet rset = null;
 		
 		String query = prop.getProperty("selectList");
+		
+		
+		System.out.println(list);
 		
 		try {
 			stmt = con.createStatement();
@@ -55,8 +105,8 @@ public class NoticeDao {
 				n.setbTitle(rset.getString("BTITLE"));
 				n.setbContent(rset.getString("BCONTENT"));
 				n.setStatus(rset.getString("STATUS"));
-				n.setEnroll_date(rset.getDate("ENROLL_DATE"));
-				n.setModify_date(rset.getDate("MODIFY_DATE"));
+				n.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				n.setModifyDate(rset.getDate("MODIFY_DATE"));
 				n.setbCount(rset.getInt("BCOUNT"));
 				n.setuNo(rset.getInt("UNO"));
 				
@@ -73,7 +123,7 @@ public class NoticeDao {
 		}
 		return list;
 		
-	}
+	}*/
 
 	//상세보기
 	public Notice selectOne(Connection con, int num) {
@@ -98,8 +148,8 @@ public class NoticeDao {
 				n.setbTitle(rset.getString("BTITLE"));
 				n.setbContent(rset.getString("BCONTENT"));
 				n.setStatus(rset.getString("STATUS"));
-				n.setEnroll_date(rset.getDate("ENROLL_DATE"));
-				n.setModify_date(rset.getDate("MODIFY_DATE"));
+				n.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				n.setModifyDate(rset.getDate("MODIFY_DATE"));
 				n.setbCount(rset.getInt("BCOUNT"));
 				n.setuNo(rset.getInt("UNO"));
 			}
@@ -114,19 +164,51 @@ public class NoticeDao {
 		return n;
 	}
 
-	//조회수용
+	
+
+
+	//조회수(카운트)
+	public int getNoticeListCount(Connection con) {
+		
+		Statement stmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("noticeListCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		System.out.println("dao 리스트 카운트 " +listCount);
+		
+		return listCount;
+	}
+	
+	
 	public int updateCount(Connection con, int getbId) {
 		PreparedStatement pstmt = null;
 		int result=0;
-		 String query = prop.getProperty("updateCount");
-		 
-		 try {
+		String query = prop.getProperty("updateCount");
+		
+		try {
 			pstmt=con.prepareStatement(query);
 			pstmt.setInt(1, getbId);
 			pstmt.setInt(2, getbId);
 			
 			result=pstmt.executeUpdate();
-					
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -134,15 +216,4 @@ public class NoticeDao {
 		}
 		return result;
 	}
-	
-	
-	
-
-	
-	
-
-	
-	
-	
-	
 }
