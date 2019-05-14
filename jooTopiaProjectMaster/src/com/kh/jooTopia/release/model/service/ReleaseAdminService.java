@@ -20,4 +20,22 @@ public class ReleaseAdminService {
 		return list;
 	}
 
+	
+	
+	public int insertAdminRelease(ReleaseAdmin r) {
+		
+		Connection con = getConnection();
+		
+		int result = new ReleaseAdminDao().insertAdminRelease(con, r);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+
 }

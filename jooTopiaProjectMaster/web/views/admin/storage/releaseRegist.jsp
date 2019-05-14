@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.jooTopia.release.model.vo.*, java.util.*"%>
+	
+	<% ReleaseAdmin r = new ReleaseAdmin(1111,2222,3333,4444); %>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,44 +63,64 @@
 			</div>
 
 			<div class="listArea1" align="center">
+			<form action="<%=request.getContextPath()%>/insertAdminRelease.do" method="post">
+			
 				<table class="separate" border="1">
+				<%-- <% for(ReleaseAdmin r : list){ %> --%>
 					<tr>
 						<td width="120">주문번호</td>
-						<td width="500">a123</td>
+						<td width="500"><%= r.getoNo() %></td>
 					</tr>
 					<tr>
 						<td width="120">배송번호</td>
-						<td width="500">a123</td>
+						<td width="500"><%= r.getdNo() %></td>
 					</tr>
 					<tr>
 						<td width="120">적치코드</td>
-						<td width="500">a123</td>
+						<td width="500"><%= r.gethNo() %></td>
 					</tr>
 					<tr>
 						<td width="120">위치번호</td>
-						<td width="500">a123</td>
+						<td width="500"><%= r.getLocationNo() %></td>
 					</tr>
 					<tr>
 						<td width="120">출고번호</td>
-						<td width="500">(자동생성)</td>
+						<td width="500">
+							<input type="text" id="releaseNo" name="releaseNo" placeholder="자동생성 버튼을 누르세요" 
+								   size="30" readonly/>&nbsp;&nbsp;
+							<input type="button" id="releaseBtn" name="releaseBtn" value="자동생성"/>
+						</td>
 					</tr>
 					<tr>
 						<td width="120">출고일자 등록</td>
-						<td id="selectDate" colspan="2">
-						&nbsp;<a href="#" class="btnDate" period="0"><span>오늘</span></a>&nbsp;&nbsp;						
-						<input type="date" id="releaseDate" name="releaseDate" class="date" <%-- value="<%= releaseDay %>" --%>>
-						
+						<td id="selectDate" colspan="2">									
+						<input type="date" id="releaseDate" name="releaseDate">						
 					</td>
-					</tr>		
+					</tr>	
+					<%-- <% } %>	 --%>
 				</table>
 				<br />
-			</div>
+				
 			<div align="center" class="btnArea">
-				<button type="button">등록</button>
+				<button type="submit">등록</button>
 			</div>
+				</form>
+			</div>
+			
+			
 		</div>
 		
 	</section>
 	<%@ include file="/views/common/adminFooter.jsp"%>
+	
+	<script>
+	$(function() {
+		  $('#releaseBtn').click( function() {		    
+			  var num = "1234";			  
+		    $("#releaseNo").val(num);		    
+		  });
+		});
+	</script>
+	
 </body>
 </html>
