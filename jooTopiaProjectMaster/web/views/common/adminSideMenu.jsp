@@ -40,13 +40,13 @@
 		<% }else if(root.equals("product")) { %>
 		
 		<div class="sideMenu" id="sideMenu1">
-		<div class="sideMenuBtn" id="" onclick="location.href='/jootopia/views/admin/product/productList.jsp'">상품목록</div>
+		<div class="sideMenuBtn" id="" onclick="location.href='/jootopia/adminProductList.do'">상품목록</div>
 		</div>
 		<div class="sideMenu" id="sideMenu2">
 		<div class="sideMenuBtn" id="" onclick="location.href='/jootopia/adminAddProductList.do'">상품등록</div>
 		</div>
 		<div class="sideMenu" id="sideMenu3">
-		<div class="sideMenuBtn" id="" onclick="location.href='/jootopia/views/admin/product/productDeleteList.jsp'">삭제상품</div>
+		<div class="sideMenuBtn" id="" onclick="location.href='/jootopia/adminDeleteProductList.do'">삭제상품</div>
 		</div>	
 		
 		<% }else if(root.equals("order")) { %>
