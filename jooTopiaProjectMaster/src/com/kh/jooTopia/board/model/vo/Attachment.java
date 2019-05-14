@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class Attachment implements Serializable {
+
 	 
 	private int fId;
 	private String originName;
@@ -15,12 +16,12 @@ public class Attachment implements Serializable {
 	private Date deleteDate;
 	private int boardKind;
 	private int pNo;
-	private int bNo;
+	private int bId;
 	
 	public Attachment() {}
 
 	public Attachment(int fId, String originName, String changeName, String filePath, int fileLevel, String status,
-			Date uploadDate, Date deleteDate, int boardKind, int pNo, int bNo) {
+			Date uploadDate, Date deleteDate, int boardKind, int pNo, int bId) {
 		super();
 		this.fId = fId;
 		this.originName = originName;
@@ -32,7 +33,7 @@ public class Attachment implements Serializable {
 		this.deleteDate = deleteDate;
 		this.boardKind = boardKind;
 		this.pNo = pNo;
-		this.bNo = bNo;
+		this.bId = bId;
 	}
 
 	public int getfId() {
@@ -115,19 +116,19 @@ public class Attachment implements Serializable {
 		this.pNo = pNo;
 	}
 
-	public int getbNo() {
-		return bNo;
+	public int getbId() {
+		return bId;
 	}
 
-	public void setbNo(int bNo) {
-		this.bNo = bNo;
+	public void setbId(int bId) {
+		this.bId = bId;
 	}
 
 	@Override
 	public String toString() {
 		return "Attachment [fId=" + fId + ", originName=" + originName + ", changeName=" + changeName + ", filePath="
 				+ filePath + ", fileLevel=" + fileLevel + ", status=" + status + ", uploadDate=" + uploadDate
-				+ ", deleteDate=" + deleteDate + ", boardKind=" + boardKind + ", pNo=" + pNo + ", bNo=" + bNo + "]";
+				+ ", deleteDate=" + deleteDate + ", boardKind=" + boardKind + ", pNo=" + pNo + ", bId=" + bId + "]";
 	};
 	
 }

@@ -21,7 +21,7 @@ public class BoardDao {
 	private Properties prop = new Properties();
 	
 	public BoardDao() {
-		String fileName = MemberDao.class.getResource("/sql/notice/notice-query.properties").getPath();
+	  String fileName = BoardDao.class.getResource("/sql/board/board-query.properties").getPath();
 		
 			try {
 				prop.load(new FileReader(fileName));
@@ -79,51 +79,7 @@ public class BoardDao {
 		
 	}
 		
-	
-	/*public ArrayList<Notice> selectList(Connection con){
-		ArrayList<Notice> list = null;
-		Statement stmt = null;
-		ResultSet rset = null;
-		
-		String query = prop.getProperty("selectList");
-		
-		
-		System.out.println(list);
-		
-		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
-			
-			list = new ArrayList<>();
-			
-			while(rset.next()) {
-				Notice n = new Notice();
-				
-				n.setbId(rset.getInt("BID"));
-				n.setbNo(rset.getInt("BNO"));
-				n.setbType(rset.getInt("BTYPE"));
-				n.setbTitle(rset.getString("BTITLE"));
-				n.setbContent(rset.getString("BCONTENT"));
-				n.setStatus(rset.getString("STATUS"));
-				n.setEnrollDate(rset.getDate("ENROLL_DATE"));
-				n.setModifyDate(rset.getDate("MODIFY_DATE"));
-				n.setbCount(rset.getInt("BCOUNT"));
-				n.setuNo(rset.getInt("UNO"));
-				
-				list.add(n);
-			}
-			
-		} catch (SQLException e) {
 
-			e.printStackTrace();
-		}finally {
-			close(stmt);
-			close(rset);
-			
-		}
-		return list;
-		
-	}*/
 
 	//상세보기
 	public Notice selectOne(Connection con, int num) {
@@ -220,4 +176,80 @@ public class BoardDao {
 		}
 		return result;
 	}
+
+	public int insertQaAContent(Connection con, Board board) {
+		// insertQaAContent = INSERT INTO
+		// BOARD(BID,BNO,BTYPE,BTITLE,BCONTENT,STATUS,ENROLL_DATE,MODIFY_DATE,UNO)
+		// VALUES (SEQ_BID.NEXTVAL,SEQ_BNO3.NEXTVAL,3,?,?,'Y',SYSDATE,SYSDATE,?)
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("insertQaAContent");
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, board.getbTitle());
+			pstmt.setString(2, board.getbContent());
+			pstmt.setInt(3, board.getuNo());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int selectcurrval(Connection con) {
+		int bid = 0;
+		String sql = prop.getProperty("selectCurrval");
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(sql);
+
+			if (rs.next()) {
+				bid = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(stmt);
+		}
+
+		return bid;
+	}
+
+	public int insertQaAPhoto(Connection con, ArrayList<Attachment> fileList) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertQaAPhoto");
+
+		try {
+			for (int i = 0; i < fileList.size(); i++) {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, fileList.get(i).getbId());
+				pstmt.setString(2, fileList.get(i).getOriginName());
+				pstmt.setString(3, fileList.get(i).getChangeName());
+				pstmt.setString(4, fileList.get(i).getFilePath());
+				
+				result += pstmt.executeUpdate();
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
 }

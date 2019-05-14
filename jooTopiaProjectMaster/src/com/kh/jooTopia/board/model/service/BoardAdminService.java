@@ -1,6 +1,7 @@
 package com.kh.jooTopia.board.model.service;
 
 import com.kh.jooTopia.board.model.dao.BoardAdminDao;
+import com.kh.jooTopia.board.model.vo.Attachment;
 import com.kh.jooTopia.board.model.vo.Board;
 import com.kh.jooTopia.board.model.vo.PageInfo;
 
@@ -11,15 +12,29 @@ import java.util.ArrayList;
 
 public class BoardAdminService {
 
-	public int insertBoard(Board board) {
+	public int insertBoard(Board board, ArrayList<Attachment> fileList) {
 		Connection con = getConnection();
+		int result;
 		
-		int result = new BoardAdminDao().insertBoard(con, board);
 		
-		if(result>0) {
+		int result1 = new BoardAdminDao().insertBoard(con, board);
+		
+		if(result1>0) {
+			int bId = new BoardAdminDao().selectNoticeCurrval(con);
+			
+			for(int i =0; i<fileList.size(); i++) {
+				fileList.get(i).setbId(bId);
+			}
+		}
+		
+		int result2 = new BoardAdminDao().insertNoticeAttachment(con, fileList);
+		
+		if(result1>0 && result2 ==fileList.size()) {
 			commit(con);
+			result=1;
 		}else {
 			rollback(con);
+			result=0;
 		}
 		
 		close(con);
