@@ -16,9 +16,8 @@ pageEncoding="UTF-8" %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="/jootopia/images/favicon.ico">
+<link rel="stylesheet" href="/jootopia/js/external/jquery-3.4.0.min.js">
 <link rel="stylesheet" href="/jootopia/css/admin/adminCommon.css">
- 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
 <title>JooTopia</title>
 
@@ -32,22 +31,22 @@ pageEncoding="UTF-8" %>
 		
 		<div class="col-sm-10">
 		
-		<h3>»óÇ°»ó¼¼ ¼öÁ¤</h3>
+		<h3>ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</h3>
 		<hr>
 		
 		<div class="pInfo1Area">
 		<table id="pInfo1">
 			<tr>
-				<th>»óÇ°¸í</th>
-				<td><%= "»óÇ°¸í ÀÓ½Ã" %></td>
+				<th>ï¿½ï¿½Ç°ï¿½ï¿½</th>
+				<td><%= "ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½Ó½ï¿½" %></td>
 			</tr>
 			<tr>
-				<th>»óÇ°ÄÚµå</th>
-				<td><%= "»óÇ°ÄÚµå ÀÓ½Ã" %></td>
+				<th>ï¿½ï¿½Ç°ï¿½Úµï¿½</th>
+				<td><%= "ï¿½ï¿½Ç°ï¿½Úµï¿½ ï¿½Ó½ï¿½" %></td>
 			</tr>
 			<tr>
-				<th>»óÇ°»óÅÂ</th>
-				<td><%= "»óÇ°»óÅÂ ÀÓ½Ã" %></td>
+				<th>ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½</th>
+				<td><%= "ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ ï¿½Ó½ï¿½" %></td>
 			</tr>
 		</table>
 		</div>
@@ -56,45 +55,45 @@ pageEncoding="UTF-8" %>
 	
 		<div class="pInfo2Area">
 		<table id="pInfo2">
-			<tr><th colspan="2" height="40px"><%= "[" + "»óÇ°ÄÚµå ÀÓ½Ã" + "]" %>  <%= "»óÇ°¸í ÀÓ½Ã" %></th></tr>
+			<tr><th colspan="2" height="40px"><%= "[" + "ï¿½ï¿½Ç°ï¿½Úµï¿½ ï¿½Ó½ï¿½" + "]" %>  <%= "ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½Ó½ï¿½" %></th></tr>
 			<tr>
-				<th>»óÇ°Ä«Å×°í¸®</th>
+				<th>ï¿½ï¿½Ç°Ä«ï¿½×°ï¿½</th>
 				<td>
 					<select id="big" onchange="smallCategoty(this.value)">
-						<option value="">- ´ëºÐ·ù -
-						<option value="bedRoom" selected="selected">Ä§½Ç
-						<option value="livingRoom">°Å½Ç
-						<option value="kitchen">ÁÖ¹æ
-						<option value="study">¼­Àç
+						<option value="">- ï¿½ï¿½Ð·ï¿½ -
+						<option value="bedRoom" selected="selected">Ä§ï¿½ï¿½
+						<option value="livingRoom">ï¿½Å½ï¿½
+						<option value="kitchen">ï¿½Ö¹ï¿½
+						<option value="study">ï¿½ï¿½ï¿½ï¿½
 					</select>
 					<select id="small">
-						<option value="">- ÁßºÐ·ù -
+						<option value="">- ï¿½ßºÐ·ï¿½ -
 					</select>
 				</td>
 			</tr>
 			<tr>
-				<th>»óÇ°¸í</th>
+				<th>ï¿½ï¿½Ç°ï¿½ï¿½</th>
 				<td>
-				<input type="text" size="45" name="pName" placeholder="<%= "»óÇ°¸í ÀÓ½Ã" %>">
+				<input type="text" size="45" name="pName" placeholder="<%= "ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½Ó½ï¿½" %>">
 				</td>
 			</tr>
 			<tr>
-				<th>»óÇ°ÄÚµå</th>
-				<td><%= "»óÇ°ÄÚµå ÀÓ½Ã" %></td>
+				<th>ï¿½ï¿½Ç°ï¿½Úµï¿½</th>
+				<td><%= "ï¿½ï¿½Ç°ï¿½Úµï¿½ ï¿½Ó½ï¿½" %></td>
 			</tr>
 			<tr>
-				<th>»óÇ° ÆÇ¸Å°¡</th>
+				<th>ï¿½ï¿½Ç° ï¿½Ç¸Å°ï¿½</th>
 				<td>
-				<input type="number" size="45" name="pName" placeholder="<%= "»óÇ°ÆÇ¸Å°¡ ÀÓ½Ã" %>"> (¿ø)
+				<input type="number" size="45" name="pName" placeholder="<%= "ï¿½ï¿½Ç°ï¿½Ç¸Å°ï¿½ ï¿½Ó½ï¿½" %>"> (ï¿½ï¿½)
 				</td>
 			</tr>
 			<tr>
-				<th>ÇÒÀÎ°¡</th>
-				<td><%= "ÇÒÀÎ·ü ÀÓ½Ã" %> (%)</td>
+				<th>ï¿½ï¿½ï¿½Î°ï¿½</th>
+				<td><%= "ï¿½ï¿½ï¿½Î·ï¿½ ï¿½Ó½ï¿½" %> (%)</td>
 			</tr>
 			<tr>
-				<th>»óÇ° ¼ö·®</th>
-				<td><%= "»óÇ°¼ö·® ÀÓ½Ã" %> (°³)</td>
+				<th>ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½</th>
+				<td><%= "ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ ï¿½Ó½ï¿½" %> (ï¿½ï¿½)</td>
 			</tr>
 		</table>
 		</div>
@@ -104,12 +103,12 @@ pageEncoding="UTF-8" %>
 		<div class="pInfo3Area">
 		<table id="pInfo3">
 			<tr>
-				<th colspan="2">»ó¼¼Á¤º¸</th>
+				<th colspan="2">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</th>
 			</tr>
 			<tr>
-				<th>»óÇ° »ó¼¼¼³¸í</th>
+				<th>ï¿½ï¿½Ç° ï¿½ó¼¼¼ï¿½ï¿½ï¿½</th>
 				<td>
-				<textarea name="" rows="30" cols="110em" style="resize: none"><%= "»óÇ° »ó¼¼¼³¸í ÀÓ½Ã ºí¶óºí¶ó" %></textarea>
+				<textarea name="" rows="30" cols="110em" style="resize: none"><%= "ï¿½ï¿½Ç° ï¿½ó¼¼¼ï¿½ï¿½ï¿½ ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½" %></textarea>
 				</td>
 			</tr>
 		</table>
@@ -120,23 +119,23 @@ pageEncoding="UTF-8" %>
 		<div class="pInfo4Area">
 		<table id="pInfo4" border="1">
 			<tr>
-				<th colspan="2">ÀÌ¹ÌÁö Á¤º¸</th>
+				<th colspan="2">ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</th>
 			</tr>
 			<tr>
 				<th>
-				´ëÇ¥ ÀÌ¹ÌÁö
+				ï¿½ï¿½Ç¥ ï¿½Ì¹ï¿½ï¿½ï¿½
 				<br>
-				<button id="mainImgArea">ÀÌ¹ÌÁö ÆÄÀÏ ¼öÁ¤</button>
+				<button id="mainImgArea">ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</button>
 				</th>
-				<td><%= "´ëÇ¥ÀÌ¹ÌÁö ÃßÈÄ Ã·ºÎ" %></td>
+				<td><%= "ï¿½ï¿½Ç¥ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã·ï¿½ï¿½" %></td>
 			</tr>
 			<tr>
 				<th>
-				»ó¼¼ ÀÌ¹ÌÁö
+				ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½
 				<br>
-				<button id="detailImgArea">ÀÌ¹ÌÁö ÆÄÀÏ ¼öÁ¤</button>
+				<button id="detailImgArea">ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</button>
 				</th>
-				<td><%= "»ó¼¼ÀÌ¹ÌÁö ÃßÈÄ Ã·ºÎ" %></td>
+				<td><%= "ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã·ï¿½ï¿½" %></td>
 			</tr>
 		</table>
 		</div>
@@ -151,8 +150,8 @@ pageEncoding="UTF-8" %>
 		</div>
 		
 		<div class="btnArea" align="center">
-			<button type="submit" onclick="location.href='productInfo.jsp'">¼öÁ¤</button>
-			<button type="reset" onclick="location.href='productList.jsp'">Ãë¼Ò</button>
+			<button type="submit" onclick="location.href='productInfo.jsp'">ï¿½ï¿½ï¿½ï¿½</button>
+			<button type="reset" onclick="location.href='productList.jsp'">ï¿½ï¿½ï¿½</button>
 		</div>
 		
 		</div>
@@ -175,10 +174,10 @@ pageEncoding="UTF-8" %>
 			
 			var big = $("#big>option[selected='selected']").val();
 
-			var bedRoom = ["Ä§´ë", "¿ÊÀå", "È­Àå´ë", "¼ö³³Àå"];
-			var livingRoom = ["Å×ÀÌºí", "°Å½ÇÀå", "¼îÆÄ", "¼ö³³Àå"];
-			var kitchen = ["½ÄÅ¹", "½ÄÅ¹ÀÇÀÚ", "¼ö³³Àå", "·»Áö´ë"];
-			var study = ["Ã¥»ó", "Ã¥Àå", "»ç¹«¿ëÀÇÀÚ", "¼ö³³Àå"];
+			var bedRoom = ["Ä§ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½", "È­ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"];
+			var livingRoom = ["ï¿½ï¿½ï¿½Ìºï¿½", "ï¿½Å½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"];
+			var kitchen = ["ï¿½ï¿½Å¹", "ï¿½ï¿½Å¹ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"];
+			var study = ["Ã¥ï¿½ï¿½", "Ã¥ï¿½ï¿½", "ï¿½ç¹«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"];
 			
 			if(big == "") {
 				smallCategory = [];
@@ -193,7 +192,7 @@ pageEncoding="UTF-8" %>
 			}
 			
 			$("#small").empty();
-			$("#small").append("<option value=''>- ÁßºÐ·ù -</option>");
+			$("#small").append("<option value=''>- ï¿½ßºÐ·ï¿½ -</option>");
 			
 			for(var i = 0; i < smallCategory.length; i++) {
 				var option = $("<option>" + smallCategory[i] + "</option>");

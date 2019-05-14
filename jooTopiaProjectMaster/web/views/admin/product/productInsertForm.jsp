@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, java.lang.*"%>
 <%
-	String value = "bedRoom";
+	HashMap<String, Object> hmap = (HashMap<String, Object>) request.getAttribute("hmap");
 %>
 <!DOCTYPE html>
 <html>
@@ -31,17 +31,17 @@
 		<table id="pInfo2">
 			<tr>
 			<th colspan="2" height="40px">기본정보</th>
-			<td hidden="hidden"><input type="text" name="pNo" value="<%= 1 %>"></td>
+			<td hidden="hidden"><input type="text" name="pId" value="<%= 1 %>"></td>
 			</tr>
 			<tr>
 				<th>상품카테고리</th>
 				<td>
 					<select id="big" name="big" onchange="smallCategoty(this.value)">
 						<option value="">- 대분류 -
-						<option value="bedRoom">침실
-						<option value="study">서재
-						<option value="kitchen">주방
-						<option value="livingRoom">거실
+						<option value="침실">침실
+						<option value="서재">서재
+						<option value="주방">주방
+						<option value="거실">거실
 					</select>
 					<select id="small" name="small">
 						<option value="">- 중분류 -
@@ -51,25 +51,25 @@
 			<tr>
 				<th>상품명</th>
 				<td>
-				<input type="text" size="45" name="pName" placeholder="<%= "상품명 임시" %>">
+				<input type="text" size="45" name="pName" placeholder="<%= hmap.get("pName") %>">
 				</td>
 			</tr>
 			<tr>
 				<th>상품코드</th>
-				<td name="pCode"><%= "상품코드 임시" %></td>
+				<td name="pCode"><%= hmap.get("pId") %></td>
 			</tr>
 			<tr>
 				<th>상품 매입가</th>
-				<td name="pcPrice"><%= "상품 매입가 임시" %> (원)</td>
+				<td name="pcPrice"><%= hmap.get("pcPrice") %> (원)</td>
 			</tr>
 			<tr>
 				<th>상품등급</th>
-				<td name="pGrade"><%= "상품등급 임시" %></td>
+				<td name="pGrade"><%= hmap.get("pGrade") %></td>
 			</tr>
 			<tr>
 				<th>상품 판매가</th>
 				<td>
-				<input type="number" size="45" name="pPrice" placeholder="<%= "상품판매가 임시" %>"> (원)
+				<input type="number" size="45" name="pPrice" placeholder="<%= hmap.get("pPrice") %>"> (원)
 				</td>
 			</tr>
 		</table>
@@ -85,7 +85,7 @@
 			<tr>
 				<th>상품 상세설명</th>
 				<td>
-				<textarea name="pContent" rows="30" cols="88em" style="resize: none"><%= "상품 상세설명 임시 블라블라" %></textarea>
+				<textarea name="pContent" rows="30" cols="88em" style="resize: none"><%= hmap.get("pContent") %></textarea>
 				</td>
 			</tr>
 		</table>
@@ -155,9 +155,56 @@
 <script>
 		$(document).ready(function() {
 			
-			<% if(value.equals("bedRoom")) { %>
-			$("#big>option[value=" + '<%= value %>' + "]").attr("selected", true);
-			<% } %>
+			var pBig = '<%=  hmap.get("big") %>';
+			for(var i = 0; i < 5; i ++) {
+				var big = $("#big > option").eq(i).val();
+				
+				if(big == pBig) {
+					$("#big > option").prop("selected", true);
+				};
+ 			};
+ 			
+ 			var bedRoom = ["침대", "옷장", "화장대", "침실수납장"];
+			var study = ["책상", "책장", "사무용의자", "서재수납장"];
+			var kitchen = ["식탁", "식탁의자", "주방수납장", "렌지대"];
+			var livingRoom = ["테이블", "거실장", "쇼파", "거실수납장"];
+			
+			if(big == "") {
+				smallCategory = [];
+			}else if(big == "침실") {
+				smallCategory = bedRoom;
+			}else if(big == "서재") {
+				smallCategory = study;
+			}else if(big == "주방") {
+				smallCategory = kitchen;
+			}else if(big == "거실") {
+				smallCategory = livingRoom;
+			}
+			
+			$("#small").empty();
+			$("#small").append("<option value=''>- 중분류 -</option>");
+			
+			for(var i = 0; i < smallCategory.length; i++) {
+				var option = $("<option>" + smallCategory[i] + "</option>");
+				option.val(smallCategory[i]);
+				$("#small").append(option);
+			};
+			
+		});
+		
+		$(document).ready(function() {
+			var pSmall = '<%=  hmap.get("small") %>';
+			
+			for(var i = 0; i < 5; i ++) {
+				var small = $("#small > option").eq(i).val();
+				
+				if(small == pSmall) {
+					console.log(pSmall);
+					console.log(small);
+					console.log("일치!");
+					$("#small > option").prop("selected", true);
+				};
+ 			};
 			
 		});
 		
@@ -172,14 +219,14 @@
 			
 			if(big == "") {
 				smallCategory = [];
-			}else if(big == "bedRoom") {
+			}else if(big == "침실") {
 				smallCategory = bedRoom;
-			}else if(big == "study") {
-				smallCategory = livingRoom;
-			}else if(big == "kitchen") {
-				smallCategory = kitchen;
-			}else if(big == "livingRoom") {
+			}else if(big == "서재") {
 				smallCategory = study;
+			}else if(big == "주방") {
+				smallCategory = kitchen;
+			}else if(big == "거실") {
+				smallCategory = livingRoom;
 			}
 			
 			$("#small").empty();
@@ -190,10 +237,6 @@
 				option.val(smallCategory[i]);
 				$("#small").append(option);
 			};
-			
-			console.log( $("#big").val() );
-			console.log( $("#small").val() );
-			
 		};
 		
 		$(function() {

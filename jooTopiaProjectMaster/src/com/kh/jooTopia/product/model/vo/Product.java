@@ -5,7 +5,7 @@ import java.sql.Date;
 
 public class Product implements Serializable {
 	 
-	private int pNo;
+	private int pId;
 	private String pName;
 	private int pPrice;
 	private String pContent;
@@ -14,15 +14,15 @@ public class Product implements Serializable {
 	private String pBarCode;
 	private String pBrand;
 	private String pModelName;
-	private int cNo;
-	private int pcDNo;
+	private int cId;
+	private int pcDId;
 	
 	public Product() {}
 
-	public Product(int pNo, String pName, int pPrice, String pContent, Date pEnrollDate, String pGrade, String pBarCode,
-			String pBrand, String pModelName, int cNo, int pcDNo) {
+	public Product(int pId, String pName, int pPrice, String pContent, Date pEnrollDate, String pGrade, String pBarCode,
+			String pBrand, String pModelName, int cId, int pcDId) {
 		super();
-		this.pNo = pNo;
+		this.pId = pId;
 		this.pName = pName;
 		this.pPrice = pPrice;
 		this.pContent = pContent;
@@ -31,16 +31,16 @@ public class Product implements Serializable {
 		this.pBarCode = pBarCode;
 		this.pBrand = pBrand;
 		this.pModelName = pModelName;
-		this.cNo = cNo;
-		this.pcDNo = pcDNo;
+		this.cId = cId;
+		this.pcDId = pcDId;
 	}
 
-	public int getpNo() {
-		return pNo;
+	public int getpId() {
+		return pId;
 	}
 
-	public void setpNo(int pNo) {
-		this.pNo = pNo;
+	public void setpId(int pId) {
+		this.pId = pId;
 	}
 
 	public String getpName() {
@@ -107,27 +107,27 @@ public class Product implements Serializable {
 		this.pModelName = pModelName;
 	}
 
-	public int getcNo() {
-		return cNo;
+	public int getcId() {
+		return cId;
 	}
 
-	public void setcNo(int cNo) {
-		this.cNo = cNo;
+	public void setcId(int cId) {
+		this.cId = cId;
 	}
 
-	public int getPcDNo() {
-		return pcDNo;
+	public int getPcDId() {
+		return pcDId;
 	}
 
-	public void setPcDNo(int pcDNo) {
-		this.pcDNo = pcDNo;
+	public void setPcDId(int pcDId) {
+		this.pcDId = pcDId;
 	}
 
 	@Override
 	public String toString() {
-		return "Product [pNo=" + pNo + ", pName=" + pName + ", pPrice=" + pPrice + ", pContent=" + pContent
+		return "Product [pId=" + pId + ", pName=" + pName + ", pPrice=" + pPrice + ", pContent=" + pContent
 				+ ", pEnrollDate=" + pEnrollDate + ", pGrade=" + pGrade + ", pBarCode=" + pBarCode + ", pBrand="
-				+ pBrand + ", pModelName=" + pModelName + ", cNo=" + cNo + ", pcDNo=" + pcDNo + "]";
-	};
-	
+				+ pBrand + ", pModelName=" + pModelName + ", cId=" + cId + ", pcDId=" + pcDId + "]";
+	}
+
 }
