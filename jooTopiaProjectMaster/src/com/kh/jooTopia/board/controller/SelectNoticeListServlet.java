@@ -1,4 +1,4 @@
-package com.kh.jooTopia.notice.controller;
+package com.kh.jooTopia.board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,21 +11,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-import com.kh.jooTopia.notice.model.service.NoticeService;
-import com.kh.jooTopia.notice.model.vo.Notice;
-import com.kh.jooTopia.notice.model.vo.PageInfo;
+import com.kh.jooTopia.board.model.service.BoardService;
+import com.kh.jooTopia.board.model.vo.Board;
+import com.kh.jooTopia.board.model.vo.Notice;
+import com.kh.jooTopia.board.model.vo.PageInfo;
 
 /**
  * Servlet implementation class SelectNoticeListServlet
  */
 @WebServlet("/selectList.do")
-public class selectNoticeListServlet extends HttpServlet {
+public class SelectNoticeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public selectNoticeListServlet() {
+    public SelectNoticeListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,7 +36,35 @@ public class selectNoticeListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-/*		int currentPage;
+		
+		ArrayList<Notice> list = new BoardService().selectList();
+		
+		System.out.println("list : " + list);
+		System.out.println(list);
+		
+		String page = "";
+		
+		if(list != null) {
+			page="views/notice/noticeList.jsp";
+			request.setAttribute("list", list);
+			
+		}else {
+			page="views/common/errorPage500.jsp";
+			request.setAttribute("msg", "공지사항 조회 실패");
+		}
+		
+		
+		
+		RequestDispatcher view = request.getRequestDispatcher(page);
+		
+		view.forward(request, response);
+		
+		System.out.println("request : " + request );
+		System.out.println("response : "  + response);
+	
+	}
+	
+	/*		int currentPage;
 		int limit;		
 		int maxPage; 	
 		int startPage;	
@@ -70,34 +99,7 @@ public class selectNoticeListServlet extends HttpServlet {
 		System.out.println("pageInfo : " + pageInfo);
 		
 		System.out.println("request : " + request);
-		*/
-		
-		ArrayList<Notice> list = new NoticeService().selectList();
-		
-		System.out.println("list : " + list);
-		System.out.println(list);
-		
-		String page = "";
-		
-		if(list != null) {
-			page="views/notice/noticeList.jsp";
-			request.setAttribute("list", list);
-			
-		}else {
-			page="views/common/errorPage500.jsp";
-			request.setAttribute("msg", "공지사항 조회 실패");
-		}
-		
-		
-		
-		RequestDispatcher view = request.getRequestDispatcher(page);
-		
-		view.forward(request, response);
-		
-		System.out.println("request : " + request );
-		System.out.println("response : "  + response);
-	
-	}
+	 */
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

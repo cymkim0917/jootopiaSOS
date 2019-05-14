@@ -1,4 +1,4 @@
-package com.kh.jooTopia.notice.model.dao;
+package com.kh.jooTopia.board.model.dao;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -13,14 +13,14 @@ import java.util.Properties;
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
 import com.kh.jooTopia.member.model.dao.MemberDao;
-import com.kh.jooTopia.notice.model.vo.Notice;
-import com.kh.jooTopia.notice.model.vo.PageInfo;
+import com.kh.jooTopia.board.model.vo.Notice;
+import com.kh.jooTopia.board.model.vo.PageInfo;
 
 
-public class NoticeDao {
+public class BoardDao {
 	private Properties prop = new Properties();
 	
-	public NoticeDao() {
+	public BoardDao() {
 		String fileName = MemberDao.class.getResource("/sql/notice/notice-query.properties").getPath();
 		
 			try {
@@ -132,12 +132,16 @@ public class NoticeDao {
 		ResultSet rset = null;
 		Notice n = null;
 		
+		System.out.println("n : " + n);
+		
 		String query = prop.getProperty("selectOne");
+		
 		
 		try {
 			pstmt=con.prepareStatement(query);
 			pstmt.setInt(1, num);
 			rset=pstmt.executeQuery();
+			System.out.println("selectOne : " + query);
 			
 			if(rset.next()) {
 				n=new Notice();

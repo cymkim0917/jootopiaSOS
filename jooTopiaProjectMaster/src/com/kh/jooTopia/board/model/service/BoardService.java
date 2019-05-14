@@ -1,4 +1,4 @@
-package com.kh.jooTopia.notice.model.service;
+package com.kh.jooTopia.board.model.service;
 
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
@@ -7,16 +7,16 @@ import java.util.ArrayList;
 
 
 
-import com.kh.jooTopia.notice.model.dao.NoticeDao;
-import com.kh.jooTopia.notice.model.vo.Notice;
-import com.kh.jooTopia.notice.model.vo.PageInfo;
+import com.kh.jooTopia.board.model.dao.BoardDao;
+import com.kh.jooTopia.board.model.vo.Notice;
+import com.kh.jooTopia.board.model.vo.PageInfo;
 
-public class NoticeService {
+public class BoardService {
 	
 	//전체 출력
 	public ArrayList<Notice> selectList(){
 		Connection con = getConnection();
-		ArrayList<Notice> list = new NoticeDao().selectList(con);
+		ArrayList<Notice> list = new BoardDao().selectList(con);
 		
 		close(con);
 		
@@ -26,9 +26,12 @@ public class NoticeService {
 	//상세
 	public Notice selectOne(int num) {
 		Connection con = getConnection();
-		Notice n = new NoticeDao().selectOne(con,num);
+		Notice n = new BoardDao().selectOne(con,num);
+		System.out.println("num :" + num);
+		System.out.println("getbId :" + n.getbId());
+		
 		if(n !=null) {
-			int result=new NoticeDao().updateCount(con,n.getbId());
+			int result=new BoardDao().updateCount(con,n.getbId());
 			
 			if(result > 0) {
 				commit(con);
@@ -46,7 +49,7 @@ public class NoticeService {
 	public int getNoticeListCount() {
 		Connection con = getConnection();
 	
-		int listCount = new NoticeDao().getNoticeListCount(con);
+		int listCount = new BoardDao().getNoticeListCount(con);
 		System.out.println("서비스 카운트" + listCount);
 		
 		close(con);

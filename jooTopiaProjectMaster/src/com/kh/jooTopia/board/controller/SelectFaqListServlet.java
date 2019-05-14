@@ -1,4 +1,4 @@
-package com.kh.jooTopia.notice.controller;
+package com.kh.jooTopia.board.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class selectFaqTheothersListServlet
+ * Servlet implementation class SelectFaqListServlet
  */
-@WebServlet("/selectFaqTheothersList.do")
-public class selectFaqTheothersListServlet extends HttpServlet {
+@WebServlet("/selectFaqList.do")
+public class SelectFaqListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public selectFaqTheothersListServlet() {
+    public SelectFaqListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, com.kh.jooTopia.notice.model.vo.*"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.jooTopia.board.model.vo.*"%>
     
 <%
 
@@ -44,61 +44,19 @@
 <%@ include file="/views/common/navigation.jsp" %>
 	<section>
 	<br>
-		
-		
-		
-		<!-- noticeList.jsp -->
-
-		<%--  <div class="container">
-		        <table class="table table-hover">
-		          
-		            <tr>
-		              <th>글번호</th>
-		              <th>유형</th>
-		              <th>제목</th>
-		              <th>작성자</th>
-		              <th>작성일</th>
-		              <th>조회수</th>
-		            </tr>
-		            
-		            <%
-		           
-		            %>
-		         
-		      
-		            <%for(Notice n : list){ %>
-		            <tr>
-		              <td><%=n.getbNo() %></td>
-		              <td><%=n.getbType() %></td>
-		              <td><%=n.getbTitle() %></td>
-		              <td><%=n.getbId() %></td>
-		              <td><%=n.getModify_date() %></td>
-		              <td><%=n.getbCount() %></td>
-		            </tr>
-		            <%} %>
-		         
-		        </table>
-		      </div> --%>
-		       
-		   
-		   <!-- ------------------------------------ -->
 		    <br>
-		    
-		   
-		      <h1 align="center">공지사항</h1>
-		      
+		      <h1 align="center">공지사항/이벤트</h1>
 		      <br>
-		      
-		      <div class="container">
+		      <div class="tableArea">
 		      <form>
-		        <table class="table table-hover">
+		        <table align="center" id="listArea">
 		         
 		            <tr>
 		              <th>글번호</th>
-		              <th>유형</th>
-		              <th>제목</th>
-		              <th>작성자</th>
-		              <th>작성일</th>
+		              <th width="100px">유형</th>
+		              <th width="300px">제목</th>
+		              <th width="100px">작성자</th>
+		              <th width="100px">작성일</th>
 		              <th>조회수</th>
 		            </tr>
 		            
@@ -130,6 +88,20 @@
 		<input type="text">&nbsp;
 		<button onclick="location.href='<%=request.getContextPath()%>/views/notice/noticeList.jsp'">검색</button>
 		</div>
+		
+			 <script>
+			
+				$(function(){
+					$(".table table-hover tr")
+				}).click(function(){
+					var num = $(this).parent().children().eq(0).text();
+					console.log(num);
+					location.href="<%=request.getContextPath()%>/selectOne.do?num="+num;
+				});
+				
+			</script> 
+		
+		
 		
 	<%-- 	
 		<div class="paging" align="center">
