@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class Attachment implements Serializable {
+
 	 
 	private int fId;
 	private String originName;
