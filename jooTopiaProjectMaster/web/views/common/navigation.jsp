@@ -215,7 +215,7 @@
 									<td><label for="">성별</label></td>
 									<td><input type="checkBox" value="M" id="gender"
 										value="gender" /> <label for="">남자</label> <input
-										type="checkBox" value="W" id="gender" value="gender" /> <label
+										type="checkBox" value="F" id="gender" value="gender" /> <label
 										for="">여자</label></td>
 								</tr>
 								<tr>
@@ -296,8 +296,7 @@
 	    
 	    if(isCheck == 1){
 	    	$("#joinForm").submit();
-	    }
-	    
+	    }	    
 	}
 
 	</script>

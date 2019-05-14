@@ -73,6 +73,8 @@
 			<div class="col-sm-3"></div>
 			<div class="col-sm-6">
 			<h1>회원 정보</h1><br />
+			
+			<% if(loginUser != null) { %>
 				<table class="table">
 					<tr>
 						<td><label for="">아이디</label></td>
@@ -96,7 +98,7 @@
 						<td><label for=""><%= loginUser.getEmail() %></label></td>
 					</tr>					
 				</table>			
-
+				<% } %>
 				<div class="btnArea" id="btnArea">
 					<a href="passwordCheckPage.jsp" id="modifyBtn">수정</a>					
 					<a href="passwordCheckPage2.jsp" id="delBtn">삭제</a><br />
