@@ -54,15 +54,14 @@
 
 			<div class="imgArea" align="center">
 				<div id="ImgArea1">
-					<img src="/jootopia/images/so.jpg" id="Img1">
-					<img src="/jootopia/images/so.jpg" id="Img2">
+					<img src="/jootopia/images/so.jpg" id="Img1">					
 				</div>
 			</div>
 
 			<div class="listArea1" align="center">
 				<table class="separate" border="1">
 					<tr>
-						<td width="120">상품코드</td>
+						<td width="120">매입번호</td>
 						<td width="500">a123</td>
 					</tr>
 					<tr>

@@ -57,8 +57,7 @@
 
 			<div class="imgArea" align="center">
 				<div id="ImgArea1">
-					<img src="/jootopia/images/so.jpg" id="Img1">
-					<img src="/jootopia/images/so.jpg" id="Img2">
+					<img src="/jootopia/images/so.jpg" id="Img1">					
 				</div>
 			</div>
 

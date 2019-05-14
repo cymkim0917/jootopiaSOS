@@ -32,7 +32,8 @@
 					<thead>
 						<tr>
 							<th>No.</th>
-							<th>상품코드</th>
+							<th>매입번호</th>
+							<th>상품번호</th>
 							<th>대분류</th>
 							<th>중분류</th>							
 						</tr>
@@ -41,30 +42,35 @@
 						<tr>
 							<td>1</td>
 							<td>A123</td>
+							<td>1234</td>
 							<td>침실</td>
 							<td>침대</td>							
 						</tr>
 						<tr>
 							<td>2</td>
 							<td>A456</td>
+							<td>1234</td>
 							<td>서재</td>
 							<td>책상</td>							
 						</tr>
 						<tr>
 							<td>3</td>
 							<td>A123</td>
+							<td>1234</td>
 							<td>침실</td>
 							<td>침대</td>							
 						</tr>
 						<tr>
 							<td>4</td>
 							<td>A123</td>
+							<td>1234</td>
 							<td>침실</td>
 							<td>침대</td>						
 						</tr>
 						<tr>
 							<td>5</td>
 							<td>A123</td>
+							<td>1234</td>
 							<td>침실</td>
 							<td>침대</td>							
 						</tr>
