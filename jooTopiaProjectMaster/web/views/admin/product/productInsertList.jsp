@@ -1,31 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" %>
-     
-<%-- import="com.kh.jooTopia.product.model.vo.*, java.util.*, java.lang.*" --%>    
-<%--
+    pageEncoding="UTF-8" import="com.kh.jooTopia.product.model.vo.*, java.util.*, java.lang.*"%>
+
+<%	
 	int count = 1;
-	
-	/* Product productList = (Product) session.getAttribute("productList");
-	java.util.Date date = new java.util.Date();
-	java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
-	String startDay = dateFormat.format(date);
-	String endDay = dateFormat.format(date);
-	
-	ArrayList<Product> list = new ArrayList<Product>();
-	list.add(new Product()); */
---%>
+	ArrayList<HashMap<String,Object>> list = 
+	(ArrayList<HashMap<String,Object>>) request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="/jootopia/images/favicon.ico">
+<link rel="stylesheet" href="/jootopia/js/external/jquery-3.4.0.min.js">
 <link rel="stylesheet" href="/jootopia/css/admin/adminCommon.css">
- 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
 <title>JooTopia</title>
 </head>
-<body>
 <body>
 
 	<%@ include file="/views/common/adminNavigation.jsp" %>
@@ -38,13 +28,13 @@
 		<hr>
 		
 		<div id="listArea">
-			전체 <a href="/jootopia/views/admin/product/productList.jsp">10</a>건
+			전체 <a href="/jootopia/views/admin/product/productList.jsp"><%= list.size() %></a>건
 		</div>
 		<br>
 		
 		<div class="selectTopList">
 		<span>미등록 상품</span><br>
-		<span>[총 <a><%= 1 %></a>개]</span>
+		<span>[총 <a><%= list.size() %></a>개]</span>
 		</div>
 		
 		<br>
@@ -53,7 +43,6 @@
 			<table id="selectList" class="selectList" border="1">
 				<tr>
 					<th colspan="9" style="height: 45px; text-align: left;">
-						<button class="selectBtn" onclick="pTypeChange('상품 등록')">상품 등록</button>
 						<button class="selectBtn" onclick="pTypeChange('상품 삭제')">상품 삭제</button>
 					</th>
 				</tr>
@@ -66,32 +55,20 @@
 					<th width="110px">상품이미지</th>
 					<th width="250px">상품명</th>
 					<th width="100px">판매가(원)</th>
-					<th width="100px">할인가(%)</th>
 				</tr>
+				<% for(int i = 0; i < list.size(); i++) { 
+				HashMap<String,Object> hmap = list.get(i); %>
 				<tr>
-					<td><input type="checkbox" id="allCheck"></td>
-					<td>1</td>
-					<td>판매안함</td>
-					<td>침실 / 침대</td>
-					<td><a href="/jootopia/views/admin/product/productInsertForm.jsp">P20190510_01</a></td>
-					<td><a href="/jootopia/views/admin/product/productInsertForm.jsp"><img src="/jootopia/images/logo2.png" width="60px" height="60px"></a></td>
-					<td><a href="/jootopia/views/admin/product/productInsertForm.jsp">침대침대</a></td>
-					<td>200000</td>
-					<td>20000 (10%)</td>
-				</tr>
-				<%-- <% for(Product p : list) { %>
-				<tr>
-					<td ><input type="checkbox"></td>
+					<td><input type="checkbox"></td>
 					<td><%= count++ %></td>
-					<td >상태임시</td>
-					<td>분류/임시</td>
-					<td><a href="../product/productInsertForm.jsp">상품코드 임시</a></td>
-					<td><img src="/jootopia/images/logo.png" width="60px" height="60px"></td>
-					<td><a href="#">상품명 임시</a></td>
-					<td>판매가 임시</td>
-					<td>할인가 임시</td>
+					<td><%= hmap.get("status") %></td>
+					<td><%= hmap.get("big") %> / <%= hmap.get("small") %></td>
+					<td><%= hmap.get("pId") %></td>
+					<td><img src="/jootopia/images/product/<%= hmap.get("changeName") %>" width="60px" height="60px"></td>
+					<td><%= hmap.get("pName") %></td>
+					<td><%= hmap.get("pPrice") %></td>
 				</tr>
-				<% } %> --%>
+				<% } %>
 			</table>
 	</div> <!-- selectListArea -->
 	
@@ -114,6 +91,17 @@
 <%@ include file="/views/common/adminFooter.jsp" %>
 
 <script>
+
+	$("#selectList td").mouseenter(function(){
+		$(this).parent().css({"background":"rgb(61, 81, 113)", "color":"white", "cursor":"pointer"});
+	}).mouseout(function(){
+		$(this).parent().css({"background":"white", "color":"black"});
+	}).click(function(){
+		var num = $(this).parent().children().eq(4).text();
+		console.log(num);
+		location.href="<%=request.getContextPath()%>/adminAddProductOne.do?num=" + num;
+		
+	});
 	
 	function pTypeChange(text) {
 		var answer = window.confirm("선택한 상품을 " + text + " 하시겠습니까?");
