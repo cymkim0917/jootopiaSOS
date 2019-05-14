@@ -1,5 +1,7 @@
 package com.kh.jooTopia.release.model.vo;
 
+import java.sql.Date;
+
 public class ReleaseAdmin implements java.io.Serializable{
 	
 	private int no;				//순번
@@ -7,23 +9,39 @@ public class ReleaseAdmin implements java.io.Serializable{
 	private int dNo;			//배송번호
 	private int hNo;			//적치번호
 	private int locationNo;		//위치번호
+	private String releaseNo;	//출고번호
+	private Date releaseDate;	//출고날짜
 	
 	public ReleaseAdmin() {}
+	
+	
 
-	public ReleaseAdmin(int no, int oNo, int dNo, int hNo, int locationNo) {
+	public ReleaseAdmin(int oNo, int dNo, int hNo, int locationNo) {
 		super();
-		this.no = no;
-		this.oNo = oNo;		
-		this.dNo = dNo;		
-		this.hNo = hNo;		
+		this.oNo = oNo;
+		this.dNo = dNo;
+		this.hNo = hNo;
 		this.locationNo = locationNo;
 	}
-	
-	public int getno() {
+
+
+
+	public ReleaseAdmin(int no, int oNo, int dNo, int hNo, int locationNo, String releaseNo, Date releaseDate) {
+		super();
+		this.no = no;
+		this.oNo = oNo;
+		this.dNo = dNo;
+		this.hNo = hNo;
+		this.locationNo = locationNo;
+		this.releaseNo = releaseNo;
+		this.releaseDate = releaseDate;
+	}
+
+	public int getNo() {
 		return no;
 	}
-	
-	public void setno(int no) {
+
+	public void setNo(int no) {
 		this.no = no;
 	}
 
@@ -59,10 +77,26 @@ public class ReleaseAdmin implements java.io.Serializable{
 		this.locationNo = locationNo;
 	}
 
+	public String getReleaseNo() {
+		return releaseNo;
+	}
+
+	public void setReleaseNo(String releaseNo) {
+		this.releaseNo = releaseNo;
+	}
+
+	public Date getReleaseDate() {
+		return releaseDate;
+	}
+
+	public void setReleaseDate(Date releaseDate) {
+		this.releaseDate = releaseDate;
+	}
+
 	@Override
 	public String toString() {
 		return "ReleaseAdmin [no=" + no + ", oNo=" + oNo + ", dNo=" + dNo + ", hNo=" + hNo + ", locationNo="
-				+ locationNo + "]";
+				+ locationNo + ", releaseNo=" + releaseNo + ", releaseDate=" + releaseDate + "]";
 	}
 
 	

@@ -44,33 +44,16 @@
 				<% for(ReleaseAdmin r : list){ %>
 				<tbody>
 					<tr>
-						<td><%= r.getno() %></td>
+						<td><%= r.getNo() %></td>
 						<td><%= r.getoNo() %></td>
 						<td><%= r.getdNo() %></td>
 						<td><%= r.gethNo() %></td>
 						<td><%= r.getLocationNo() %></td>
 						
-						<!-- <td>1</td>
-						<td>190101-001A</td>
-						<td>S123456</td>
-						<td>ZZ123</td>
-						<td>MO-1</td> -->
+						
 					</tr>
 					<% } %>
-					<!-- <tr>
-						<td>2</td>
-						<td>190101-001A</td>
-						<td>S123456</td>
-						<td>ZZ123</td>
-						<td>MO-1</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>190101-001A</td>
-						<td>S123456</td>
-						<td>ZZ123</td>
-						<td>MO-1</td>
-					</tr> -->
+					
 				</tbody>
 			</table>
 
@@ -125,7 +108,9 @@
 				var num = $(this).parent().children().eq(0).text();
 				console.log(num);
 				<%-- location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num; --%>
-				location.href="location.href='<%=request.getContextPath()%>/insertAdminRelease.do'";
+				<%-- location.href="<%=request.getContextPath()%>/insertAdminRelease.do"; --%>
+				location.href="<%=request.getContextPath()%>/views/admin/storage/releaseRegist.jsp?num=" + num;
+				/* location.href="views/admin/storage/releaseRegist.jsp"; */
 			})
 		})
 	</script>

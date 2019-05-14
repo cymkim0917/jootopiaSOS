@@ -3,6 +3,7 @@ package com.kh.jooTopia.release.model.dao;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -46,7 +47,7 @@ public class ReleaseAdminDao {
 			while(rset.next()) {
 				ReleaseAdmin r = new ReleaseAdmin();
 				
-				r.setno(rset.getInt("NO"));
+				r.setNo(rset.getInt("NO"));
 				r.setoNo(rset.getInt("ONO"));
 				r.setdNo(rset.getInt("DNO"));
 				r.sethNo(rset.getInt("HNO"));
@@ -66,6 +67,31 @@ public class ReleaseAdminDao {
 		
 		
 		return list;
+	}
+
+	
+	
+	public int insertAdminRelease(Connection con, ReleaseAdmin r) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertRelease");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, r.getReleaseNo());
+			pstmt.setDate(2, r.getReleaseDate());
+			
+			result = pstmt.executeUpdate();			
+			System.out.println(result);
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }
