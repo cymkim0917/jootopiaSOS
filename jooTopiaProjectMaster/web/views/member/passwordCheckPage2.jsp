@@ -52,7 +52,7 @@
 				<table class="table">
 					<tr>
 						<td><label for="">아이디</label></td>
-						<td><%= loginUser.getUserId() %></td>
+						<td>so3o02</td>
 					</tr>
 					<tr>
 						<td><label for="">비밀번호</label></td>
@@ -64,7 +64,7 @@
 					</tr>
 				</table>
 			<div class="btnArea">
-			<a onclick="location.href='modifyUserInfoPage.jsp'" id="modifyBtn">확인</a>
+			<a href="modifyUserInfoPage.jsp" id="modifyBtn">확인</a>
 			</div>
 			
 			</div>

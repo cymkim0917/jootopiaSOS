@@ -130,7 +130,7 @@
 						<h4 class="modal-title">Login</h4>
 					</div>
 					<div class="modal-body">
-						<form action="loginCheck.do" method="post">
+						<form action="<%= request.getContextPath() %>/loginCheck.do" method="post">
 							<table align="center">
 								<tr><td colspan="2"><p>아이디</p></td></tr>
 								<tr>

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,34 +10,34 @@
 <title>JooTopia</title>
 </head>
 <body>
-	<%@ include file="/views/common/navigation.jsp"%>
-	<section>
-		<div class="row">
-			<div class="col-sm-3"></div>
-			<div class="col-sm-6">
-				<form action="<%=request.getContextPath()%>/searchId.do" method="post">
-					<table>
-						<tr>
-							<td>이름</td>
-							<td><input type="text" name="userName" /></td>
-						</tr>
-						<tr>
-							<td>이메일</td>
+   <%@ include file="/views/common/navigation.jsp"%>
+   <section>
+      <div class="row">
+         <div class="col-sm-3"></div>
+         <div class="col-sm-6">
+            <form action="<%= request.getContextPath() %>/searchId.me" method="post">
+               <table>
+                  <tr>
+                     <td>이름</td>
+                     <td><input type="text" name="userName" /></td>
+                  </tr>
+                  <tr>
+                     <td>이메일</td>
 
-							<td><input type="email" name="email" /></td>
-						</tr>
-						<tr>
+                     <td><input type="email" name="email" /></td>
+                  </tr>
+                  <tr>
 
-							<td><button onclick="submit">확인</button></td>
-						</tr>
-					</table>
-				</form>
-			</div>
+                     <td><button onclick="submit">확인</button></td>
+                  </tr>
+               </table>
+            </form>
+         </div>
 
-			<div class="col-sm-3"></div>
-		</div>
+         <div class="col-sm-3"></div>
+      </div>
 
-	</section>
-	<%@ include file="/views/common/footer.jsp"%>
+   </section>
+   <%@ include file="/views/common/footer.jsp"%>
 </body>
 </html>

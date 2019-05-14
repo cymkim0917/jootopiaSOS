@@ -76,29 +76,30 @@
 				<table class="table">
 					<tr>
 						<td><label for="">아이디</label></td>
-						<td>so3o02</td>
+						<td><label for=""><%= loginUser.getUserId() %></label></td>
 					</tr>
 					<tr>
 						<td><label for="">생년월일</label></td>
-						<td>1998-02-03</td>
+						<td><label for=""><%= loginUser.getUserDate() %></label></td>
 					</tr>
 					<tr>
 						<td><label for="">핸드폰 번호</label></td>
-						<td>010-7247-9073</td>
+						<td><label for=""><%= loginUser.getPhone() %></label></td>
 					</tr>
 					<tr>
 						<td><label for="">주소</label></td>
 						<td>서울시 성동구 금호로</td>
+						
 					</tr>
 					<tr>
 						<td><label for="">이메일</label></td>
-						<td>helloims_y@naver.com</td>
+						<td><label for=""><%= loginUser.getEmail() %></label></td>
 					</tr>					
 				</table>			
 
 				<div class="btnArea" id="btnArea">
-					<a href="passwordCheckPage.jsp" id="modifyBtn">수정</a>
-					<a href="passwordCheckPage.jsp" id="delBtn">삭제</a><br />
+					<a href="passwordCheckPage.jsp" id="modifyBtn">수정</a>					
+					<a href="passwordCheckPage2.jsp" id="delBtn">삭제</a><br />
 					<a href="orderListPage.jsp" id="orderBtn">임시)주문내역</a><br />
 					<a href="boardListPage.jsp" id="orderBtn">임시)게시글 조회</a>
 				</div>
