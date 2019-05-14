@@ -28,9 +28,17 @@
 	border: 1px solid #ccc;
 }
 
-.imgArea img {
+.imgArea1 img {
 	width: 500px;
 	height: 400px;
+	margin-bottom: 20px;
+	border: 2px solid orangered;
+
+}
+
+.imgArea2 img {
+	width: 165px;
+	height: 120px;
 	margin-bottom: 20px;
 	border: 2px solid orangered;
 
@@ -52,17 +60,28 @@
 			<hr>
 			<br />
 
-			<div class="imgArea" align="center">
+			<div class="imgArea1" align="center">
 				<div id="ImgArea1">
-					<img src="/jootopia/images/so.jpg" id="Img1"> 
+					<img src="/jootopia/images/so.jpg" id="Img1">					
+				</div>
+			</div>
+			<div class="imgArea2" align="center">
+				<div id="ImgArea1">
+					<img src="/jootopia/images/so.jpg" id="Img1">
 					<img src="/jootopia/images/so.jpg" id="Img2">
+					<img src="/jootopia/images/so.jpg" id="Img3">				
+				</div>
+				<div id="ImgArea1">
+					<img src="/jootopia/images/so.jpg" id="Img4">
+					<img src="/jootopia/images/so.jpg" id="Img5">
+					<img src="/jootopia/images/so.jpg" id="Img6">				
 				</div>
 			</div>
 
 			<div class="listArea1" align="center">
 				<table class="separate" border="1">
 					<tr>
-						<td width="120">상품코드</td>
+						<td width="120">매입번호</td>
 						<td width="500">a123</td>
 					</tr>
 					<tr>

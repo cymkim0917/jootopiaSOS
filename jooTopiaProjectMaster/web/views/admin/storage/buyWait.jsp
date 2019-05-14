@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.jooTopia.buy.model.vo.*, java.util.*"%>
+	
+	<% ArrayList<BuyWaitAdmin> list = (ArrayList<BuyWaitAdmin>) request.getAttribute("list"); %>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,54 +85,23 @@
 					<thead>
 						<tr>
 							<th>No.</th>
-							<th>상품코드</th>
+							<th>매입번호</th>
 							<th>대분류</th>
-							<th>중분류</th>
-							<th>아이디</th>
-							<th>주문자명</th>
+							<th>중분류</th>							
 						</tr>
 					</thead>
+					<% for(BuyWaitAdmin b : list){ %>
 					<tbody>
 						<tr>
-							<td>1</td>
-							<td>A123</td>
-							<td>침실</td>
-							<td>침대</td>
-							<td>momo</td>
-							<td>모모</td>
+							<td><%= b.getbId() %></td>
+							<td><%= b.getnNo() %></td>
+							<td><%= b.getbCate1() %></td>
+							<td><%= b.getbCate2() %></td>							
 						</tr>
-						<tr>
-							<td>2</td>
-							<td>A456</td>
-							<td>서재</td>
-							<td>책상</td>
-							<td>soso</td>
-							<td>소굼이</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>A123</td>
-							<td>침실</td>
-							<td>침대</td>
-							<td>momo</td>
-							<td>모모</td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>A123</td>
-							<td>침실</td>
-							<td>침대</td>
-							<td>momo</td>
-							<td>모모</td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>A123</td>
-							<td>침실</td>
-							<td>침대</td>
-							<td>momo</td>
-							<td>모모</td>
-						</tr>
+						<% } %>
+						
+						
+						
 					</tbody>
 				</table>
 			</div>
@@ -189,7 +161,7 @@
 				var num = $(this).parent().children().eq(0).text();
 				console.log(num);
 				<%-- location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num; --%>
-				location.href="productreg.jsp";
+				location.href="<%=request.getContextPath()%>/views/admin/storage/productreg.jsp?num=" + num;
 			})
 		})
 	</script>
