@@ -1,4 +1,4 @@
-package com.kh.jooTopia.notice.model.vo;
+package com.kh.jooTopia.board.model.vo;
 
 import java.sql.Date;
 

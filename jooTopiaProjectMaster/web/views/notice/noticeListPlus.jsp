@@ -1,5 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.jooTopia.board.model.vo.*"%>
+    
+<%
+
+	ArrayList<Notice> list = (ArrayList<Notice>) request.getAttribute("list");
+	
+	
+	/* PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
+	int currentPage = pageInfo.getCurrentPage();
+	int maxPage = pageInfo.getMaxPage();
+	int startPage = pageInfo.getStartPage();
+	int endPage = pageInfo.getEndPage(); */
+%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,24 +52,28 @@
 		<h1 align="center">공지사항/이벤트</h1>
 		<br>
 		<div class="containaer" align="center">
-			<table class="table table-bordered">
+			<table class="listArea">
 				<thead>
 					
 				</thead>
 				
 				<tbody>
+				
+					<%for(Notice n:list){ %>
 					<tr>
 						<th>제목</th>
-						<td>공지입니다.</td>
+						<td><%=n.getbTitle() %></td>
 						<!-- <td><input type="text" placeholder="제목을 입력하세요" name="subject" style="width:900px;"></td> -->
 					</tr>
 					
 					<tr>
 						<th>내용</th>
 						<!-- <td><textArea cols="10" placeholder="내용을 입력하세요" name="content" style="width:1000px; height:500px"></textArea></td> -->
-						<td height="500px">내용입니다.</td>
+						<!-- <td height="500px">내용입니다.</td> -->
+						<td><%=n.getbContent() %></td>
 						
 					</tr>
+					<%} %>
 				</tbody>
 			
 			</table>
@@ -125,6 +142,7 @@
 				</div>
 			
 			</div> -->
+			
 	</section>
 <%@ include file="/views/common/footer.jsp" %>
 </body>
