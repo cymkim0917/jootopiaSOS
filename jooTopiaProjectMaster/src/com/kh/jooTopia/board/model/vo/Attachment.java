@@ -4,130 +4,131 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class Attachment implements Serializable {
-    
-   private int fId;
-   private String originName;
-   private String changeName;
-   private String filePath;
-   private int fileLevel;
-   private String status;
-   private Date uploadDate;
-   private Date deleteDate;
-   private int boardKind;
-   private int pNo;
-   private int bId;
-   
-   public Attachment() {}
 
-   public Attachment(int fId, String originName, String changeName, String filePath, int fileLevel, String status,
-         Date uploadDate, Date deleteDate, int boardKind, int pNo, int bId) {
-      super();
-      this.fId = fId;
-      this.originName = originName;
-      this.changeName = changeName;
-      this.filePath = filePath;
-      this.fileLevel = fileLevel;
-      this.status = status;
-      this.uploadDate = uploadDate;
-      this.deleteDate = deleteDate;
-      this.boardKind = boardKind;
-      this.pNo = pNo;
-      this.bId = bId;
-   }
+	 
+	private int fId;
+	private String originName;
+	private String changeName;
+	private String filePath;
+	private int fileLevel;
+	private String status;
+	private Date uploadDate;
+	private Date deleteDate;
+	private int boardKind;
+	private int pNo;
+	private int bId;
+	
+	public Attachment() {}
 
-   public int getfId() {
-      return fId;
-   }
+	public Attachment(int fId, String originName, String changeName, String filePath, int fileLevel, String status,
+			Date uploadDate, Date deleteDate, int boardKind, int pNo, int bId) {
+		super();
+		this.fId = fId;
+		this.originName = originName;
+		this.changeName = changeName;
+		this.filePath = filePath;
+		this.fileLevel = fileLevel;
+		this.status = status;
+		this.uploadDate = uploadDate;
+		this.deleteDate = deleteDate;
+		this.boardKind = boardKind;
+		this.pNo = pNo;
+		this.bId = bId;
+	}
 
-   public void setfId(int fId) {
-      this.fId = fId;
-   }
+	public int getfId() {
+		return fId;
+	}
 
-   public String getOriginName() {
-      return originName;
-   }
+	public void setfId(int fId) {
+		this.fId = fId;
+	}
 
-   public void setOriginName(String originName) {
-      this.originName = originName;
-   }
+	public String getOriginName() {
+		return originName;
+	}
 
-   public String getChangeName() {
-      return changeName;
-   }
+	public void setOriginName(String originName) {
+		this.originName = originName;
+	}
 
-   public void setChangeName(String changeName) {
-      this.changeName = changeName;
-   }
+	public String getChangeName() {
+		return changeName;
+	}
 
-   public String getFilePath() {
-      return filePath;
-   }
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
+	}
 
-   public void setFilePath(String filePath) {
-      this.filePath = filePath;
-   }
+	public String getFilePath() {
+		return filePath;
+	}
 
-   public int getFileLevel() {
-      return fileLevel;
-   }
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
 
-   public void setFileLevel(int fileLevel) {
-      this.fileLevel = fileLevel;
-   }
+	public int getFileLevel() {
+		return fileLevel;
+	}
 
-   public String getStatus() {
-      return status;
-   }
+	public void setFileLevel(int fileLevel) {
+		this.fileLevel = fileLevel;
+	}
 
-   public void setStatus(String status) {
-      this.status = status;
-   }
+	public String getStatus() {
+		return status;
+	}
 
-   public Date getUploadDate() {
-      return uploadDate;
-   }
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
-   public void setUploadDate(Date uploadDate) {
-      this.uploadDate = uploadDate;
-   }
+	public Date getUploadDate() {
+		return uploadDate;
+	}
 
-   public Date getDeleteDate() {
-      return deleteDate;
-   }
+	public void setUploadDate(Date uploadDate) {
+		this.uploadDate = uploadDate;
+	}
 
-   public void setDeleteDate(Date deleteDate) {
-      this.deleteDate = deleteDate;
-   }
+	public Date getDeleteDate() {
+		return deleteDate;
+	}
 
-   public int getBoardKind() {
-      return boardKind;
-   }
+	public void setDeleteDate(Date deleteDate) {
+		this.deleteDate = deleteDate;
+	}
 
-   public void setBoardKind(int boardKind) {
-      this.boardKind = boardKind;
-   }
+	public int getBoardKind() {
+		return boardKind;
+	}
 
-   public int getpNo() {
-      return pNo;
-   }
+	public void setBoardKind(int boardKind) {
+		this.boardKind = boardKind;
+	}
 
-   public void setpNo(int pNo) {
-      this.pNo = pNo;
-   }
+	public int getpNo() {
+		return pNo;
+	}
 
-   public int getbId() {
-      return bId;
-   }
+	public void setpNo(int pNo) {
+		this.pNo = pNo;
+	}
 
-   public void setbId(int bId) {
-      this.bId = bId;
-   }
+	public int getbId() {
+		return bId;
+	}
 
-   @Override
-   public String toString() {
-      return "Attachment [fId=" + fId + ", originName=" + originName + ", changeName=" + changeName + ", filePath="
-            + filePath + ", fileLevel=" + fileLevel + ", status=" + status + ", uploadDate=" + uploadDate
-            + ", deleteDate=" + deleteDate + ", boardKind=" + boardKind + ", pNo=" + pNo + ", bId=" + bId + "]";
-   };
-   
+	public void setbId(int bId) {
+		this.bId = bId;
+	}
+
+	@Override
+	public String toString() {
+		return "Attachment [fId=" + fId + ", originName=" + originName + ", changeName=" + changeName + ", filePath="
+				+ filePath + ", fileLevel=" + fileLevel + ", status=" + status + ", uploadDate=" + uploadDate
+				+ ", deleteDate=" + deleteDate + ", boardKind=" + boardKind + ", pNo=" + pNo + ", bId=" + bId + "]";
+	};
+	
 }
