@@ -11,78 +11,7 @@
 <script src="/jootopia/js/external/bootstrap.min.js"></script>
 
 <link rel="stylesheet" href="/jootopia/css/user/common.css">
-<style>
-	.row > div{
-		height : 500px;
-	}
-	.locationArea{
-		background : rgba(205, 38, 21, 0.18);
-		margin: 0 auto;
-		width: 90%;
-		height: 400px;
-		margin-bottom : 20px;
-	}
-	.mapArea{
-		width: 50%;
-		height : 100%;
-		display:inline-block;
-	}
-	.mapArea > img{
-		width: 85%;
-		height : 90%;
-		margin: 4% 7%;
-	}
-	.locationExplain{
-		position: relative;
-		height : 100%;
-		width: 50%;
-		display : block;
-		float:right
-	}
-	.locationExplain *{
-		text-align: center;
-	}
-	.locationExplain h3, .locationExplain h4{
-		font-weight: bold;
-	}
-	.locationExplain td, .locationExplain th{
-		padding : 5px 25px;
-	}
-	.searchArea *{
-		text-align:center;
-	}
-	.title{
-		margin: 
-	}
-	.searchArea > h2{
-		margin : 40px auto;
-		margin-top: 70px;
-		font-weight: bold;
-	}
-	#addressArea > input{
-		width: 300px;
-		margin : 0 auto;
-	}
-	#addressArea > input:nth-child(1){
-		width: 200px;
-		display : inline-block;
-	}
-	#addressArea > button{
-		display : inline-block;
-		background : rgb(53, 15, 15);
-		color : rgb(241, 196, 15);
-		width: 90px;
-		height : 33px;
-		border-radius: 5px;
-		position: relative;
-		top: -2px;
-		font-weight: bold;
-	}
-	#addressArea > button:hover{
-		color : rgb(53, 15, 15);
-		background : rgb(241, 196, 15);
-	}
-</style>
+<link rel="stylesheet" href="/jootopia/css/user/purchase.css">
 <title>JooTopia</title>
 </head>
 <body>
