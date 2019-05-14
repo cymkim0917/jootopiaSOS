@@ -26,7 +26,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = prop.getProperty("insertMember");
-		
+		System.out.println(sql);
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member.getUserId());
@@ -64,14 +64,15 @@ public class MemberDao {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				member = new Member();
-				member.setUserId(userId);
-				member.setUserPwd(userPwd);
+				member = new Member();				
+				member.setUserId(rs.getString("USER_Id"));
+				member.setUserPwd(rs.getString("USER_PWD"));
+				member.setAdmin_NY(rs.getString("admin_NY"));
 				member.setUno(rs.getInt("UNO"));
-				member.setUserName(rs.getString(4));
-				member.setPhone(rs.getString(6));
-				member.setGender(rs.getString(7));
-				member.setAddress(rs.getString(8));
+				member.setUserName(rs.getString("USER_NAME"));
+				member.setPhone(rs.getString("PHONE"));
+				member.setGender(rs.getString("GENDER"));
+				member.setAddress(rs.getString("ADDRESS"));
 			}
 			
 		} catch (SQLException e) {
@@ -137,6 +138,56 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return member;
+	}
+
+	public int updateMember(Connection con, Member member) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMember");
+		
+		//updateMember = UPDATE MEMBER SET USER_PWD = ? , USER_NAME = ?,ADDRESS = ?,PHONE = ?,EMAIL= ?,MODIFY_DATE = SYSDATE WHERE UNO = ?
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, member.getUserPwd());
+			pstmt.setString(2, member.getUserName());
+			pstmt.setString(3, member.getAddress());
+			pstmt.setString(4, member.getPhone());
+			pstmt.setString(5, member.getEmail());
+			pstmt.setInt(6, member.getUno());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteUser(Connection con, Member delMember) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("deleteMember");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, delMember.getUno());
+			pstmt.setString(2, delMember.getUserId());
+			pstmt.setString(3, delMember.getUserPwd());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
 	}
 
 }
