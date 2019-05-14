@@ -23,7 +23,7 @@
 	  <hr>
      
       	 <div id="insertArea" ailgn="center">
-      	 	<form id="insertNoti" method="post">
+      	 	<form id="insertNoti" action="<%=request.getContextPath() %>/insertAdminNotice.do" method="post" encType="multipart/form-data">
       	 		<table id="insertTb" width="100%">
       	 			<tr>
       	 				<td><h3>분류</h3></td>
@@ -38,7 +38,14 @@
       	 			</tr>
       	 			<tr>
       	 				<td><h3>파일첨부</h3></td>
-      	 				<td><input type="file"></td>
+      	 				<td>
+      	 					<input id="file1" type="file">
+      	 					<input id="file1" type="file">
+      	 					<input id="file3" type="file">
+      	 				</td>
+      	 			</tr>
+      	 			<tr>
+      	 				<td><br></td>
       	 			</tr>
       	 			<tr>
       	 				<td><h3>내용</h3></td>
@@ -47,25 +54,14 @@
       	 		</table>
       	 		<br>
       	 			<div id="searchBtnArea" align="center">
-      	 				<input type="button" value="등록" onclick="insertNotice()">
+      	 				<input type="submit" value="등록" >
 		   				<input type="reset" value="취소" >
       	 			</div>
       	 	</form>
       	 </div>
       </div>
    </section>
-   <script>
-   		function insertNotice(){
-   			var form = document.getElementById("insertArea");
-   			var type = $("#cate")
-			
-   			console.log(type.val());
-   			
-   		
-   		
-   	}
-   
-   </script>
+  
    
 <%@ include file="/views/common/adminFooter.jsp" %>
 </body>
