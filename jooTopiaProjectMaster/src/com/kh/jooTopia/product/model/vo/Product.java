@@ -9,7 +9,7 @@ public class Product implements Serializable {
 	private String pName;
 	private int pPrice;
 	private String pContent;
-	private Date pEnrollDate;
+	private Date pDate;
 	private String pGrade;
 	private String pBarCode;
 	private String pBrand;
@@ -19,14 +19,14 @@ public class Product implements Serializable {
 	
 	public Product() {}
 
-	public Product(int pId, String pName, int pPrice, String pContent, Date pEnrollDate, String pGrade, String pBarCode,
+	public Product(int pId, String pName, int pPrice, String pContent, Date pDate, String pGrade, String pBarCode,
 			String pBrand, String pModelName, int cId, int pcDId) {
 		super();
 		this.pId = pId;
 		this.pName = pName;
 		this.pPrice = pPrice;
 		this.pContent = pContent;
-		this.pEnrollDate = pEnrollDate;
+		this.pDate = pDate;
 		this.pGrade = pGrade;
 		this.pBarCode = pBarCode;
 		this.pBrand = pBrand;
@@ -67,12 +67,12 @@ public class Product implements Serializable {
 		this.pContent = pContent;
 	}
 
-	public Date getpEnrollDate() {
-		return pEnrollDate;
+	public Date getpDate() {
+		return pDate;
 	}
 
-	public void setpEnrollDate(Date pEnrollDate) {
-		this.pEnrollDate = pEnrollDate;
+	public void setpDate(Date pDate) {
+		this.pDate = pDate;
 	}
 
 	public String getpGrade() {
@@ -118,16 +118,14 @@ public class Product implements Serializable {
 	public int getPcDId() {
 		return pcDId;
 	}
-
 	public void setPcDId(int pcDId) {
 		this.pcDId = pcDId;
 	}
 
 	@Override
 	public String toString() {
-		return "Product [pId=" + pId + ", pName=" + pName + ", pPrice=" + pPrice + ", pContent=" + pContent
-				+ ", pEnrollDate=" + pEnrollDate + ", pGrade=" + pGrade + ", pBarCode=" + pBarCode + ", pBrand="
-				+ pBrand + ", pModelName=" + pModelName + ", cId=" + cId + ", pcDId=" + pcDId + "]";
+		return "Product [pId=" + pId + ", pName=" + pName + ", pPrice=" + pPrice + ", pContent=" + pContent + ", pDate="
+				+ pDate + ", pGrade=" + pGrade + ", pBarCode=" + pBarCode + ", pBrand=" + pBrand + ", pModelName="
+				+ pModelName + ", cId=" + cId + ", pcDId=" + pcDId + "]";
 	}
-
 }
