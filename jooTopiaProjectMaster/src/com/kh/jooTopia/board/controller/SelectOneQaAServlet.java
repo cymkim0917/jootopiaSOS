@@ -25,7 +25,7 @@ public class SelectOneQaAServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bid = Integer.parseInt(request.getParameter("num"));
-
+		//
 		
 		HashMap<String,Object> quesMap = new BoardService().selectQaAMap(bid);
 		Board quesDetail = (Board)quesMap.get("board");

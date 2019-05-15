@@ -60,7 +60,7 @@
 		border-radius:10px;
 		
 	}	
-	
+	<!-- -->
 	#btnArea{
 		text-align:center;
 	}

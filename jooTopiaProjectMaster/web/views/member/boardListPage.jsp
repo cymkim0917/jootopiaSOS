@@ -66,7 +66,7 @@
 <%@ include file="/views/common/navigation.jsp" %>
 
 <% ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list"); 
-	int boardIndex = 1;
+	int boardIndex = 1;//
 %>
 	<section>
 	<br /><br />

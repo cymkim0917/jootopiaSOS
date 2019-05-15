@@ -97,7 +97,7 @@ public class RealUpdateQaAServlet extends HttpServlet {
 				att.setChangeName((saveFiles.get(i)));
 				fileList.add(att);	
 			}
-			
+			//
 			int result = new BoardService().updateQaA(board,fileList);
 			
 			PrintWriter out = response.getWriter();

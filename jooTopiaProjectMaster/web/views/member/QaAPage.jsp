@@ -7,7 +7,7 @@
 	ArrayList<Attachment> attList = (ArrayList<Attachment>) request.getAttribute("quesFile");
 	Attachment quesImg1 = attList.get(0);
 	Attachment quesImg2 = attList.get(1);
-
+//
 %>    
 <!DOCTYPE html>
 <html>

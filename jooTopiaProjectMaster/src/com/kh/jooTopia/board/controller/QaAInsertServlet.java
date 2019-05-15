@@ -33,7 +33,7 @@ public class QaAInsertServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member member = (Member)request.getSession().getAttribute("loginUser");
 		Board board = new Board();
-		
+		//
 		if(ServletFileUpload.isMultipartContent(request)) {
 
 			int maxSize = 1024 * 1024 * 10;		

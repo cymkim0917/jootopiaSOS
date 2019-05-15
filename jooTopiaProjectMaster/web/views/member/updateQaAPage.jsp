@@ -88,7 +88,7 @@
 		Date date = new Date();
 
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		String toDay = format.format(date);
+		String toDay = format.format(date);//
 	%>
 	<section>
 		<div class="row">

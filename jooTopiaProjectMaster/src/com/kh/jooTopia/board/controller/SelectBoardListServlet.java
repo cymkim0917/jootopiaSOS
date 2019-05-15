@@ -29,7 +29,7 @@ public class SelectBoardListServlet extends HttpServlet {
 		ArrayList<Board> list = new BoardService().selectBoardList(uno);
 		
 		System.out.println(list);
-		
+		//
 		PrintWriter out = response.getWriter();
 		String view = "";
 		
