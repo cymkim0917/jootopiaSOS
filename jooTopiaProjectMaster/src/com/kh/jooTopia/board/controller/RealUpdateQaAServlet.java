@@ -20,19 +20,23 @@ import com.kh.jooTopia.board.model.vo.Board;
 import com.kh.jooTopia.common.JootopiaFileRenamePolicy;
 import com.kh.jooTopia.member.model.vo.Member;
 import com.oreilly.servlet.MultipartRequest;
-import com.sun.mail.handlers.multipart_mixed;
 
-@WebServlet("/insertQues.do")
-public class QaAInsertServlet extends HttpServlet {
+@WebServlet("/updateQues.do")
+public class RealUpdateQaAServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public QaAInsertServlet() {
+    public RealUpdateQaAServlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member member = (Member)request.getSession().getAttribute("loginUser");
 		Board board = new Board();
+		int bid = Integer.parseInt(request.getParameter("num"));
+		System.out.println(bid);
+		
+		board.setbId(bid);
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
 
@@ -94,28 +98,30 @@ public class QaAInsertServlet extends HttpServlet {
 				fileList.add(att);	
 			}
 			
-			int result = new BoardService().insertPhote(board,fileList);
+			int result = new BoardService().updateQaA(board,fileList);
 			
 			PrintWriter out = response.getWriter();
 			
 			if(result > 0 ) {
 				System.out.println("업로드 성공");			 
-				out.println("<script>alert('게시글 수정 되었습니다');</script>");			 
+				out.println("<script>alert('게시글이 등록 되었습니다');</script>");			 
 				response.sendRedirect(request.getContextPath() + "/selectBoardList.do");
 				
 			}else {
 				for (int i = 0; i < saveFiles.size(); i++) {
 					new File(filePath + saveFiles.get(i));					
 				}
-				out.println("<script>alert('게시글이 수정에 실패했습니다.');</script>");	
+				out.println("<script>alert('게시글이 등록에 실패했습니다.');</script>");	
 			/*	request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);*/
 			}
 			out.flush();
 			out.close();
 		}
 	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+
 }

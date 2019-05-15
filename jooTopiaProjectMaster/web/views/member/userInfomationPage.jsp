@@ -103,7 +103,7 @@
 					<a href="passwordCheckPage.jsp" id="modifyBtn">수정</a>					
 					<a href="passwordCheckPage2.jsp" id="delBtn">삭제</a><br />
 					<a href="orderListPage.jsp" id="orderBtn">임시)주문내역</a><br />
-					<a href="boardListPage.jsp" id="orderBtn">임시)게시글 조회</a>
+					<a href="<%= request.getContextPath() %>/selectBoardList.do" id="orderBtn">임시)게시글 조회</a>
 				</div>
 				
 			</div>
