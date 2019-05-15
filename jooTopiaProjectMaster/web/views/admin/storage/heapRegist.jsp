@@ -62,24 +62,28 @@
 				<table class="separate" border="1">
 					<tr>
 						<td width="120">매입번호</td>
-						<td width="500">a123</td>
+						<td width="500">1234</td>
 					</tr>
 					<tr>
+						<td width="120">상품번호</td>
+						<td width="500">9999</td>
+					</tr>
+					<!-- <tr>
 						<td width="120">적치바코드 등록</td>
-						<td width="500"><!-- <input type="text" placeholder="적치바코드를 등록하세요" width="500"> -->
+						<td width="500"><input type="text" placeholder="적치바코드를 등록하세요" width="500">
 						(자동생성)
 						</td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td width="120">적치일자 등록</td>
 						<td id="selectDate" colspan="2">
-						&nbsp;<a href="#" class="btnDate" period="0"><span>오늘</span></a>&nbsp;&nbsp;						
+						<!-- &nbsp;<a href="#" class="btnDate" period="0"><span>오늘</span></a>&nbsp;&nbsp; -->						
 						<input type="date" id="heapDate" name="heapDate" class="date" <%-- value="<%= heapDay %>" --%>>						
 					</td>
 					</tr>
 					<tr>
 						<td width="120">위치번호</td>
-						<td width="500"><input type="text" placeholder="적치 위치번호를 입력하세요" width="500"></td>
+						<td width="500"><input type="text" placeholder="위치번호를 입력하세요" width="700"></td>
 					</tr>										
 				</table>
 			</div>

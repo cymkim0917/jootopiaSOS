@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 import com.kh.jooTopia.release.model.dao.ReleaseAdminDao;
 import com.kh.jooTopia.release.model.vo.ReleaseAdmin;
+import com.kh.jooTopia.release.model.vo.ReleaseAdminList;
 
 public class ReleaseAdminService {
 
@@ -36,6 +37,19 @@ public class ReleaseAdminService {
 		close(con);
 		
 		return result;
+	}
+
+
+
+	public ArrayList<ReleaseAdminList> selectAdminrList() {
+		
+		Connection con = getConnection();
+		
+		ArrayList<ReleaseAdminList> rlist = new ReleaseAdminDao().selectAdminrList(con);
+		
+		close(con);
+		
+		return rlist;
 	}
 
 }

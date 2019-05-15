@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.jooTopia.heap.model.vo.*, java.util.*"%>
+	
+	<% ArrayList<HeapAdmin> list = (ArrayList<HeapAdmin>) request.getAttribute("list"); %>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,46 +37,19 @@
 							<th>No.</th>
 							<th>매입번호</th>
 							<th>상품번호</th>
-							<th>대분류</th>
-							<th>중분류</th>							
+							<!-- <th>대분류</th>
+							<th>중분류</th> -->							
 						</tr>
 					</thead>
+					<% for(HeapAdmin h : list){ %>
 					<tbody>
 						<tr>
-							<td>1</td>
-							<td>A123</td>
-							<td>1234</td>
-							<td>침실</td>
-							<td>침대</td>							
+							<td><%= h.gethId() %></td>
+							<td><%= h.getPcNo() %></td>
+							<td><%= h.getpNo() %></td>
+													
 						</tr>
-						<tr>
-							<td>2</td>
-							<td>A456</td>
-							<td>1234</td>
-							<td>서재</td>
-							<td>책상</td>							
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>A123</td>
-							<td>1234</td>
-							<td>침실</td>
-							<td>침대</td>							
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>A123</td>
-							<td>1234</td>
-							<td>침실</td>
-							<td>침대</td>						
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>A123</td>
-							<td>1234</td>
-							<td>침실</td>
-							<td>침대</td>							
-						</tr>
+						<% } %>
 					</tbody>
 				</table>
 			</div>
@@ -128,7 +104,8 @@
 				var num = $(this).parent().children().eq(0).text();
 				console.log(num);
 				<%-- location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num; --%>
-				location.href="heapRegist.jsp";
+				location.href="<%=request.getContextPath()%>/views/admin/storage/heapRegist.jsp?num=" + num;
+				//location.href="heapRegist.jsp";
 			})
 		})
 	</script>

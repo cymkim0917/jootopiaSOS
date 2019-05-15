@@ -84,11 +84,11 @@
 						<td width="120">매입번호</td>
 						<td width="500">a123</td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td width="120">매입가</td>
 						<td width="500"><input type="text" placeholder="매입가입력" size="117"></td>
-					</tr>
-					<tr>
+					</tr> -->
+					<!-- <tr>
 						<td width="120">상품등급</td>
 						<td width="500">
 						<select name='level'>
@@ -98,7 +98,7 @@
 								<option value='row'>하</option>
 						</select>
 						</td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td width="120">상세치수</td>
 						<td width="500"><textarea id="text1" cols="120px" rows="5"></textarea></td>

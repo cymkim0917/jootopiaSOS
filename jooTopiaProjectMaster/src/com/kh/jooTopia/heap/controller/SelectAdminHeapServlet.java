@@ -1,4 +1,4 @@
-package com.kh.jooTopia.release.controller;
+package com.kh.jooTopia.heap.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,21 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.jooTopia.release.model.service.ReleaseAdminService;
-
-import com.kh.jooTopia.release.model.vo.ReleaseAdminList;
+import com.kh.jooTopia.heap.model.service.HeapAdminService;
+import com.kh.jooTopia.heap.model.vo.HeapAdmin;
 
 /**
- * Servlet implementation class SelectAdminReleaseListServlet
+ * Servlet implementation class SelectAdminHeapServlet
  */
-@WebServlet("/selectAdminReleaseList.do")
-public class SelectAdminReleaseListServlet extends HttpServlet {
+@WebServlet("/selectAdminHeap.do")
+public class SelectAdminHeapServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectAdminReleaseListServlet() {
+    public SelectAdminHeapServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,12 +33,13 @@ public class SelectAdminReleaseListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<ReleaseAdminList> rlist = new ReleaseAdminService().selectAdminrList();
-		System.out.println(rlist);
+		ArrayList<HeapAdmin> list = new HeapAdminService().selectAdminList();
+		
+		System.out.println(list);
 		String page = "";
-		if(rlist != null) {
-			page = "views/admin/storage/releaseList.jsp";
-			request.setAttribute("rlist", rlist);
+		if(list != null) {
+			page = "views/admin/storage/heapWait.jsp";
+			request.setAttribute("list", list);
 			
 		}else {
 			page = "views/common/errorPage500.jsp";
@@ -47,7 +47,6 @@ public class SelectAdminReleaseListServlet extends HttpServlet {
 		}
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
-		
 	}
 
 	/**

@@ -34,15 +34,7 @@
 						<th colspan="3"
 							style="background: rgb(224, 224, 224); height: 35px;"></th>
 					</tr>
-					<tr>
-						<td>검색 분류</td>
-						<td colspan="2">&nbsp;<select id="searchCondition">
-								<option value="pCode">상품코드
-								<option value="userName">주문자명
-								<option value="userId">주문자 아이디
-						</select> <input type="search" placeholder="검색 단어를 입력하세요." width="20px">
-						</td>
-					</tr>
+					
 					<tr>
 						<td>상품 카테고리</td>
 						<td colspan="2">&nbsp;<select id="searchCategory"
@@ -98,10 +90,7 @@
 							<td><%= b.getbCate1() %></td>
 							<td><%= b.getbCate2() %></td>							
 						</tr>
-						<% } %>
-						
-						
-						
+						<% } %>						
 					</tbody>
 				</table>
 			</div>

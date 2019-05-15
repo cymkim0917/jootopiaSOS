@@ -37,8 +37,8 @@
 						<th>No.</th>
 						<th>주문번호</th>
 						<th>배송번호</th>
-						<th>적치코드</th>
-						<th>위치번호</th>
+						<th>적치번호</th>
+						<th>위치바코드</th>
 					</tr>
 				</thead>
 				<% for(ReleaseAdmin r : list){ %>

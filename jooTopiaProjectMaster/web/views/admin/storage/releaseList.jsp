@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.jooTopia.release.model.vo.*, java.util.*"%>
+	
+	<% ArrayList<ReleaseAdminList> rlist = (ArrayList<ReleaseAdminList>) request.getAttribute("rlist"); %>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +36,8 @@
 					</tr>
 					<tr>
 						<td>검색 분류</td>
-						<td colspan="2">&nbsp;<select id="searchCondition">
+						<td colspan="2">&nbsp;
+						<select id="searchCondition">
 								<option value="">주문번호
 								<option value="">배송번호
 								<option value="">출고번호
@@ -42,13 +46,7 @@
 					</tr>
 					<tr>
 						<td>출고일자</td>
-						<td id="selectDate" colspan="2">&nbsp;
-						<a href="#"	class="btnDate" period="0"><span>오늘</span></a>
-						<a href="#"	class="btnDate" period="7"><span>7일</span></a>
-						<a href="#"	class="btnDate" period="30"><span>1개월</span></a>
-						<a href="#"	class="btnDate" period="90"><span>3개월</span></a>
-						<a href="#"	class="btnDate" period="365"><span>1년</span></a>
-						<a href="#"	class="btnDate" period="-1"><span>전체</span></a> &nbsp;&nbsp;
+						<td id="selectDate" colspan="2">&nbsp;						
 						<input type="date" id="startDate" name="startDate" class="date"<%-- value="<%= startDay %>" --%>>
 							~ <input type="date" id="endDate" name="endDate" class="date"<%-- value="<%= endDay %>" --%>>
 						</td>
@@ -77,28 +75,17 @@
 						<th>출고일자</th>
 					</tr>
 				</thead>
+				<% for(ReleaseAdminList r : rlist){ %>
 				<tbody>
 					<tr>
-						<td>1</td>
-						<td>12345</td>
-						<td>5678</td>
-						<td>0927</td>
-						<td>19/01/01</td>
+						<td><%= r.getrId() %></td>
+						<td><%= r.getoNo() %></td>
+						<td><%= r.getdNo() %></td>
+						<td><%= r.getrNo() %></td>
+						<td><%= r.getrDate() %></td>
 					</tr>
-					<tr>
-						<td>2</td>
-						<td>12345</td>
-						<td>5678</td>
-						<td>0927</td>
-						<td>19/01/01</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>12345</td>
-						<td>5678</td>
-						<td>0927</td>
-						<td>19/01/01</td>
-					</tr>
+					<% } %>
+					
 				</tbody>
 			</table>
 
