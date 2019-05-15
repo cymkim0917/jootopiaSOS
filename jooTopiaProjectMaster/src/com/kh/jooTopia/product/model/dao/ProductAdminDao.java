@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.jooTopia.board.model.vo.Attachment;
+import com.kh.jooTopia.board.model.vo.PageInfo;
 import com.kh.jooTopia.product.model.vo.Product;
 
 import static com.kh.jooTopia.common.JDBCTemplate.*;
@@ -76,7 +77,7 @@ public class ProductAdminDao {
 				pstmt.setString(3, fileList.get(i).getFilePath());
 				int level = 0;
 				if(i == 0) level = 0;
-				else level = 1;
+				else level = 2;
 				pstmt.setInt(4, level);
 				pstmt.setInt(5, fileList.get(i).getpNo());
 				
@@ -91,7 +92,7 @@ public class ProductAdminDao {
 		return result;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectAddList(Connection con) {
+	public ArrayList<HashMap<String, Object>> selectAddList(Connection con, PageInfo pageInfo) {
 		//상품등록 리스트 출력
 		PreparedStatement pstmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
@@ -100,9 +101,14 @@ public class ProductAdminDao {
 		
 		String query = prop.getProperty("selectAddList");
 		
+		int startRow = (pageInfo.getCurrentPage()-1)*pageInfo.getLimit()+1;
+		int endRow = startRow + pageInfo.getLimit()-1;
+		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, "미등록상품");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -177,7 +183,7 @@ public class ProductAdminDao {
 		return hmap;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectList(Connection con) {
+	public ArrayList<HashMap<String, Object>> selectList(Connection con, PageInfo pageInfo) {
 		//상품등록 리스트 출력
 		PreparedStatement pstmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
@@ -186,10 +192,15 @@ public class ProductAdminDao {
 				
 		String query = prop.getProperty("selectList");
 		
+		int startRow = (pageInfo.getCurrentPage()-1)*pageInfo.getLimit()+1;
+		int endRow = startRow + pageInfo.getLimit()-1;
+		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, "판매미등록");
 			pstmt.setString(2, "판매중");
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -288,5 +299,87 @@ public class ProductAdminDao {
 		}
 		
 		return result;
+	}
+
+	public HashMap<String, Object> selectProOne(Connection con, int pId) {
+		//상품상세의 상품정보 조회
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+				
+		String query = prop.getProperty("selectProOne");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pId);
+			rset = pstmt.executeQuery();
+					
+			hmap = new HashMap<String, Object>();
+			
+			while(rset.next()) {
+				hmap.put("pName", rset.getString("PNAME"));
+				hmap.put("pId", rset.getInt("PID"));
+				hmap.put("status", rset.getString("STATUS"));
+				hmap.put("cGroup", rset.getString("CGROUP"));
+				hmap.put("cName", rset.getString("NAME"));
+				hmap.put("pPrice", rset.getInt("PPRICE"));
+				hmap.put("sale", rset.getInt("GRADESALES"));
+				hmap.put("pContent", rset.getString("PCONTENT"));
+				int salePrice = (int) hmap.get("pPrice") * (int) hmap.get("sale");
+				hmap.put("salePrice", salePrice);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+			
+		return hmap;
+	}
+
+	public ArrayList<Attachment> selectAttOne(Connection con, int pId) {
+		//상품상세의 상품이미지들 조회
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Attachment> list = null;
+		Attachment a = null;
+		
+		String query = prop.getProperty("selectAttOne");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pId);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Attachment>();
+			while(rset.next()) {
+				a = new Attachment();
+				
+				a.setfId(rset.getInt("FID"));
+				a.setOriginName(rset.getString("ORIGIN_NAME"));
+				a.setChangeName(rset.getString("CHANGE_NAME"));
+				a.setFilePath(rset.getString("FILE_PATH"));
+				a.setFileLevel(rset.getInt("FILE_LEVEL"));
+				
+				if(a.getFileLevel() == 0) {
+					list.add(0, a);
+				}else {
+					list.add(1, a);
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		System.out.println("list 사이즈 : " + list.size());
+		
+		return list;
 	}
 }

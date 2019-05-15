@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, java.lang.*"%>
+    pageEncoding="UTF-8" import="java.util.*, java.lang.*, com.kh.jooTopia.board.model.vo.*"%>
 <%
 	int count = 1;
 	ArrayList<HashMap<String,Object>> list = 
 	(ArrayList<HashMap<String,Object>>) request.getAttribute("list");
 	int sell = 0;
 	int noSell = 0;
+	
+	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
+	int currentPage = pageInfo.getCurrentPage();
+	int maxPage = pageInfo.getMaxPage();
+	int startPage = pageInfo.getStartPage();
+	int endPage = pageInfo.getEndPage();
 %>
 
 <!DOCTYPE html>
@@ -183,15 +189,13 @@
 	<br><br><br>
 	<div class="paging" align="center">
 		<ul class="pagination">
-			<li><a href="#">Previous</a></li>
-			<li><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">4</a></li>
-			<li><a href="#">5</a></li>
-			<li><a href="#">Previous</a></li>
+		<% for(int i = 0; i < currentPage; i++ ) { %>
+			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=<%=currentPage-1%>">이전</a></li>
+			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=1">1</a></li>
+			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=<%=currentPage+1%>">다음</a></li>
+		<% } %>
 		</ul>
-	</div>
+		</div>
 	
 	</div> <!-- col-sm-10 -->
 	</section>
@@ -207,7 +211,7 @@
 		}).click(function(){
 			var num = $(this).parent().children().eq(4).text();
 			console.log(num);
-			<%-- location.href="<%=request.getContextPath()%>/adminAddProductOne.do?num=" + num; --%>
+			location.href="<%=request.getContextPath()%>/adminProductOne.do?num=" + num;
 		});
 		
 		$(".btnDate").click(function() {
