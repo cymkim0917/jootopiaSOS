@@ -1,3 +1,4 @@
+
 package com.kh.jooTopia.board.model.vo;
 
 import java.io.Serializable;
@@ -106,11 +107,11 @@ public class Board implements java.io.Serializable {
 		this.status = status;
 	}
 
-	public Date getbDate() {
+	public Date getBDate() {
 		return bDate;
 	}
 
-	public void setbDate(Date bDate) {
+	public void setBDate(Date bDate) {
 		this.bDate = bDate;
 	}
 
@@ -245,4 +246,7 @@ public class Board implements java.io.Serializable {
 	}
 
 	
+	
+	
 }
+

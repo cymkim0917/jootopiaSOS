@@ -12,27 +12,27 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.jooTopia.product.model.service.ProductAdminService;
 
-@WebServlet("/adminAddProductList.do")
-public class SelectAddListAdminProductServlet extends HttpServlet {
+@WebServlet("/adminDeleteProductList.do")
+public class SelectDeleteListAdminProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public SelectAddListAdminProductServlet() {
+    public SelectDeleteListAdminProductServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//미등록상품 전체조회
-		ArrayList<HashMap<String,Object>> list = new ProductAdminService().selectAddList();
+		//삭제상품 전체조회
+		ArrayList<HashMap<String,Object>> list = new ProductAdminService().selectDeleteList();
 		
 		String view = "";
 		if(list != null) {
-			view = "views/admin/product/productInsertList.jsp";
+			view = "views/admin/product/productDeleteList.jsp";
 			request.setAttribute("list", list);
 		}else {
 			view = "views/common/errorPage500.jsp";
-			request.setAttribute("msg", "상품등록 리스트 조회 실패");
+			request.setAttribute("msg", "삭제상품목록 리스트 조회 실패");
 		}
-		request.getRequestDispatcher(view).forward(request, response);
+		request.getRequestDispatcher(view).forward(request, response);	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
