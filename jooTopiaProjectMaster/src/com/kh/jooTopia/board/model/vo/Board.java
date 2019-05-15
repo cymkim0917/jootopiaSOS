@@ -1,3 +1,4 @@
+
 package com.kh.jooTopia.board.model.vo;
 
 import java.io.Serializable;
@@ -10,7 +11,7 @@ public class Board implements java.io.Serializable {
 	private String bTitle;
 	private String bContent;
 	private String status;
-	private Date enrollDate;
+	private Date bDate;
 	private Date modifyDate; 
 	private Date deleteDate;
 	private int rrating;
@@ -29,7 +30,7 @@ public class Board implements java.io.Serializable {
 	
 	public Board() {}
 
-	public Board(int bId, int bNo, int bType, String bTitle, String bContent, String status, Date enrollDate,
+	public Board(int bId, int bNo, int bType, String bTitle, String bContent, String status, Date bDate,
 			Date modifyDate, Date deleteDate, int rrating, String fCategory, String mtmStatus, String aContent,
 			Date aDate, String qCategory, int bCount, String nType, Date startDate, Date finishDate, String pCno,
 			String address, int uNo) {
@@ -40,7 +41,7 @@ public class Board implements java.io.Serializable {
 		this.bTitle = bTitle;
 		this.bContent = bContent;
 		this.status = status;
-		this.enrollDate = enrollDate;
+		this.bDate = bDate;
 		this.modifyDate = modifyDate;
 		this.deleteDate = deleteDate;
 		this.rrating = rrating;
@@ -106,12 +107,12 @@ public class Board implements java.io.Serializable {
 		this.status = status;
 	}
 
-	public Date getEnrollDate() {
-		return enrollDate;
+	public Date getBDate() {
+		return bDate;
 	}
 
-	public void setEnrollDate(Date enrollDate) {
-		this.enrollDate = enrollDate;
+	public void setBDate(Date bDate) {
+		this.bDate = bDate;
 	}
 
 	public Date getModifyDate() {
@@ -237,12 +238,15 @@ public class Board implements java.io.Serializable {
 	@Override
 	public String toString() {
 		return "Board [bId=" + bId + ", bNo=" + bNo + ", bType=" + bType + ", bTitle=" + bTitle + ", bContent="
-				+ bContent + ", status=" + status + ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate
-				+ ", deleteDate=" + deleteDate + ", rrating=" + rrating + ", fCategory=" + fCategory + ", mtmStatus="
-				+ mtmStatus + ", aContent=" + aContent + ", aDate=" + aDate + ", qCategory=" + qCategory + ", bCount="
-				+ bCount + ", nType=" + nType + ", startDate=" + startDate + ", finishDate=" + finishDate + ", pCno="
-				+ pCno + ", address=" + address + ", uNo=" + uNo + "]";
+				+ bContent + ", status=" + status + ", bDate=" + bDate + ", modifyDate=" + modifyDate + ", deleteDate="
+				+ deleteDate + ", rrating=" + rrating + ", fCategory=" + fCategory + ", mtmStatus=" + mtmStatus
+				+ ", aContent=" + aContent + ", aDate=" + aDate + ", qCategory=" + qCategory + ", bCount=" + bCount
+				+ ", nType=" + nType + ", startDate=" + startDate + ", finishDate=" + finishDate + ", pCno=" + pCno
+				+ ", address=" + address + ", uNo=" + uNo + "]";
 	}
+
+	
 	
 	
 }
+

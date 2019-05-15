@@ -8,8 +8,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="/jootopia/images/favicon.ico">
-<link rel="stylesheet" href="/jootopia/js/external/jquery-3.4.0.min.js">
-<link rel="stylesheet" href="/jootopia/css/admin/adminCommon.css">
+<link rel="stylesheet" href="/jootopia/css/external/bootstrap.min.css">
+<script src="/jootopia/js/external/jquery-3.4.0.min.js"></script>
+<script src="/jootopia/js/external/bootstrap.min.js"></script>
  
 <title>JooTopia</title>
 </head>
@@ -36,16 +37,42 @@
 			<tr>
 				<th>상품카테고리</th>
 				<td>
-					<select id="big" name="big" onchange="smallCategoty(this.value)">
-						<option value="">- 대분류 -
-						<option value="침실">침실
-						<option value="서재">서재
-						<option value="주방">주방
-						<option value="거실">거실
+					<select id="cGroup" name="cGroup">
+						<option selected>-- 대분류 --</option>	
+						<option value="침실">침실</option>
+						<option value="서재">서재</option>
+						<option value="주방">주방</option>
+						<option value="거실">거실</option>
+						<option value="기타">기타</option>
 					</select>
-					<select id="small" name="small">
-						<option value="">- 중분류 -
+					<select id="cName" name="cName">
+						<option>-- 중분류 --</option>
 					</select>
+					<script>
+						$("#cGroup").change(function(){
+							var cGroup = $(this).children("option:selected").val();
+							var $cName = $("#cName");
+							$.ajax({
+								url:"<%= request.getContextPath() %>/selectNameList.do",
+								data:{cGroup:cGroup},
+								type:"get",
+								success:function(data){
+									console.log("서버 전송 성공!");
+									var options = ""; 
+									for(var i = 0; i < data.length; i++){
+										if(i == 0){
+											options += "<option value=\"" + data[i] + "\" selected>" + data[i] + "</option>";
+										}else{
+											options += "<option value=\"" + data[i] + "\">" + data[i] + "</option>";
+										}
+									}	
+									$cName.html(options);
+								},error:function(data){
+									console.log("서버 전송 실패!");
+								}
+							});
+						});
+					</script>
 				</td>
 			</tr>
 			<tr>
@@ -56,7 +83,7 @@
 			</tr>
 			<tr>
 				<th>상품코드</th>
-				<td name="pCode"><%= hmap.get("pId") %></td>
+				<td name="pId"><%= hmap.get("pId") %></td>
 			</tr>
 			<tr>
 				<th>상품 매입가</th>
@@ -105,7 +132,8 @@
 				</th>
 				<td align="center" width="300px">
 				<div id="mainImgArea">
-					<img id="mainImg" src="/jootopia/images/logo2.png" width="50%">
+					<img id="mainImg" src="/jootopia/images/product/<%= hmap.get("changeName") %>" width="50%">
+					<input type="hidden" name="fId" value="<%= hmap.get("fId") %>">
 				</div>
 				</td>
 				
@@ -115,7 +143,7 @@
 				</th>
 				<td align="center" width="300px">
 				<div id="detailImgArea">
-					<img id="detailImg" src="/jootopia/images/logo2.png" width="50%">
+					<img id="detailImg" src="/jootopia/images/product/detailImg.jpg" width="50%">
 				</div>
 				</td>
 			</tr>
@@ -153,91 +181,50 @@
 </div>
 
 <script>
-		$(document).ready(function() {
-			
-			var pBig = '<%=  hmap.get("big") %>';
-			for(var i = 0; i < 5; i ++) {
-				var big = $("#big > option").eq(i).val();
-				
-				if(big == pBig) {
-					$("#big > option").prop("selected", true);
-				};
- 			};
- 			
- 			var bedRoom = ["침대", "옷장", "화장대", "침실수납장"];
-			var study = ["책상", "책장", "사무용의자", "서재수납장"];
-			var kitchen = ["식탁", "식탁의자", "주방수납장", "렌지대"];
-			var livingRoom = ["테이블", "거실장", "쇼파", "거실수납장"];
-			
-			if(big == "") {
-				smallCategory = [];
-			}else if(big == "침실") {
-				smallCategory = bedRoom;
-			}else if(big == "서재") {
-				smallCategory = study;
-			}else if(big == "주방") {
-				smallCategory = kitchen;
-			}else if(big == "거실") {
-				smallCategory = livingRoom;
-			}
-			
-			$("#small").empty();
-			$("#small").append("<option value=''>- 중분류 -</option>");
-			
-			for(var i = 0; i < smallCategory.length; i++) {
-				var option = $("<option>" + smallCategory[i] + "</option>");
-				option.val(smallCategory[i]);
-				$("#small").append(option);
-			};
-			
-		});
+
+	$(function() {
 		
-		$(document).ready(function() {
-			var pSmall = '<%=  hmap.get("small") %>';
-			
-			for(var i = 0; i < 5; i ++) {
-				var small = $("#small > option").eq(i).val();
-				
-				if(small == pSmall) {
-					console.log(pSmall);
-					console.log(small);
-					console.log("일치!");
-					$("#small > option").prop("selected", true);
-				};
- 			};
-			
-		});
+		var cGroup = '<%=hmap.get("cGroup")%>';
+		var cName = '<%=hmap.get("cName")%>';
+		var cNameArr = [];
+
+		var bedRoom = ["침대", "옷장", "화장대", "침실수납장", "기타"];
+		var study = ["책상", "책장", "사무용의자", "서재수납장", "기타"];
+		var kitchen = ["식탁", "식탁의자", "주방수납장", "렌지대", "기타"];
+		var livingRoom = ["테이블", "거실장", "쇼파", "거실수납장", "기타"];
 		
-		function smallCategoty(value) {
+		if(cGroup == "") {
+			cNameArr = [];
+		}else if(cGroup = "침실") {
+			$("#cGroup option[value='침실']").attr("selected", true);
+			cNameArr = bedRoom;
+		}else if(cGroup = "서재") {
+			$("#cGroup option[value='서재']").attr("selected", true);
+			cNameArr = study;
+		}else if(cGroup = "주방") {
+			$("#cGroup option[value='주방']").attr("selected", true);
+			cNameArr = kitchen;
+		}else if(cGroup = "거실") {
+			$("#cGroup option[value='거실']").attr("selected", true);
+			cNameArr = livingRoom;
+		};
+		
+		$("#cName").empty();
+		
+		var option = "";
+		
+		for(var i = 0; i < cNameArr.length; i++) {
 			
-			var big = value;
+			option = $("<option value='" + cNameArr[i] + "'>" + cNameArr[i] + "</option>");
+			$("#cName").append(option);
 			
-			var bedRoom = ["침대", "옷장", "화장대", "침실수납장"];
-			var study = ["책상", "책장", "사무용의자", "서재수납장"];
-			var kitchen = ["식탁", "식탁의자", "주방수납장", "렌지대"];
-			var livingRoom = ["테이블", "거실장", "쇼파", "거실수납장"];
-			
-			if(big == "") {
-				smallCategory = [];
-			}else if(big == "침실") {
-				smallCategory = bedRoom;
-			}else if(big == "서재") {
-				smallCategory = study;
-			}else if(big == "주방") {
-				smallCategory = kitchen;
-			}else if(big == "거실") {
-				smallCategory = livingRoom;
-			}
-			
-			$("#small").empty();
-			$("#small").append("<option value=''>- 중분류 -</option>");
-			
-			for(var i = 0; i < smallCategory.length; i++) {
-				var option = $("<option>" + smallCategory[i] + "</option>");
-				option.val(smallCategory[i]);
-				$("#small").append(option);
+			var cNameOp = $("#cName option").eq(i);
+			if( cName == cNameOp.val() ) {
+				cNameOp.attr("selected", true);
 			};
 		};
+		
+	});
 		
 		$(function() {
 			$("#fileArea").hide();

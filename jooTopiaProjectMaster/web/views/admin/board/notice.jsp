@@ -85,9 +85,9 @@
 		   			<%for(Board board:list){ %>
 		   			<tr>
 		   				<td><input type="checkbox"></td>
-		   				<td><%=board.getbId() %></td>
+		   				<td><%=board.getbNo() %></td>
 		   				<td><%=board.getbTitle() %></td>
-		   				<td><%=board.getEnrollDate() %></td>
+		   				<td><%=board.getBDate() %></td>
 		   				<td><%=board.getModifyDate() %></td>
 		   				<td><%=board.getbCount() %></td>
 		   				<td><%if(board.getbType()==1){%>

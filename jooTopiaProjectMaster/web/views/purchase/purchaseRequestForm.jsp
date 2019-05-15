@@ -7,7 +7,6 @@
 <link rel="shortcut icon" href="/jootopia/images/favicon.ico">
 
 <link rel="stylesheet" href="/jootopia/css/external/bootstrap.min.css">
-<script src="/jootopia/js/external/bootstrap.min.js"></script>
 
 <link rel="stylesheet" href="/jootopia/css/user/common.css">
 <link rel="stylesheet" href="/jootopia/css/user/purchase.css">
@@ -20,7 +19,7 @@
 			<h2 align="center" class="title">매입 신청서</h2>
 			<br><br>
 			<div id="tableArea">
-				<table align="center">
+				<table>
 					<tr>
 						<td><label>신청자 명</label></td>
 						<td><input type="text" class="form-control" name="name" value="홍길동" class=""></td>
@@ -28,7 +27,10 @@
 					<tr>
 						<td><label>주소</label></td>
 						<!--  주소 불러오는자리에 주소 불러오고 border 없애기  -->
-						<td><input type="text" class="form-control" name="address" value="임시주소지롱 불러올거야" readonly></td>
+						<td>
+							<input type="text" class="form-control" name="address" value="임시주소지롱 불러올거야" readonly>
+							<input type="hidden" name="appDistance" value="15.5">
+						</td>
 					</tr>
 					<tr>
 						<td><label>연락처</label></td>
@@ -49,31 +51,6 @@
 							<select id="cName">
 								<option>-- 중분류 --</option>
 							</select>
-							<script>
-								$("#cGroup").change(function(){
-									var cGroup = $(this).children("option:selected").val();
-									var $cName = $("#cName");
-									$.ajax({
-										url:"<%= request.getContextPath() %>/selectNameList.do",
-										data:{cGroup:cGroup},
-										type:"get",
-										success:function(data){
-											console.log("서버 전송 성공!");
-											var options = ""; 
-											for(var i = 0; i < data.length; i++){
-												if(i == 0){
-													options += "<option value=\"" + data[i] + "\" selected>" + data[i] + "</option>";
-												}else{
-													options += "<option value=\"" + data[i] + "\">" + data[i] + "</option>";
-												}
-											}	
-											$cName.html(options);
-										},error:function(data){
-											console.log("서버 전송 실패!");
-										}
-									});
-								});
-							</script>
 						</td>
 					</tr>
 					<tr>
@@ -98,7 +75,7 @@
 					</tr>
 					<tr>
 						<td><label>구매 가격</label></td>
-						<td><input text="number" class="form-control" name="primePrice" value="10000">원</td>
+						<td><input type="number" class="form-control" name="primePrice" value="10000">원</td>
 					</tr>
 					<tr>
 						<td><label>희망 가격</label></td>
@@ -107,12 +84,14 @@
 					<tr>
 						<td><label>이미지 첨부</label></td>
 						<td>
-							<input type="file" class="form-control" name="imgFile1" style="width:200px;">
-							<input type="file" class="form-control" name="imgFile2" style="width:200px;">
-							<input type="file" class="form-control" name="imgFile3" style="width:200px;">
-							<button>이미지 추가하기</button>
+							<input type="file" class="form-control" name="imgFile1" style="width:230px;">
+							<input type="file" class="form-control" name="imgFile2" style="width:230px;">
+							<input type="file" class="form-control" name="imgFile3" style="width:230px;">
+							<button id="addImg">이미지 추가</button> &nbsp;&nbsp;
+							<button id="removeImg">이미지 삭제</button>
 						</td>
 					</tr>
+					
 					<tr>
 						<td><label>상품 특이사항</label></td>
 						<td>
@@ -134,8 +113,54 @@
 				<button onclick="return purchaseCancle();" class="jBtn">취소하기</button>
 			</div>
 		</form>
+		<script>
+			$("#addImg").click(function(){
+				var count = $(this).siblings("input");
+				
+				if(count.length < 6){
+					$(this).before("<input type=\"file\" class=\"form-control\" name=\"imgFile" + (count.length + 1) + "\" style=\"width:230px;\">");
+				}else{
+					alert("사진은 최대 6장까지 올릴 수 있습니다.");
+				}
+				return false;
+			})
+			$("#removeImg").click(function(){
+				var count = $(this).siblings("input");
+				console
+				
+				if(count.length > 3){
+					$(this).siblings("input").eq(count.length - 1).remove();
+				}else{
+					alert("사진은 최소 3장 게시하여야 합니다.");
+				}
+				return false;
+			});
+		</script>
 	</section>
 	<script>
+		$("#cGroup").change(function(){
+			var cGroup = $(this).children("option:selected").val();
+			var $cName = $("#cName");
+			$.ajax({
+				url:"<%= request.getContextPath() %>/selectNameList.do",
+				data:{cGroup:cGroup},
+				type:"get",
+				success:function(data){
+					console.log("서버 전송 성공!");
+					var options = "<option selected>-- 중분류 --</option>"; 
+					for(var i = 0; i < data.length; i++){
+						if(i == 0){
+							options += "<option value=\"" + data[i] + "\">" + data[i] + "</option>";
+						}else{
+							options += "<option value=\"" + data[i] + "\">" + data[i] + "</option>";
+						}
+					}	
+					$cName.html(options);
+				},error:function(data){
+					console.log("서버 전송 실패!");
+				}
+			});
+		});
 		function purchaseApply(){
 			$("#purchaseRequest").submit();
 			return false;
@@ -146,5 +171,6 @@
 		}
 	</script>
 <%@ include file="/views/common/footer.jsp" %>
+
 </body>
 </html>

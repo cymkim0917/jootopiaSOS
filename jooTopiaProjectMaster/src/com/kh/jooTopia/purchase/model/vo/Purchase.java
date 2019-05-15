@@ -14,13 +14,13 @@ public class Purchase implements java.io.Serializable{
 	private String memo;
 	private String status;
 	private int userYear;
-	private int cid;
+	private String cName;
 	
 	public Purchase() {}
 
 	public Purchase(int pcid, String applicant, String appAddress, int appDistance, String appPhone, String brand,
 			String model, String usePeriod, int primeCost, int hopeCost, String memo, String status, int userYear,
-			int cid) {
+			String cName) {
 		super();
 		this.pcid = pcid;
 		this.applicant = applicant;
@@ -35,7 +35,7 @@ public class Purchase implements java.io.Serializable{
 		this.memo = memo;
 		this.status = status;
 		this.userYear = userYear;
-		this.cid = cid;
+		this.cName = cName;
 	}
 
 	public int getPcid() {
@@ -142,12 +142,12 @@ public class Purchase implements java.io.Serializable{
 		this.userYear = userYear;
 	}
 
-	public int getCid() {
-		return cid;
+	public String getcName() {
+		return cName;
 	}
 
-	public void setCid(int cid) {
-		this.cid = cid;
+	public void setcName(String cName) {
+		this.cName = cName;
 	}
 
 	@Override
@@ -155,6 +155,7 @@ public class Purchase implements java.io.Serializable{
 		return "Purchase [pcid=" + pcid + ", applicant=" + applicant + ", appAddress=" + appAddress + ", appDistance="
 				+ appDistance + ", appPhone=" + appPhone + ", brand=" + brand + ", model=" + model + ", usePeriod="
 				+ usePeriod + ", primeCost=" + primeCost + ", hopeCost=" + hopeCost + ", memo=" + memo + ", status="
-				+ status + ", userYear=" + userYear + ", cid=" + cid + "]";
+				+ status + ", userYear=" + userYear + ", cName=" + cName + "]";
 	}
+
 }
