@@ -1,4 +1,4 @@
-package com.kh.jooTopia.release.controller;
+package com.kh.jooTopia.stock.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,36 +10,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.jooTopia.release.model.service.ReleaseAdminService;
 
-import com.kh.jooTopia.release.model.vo.ReleaseAdminList;
- 
+import com.kh.jooTopia.stock.model.service.StockAdminService;
+import com.kh.jooTopia.stock.model.vo.StockAdmin;
+
 /**
- * Servlet implementation class SelectAdminReleaseListServlet
+ * Servlet implementation class SelectAdminStockServlet
  */
-@WebServlet("/selectAdminReleaseList.do")
-public class SelectAdminReleaseListServlet extends HttpServlet {
+@WebServlet("/selectAdminStock.do")
+public class SelectAdminStockServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectAdminReleaseListServlet() {
+    public SelectAdminStockServlet() {
         super();
         // TODO Auto-generated constructor stub
-    }
-
-	/**
+    }  	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<ReleaseAdminList> rlist = new ReleaseAdminService().selectAdminrList();
-		System.out.println(rlist);
+		ArrayList<StockAdmin> list = new StockAdminService().selectAdminList();
+		System.out.println(list);
 		String page = "";
-		if(rlist != null) {
-			page = "views/admin/storage/releaseList.jsp";
-			request.setAttribute("rlist", rlist);
+		if(list != null) {
+			page = "views/admin/storage/stockList.jsp";
+			request.setAttribute("list", list);
 			
 		}else {
 			page = "views/common/errorPage500.jsp";

@@ -22,7 +22,7 @@
       <%@ include file="/views/common/adminSideMenu.jsp" %>
       <div id="adminSection" class="col-sm-10">
  
- 
+  
  
  	<h1><marquee behavior=alternate scrollAmount=30><b>어서와 창고 관리자 페이지야~</b></marquee></h1>
  	

@@ -10,7 +10,7 @@
 <title>JooTopia</title>
 <link rel="stylesheet" type="text/css" href="/jootopia/css/admin/adminCommon.css">
 </head>
-<body>
+<body> 
 	<nav class="sideNav col-sm-2" align="center">
 		<div class="sideMenuImg" id="sideMenuImg">
 			<img src="/jootopia/images/sideMenuImg.png" width="100%">
@@ -69,10 +69,10 @@
 		
 
 		<div class="sideMenu" id="sideMenu1"><div class="sideMenuBtn" id="" onclick="location.href='<%=request.getContextPath()%>/selectAdminBuy.do'">상품등록</div></div>
-		<div class="sideMenu" id="sideMenu2"><div class="sideMenuBtn" id="" onclick="location.href='heapWait.jsp'">적치등록</div></div>
+		<div class="sideMenu" id="sideMenu2"><div class="sideMenuBtn" id="" onclick="location.href='<%=request.getContextPath()%>/selectAdminHeap.do'">적치등록</div></div>
 		<div class="sideMenu" id="sideMenu3"><div class="sideMenuBtn" id="" onclick="location.href='<%=request.getContextPath()%>/selectAdminRelease.do'">출고등록</div></div>
-		<div class="sideMenu" id="sideMenu4"><div class="sideMenuBtn" id="" onclick="location.href='releaseList.jsp'">출고리스트</div></div>
-		<div class="sideMenu" id="sideMenu5"><div class="sideMenuBtn" id="" onclick="location.href='stockList.jsp'">재고리스트</div></div>
+		<div class="sideMenu" id="sideMenu4"><div class="sideMenuBtn" id="" onclick="location.href='<%=request.getContextPath()%>/selectAdminReleaseList.do'">출고리스트</div></div>
+		<div class="sideMenu" id="sideMenu5"><div class="sideMenuBtn" id="" onclick="location.href='<%=request.getContextPath()%>/selectAdminStock.do'">재고리스트</div></div>
 		
 		<% } %>
 	</nav>

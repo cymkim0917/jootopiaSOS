@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.jooTopia.stock.model.vo.*, java.util.*"%>
+    
+    <% ArrayList<StockAdmin> list = (ArrayList<StockAdmin>) request.getAttribute("list"); %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +16,7 @@
 <style>
 .table th {
 	text-align: left;
-}
+} 
 </style>
 </head>
 <body>
@@ -32,8 +35,8 @@
 					<td>검색 분류</td>
 					<td colspan="2">
 						&nbsp;<select id="searchCondition" >
-							<option value="hCode">적치코드
-							<option value="pCode">상품코드
+							<option value="hCode">적치번호
+							<option value="pCode">상품번호
 							<option value="lNo">위치번호							
 						</select>
 						<input type="search" placeholder="검색 단어를 입력하세요." width="20px">
@@ -56,13 +59,7 @@
 				</tr>
 				<tr>
 					<td>적치일자</td>
-					<td id="selectDate" colspan="2">
-						&nbsp;<a href="#" class="btnDate" period="0"><span>오늘</span></a>
-						<a href="#" class="btnDate" period="7"><span>7일</span></a>
-						<a href="#" class="btnDate" period="30"><span>1개월</span></a>
-						<a href="#" class="btnDate" period="90"><span>3개월</span></a>
-						<a href="#" class="btnDate" period="365"><span>1년</span></a>
-						<a href="#" class="btnDate" period="-1"><span>전체</span></a> &nbsp;&nbsp;
+					<td id="selectDate" colspan="2">						
 						<input type="date" id="startDate" name="startDate" class="date" <%-- value="<%= startDay %>" --%>> ~ 
 						<input type="date" id="endDate" name="endDate" class="date" <%-- value="<%= endDay %>" --%>>
 					</td>
@@ -87,40 +84,24 @@
 						<th>No.</th>
 						<th>대분류</th>
 						<th>중분류</th>
-						<th>상품코드</th>
-						<th>적치코드</th>
+						<th>상품번호</th>
+						<th>적치번호</th>
 						<th>위치번호</th>
 						<th>적치일자</th>
 					</tr>
 				</thead>
+				<% for(StockAdmin s : list){ %>
 				<tbody>
 					<tr>
-						<td>1</td>
-						<td>침실</td>
-						<td>침대</td>
-						<td>A123</td>
-						<td>ZZ1</td>
-						<td>MO-1</td>
-						<td>19/01/01</td>
+						<td><%= s.getsId() %></td>
+						<td><%= s.getCate1() %></td>
+						<td><%= s.getCate2() %></td>
+						<td><%= s.getpNo() %></td>
+						<td><%= s.gethNo() %></td>
+						<td><%= s.getlNo() %></td>
+						<td><%= s.gethDate() %></td>
 					</tr>
-					<tr>
-						<td>2</td>
-						<td>침실</td>
-						<td>침대</td>
-						<td>A123</td>
-						<td>ZZ1</td>
-						<td>MO-1</td>
-						<td>19/01/01</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>침실</td>
-						<td>침대</td>
-						<td>A123</td>
-						<td>ZZ1</td>
-						<td>MO-1</td>
-						<td>19/01/01</td>
-					</tr>
+					<% } %>
 				</tbody>
 			</table>		
 
