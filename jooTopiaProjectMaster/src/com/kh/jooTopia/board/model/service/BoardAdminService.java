@@ -21,6 +21,7 @@ public class BoardAdminService {
 		
 		if(result1>0) {
 			int bId = new BoardAdminDao().selectNoticeCurrval(con);
+			System.out.println(bId);
 			
 			for(int i =0; i<fileList.size(); i++) {
 				fileList.get(i).setbId(bId);
@@ -38,7 +39,9 @@ public class BoardAdminService {
 		}
 		
 		close(con);
-		
+		System.out.println("boardservice result1 : "+ result1);
+		System.out.println("boardservice result2 : "+ result2);
+		System.out.println("boardservice result : "+ result);
 		return result;
 	}
 

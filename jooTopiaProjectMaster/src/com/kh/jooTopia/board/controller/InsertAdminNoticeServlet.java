@@ -62,6 +62,7 @@ public class InsertAdminNoticeServlet extends HttpServlet {
 			ArrayList<String> originFiles = new ArrayList<String>();
 			
 			Enumeration<String> files = multiReq.getFileNames();
+			System.out.println("multiReq파일 이름"+multiReq.getFileNames());
 			
 			while(files.hasMoreElements()) {
 				String name = files.nextElement();
@@ -75,8 +76,7 @@ public class InsertAdminNoticeServlet extends HttpServlet {
 			String multiTitle = multiReq.getParameter("title");
 			String multiContent = multiReq.getParameter("content");
 			
-			System.out.println(multiTitle);
-			System.out.println(multiContent);
+			
 			
 			Board board = new Board();
 			board.setbTitle(multiTitle);
@@ -88,7 +88,7 @@ public class InsertAdminNoticeServlet extends HttpServlet {
 				 attach.setFilePath(filePath);
 				 attach.setOriginName(originFiles.get(i));
 				 attach.setChangeName(saveFiles.get(i));
-				 
+				 System.out.println("이름확인 : " +attach.getOriginName());
 				 fileList.add(attach);
 			 }	
 			

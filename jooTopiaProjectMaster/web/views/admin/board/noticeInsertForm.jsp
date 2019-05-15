@@ -39,9 +39,9 @@
       	 			<tr>
       	 				<td><h3>파일첨부</h3></td>
       	 				<td>
-      	 					<input id="file1" type="file">
-      	 					<input id="file1" type="file">
-      	 					<input id="file3" type="file">
+      	 					<input id="file1" type="file" name="file1">
+      	 					<input id="file1" type="file" name="file2">
+      	 					<input id="file3" type="file" name="file3">
       	 				</td>
       	 			</tr>
       	 			<tr>

@@ -80,7 +80,7 @@ public class BoardAdminDao {
 				board.setbTitle(rset.getString("BTITLE"));
 				board.setbType(rset.getInt("BTYPE"));
 				board.setbCount(rset.getInt("BCOUNT"));
-				board.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				board.setBDate(rset.getDate("BDATE"));
 				board.setModifyDate(rset.getDate("MODIFY_DATE"));
 				
 				list.add(board);
@@ -95,7 +95,7 @@ public class BoardAdminDao {
 			close(pstmt);
 		}
 		
-		System.out.println("Dao 페이징" + list);
+		
 		return list;
 	}
 
