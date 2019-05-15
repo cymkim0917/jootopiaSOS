@@ -3,7 +3,6 @@ package com.kh.jooTopia.stock.model.vo;
 import java.sql.Date;
  
 public class StockAdmin {
-	
 	private int sId;
 	private String cate1;
 	private String cate2;
