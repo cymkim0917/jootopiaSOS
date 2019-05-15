@@ -31,10 +31,10 @@
 			<div class="sideMenuBtn" id="boardSide1" onclick="location.href='/jootopia/adminBoardList.do'">공지사항</div>
 		</div>
 		<div class="sideMenu" id="sideMenu2">
-			<div class="sideMenuBtn" id="boardSide1" onclick="location.href='review.jsp'">후기게시판</div>
+			<div class="sideMenuBtn" id="boardSide1" onclick="location.href='/jootopia/views/admin/board/review.jsp'">후기게시판</div>
 		</div>
 		<div class="sideMenu" id="sideMenu3">
-			<div class="sideMenuBtn" id="boardSide1" onclick="location.href='qna.jsp'">1:1질문게시판</div>
+			<div class="sideMenuBtn" id="boardSide1" onclick="location.href='/jootopia/views/admin/board/qna.jsp'">1:1질문게시판</div>
 		</div>
 		
 		<% }else if(root.equals("product")) { %>
