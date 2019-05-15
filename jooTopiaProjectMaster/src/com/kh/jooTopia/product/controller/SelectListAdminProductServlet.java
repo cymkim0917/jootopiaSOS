@@ -31,28 +31,28 @@ public class SelectListAdminProductServlet extends HttpServlet {
 		int maxPage; 	//전체 페이지에서 가장 마지막 페이지
 		int startPage;	//한번에 표지될 페이지가 시작할 페이지
 		int endPage;	//한번에 표시될 페이지가 끝나는 페이지
-				
+						
 		//페이지 수 처리용 변수
 		currentPage = 1;
-				
+						
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-				
-				
+						
 		limit = 10;
-				
-		int listCount = new BoardAdminService().getNoticeListCount();
-				
-		maxPage = (int)((double)listCount / limit+0.9);
-				
-		startPage = (((int)((double)currentPage/limit+0.9))-1);
-				
-		endPage = startPage +10 -1;
-		if(maxPage<endPage) {
-			endPage=maxPage;
+		
+		String query = "SELECT COUNT(*) FROM PRODUCT WHERE STATUS = '판매미등록' OR STATUS = '판매중'";
+		int listCount = new ProductAdminService().getProductListCount(query);
+		
+		maxPage = (int)((double)listCount / limit + 0.9);
+						
+		startPage = (((int) ((double) currentPage / limit + 0.9)) - 1) * 10 + 1;
+						
+		endPage = startPage + 10 - 1;
+		if(maxPage < endPage) {
+			endPage = maxPage;
 		}
-				
+		
 		PageInfo pageInfo = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
 		
 		ArrayList<HashMap<String,Object>> list = new ProductAdminService().selectList(pageInfo);

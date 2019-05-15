@@ -233,7 +233,7 @@ public class ProductAdminDao {
 		return list;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectDeleteList(Connection con) {
+	public ArrayList<HashMap<String, Object>> selectDeleteList(Connection con, PageInfo pageInfo) {
 		//삭제상품 리스트 출력
 		PreparedStatement pstmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
@@ -242,11 +242,16 @@ public class ProductAdminDao {
 				
 		String query = prop.getProperty("selectDeleteList");
 		
+		int startRow = (pageInfo.getCurrentPage()-1)*pageInfo.getLimit()+1;
+		int endRow = startRow + pageInfo.getLimit()-1;
+		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, "삭제상품");
 			pstmt.setString(2, "판매완료");
 			pstmt.setString(3, "환불완료");
+			pstmt.setInt(4, startRow);
+			pstmt.setInt(5, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -381,5 +386,50 @@ public class ProductAdminDao {
 		System.out.println("list 사이즈 : " + list.size());
 		
 		return list;
+	}
+
+	public int getProductListCount(Connection con, String query) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return listCount;
+	}
+
+	public int changeStatusProduct(Connection con, String status, int[] pId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("changeStatusProduct");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			for(int i = 0; i < pId.length; i++) {
+				pstmt.setString(1, status);
+				pstmt.setInt(2, pId[i]);
+				
+				result += pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 }

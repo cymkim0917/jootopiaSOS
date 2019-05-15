@@ -41,18 +41,19 @@ public class SelectAddListAdminProductServlet extends HttpServlet {
 						
 						
 		limit = 10;
+		
+		String query = "SELECT COUNT(*) FROM PRODUCT WHERE STATUS = '미등록상품'";
+		int listCount = new ProductAdminService().getProductListCount(query);
+		
+		maxPage = (int)((double)listCount / limit + 0.9);
 						
-		int listCount = new BoardAdminService().getNoticeListCount();
+		startPage = (((int) ((double) currentPage / limit + 0.9)) - 1) * 10 + 1;
 						
-		maxPage = (int)((double)listCount / limit+0.9);
-						
-		startPage = (((int)((double)currentPage/limit+0.9))-1);
-						
-		endPage = startPage +10 -1;
-		if(maxPage<endPage) {
-			endPage=maxPage;
+		endPage = startPage + 10 - 1;
+		if(maxPage < endPage) {
+			endPage = maxPage;
 		}
-						
+		
 		PageInfo pageInfo = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
 		
 		ArrayList<HashMap<String,Object>> list = new ProductAdminService().selectAddList(pageInfo);
@@ -61,6 +62,7 @@ public class SelectAddListAdminProductServlet extends HttpServlet {
 		if(list != null) {
 			view = "views/admin/product/productInsertList.jsp";
 			request.setAttribute("list", list);
+			request.setAttribute("pageInfo", pageInfo);
 		}else {
 			view = "views/common/errorPage500.jsp";
 			request.setAttribute("msg", "상품등록 리스트 조회 실패");
