@@ -56,7 +56,7 @@ public class PurchaseService {
 		if(result > 5) {
 			commit(con);
 		}else {
-			rollback(con);
+			rollback(con); 
 		}
 		close(con);
  */
