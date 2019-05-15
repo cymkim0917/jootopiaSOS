@@ -6,6 +6,7 @@ import static com.kh.jooTopia.common.JDBCTemplate.*;
 import com.kh.jooTopia.board.model.dao.BoardDao;
 import com.kh.jooTopia.board.model.vo.Attachment;
 import com.kh.jooTopia.board.model.vo.Board;
+import com.kh.jooTopia.board.model.vo.Notice;
 
 
 public class BoardService {

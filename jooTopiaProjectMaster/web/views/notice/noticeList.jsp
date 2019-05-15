@@ -35,7 +35,6 @@
 		border:1px solid black;
 		text-align:center;
 	}
-
 </style>
 
 <title>JooTopia</title>
@@ -47,38 +46,40 @@
 		    <br>
 		      <h1 align="center">공지사항/이벤트</h1>
 		      <br>
-		      <div class="tableArea">
+		       <div class="container">
 		      <form>
-		        <table align="center" id="listArea">
+		        <table class="table table-hover">
 		         
 		            <tr>
 		              <th>글번호</th>
-		              <th width="100px">유형</th>
-		              <th width="300px">제목</th>
-		              <th width="100px">작성자</th>
-		              <th width="100px">작성일</th>
+		              <th>유형</th>
+		              <th>제목</th>
+		              <th>작성자</th>
+		              <th>작성일</th>
 		              <th>조회수</th>
 		            </tr>
-		            
-		        <% for(Notice n:list){ %>
-		            <tr>
-		              <td><%=n.getbNo() %></td>
-		              <td><%=n.getbTitle() %></td>
-		              <td><%=n.getbId() %></td>
-		              <td><%=n.getModifyDate() %></td>
-		              <td><%=n.getbCount() %></td>
-		              <td><%if(n.getbType()==1){ %>
-		              	공지사항
-		              	<%}else{ %>
-		              	이벤트
-		              	<%} %>
-		              </td>
-		            </tr>
+		             
+		      		<% for(Notice n : list){ %>
+			            <tr>
+			              <td><%=n.getbNo() %></td>
+			              <td><%=n.getbTitle() %></td>
+			              <td><%=n.getbId() %></td>
+			              <td><%=n.getModifyDate() %></td>
+			              <td><%=n.getbCount() %></td>
+			              <td><%if(n.getbType()==1){ %>
+			              	공지사항
+			              	<%}else{ %>
+			              	이벤트
+			              	<%} %>
+			              </td>
+			            </tr>
 		            <%} %>   
 		         
 		        </table>
 		        </form>
-		      </div> 
+		      </div>  
+		<br>
+		
 		<br>
 		
 		<div class="checkboxgroup">
@@ -91,48 +92,36 @@
 		
 			 <script>
 			
-				$(function(){
+				<%-- $(function(){
 					$(".table table-hover tr")
 				}).click(function(){
 					var num = $(this).parent().children().eq(0).text();
 					console.log(num);
 					location.href="<%=request.getContextPath()%>/selectOne.do?num="+num;
+				}); --%>
+				
+		
+				
+			<%-- 	$(function(){
+					$(function(".listArea td"){
+					
+						var num = $(this).parent().children().eq(0).text();
+						console.log(num);
+																			//쿼리스트링으로 변수를 함께 전달
+						location.href="<%=request.getContextPath()%>/selectOne.do?num="+num;
+					});
 				});
+				 --%>
+				
+				
+				
+				
 				
 			</script> 
 		
 		
 		
-	<%-- 	
-		<div class="paging" align="center">
-		<ul class="pagination">
-			<li><a href="<%=request.getContextPath()%>/selectList.do?currentPage=<%=currentPage-1%>">이전</a></li>
-			<li><a href="<%=request.getContextPath()%>/selectList.do?currentPage=1">1</a></li>
-			<li><a href="<%=request.getContextPath()%>/selectList.do?currentPage=2">2</a></li>
-			<li><a href="<%=request.getContextPath()%>/selectList.do?currentPage=3">3</a></li>
-			<li><a href="<%=request.getContextPath()%>/selectList.do?currentPage=4">4</a></li>
-			<li><a href="<%=request.getContextPath()%>/selectList.do?currentPage=5">5</a></li>
-			<li><a href="<%=request.getContextPath()%>/selectList.do?currentPage=<%=currentPage+1%>">다음</a></li>
-		</ul>
-		</div>
-		 --%>
-		
-		
-		
-		<!-- &nbsp;<a href=""><button type="submit">검색</button></a> -->
 	
-		
-		<!-- <div class ="paging button" align="center">
-			<button type="submit"><<</button>&nbsp;
-			<button type="submit"><</button>&nbsp;
-			<button type="submit">1</button>&nbsp;
-			<button type="submit">2</button>&nbsp;
-			<button type="submit">3</button>&nbsp;
-			<button type="submit">4</button>&nbsp;
-			<button type="submit">5</button>&nbsp;
-			<button type="submit">></button>&nbsp;
-			<button type="submit">>></button>
-		</div> -->
 		
 	</section>
 	
