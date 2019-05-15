@@ -21,7 +21,7 @@
 	height: 30px;
 	padding: 5px;
 }
-
+ 
 .separate td {
 	padding: 5px;
 	background-color: #fafafa;

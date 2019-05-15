@@ -16,7 +16,7 @@
 	border: 1px solid #ccc;
 	width: 80%;	
 }
-
+ 
 .separate tr {
 	height: 30px;
 	padding: 5px;

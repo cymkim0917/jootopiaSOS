@@ -10,7 +10,7 @@
 <title>JooTopia</title>
 <link rel="stylesheet" type="text/css" href="/jootopia/css/admin/adminCommon.css">
 </head>
-<body>
+<body> 
 	<nav class="sideNav col-sm-2" align="center">
 		<div class="sideMenuImg" id="sideMenuImg">
 			<img src="/jootopia/images/sideMenuImg.png" width="100%">

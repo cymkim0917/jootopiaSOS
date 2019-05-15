@@ -1,7 +1,7 @@
 package com.kh.jooTopia.buy.model.vo;
 
 public class BuyWaitAdmin {
-	
+	 
 	private int bId;
 	private int nNo;
 	private String bCate1;

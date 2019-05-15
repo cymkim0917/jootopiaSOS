@@ -1,7 +1,7 @@
 package com.kh.jooTopia.release.model.vo;
 
 import java.sql.Date;
-
+ 
 public class ReleaseAdminList {
 	
 	private int rId;

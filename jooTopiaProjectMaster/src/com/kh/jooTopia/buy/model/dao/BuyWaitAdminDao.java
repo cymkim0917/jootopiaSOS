@@ -11,7 +11,7 @@ import java.util.Properties;
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
 import com.kh.jooTopia.buy.model.vo.BuyWaitAdmin;
-
+ 
 public class BuyWaitAdminDao {
 	
 	private Properties prop = new Properties();

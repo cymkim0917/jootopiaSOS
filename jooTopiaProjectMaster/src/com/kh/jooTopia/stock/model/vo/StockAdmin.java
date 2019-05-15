@@ -1,7 +1,7 @@
 package com.kh.jooTopia.stock.model.vo;
 
 import java.sql.Date;
-
+ 
 public class StockAdmin {
 	
 	private int sId;

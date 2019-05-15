@@ -14,7 +14,7 @@ import java.util.Properties;
 
 
 import com.kh.jooTopia.stock.model.vo.StockAdmin;
-
+ 
 public class StockAdminDao {
 	
 	private Properties prop = new Properties();

@@ -5,7 +5,7 @@ public class HeapAdmin {
 	private int hId;
 	private int pcNo;
 	private int pNo;
-	
+	 
 	public HeapAdmin() {}
 
 	public HeapAdmin(int hId, int pcNo, int pNo) {

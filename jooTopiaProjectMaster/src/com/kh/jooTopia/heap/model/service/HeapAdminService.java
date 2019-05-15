@@ -9,7 +9,7 @@ import com.kh.jooTopia.heap.model.vo.HeapAdmin;
 
 import static com.kh.jooTopia.common.JDBCTemplate.close;
 import static com.kh.jooTopia.common.JDBCTemplate.getConnection;
-
+ 
 public class HeapAdminService {
 
 	public ArrayList<HeapAdmin> selectAdminList() {

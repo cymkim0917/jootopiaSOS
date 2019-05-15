@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8" import="com.kh.jooTopia.heap.model.vo.*, java.util.*"%>
 	
 	<% ArrayList<HeapAdmin> list = (ArrayList<HeapAdmin>) request.getAttribute("list"); %>
-	
+	 
 <!DOCTYPE html>
 <html>
 <head>

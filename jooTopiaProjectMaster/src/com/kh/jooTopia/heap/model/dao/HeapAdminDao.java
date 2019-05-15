@@ -12,7 +12,7 @@ import java.util.Properties;
 import static com.kh.jooTopia.common.JDBCTemplate.close;
 
 import com.kh.jooTopia.heap.model.vo.HeapAdmin;
-
+ 
 
 public class HeapAdminDao {
 	

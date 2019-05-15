@@ -16,7 +16,7 @@ import com.kh.jooTopia.release.model.vo.ReleaseAdmin;
 import com.kh.jooTopia.release.model.vo.ReleaseAdminList;
 
 public class ReleaseAdminDao {
-	
+	 
 	private Properties prop = new Properties();
 	
 	public ReleaseAdminDao() {
