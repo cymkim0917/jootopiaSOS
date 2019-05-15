@@ -25,6 +25,7 @@ public class BoardService {
 	public Notice selectOne(int num) {
 		Connection con = getConnection();
 		Notice n = new BoardDao().selectOne(con,num);
+		System.out.println("n in service :" + n);
 		System.out.println("num :" + num);
 		System.out.println("getbId :" + n.getbId());
 		
