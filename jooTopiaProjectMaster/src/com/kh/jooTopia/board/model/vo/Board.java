@@ -1,3 +1,4 @@
+
 package com.kh.jooTopia.board.model.vo;
 
 import java.io.Serializable;
@@ -248,3 +249,4 @@ public class Board implements java.io.Serializable {
 	
 	
 }
+
