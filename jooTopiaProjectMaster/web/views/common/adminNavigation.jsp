@@ -26,7 +26,7 @@
 		<span class="col-lg-1" onclick="location.href='/jootopia/views/admin/purchase/purchaseList.jsp'">
 			매입관리
 		</span>
-		<span class="col-lg-1" onclick="location.href='/jootopia/views/admin/product/productList.jsp'">
+		<span class="col-lg-1" onclick="location.href='/jootopia/adminProductList.do'">
 			상품관리
 		</span>
 		<span class="col-lg-1" onclick="location.href='/jootopia/views/admin/order/orderMain.jsp'">

@@ -47,7 +47,7 @@ public class ProductAdminDao {
 			pstmt.setInt(2, p.getpPrice());
 			pstmt.setString(3, p.getpContent());
 			pstmt.setInt(4, p.getcId());
-			pstmt.setString(5, "판매안함");
+			pstmt.setString(5, "판매미등록");
 			pstmt.setInt(6, p.getpId());
 			
 			result = pstmt.executeUpdate();
@@ -112,8 +112,8 @@ public class ProductAdminDao {
 				hmap = new HashMap<String,Object>();
 				
 				hmap.put("status", rset.getString("STATUS"));
-				hmap.put("big", rset.getString("CGROUP"));
-				hmap.put("small", rset.getString("CATEGORY_NAME"));
+				hmap.put("cGroup", rset.getString("CGROUP"));
+				hmap.put("cName", rset.getString("NAME"));
 				hmap.put("pId", rset.getInt("PID"));
 				hmap.put("fId", rset.getInt("FID"));
 				hmap.put("originName", rset.getString("ORIGIN_NAME"));
@@ -153,14 +153,18 @@ public class ProductAdminDao {
 			hmap = new HashMap<String, Object>();
 			
 			if(rset.next()) {
-				hmap.put("big", rset.getString("CGROUP"));
-				hmap.put("small", rset.getString("CATEGORY_NAME"));
+				hmap.put("cGroup", rset.getString("CGROUP"));
+				hmap.put("cName", rset.getString("NAME"));
 				hmap.put("pName", rset.getString("PNAME"));
 				hmap.put("pId", rset.getInt("PID"));
 				hmap.put("pcPrice", rset.getInt("PCPRICE"));
 				hmap.put("pGrade", rset.getString("PGRADE"));
 				hmap.put("pPrice", rset.getInt("PPRICE"));
 				hmap.put("pContent", rset.getString("PCONTENT"));
+				hmap.put("fId", rset.getInt("FID"));
+				hmap.put("originName", rset.getString("ORIGIN_NAME"));
+				hmap.put("changeName", rset.getString("CHANGE_NAME"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
 			}
 			
 		} catch (SQLException e) {
@@ -173,4 +177,116 @@ public class ProductAdminDao {
 		return hmap;
 	}
 
+	public ArrayList<HashMap<String, Object>> selectList(Connection con) {
+		//상품등록 리스트 출력
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String,Object> hmap = null;
+		ResultSet rset = null;
+				
+		String query = prop.getProperty("selectList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "판매미등록");
+			pstmt.setString(2, "판매중");
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+				
+				hmap.put("status", rset.getString("STATUS"));
+				hmap.put("cGroup", rset.getString("CGROUP"));
+				hmap.put("cName", rset.getString("NAME"));
+				hmap.put("pId", rset.getInt("PID"));
+				hmap.put("fId", rset.getInt("FID"));
+				hmap.put("originName", rset.getString("ORIGIN_NAME"));
+				hmap.put("changeName", rset.getString("CHANGE_NAME"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				hmap.put("pName", rset.getString("PNAME"));
+				hmap.put("pPrice", rset.getInt("PPRICE"));
+				hmap.put("sale", rset.getInt("GRADESALES"));
+				
+				list.add(hmap);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectDeleteList(Connection con) {
+		//삭제상품 리스트 출력
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String,Object> hmap = null;
+		ResultSet rset = null;
+				
+		String query = prop.getProperty("selectDeleteList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "삭제상품");
+			pstmt.setString(2, "판매완료");
+			pstmt.setString(3, "환불완료");
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+				
+				hmap.put("status", rset.getString("STATUS"));
+				hmap.put("cGroup", rset.getString("CGROUP"));
+				hmap.put("cName", rset.getString("NAME"));
+				hmap.put("pId", rset.getInt("PID"));
+				hmap.put("fId", rset.getInt("FID"));
+				hmap.put("originName", rset.getString("ORIGIN_NAME"));
+				hmap.put("changeName", rset.getString("CHANGE_NAME"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				hmap.put("pName", rset.getString("PNAME"));
+				hmap.put("pPrice", rset.getInt("PPRICE"));
+				hmap.put("sale", rset.getInt("GRADESALES"));
+				
+				list.add(hmap);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public int addUpdateAttachment(Connection con, int fId) {
+		//상품등록(UPDATE) 시 매입단계에 설정된 mainImg 레벨 조정
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("addUpdateAttachment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, fId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }
