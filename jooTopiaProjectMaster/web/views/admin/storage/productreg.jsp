@@ -100,13 +100,13 @@
 						</td>
 					</tr> -->
 					<tr>
-						<td width="120">상세치수</td>
-						<td width="500"><textarea id="text1" cols="120px" rows="5"></textarea></td>
+						<td width="120">치수 및 비고</td>
+						<td width="500"><textarea id="pcontent" cols="120px" rows="5"></textarea></td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td width="120">비고</td>
 						<td width="500"><textarea id="text2" cols="120px" rows="5"></textarea></td>
-					</tr>
+					</tr> -->
 				</table>
 				<br />
 			</div>
