@@ -1,6 +1,6 @@
 package com.kh.jooTopia.heap.model.vo;
 
-public class HeapAdmin {
+public class HeapAdmin implements java.io.Serializable{
 	
 	private int hId;
 	private int pcNo;

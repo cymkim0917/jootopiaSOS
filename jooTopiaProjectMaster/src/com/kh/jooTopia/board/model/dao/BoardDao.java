@@ -59,10 +59,10 @@ public class BoardDao {
 			while(rset.next()) {
 				Notice n = new Notice();
 				n.setbId(rset.getInt("BID"));
-				n.setbTitle(rset.getString("BTITLE"));
 				n.setbType(rset.getInt("BTYPE"));
+				n.setbTitle(rset.getString("BTITLE"));
 				n.setbCount(rset.getInt("BCOUNT"));
-				n.setEnrollDate(rset.getDate("BDATE"));
+				n.setbDate(rset.getDate("BDATE"));
 				n.setModifyDate(rset.getDate("MODIFY_DATE"));
 				
 				list.add(n);
@@ -95,6 +95,7 @@ public class BoardDao {
 		
 		
 		try {
+			
 			pstmt=con.prepareStatement(query);
 			pstmt.setInt(1, num);
 			rset=pstmt.executeQuery();
@@ -109,7 +110,7 @@ public class BoardDao {
 				n.setbTitle(rset.getString("BTITLE"));
 				n.setbContent(rset.getString("BCONTENT"));
 				n.setStatus(rset.getString("STATUS"));
-				n.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				/*n.setEnrollDate(rset.getDate("ENROLL_DATE"));*/
 				n.setModifyDate(rset.getDate("MODIFY_DATE"));
 				n.setbCount(rset.getInt("BCOUNT"));
 				n.setuNo(rset.getInt("UNO"));
@@ -122,7 +123,9 @@ public class BoardDao {
 			close(pstmt);
 			close(rset);
 		}
+		System.out.println("n : " + n);
 		return n;
+		
 	}
 
 	//조회수(카운트)
@@ -224,6 +227,8 @@ public class BoardDao {
 		return result;
 	}
 
+
+
 	public int selectCurrval(Connection con) {
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -236,7 +241,7 @@ public class BoardDao {
 			rset = stmt.executeQuery(query);
 
 			if (rset.next()) {
-				bid = rset.getInt("BID");
+				bid = rset.getInt("CURRVAL");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -372,6 +377,7 @@ public class BoardDao {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 
 }

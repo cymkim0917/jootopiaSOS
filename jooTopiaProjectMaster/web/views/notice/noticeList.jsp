@@ -35,6 +35,9 @@
 		border:1px solid black;
 		text-align:center;
 	}
+	table th{
+	
+	}
 </style>
 
 <title>JooTopia</title>
@@ -50,8 +53,8 @@
 		      <form>
 		        <table class="table table-hover">
 		         
-		            <tr>
-		              <th>글번호</th>
+		            <tr >
+		              <th >글번호</th>
 		              <th>유형</th>
 		              <th>제목</th>
 		              <th>작성자</th>
@@ -61,17 +64,17 @@
 		             
 		      		<% for(Notice n : list){ %>
 			            <tr>
-			              <td><%=n.getbNo() %></td>
-			              <td><%=n.getbTitle() %></td>
 			              <td><%=n.getbId() %></td>
-			              <td><%=n.getModifyDate() %></td>
-			              <td><%=n.getbCount() %></td>
 			              <td><%if(n.getbType()==1){ %>
 			              	공지사항
 			              	<%}else{ %>
 			              	이벤트
 			              	<%} %>
 			              </td>
+			              <td><%=n.getbTitle() %></td>
+			              <td><%=n.getuNo() %></td>
+			              <td><%=n.getModifyDate() %></td>
+			              <td><%=n.getbCount() %></td>
 			            </tr>
 		            <%} %>   
 		         
@@ -91,6 +94,18 @@
 		</div>
 		
 			 <script>
+			 
+			 
+			 $(".table td").click(function() {
+				 
+				 console.log("ddddd");
+				 var num = $(this).parent().children().eq(0).text();
+				 console.log(num);
+				 location.href="<%=request.getContextPath()%>/selectOne.do?num="+num;
+				 
+				/*  $('',this).triger('click'); */
+				 
+			 });
 			
 				<%-- $(function(){
 					$(".table table-hover tr")

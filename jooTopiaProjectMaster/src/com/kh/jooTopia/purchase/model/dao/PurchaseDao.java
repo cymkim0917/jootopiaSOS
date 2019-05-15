@@ -122,7 +122,7 @@ public class PurchaseDao {
 						+ fileList.get(i).getOriginName() + ", "
 						+ fileList.get(i).getChangeName() + ", "
 						+ fileList.get(i).getFilePath());
-				
+				 
 				pstmt = con.prepareStatement(query);
 				
 				pstmt.setInt(1, fileList.get(i).getbId());

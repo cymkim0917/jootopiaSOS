@@ -79,16 +79,18 @@
 							<th>No.</th>
 							<th>매입번호</th>
 							<th>대분류</th>
-							<th>중분류</th>							
+							<th>중분류</th>
+							<th>상태</th>						
 						</tr>
 					</thead>
-					<% for(BuyWaitAdmin b : list){ %>
+					<% int i = 0; for(BuyWaitAdmin b : list){ i++;%>
 					<tbody>
 						<tr>
-							<td><%= b.getbId() %></td>
+							<td><%= i %></td>
 							<td><%= b.getnNo() %></td>
 							<td><%= b.getbCate1() %></td>
-							<td><%= b.getbCate2() %></td>							
+							<td><%= b.getbCate2() %></td>
+							<td><%= b.getStatus() %></td>						
 						</tr>
 						<% } %>						
 					</tbody>
@@ -150,7 +152,8 @@
 				var num = $(this).parent().children().eq(0).text();
 				console.log(num);
 				<%-- location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num; --%>
-				location.href="<%=request.getContextPath()%>/views/admin/storage/productreg.jsp?num=" + num;
+				<%-- location.href="<%=request.getContextPath()%>/views/admin/storage/productreg.jsp?num=" + num; --%>
+				location.href="<%=request.getContextPath()%>/insertAdminProductreg.do?num=" + num;
 			})
 		})
 	</script>
