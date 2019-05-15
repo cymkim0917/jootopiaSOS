@@ -27,7 +27,7 @@ public class PurchaseService {
 		// 2. Purchase테이블에 데이터 삽입
 		int result1 = new PurchaseDao().insertPurchase(con, p, cid);
 		if(result1 < 1) {
-			System.out.println("cid error");
+			System.out.println("insertPurchase error");
 		}
 		
 		// 3. 방금 insert한 Purchase테이블의 pcid조회

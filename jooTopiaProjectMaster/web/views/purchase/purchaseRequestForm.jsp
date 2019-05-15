@@ -15,7 +15,7 @@
 <body>
 <%@ include file="/views/common/navigation.jsp" %>
 	<section class="pcRequestForm">
-		<form method="post" action="<%= request.getContextPath() %>/insertPurchase.do" id="purchaseRequest">
+		<form method="post" action="<%= request.getContextPath() %>/insertPurchase.do" id="purchaseRequest" encType="multipart/form-data">
 			<h2 align="center" class="title">매입 신청서</h2>
 			<br><br>
 			<div id="tableArea">
@@ -29,7 +29,7 @@
 						<!--  주소 불러오는자리에 주소 불러오고 border 없애기  -->
 						<td>
 							<input type="text" class="form-control" name="address" value="임시주소지롱 불러올거야" readonly>
-							<input type="hidden" name="appDistance" value="15.5">
+							<input type="hidden" name="appDistance" value="15">
 						</td>
 					</tr>
 					<tr>
@@ -39,7 +39,7 @@
 					<tr>
 						<td><label>신청품목</label></td>
 						<td>
-							<select id="cGroup">
+							<select id="cGroup" name="cGroup">
 								<option selected>-- 대분류 --</option>	
 								<option value="침실">침실</option>
 								<option value="서재">서재</option>
@@ -48,7 +48,7 @@
 								<option value="기타">기타</option>
 							</select>
 							&nbsp;&nbsp;
-							<select id="cName">
+							<select id="cName" name="cName">
 								<option>-- 중분류 --</option>
 							</select>
 						</td>
@@ -64,12 +64,13 @@
 					<tr>
 						<td><label>사용기간</label></td>
 						<td>
-							<input list="userDays" name="usePeriod" class="form-control" placeholder="해당사항이 없으면 년수로 입력해주세요." value="5">
+							<input list="userDays" name="usePeriod" class="form-control" placeholder="해당사항이 없으면 년수로 입력해주세요." value="3개월 이하">
 							<datalist id="userDays">
-						  		<option value="3개월 미만">
-						  		<option value="3개월 ~ 6개월">
-						  		<option value="6개월 ~ 1년">
-						  		<option value="1년 ~ 3년">
+						  		<option value="3개월 이하">
+						  		<option value="3개월 ~6개월">
+						  		<option value="6개월 ~1년">
+						  		<option value="1년 ~3년">
+						  		<option value="3년 이상">
 							</datalist>
 						</td>
 					</tr>
@@ -149,12 +150,13 @@
 					console.log("서버 전송 성공!");
 					var options = "<option selected>-- 중분류 --</option>"; 
 					for(var i = 0; i < data.length; i++){
+						
 						if(i == 0){
 							options += "<option value=\"" + data[i] + "\">" + data[i] + "</option>";
-						}else{
+						} else{
 							options += "<option value=\"" + data[i] + "\">" + data[i] + "</option>";
 						}
-					}	
+					}	 
 					$cName.html(options);
 				},error:function(data){
 					console.log("서버 전송 실패!");
