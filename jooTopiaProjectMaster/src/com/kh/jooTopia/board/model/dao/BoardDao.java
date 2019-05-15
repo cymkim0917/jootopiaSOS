@@ -260,7 +260,7 @@ public class BoardDao {
 			rset = stmt.executeQuery(query);
 
 			if (rset.next()) {
-				bid = rset.getInt("BID");
+				bid = rset.getInt("CURRVAL");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
