@@ -56,10 +56,10 @@ public class BoardDao {
 			while(rset.next()) {
 				Notice n = new Notice();
 				n.setbId(rset.getInt("BID"));
-				n.setbTitle(rset.getString("BTITLE"));
 				n.setbType(rset.getInt("BTYPE"));
+				n.setbTitle(rset.getString("BTITLE"));
 				n.setbCount(rset.getInt("BCOUNT"));
-				n.setEnrollDate(rset.getDate("BDATE"));
+				n.setbDate(rset.getDate("BDATE"));
 				n.setModifyDate(rset.getDate("MODIFY_DATE"));
 				
 				list.add(n);
@@ -94,6 +94,7 @@ public class BoardDao {
 		
 		
 		try {
+			
 			pstmt=con.prepareStatement(query);
 			pstmt.setInt(1, num);
 			rset=pstmt.executeQuery();
@@ -108,7 +109,7 @@ public class BoardDao {
 				n.setbTitle(rset.getString("BTITLE"));
 				n.setbContent(rset.getString("BCONTENT"));
 				n.setStatus(rset.getString("STATUS"));
-				n.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				/*n.setEnrollDate(rset.getDate("ENROLL_DATE"));*/
 				n.setModifyDate(rset.getDate("MODIFY_DATE"));
 				n.setbCount(rset.getInt("BCOUNT"));
 				n.setuNo(rset.getInt("UNO"));
@@ -121,7 +122,9 @@ public class BoardDao {
 			close(pstmt);
 			close(rset);
 		}
+		System.out.println("n : " + n);
 		return n;
+		
 	}
 
 	
@@ -177,7 +180,7 @@ public class BoardDao {
 		return result;
 	}
 
-	/*public int insertQaAContent(Connection con, Board board) {
+	public int insertQaAContent(Connection con, Board board) {
 		// insertQaAContent = INSERT INTO
 		// BOARD(BID,BNO,BTYPE,BTITLE,BCONTENT,STATUS,ENROLL_DATE,MODIFY_DATE,UNO)
 		// VALUES (SEQ_BID.NEXTVAL,SEQ_BNO3.NEXTVAL,3,?,?,'Y',SYSDATE,SYSDATE,?)
@@ -251,5 +254,5 @@ public class BoardDao {
 
 		return result;
 	}
-*/
+
 }

@@ -31,21 +31,24 @@ public class SelectOneNoticeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int num = Integer.parseInt(request.getParameter("num"));
 		
+		System.out.println("num : " + num);
+		
 		
 		Notice n = new BoardService().selectOne(num);
 		//System.out.println("num: " + num);
-		
+		System.out.println("n in servlet :" + n);
 		String page="";
 		
 		if(n != null) {
+			System.out.println("조회성공");
 			page="views/notice/noticeListPlus.jsp";
-			request.setAttribute("num", num);
+			request.setAttribute("n", n);
 			
 		}else {
+			System.out.println("조회실패");
 			page="views/common/errorPage500.jsp";
 			request.setAttribute("msg", "게시글 상세 보기 실패");
 		}
-		
 		request.getRequestDispatcher(page).forward(request, response);
 	
 	}
