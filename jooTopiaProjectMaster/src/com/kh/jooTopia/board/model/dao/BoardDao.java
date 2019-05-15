@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
@@ -180,7 +181,7 @@ public class BoardDao {
 	public int insertQaAContent(Connection con, Board board) {
 		// insertQaAContent = INSERT INTO
 		// BOARD(BID,BNO,BTYPE,BTITLE,BCONTENT,STATUS,ENROLL_DATE,MODIFY_DATE,UNO)
-		// VALUES (SEQ_BID.NEXTVAL,SEQ_BNO3.NEXTVAL,3,?,?,'Y',SYSDATE,SYSDATE,?)
+		// VALUES (SEQ_BID.NEXTVAL,SEQ_BNO3_PRIVATE.NEXTVAL,3,?,?,'Y',SYSDATE,SYSDATE,?)
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = prop.getProperty("insertQaAContent");
@@ -201,31 +202,6 @@ public class BoardDao {
 		}
 
 		return result;
-	}
-
-	public int selectcurrval(Connection con) {
-		int bid = 0;
-		String sql = prop.getProperty("selectCurrval");
-		Statement stmt = null;
-		ResultSet rs = null;
-
-		try {
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(sql);
-
-			if (rs.next()) {
-				bid = rs.getInt(1);
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(rs);
-			close(stmt);
-		}
-
-		return bid;
 	}
 
 	public int insertQaAPhoto(Connection con, ArrayList<Attachment> fileList) {
@@ -275,5 +251,133 @@ public class BoardDao {
 		}
 		return bid;
 	}
+
+	public ArrayList<Board> selectBoardList(int uno, Connection con) {
+		ArrayList<Board> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Board board = null;
+		String sql = prop.getProperty("selectQaAList");
+		
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, uno);
+			rs = pstmt.executeQuery();
+			
+			list = new ArrayList<Board>();
+			
+			//selectQaAList = SELECT BNO,BTITLE,BDATE,BCOUNT,BTYPE FROM MEMBER,BOARD WHERE MEMBER.UNO = BOARD.UNO AND MEMBER.UNO = ?
+			while(rs.next()) {
+				board = new Board();
+				board.setuNo(uno);
+				board.setbId(rs.getInt("BID"));
+				board.setbNo(rs.getInt("BNO"));
+				board.setbTitle(rs.getString("BTITLE"));
+				board.setBDate(rs.getDate("BDATE"));
+				board.setbCount(rs.getInt("BCOUNT"));
+				board.setbType(rs.getInt("BTYPE"));
+				
+				list.add(board);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		return list;
+	}
+
+	public HashMap<String,Object> selectQaA(Connection con, int bid) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		Board board = null;
+		HashMap<String,Object> quesMap = null;
+		
+		Attachment att = null;
+		ArrayList<Attachment> attList = null;
+		
+		String sql = prop.getProperty("selectQaA");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, bid);
+			rs = pstmt.executeQuery();
+			
+			attList = new ArrayList<Attachment>();
+			
+			while(rs.next()) {
+				board = new Board();
+				board.setbId(rs.getInt("BID"));
+				board.setbNo(rs.getInt("BNO"));
+				board.setbTitle(rs.getString("BTITLE"));
+				board.setbCount(rs.getInt("BCOUNT"));
+				board.setbContent(rs.getString("BCONTENT"));
+				board.setBDate(rs.getDate("BDATE"));
+				
+				att = new Attachment();
+				att.setfId(rs.getInt("FID"));
+				att.setOriginName(rs.getString("ORIGIN_NAME"));
+				att.setChangeName(rs.getString("CHANGE_NAME"));
+				att.setFilePath(rs.getString("FILE_PATH"));
+				att.setUploadDate(rs.getDate("UPLOAD_DATE"));
+				
+				attList.add(att);
+			}
+			
+			quesMap = new HashMap<String,Object>();
+			
+			quesMap.put("board", board);
+			quesMap.put("attachment", attList);
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		return quesMap;
+	}
+
+	public int upDateQaAContent(Connection con, Board board) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("insertQaAContent");
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, board.getbTitle());
+			pstmt.setString(2, board.getbContent());
+			pstmt.setInt(3, board.getuNo());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int updateQaAPhoto(Connection con, ArrayList<Attachment> fileList) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 
 }

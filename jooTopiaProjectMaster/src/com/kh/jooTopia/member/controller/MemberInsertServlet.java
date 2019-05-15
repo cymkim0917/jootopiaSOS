@@ -57,10 +57,6 @@ public class MemberInsertServlet extends HttpServlet {
 			msg= "회원가입에 실패했습니다.";
 		}
 		
-		out.println("<script>alert('"+ msg +"'); location.href='"+ view +"';</script>");
-		
-		
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

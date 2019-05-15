@@ -1,3 +1,5 @@
+<%@page import="com.kh.jooTopia.board.model.vo.Board"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -62,6 +64,10 @@
 
 <body>
 <%@ include file="/views/common/navigation.jsp" %>
+
+<% ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list"); 
+	int boardIndex = 1;//
+%>
 	<section>
 	<br /><br />
 		<div class="row">
@@ -76,14 +82,39 @@
 						<th>조회수</th>
 						<th>게시글 타입</th>
 					</tr>
+					<% 
+					if(list != null) {
+					for(int i=0; i<list.size(); i++){ %>
 					<tr>
-						<td>1</td>
-						<td><a href="reviewPage.jsp">아나 쓰레기잖아효</a></td>
-						<td>2018-02-21</td>
-						<td>50<td>
-						<td>후기</td>
+						
+						<td><label><%= boardIndex %><% boardIndex++; %></label>
+						
+						<input type="hidden" name="bid" value="<%= list.get(i).getbId() %>"/>
+						</td>
+						<td><a href="<%= request.getContextPath() %>/selectQaA.do?num=<%=list.get(i).getbId() %>"><%= list.get(i).getbTitle() %></a></td>
+						<td><label for=""><%= list.get(i).getBDate() %></label></td>
+						<td><label for=""><%= list.get(i).getbCount() %></label><td>
+							<% int num = list.get(i).getbType();
+							   String bType = "";
+							
+								switch(num){
+								case 1: bType = "FAQ"; break;
+								case 2: bType = "공지"; break;
+								case 3: bType = "1:1문의"; break;
+								case 4: bType = "후기"; break;
+								case 5: bType = "매입요청"; break;
+								}
+							
+							%>
+						<td>
+						<label for=""><%= bType %></label>
+						
+						</td>
+					<% 
+						}
+					} %>
 					</tr>
-					<tr>
+				<!-- 	<tr>
 						<td>2</td>
 						<td>너무 좋내요~~@^^@</td>
 						<td>2018-12-24</td>
@@ -103,7 +134,7 @@
 						<td>2019-02-03</td>
 						<td>25</td>
 						<td>1:1 문의</td>
-					</tr>
+					</tr> -->
 				</table>
 				
 				<div align="center" id="btnArea">

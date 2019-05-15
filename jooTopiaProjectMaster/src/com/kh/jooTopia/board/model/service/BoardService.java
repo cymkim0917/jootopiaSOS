@@ -1,7 +1,10 @@
 package com.kh.jooTopia.board.model.service;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import static com.kh.jooTopia.common.JDBCTemplate.*;
+import static com.kh.jooTopia.common.JDBCTemplate.getConnection;
 
 import com.kh.jooTopia.board.model.dao.BoardDao;
 import com.kh.jooTopia.board.model.vo.Attachment;
@@ -64,7 +67,7 @@ public class BoardService {
 		int boardResult = new BoardDao().insertQaAContent(con,board);
 		
 		if(boardResult>0) {
-			int bId = new BoardDao().selectcurrval(con);
+			int bId = new BoardDao().selectCurrval(con);
 			
 			for (int i = 0; i < fileList.size(); i++) {
 				fileList.get(i).setbId(bId);
@@ -72,6 +75,61 @@ public class BoardService {
 		}
 		
 		int insertResult = new BoardDao().insertQaAPhoto(con,fileList);
+		
+		if(boardResult > 0 && insertResult == fileList.size()) {
+			commit(con);
+			returnResult = 1;
+		}else {
+			rollback(con);
+			returnResult = 0;
+		}
+		
+		close(con);
+		
+		return returnResult;
+	}
+	public ArrayList<Board> selectBoardList(int uno) {
+		
+		Connection con = getConnection();
+		ArrayList<Board> list = new BoardDao().selectBoardList(uno,con);
+		
+		close(con);
+		
+		return list;
+		
+	}
+
+	public HashMap<String, Object> selectQaAMap(int bid) {
+		Connection con = getConnection();
+		HashMap<String, Object> queMap = null;
+		int ctnResult = new BoardDao().updateCount(con, bid);
+		
+		if(ctnResult > 0) {
+			commit(con);
+			
+			queMap = new BoardDao().selectQaA(con, bid);
+		}else {
+			rollback(con);
+		}
+
+		return queMap;
+	}
+	public int updateQaA(Board board, ArrayList<Attachment> fileList) {
+	Connection con = getConnection();
+		
+		int returnResult = 0;
+		
+		int boardResult = new BoardDao().upDateQaAContent(con,board);
+		
+		if(boardResult>0) {
+			/*int bId = new BoardDao().selectCurrval(con);*/
+			
+			for (int i = 0; i < fileList.size(); i++) {
+				fileList.get(i).setbId(board.getbId());
+			}
+		}
+		
+		int insertResult = new BoardDao().updateQaAPhoto(con,fileList);
 		
 		if(boardResult > 0 && insertResult == fileList.size()) {
 			commit(con);
