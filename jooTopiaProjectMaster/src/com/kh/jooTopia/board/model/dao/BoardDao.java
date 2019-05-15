@@ -13,6 +13,8 @@ import java.util.Properties;
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
 import com.kh.jooTopia.member.model.dao.MemberDao;
+import com.kh.jooTopia.board.model.vo.Attachment;
+import com.kh.jooTopia.board.model.vo.Board;
 import com.kh.jooTopia.board.model.vo.Notice;
 import com.kh.jooTopia.board.model.vo.PageInfo;
 
@@ -79,8 +81,6 @@ public class BoardDao {
 		
 	}
 		
-
-
 	//상세보기
 	public Notice selectOne(Connection con, int num) {
 		
@@ -123,9 +123,6 @@ public class BoardDao {
 		}
 		return n;
 	}
-
-	
-
 
 	//조회수(카운트)
 	public int getNoticeListCount(Connection con) {
@@ -177,7 +174,7 @@ public class BoardDao {
 		return result;
 	}
 
-	/*public int insertQaAContent(Connection con, Board board) {
+	public int insertQaAContent(Connection con, Board board) {
 		// insertQaAContent = INSERT INTO
 		// BOARD(BID,BNO,BTYPE,BTITLE,BCONTENT,STATUS,ENROLL_DATE,MODIFY_DATE,UNO)
 		// VALUES (SEQ_BID.NEXTVAL,SEQ_BNO3.NEXTVAL,3,?,?,'Y',SYSDATE,SYSDATE,?)
@@ -263,7 +260,7 @@ public class BoardDao {
 			rset = stmt.executeQuery(query);
 
 			if (rset.next()) {
-				bid = rset.getInt("BID");
+				bid = rset.getInt("CURRVAL");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -273,6 +270,4 @@ public class BoardDao {
 		}
 		return bid;
 	}
-
-
 }

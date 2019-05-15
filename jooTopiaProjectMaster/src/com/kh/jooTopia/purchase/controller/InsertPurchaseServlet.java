@@ -23,16 +23,18 @@ import com.kh.jooTopia.purchase.model.vo.Purchase;
 import com.oreilly.servlet.MultipartRequest;
 
 @WebServlet("/insertPurchase.do")
-public class InsertPurchase extends HttpServlet {
+public class InsertPurchaseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public InsertPurchase() {
+    public InsertPurchaseServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// File Format을 위한 multipartRequest settting
+		System.out.println("insertPurchase");
 		if(ServletFileUpload.isMultipartContent(request)) {
+			System.out.println("multipartRequest");
 			int maxSize = 1024 * 1024 * 100;
 			
 			String root = request
@@ -64,6 +66,7 @@ public class InsertPurchase extends HttpServlet {
 				
 				saveFiles.add(mRequest.getFilesystemName(fName));
 				originFiles.add(mRequest.getOriginalFileName(fName));
+				System.out.println("while");
 			}
 				
 			ArrayList<Attachment> fileList = new ArrayList<Attachment>();
@@ -89,6 +92,8 @@ public class InsertPurchase extends HttpServlet {
 			String content = mRequest.getParameter("content");
 			String memo = mRequest.getParameter("memo");
 			
+			System.out.println("cNAme :" + cName);
+			
 			Member loginUser = (Member) request.getSession().getAttribute("loginUser");;
 
 			Board b = new Board();
@@ -111,10 +116,15 @@ public class InsertPurchase extends HttpServlet {
 			int result = new PurchaseService().insertPurchase(b, p, fileList);
 			
 			if(result > 0) {
-				response.sendRedirect(request.getContextPath() + "selectServlet");
+				// 일단 메인페이지로 보내본다.
+				request.setAttribute("list", "new PurchaseService().selectOnePurchase()");
+				response.sendRedirect(request.getContextPath() + "/views/purchase/purchaseFin.jsp");
 			}else {
+				
 				for(int i = 0; i < saveFiles.size(); i++) {
 					File failedFile = new File(filePath + saveFiles.get(i));
+					
+					failedFile.delete();
 				}
 				
 				request.setAttribute("msg", "매입신청서 제출 실패!");
