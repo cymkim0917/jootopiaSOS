@@ -28,13 +28,17 @@
 		<hr>
 		
 		<div id="listArea">
-			전체 <a href="/jootopia/views/admin/product/productList.jsp"><%= list.size() %></a>건
+			<% if(list != null) { %>
+				전체 <a href="#"><%= list.size() %></a>건
+			<% }else { %>
+				전체 <a href="#">0</a>건
+			<% } %>
 		</div>
 		<br>
 		
 		<div class="selectTopList">
 		<span>미등록 상품</span><br>
-		<span>[총 <a><%= list.size() %></a>개]</span>
+		<span>[총 <a><% if(list != null) { %><%= list.size() %><% }else { %>0<% } %></a>개]</span>
 		</div>
 		
 		<br>
@@ -43,7 +47,7 @@
 			<table id="selectList" class="selectList" border="1">
 				<tr>
 					<th colspan="9" style="height: 45px; text-align: left;">
-						<button class="selectBtn" onclick="pTypeChange('상품 삭제')">상품 삭제</button>
+						<button class="selectBtn" onclick="pTypeChange('상품삭제')">상품삭제</button>
 					</th>
 				</tr>
 				<tr>
@@ -59,10 +63,10 @@
 				<% for(int i = 0; i < list.size(); i++) { 
 				HashMap<String,Object> hmap = list.get(i); %>
 				<tr>
-					<td><input type="checkbox"></td>
+					<th><input type="checkbox"></th>
 					<td><%= count++ %></td>
 					<td><%= hmap.get("status") %></td>
-					<td><%= hmap.get("big") %> / <%= hmap.get("small") %></td>
+					<td><%= hmap.get("cGroup") %> / <%= hmap.get("cName") %></td>
 					<td><%= hmap.get("pId") %></td>
 					<td><img src="/jootopia/images/product/<%= hmap.get("changeName") %>" width="60px" height="60px"></td>
 					<td><%= hmap.get("pName") %></td>
@@ -100,7 +104,6 @@
 		var num = $(this).parent().children().eq(4).text();
 		console.log(num);
 		location.href="<%=request.getContextPath()%>/adminAddProductOne.do?num=" + num;
-		
 	});
 	
 	function pTypeChange(text) {

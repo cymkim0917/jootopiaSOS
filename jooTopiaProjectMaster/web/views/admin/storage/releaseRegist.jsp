@@ -19,7 +19,7 @@
 	border: 1px solid #ccc;
 	width: 80%;	
 }
-
+ 
 .separate tr {
 	height: 30px;
 	padding: 5px;
@@ -82,14 +82,14 @@
 						<td width="120">위치번호</td>
 						<td width="500"><%= r.getLocationNo() %></td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td width="120">출고번호</td>
 						<td width="500">
 							<input type="text" id="releaseNo" name="releaseNo" placeholder="자동생성 버튼을 누르세요" 
 								   size="30" readonly/>&nbsp;&nbsp;
 							<input type="button" id="releaseBtn" name="releaseBtn" value="자동생성"/>
 						</td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td width="120">출고일자 등록</td>
 						<td id="selectDate" colspan="2">									
@@ -112,14 +112,14 @@
 	</section>
 	<%@ include file="/views/common/adminFooter.jsp"%>
 	
-	<script>
+	<!-- <script>
 	$(function() {
 		  $('#releaseBtn').click( function() {		    
 			  var num = "1234";			  
 		    $("#releaseNo").val(num);		    
 		  });
 		});
-	</script>
+	</script> -->
 	
 </body>
 </html>

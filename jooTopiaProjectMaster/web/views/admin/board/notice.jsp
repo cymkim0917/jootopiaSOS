@@ -47,17 +47,18 @@
       <h3 class="title">공지사항 게시판 관리</h3>
 		<hr>
       	<div class="searchArea">
+			<form id="searchForm" action="<%=request.getContextPath() %>/searchAdminNotice.do" method="post" >
 			<table id="searchBox"  border="1" align="center">
 				<tr><th colspan="3" style="background: rgb(224, 224, 224); height: 35px;">　</th></tr>
 				<tr>
 					<td colspan="2">
-						&nbsp;<input type="radio" name="pType" id="all"><label>전체</label>
-						&nbsp;<input type="radio" name="pType" id=""><label>공지사항</label>
-						&nbsp;<input type="radio" name="pType" id=""><label>이벤트</label>
+						&nbsp;<input type="radio" name="pType" value=0><label>전체</label>
+						&nbsp;<input type="radio" name="pType" value=1><label>공지사항</label>
+						&nbsp;<input type="radio" name="pType" value=2><label>이벤트</label>
 					</td>
 					<td colspan="2">
 						&nbsp;
-						<input type="search" placeholder="검색 단어를 입력하세요." width="20px">
+						<input type="search" name="searchTitle" placeholder="제목 검색" width="20px">
 					</td>
 				</tr>
 			</table>
@@ -68,6 +69,7 @@
 				<input type="submit" value="검색" onclick="">
 				<input type="reset" value="초기화" onclick="">
 			</div>
+			</form>
 		</div>
 		<hr>
 		<div id="resultArea">
@@ -85,16 +87,19 @@
 		   			<%for(Board board:list){ %>
 		   			<tr>
 		   				<td><input type="checkbox"></td>
-		   				<td><%=board.getbId() %></td>
+		   				<td><%=board.getbNo() %></td>
 		   				<td><%=board.getbTitle() %></td>
-		   				<td><%=board.getEnrollDate() %></td>
+		   				<td><%=board.getBDate() %></td>
 		   				<td><%=board.getModifyDate() %></td>
 		   				<td><%=board.getbCount() %></td>
 		   				<td><%if(board.getbType()==1){%>
 		   					공지사항
-		   					<%}else{ %>
+		   					<%}else{ %>'
 		   					이벤트
 		   					<%} %>
+		   				</td>
+		   				<td style="display:none">
+		   					<%=board.getbId() %>
 		   				</td>
 		   			</tr>
 		   			<%} %>

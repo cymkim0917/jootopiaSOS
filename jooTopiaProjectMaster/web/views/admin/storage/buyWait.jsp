@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.kh.jooTopia.buy.model.vo.*, java.util.*"%>
-	
+	 
 	<% ArrayList<BuyWaitAdmin> list = (ArrayList<BuyWaitAdmin>) request.getAttribute("list"); %>
 	
 <!DOCTYPE html>
@@ -34,15 +34,7 @@
 						<th colspan="3"
 							style="background: rgb(224, 224, 224); height: 35px;"></th>
 					</tr>
-					<tr>
-						<td>검색 분류</td>
-						<td colspan="2">&nbsp;<select id="searchCondition">
-								<option value="pCode">상품코드
-								<option value="userName">주문자명
-								<option value="userId">주문자 아이디
-						</select> <input type="search" placeholder="검색 단어를 입력하세요." width="20px">
-						</td>
-					</tr>
+					
 					<tr>
 						<td>상품 카테고리</td>
 						<td colspan="2">&nbsp;<select id="searchCategory"
@@ -87,21 +79,20 @@
 							<th>No.</th>
 							<th>매입번호</th>
 							<th>대분류</th>
-							<th>중분류</th>							
+							<th>중분류</th>
+							<th>상태</th>						
 						</tr>
 					</thead>
-					<% for(BuyWaitAdmin b : list){ %>
+					<% int i = 0; for(BuyWaitAdmin b : list){ i++;%>
 					<tbody>
 						<tr>
-							<td><%= b.getbId() %></td>
+							<td><%= i %></td>
 							<td><%= b.getnNo() %></td>
 							<td><%= b.getbCate1() %></td>
-							<td><%= b.getbCate2() %></td>							
+							<td><%= b.getbCate2() %></td>
+							<td><%= b.getStatus() %></td>						
 						</tr>
-						<% } %>
-						
-						
-						
+						<% } %>						
 					</tbody>
 				</table>
 			</div>
@@ -161,7 +152,8 @@
 				var num = $(this).parent().children().eq(0).text();
 				console.log(num);
 				<%-- location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num; --%>
-				location.href="<%=request.getContextPath()%>/views/admin/storage/productreg.jsp?num=" + num;
+				<%-- location.href="<%=request.getContextPath()%>/views/admin/storage/productreg.jsp?num=" + num; --%>
+				location.href="<%=request.getContextPath()%>/insertAdminProductreg.do?num=" + num;
 			})
 		})
 	</script>

@@ -1,20 +1,22 @@
 package com.kh.jooTopia.buy.model.vo;
 
-public class BuyWaitAdmin {
-	
+public class BuyWaitAdmin implements java.io.Serializable{
+	 
 	private int bId;
 	private int nNo;
 	private String bCate1;
-	private String bCate2;	
+	private String bCate2;
+	private String status;
 	
 	public BuyWaitAdmin() {}
 
-	public BuyWaitAdmin(int bId, int nNo, String bCate1, String bCate2) {
+	public BuyWaitAdmin(int bId, int nNo, String bCate1, String bCate2, String status) {
 		super();
 		this.bId = bId;
 		this.nNo = nNo;
 		this.bCate1 = bCate1;
-		this.bCate2 = bCate2;		
+		this.bCate2 = bCate2;
+		this.status = status;
 	}
 
 	public int getbId() {
@@ -49,15 +51,19 @@ public class BuyWaitAdmin {
 		this.bCate2 = bCate2;
 	}
 
-	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	@Override
 	public String toString() {
-		return "BuyWait [bId=" + bId + ", nNo=" + nNo + ", bCate1=" + bCate1 + ", bCate2=" + bCate2 + ", mId=" 
-							+ ", mName=" + "]";
+		return "BuyWaitAdmin [bId=" + bId + ", nNo=" + nNo + ", bCate1=" + bCate1 + ", bCate2=" + bCate2 + ", status="
+				+ status + "]";
 	}
-	
-	
-	
+
 
 }

@@ -1,7 +1,7 @@
 package com.kh.jooTopia.release.model.vo;
 
 import java.sql.Date;
-
+ 
 public class ReleaseAdmin implements java.io.Serializable{
 	
 	private int no;				//순번

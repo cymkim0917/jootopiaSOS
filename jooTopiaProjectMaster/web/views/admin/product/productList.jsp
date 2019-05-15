@@ -1,18 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%--  import="com.kh.jooTopia.product.model.vo.*, java.util.*, java.lang.*" --%>    
-<%--
+    pageEncoding="UTF-8" import="java.util.*, java.lang.*"%>
+<%
 	int count = 1;
-	/* Product productList = (Product) session.getAttribute("productList");
-
-	java.util.Date date = new java.util.Date();
-	java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
-	String startDay = dateFormat.format(date);
-	String endDay = dateFormat.format(date);
-	
-	ArrayList<Product> list = new ArrayList<Product>();
-	list.add(new Product()); */
---%>
+	ArrayList<HashMap<String,Object>> list = 
+	(ArrayList<HashMap<String,Object>>) request.getAttribute("list");
+	int sell = 0;
+	int noSell = 0;
+%>
 
 <!DOCTYPE html>
 <html>
@@ -34,12 +28,24 @@
 		<div class="col-sm-10">
 		<h3 class="title">상품 목록</h3>
 	    <hr>
-		
 		<div id="listArea">
-			전체 <a href="/jootopia/views/admin/product/productList.jsp">10</a>건  |  
-			판매중 <a href="#">2</a>건  |
-			판매안함 <a href="#">6</a>건  |
-			상품미등록 <a href="productInsertList.jsp">2</a>건
+			<% if(list != null) { 
+				for(int i = 0; i < list.size(); i++) {
+					if(list.get(i).get("status").equals("판매중")) {
+						sell += 1;
+					}else {
+						noSell += 1;
+					}
+				}
+			%>
+				전체 <a href="#"><%= list.size() %></a>건  |  
+				판매중 <a href="#"><%= sell %></a>건  |
+				판매미등록 <a href="#"><%= noSell %></a>건
+			<% }else { %>
+				전체 <a href="#">0</a>건  |  
+				판매중 <a href="#">0</a>건  |
+				판매미등록 <a href="#">0</a>건
+			<% } %>
 		</div>
 		<br>
 		
@@ -52,9 +58,6 @@
 						<select id="searchCondition">
 							<option value="pName">상품명
 							<option value="pCode">상품코드
-							<option value="userName">주문자명
-							<option value="userId">주문자 아이디
-							<option value="phone">주문자 전화번호
 						</select>
 						<input type="search" placeholder="검색 단어를 입력하세요." width="20px">
 					</td>
@@ -62,16 +65,42 @@
 				<tr>
 					<td>상품 카테고리</td>
 					<td colspan="2">
-						<select id="searchCategory" onchange="smallCategoty(this.value)">
-							<option value="">- 대분류 -
-							<option value="bedRoom">침실
-							<option value="livingRoom">거실
-							<option value="kitchen">주방
-							<option value="study">서재
+						<select id="cGroup">
+							<option selected>-- 대분류 --</option>	
+							<option value="침실">침실</option>
+							<option value="서재">서재</option>
+							<option value="주방">주방</option>
+							<option value="거실">거실</option>
+							<option value="기타">기타</option>
 						</select>
-						<select id="small">
-							<option value="">- 중분류 -
-						</select>
+					<select id="cName">
+						<option>-- 중분류 --</option>
+					</select>
+					<script>
+						$("#cGroup").change(function(){
+							var cGroup = $(this).children("option:selected").val();
+							var $cName = $("#cName");
+							$.ajax({
+								url:"<%= request.getContextPath() %>/selectNameList.do",
+								data:{cGroup:cGroup},
+								type:"get",
+								success:function(data){
+									console.log("서버 전송 성공!");
+									var options = ""; 
+									for(var i = 0; i < data.length; i++){
+										if(i == 0){
+											options += "<option value=\"" + data[i] + "\" selected>" + data[i] + "</option>";
+										}else{
+											options += "<option value=\"" + data[i] + "\">" + data[i] + "</option>";
+										}
+									}	
+									$cName.html(options);
+								},error:function(data){
+									console.log("서버 전송 실패!");
+								}
+							});
+						});
+					</script>
 					</td>
 				</tr>
 				<tr>
@@ -92,7 +121,7 @@
 					<td colspan="2">
 						<input type="radio" name="pType" id="all"><label for="all">전체</label>
 						<input type="radio" name="pType" id="onSale"><label for="onSale">판매중</label>
-						<input type="radio" name="pType" id="soldOut"><label for="soldOut">판매안함</label>
+						<input type="radio" name="pType" id="soldOut"><label for="soldOut">판매미등록</label>
 					</td>
 				</tr>
 			</table>
@@ -109,7 +138,7 @@
 		
 		<div class="selectTopList">
 		<span>상품 목록</span><br>
-		<span>[총 <a><%= 1 %></a>개]</span>
+		<span>[총 <a><% if(list != null) { %><%= list.size() %><% }else { %>0<% } %></a>개]</span>
 		</div>
 		
 		<br>
@@ -118,9 +147,9 @@
 			<table id="selectList" class="selectList" border="1">
 				<tr>
 					<th colspan="9" style="height: 45px; text-align: left;">
-						<button class="selectBtn" onclick="pTypeChange('판매 등록')">판매 등록</button>
-						<button class="selectBtn" onclick="pTypeChange('판매 안함')">판매 안함</button>
-						<button class="selectBtn" onclick="pTypeChange('상품 삭제')">상품 삭제</button>
+						<button class="selectBtn" onclick="pTypeChange('판매등록')">판매등록</button>
+						<button class="selectBtn" onclick="pTypeChange('판매미등록')">판매미등록</button>
+						<button class="selectBtn" onclick="pTypeChange('상품삭제')">상품삭제</button>
 					</th>
 				</tr>
 				<tr>
@@ -134,30 +163,20 @@
 					<th width="100px">판매가(원)</th>
 					<th width="100px">할인가(%)</th>
 				</tr>
+				<% for(int i = 0; i < list.size(); i++) { 
+				HashMap<String,Object> hmap = list.get(i); %>
 				<tr>
-					<td><input type="checkbox" id="allCheck"></td>
-					<td>1</td>
-					<td>판매중</td>
-					<td>침실 / 침대</td>
-					<td><a href="productDetail.jsp">P20190510_01</a></td>
-					<td><a href="productDetail.jsp"><img src="/jootopia/images/logo2.png" width="60px" height="60px"></a></td>
-					<td><a href="productDetail.jsp">침대침대</a></td>
-					<td>200000</td>
-					<td>20000 (10%)</td>
-				</tr>
-				<%-- <% for(Product p : list) { %>
-				<tr>
-					<td ><input type="checkbox"></td>
+					<th><input type="checkbox"></th>
 					<td><%= count++ %></td>
-					<td >상태임시</td>
-					<td>분류/임시</td>
-					<td><a href="../product/productInfo.jsp">상품코드 임시</a></td>
-					<td><img src="/jootopia/images/logo.png" width="60px" height="60px"></td>
-					<td><a href="#">상품명 임시</a></td>
-					<td>판매가 임시</td>
-					<td>할인가 임시</td>
+					<td><%= hmap.get("status") %></td>
+					<td><%= hmap.get("cGroup") %> / <%= hmap.get("cName") %></td>
+					<td><%= hmap.get("pId") %></td>
+					<td><img src="/jootopia/images/product/<%= hmap.get("changeName") %>" width="60px" height="60px"></td>
+					<td><%= hmap.get("pName") %></td>
+					<td><%= hmap.get("pPrice") %></td>
+					<td><%= hmap.get("sale") %></td>
 				</tr>
-				<% } %> --%>
+				<% } %>
 			</table>
 	</div> <!-- selectListArea -->
 	
@@ -180,33 +199,16 @@
 	<%@ include file="/views/common/adminFooter.jsp" %>
 	
 	<script>
-		function smallCategoty(big) {
-			
-			var bedRoom = ["침대", "옷장", "화장대", "수납장"];
-			var livingRoom = ["테이블", "거실장", "쇼파", "수납장"];
-			var kitchen = ["식탁", "식탁의자", "수납장", "렌지대"];
-			var study = ["책상", "책장", "사무용의자", "수납장"];
-			
-			if(big == "") {
-				smallCategory = [];
-			}else if(big == "bedRoom") {
-				smallCategory = bedRoom;
-			}else if(big == "livingRoom") {
-				smallCategory = livingRoom;
-			}else if(big == "kitchen") {
-				smallCategory = kitchen;
-			}else if(big == "study") {
-				smallCategory = study;
-			}
-			
-			$("#small").empty();
-			$("#small").append("<option value=''>- 중분류 -</option>");
-			
-			for(var i = 0; i < smallCategory.length; i++) {
-				var option = $("<option>" + smallCategory[i] + "</option>");
-				$("#small").append(option);
-			};
-		};
+		
+		$("#selectList td").mouseenter(function(){
+			$(this).parent().css({"background":"rgb(61, 81, 113)", "color":"white", "cursor":"pointer"});
+		}).mouseout(function(){
+			$(this).parent().css({"background":"white", "color":"black"});
+		}).click(function(){
+			var num = $(this).parent().children().eq(4).text();
+			console.log(num);
+			<%-- location.href="<%=request.getContextPath()%>/adminAddProductOne.do?num=" + num; --%>
+		});
 		
 		$(".btnDate").click(function() {
 			
@@ -227,28 +229,6 @@
 		function select() {
 			location.href="<%= request.getContextPath() %>/selectProduct";
 		};
-		
-		$(function() {
-			$(".btnDate").click(function() {
-				
-				/* 날짜처리하기 (아직 안했음) */
-				
-				/* var year = this.args.year == null ? 0 : Number(this.args.year);
-			    var month = this.args.month == null ? 0 : Number(this.args.month);
-			    var day = this.args.day == null ? 0 : Number(this.args.day);
-			    var result = new Date();
-
-			    result.setYear(result.getFullYear() + year);
-			    result.setMonth(result.getMonth() + month);
-			    result.setDate(result.getDate() + day);
-			    return this.formatDate(result, "-");
-
-				var changeDay = $("#endDate").val() + $(this).attr("period");
-				console.log(changeDay);
-				$("#endDate").val(changeDay); */
-				
-			});
-		});
 		
 		$("#allCheck").click(function() {
 			

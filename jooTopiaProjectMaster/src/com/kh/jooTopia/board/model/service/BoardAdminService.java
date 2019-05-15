@@ -46,7 +46,7 @@ public class BoardAdminService {
 		Connection con = getConnection();
 		
 		ArrayList<Board> list = new BoardAdminDao().selectNoticeList(con, pageInfo);
-		System.out.println("서비스 리스트" );
+		//System.out.println("서비스 리스트" );
 		
 		close(con);
 		
@@ -57,11 +57,54 @@ public class BoardAdminService {
 		Connection con = getConnection();
 	
 		int listCount = new BoardAdminDao().getNoticeListCount(con);
-		System.out.println("서비스 카운트" + listCount);
+		//System.out.println("서비스 카운트" + listCount);
 		
 		close(con);
 		
 		return listCount;
+	}
+
+	public int insertEventBoard(Board board, ArrayList<Attachment> fileList) {
+		Connection con = getConnection();
+		int result;
+		
+		
+		int result1 = new BoardAdminDao().insertEventBoard(con, board);
+		
+		if(result1>0) {
+			int bId = new BoardAdminDao().selectNoticeCurrval(con);
+			System.out.println("Bid : " +bId);
+			
+			for(int i =0; i<fileList.size(); i++) {
+				fileList.get(i).setbId(bId);
+			}
+		}
+		
+		int result2 = new BoardAdminDao().insertNoticeAttachment(con, fileList);
+		
+		if(result1>0 && result2 ==fileList.size()) {
+			commit(con);
+			result=1;
+		}else {
+			rollback(con);
+			result=0;
+		}
+		
+		close(con);
+		
+		return result;
+		
+	}
+
+	public ArrayList<Board> searchNotice(PageInfo pageInfo, int bType, String searchTitle) {
+		Connection con = getConnection();
+		
+		ArrayList<Board> list = new BoardAdminDao().searchNotice(con, pageInfo, bType, searchTitle);
+		
+		close(con);
+		
+		
+		return list;
 	}
 
 }

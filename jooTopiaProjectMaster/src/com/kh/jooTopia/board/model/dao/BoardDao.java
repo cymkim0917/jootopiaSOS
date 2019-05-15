@@ -13,6 +13,8 @@ import java.util.Properties;
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
 import com.kh.jooTopia.member.model.dao.MemberDao;
+import com.kh.jooTopia.board.model.vo.Attachment;
+import com.kh.jooTopia.board.model.vo.Board;
 import com.kh.jooTopia.board.model.vo.Notice;
 import com.kh.jooTopia.board.model.vo.PageInfo;
 
@@ -79,8 +81,6 @@ public class BoardDao {
 		
 	}
 		
-
-
 	//상세보기
 	public Notice selectOne(Connection con, int num) {
 		
@@ -126,9 +126,6 @@ public class BoardDao {
 		return n;
 		
 	}
-
-	
-
 
 	//조회수(카운트)
 	public int getNoticeListCount(Connection con) {
@@ -248,11 +245,35 @@ public class BoardDao {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return result;
+	}
+
+
+
+	public int selectCurrval(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int bid = 0;
+		
+		String query = prop.getProperty("selectCurrval");
+
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+
+			if (rset.next()) {
+				bid = rset.getInt("CURRVAL");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		return bid;
 	}
 
 }

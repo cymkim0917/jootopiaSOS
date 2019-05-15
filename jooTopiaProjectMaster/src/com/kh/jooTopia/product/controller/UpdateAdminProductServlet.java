@@ -37,30 +37,26 @@ public class UpdateAdminProductServlet extends HttpServlet {
 			
 			String filePath = root + "images\\product\\";
 			
-			System.out.println(filePath);
-			
 			MultipartRequest multiRequest 
 					= new MultipartRequest(request, filePath, maxSize, 
 							"UTF-8", new JootopiaFileRenamePolicy());
 			
 			ArrayList<String> saveFiles = new ArrayList<String>();
 			ArrayList<String> originFiles = new ArrayList<String>();
-			
 			Enumeration<String> files = multiRequest.getFileNames();
 
 			while(files.hasMoreElements()) {
 				String name = files.nextElement();
-				
 				saveFiles.add(multiRequest.getFilesystemName(name));
 				originFiles.add(multiRequest.getOriginalFileName(name));
-				
 			}
 			
 			int pId = Integer.parseInt(multiRequest.getParameter("pId"));
 			String pName = multiRequest.getParameter("pName");
 			int pPrice = Integer.parseInt(multiRequest.getParameter("pPrice"));
 			String pContent = multiRequest.getParameter("pContent");
-			String category = multiRequest.getParameter("small");
+			String cGroup = multiRequest.getParameter("cGroup");
+			String cName = multiRequest.getParameter("cName");
 			
 			// Product객체 생성
 			Product p = new Product();
@@ -70,25 +66,44 @@ public class UpdateAdminProductServlet extends HttpServlet {
 			p.setpName(pName);
 			p.setpPrice(pPrice);
 			p.setpContent(pContent);
-			switch (category) {
-			case "침대" : cId = 1; break;
-			case "옷장" : cId = 2; break;
-			case "화장대" : cId = 3; break;
-			case "침실수납장" : cId = 4; break;
-			case "책상" : cId = 5; break;
-			case "책장" : cId = 6; break;
-			case "사무용의자" : cId = 7; break;
-			case "서재수납장" : cId = 8; break;
-			case "식탁" : cId = 9; break;
-			case "식탁의자" : cId = 10; break;
-			case "주방수납장" : cId = 11; break;
-			case "렌지대" : cId = 12; break;
-			case "테이블" : cId = 13; break;
-			case "거실장" : cId = 14; break;
-			case "쇼파" : cId = 15; break;
-			case "거실수납장" : cId = 16; break;
+			if(cGroup.equals("침실")) {
+				switch (cName) {
+				case "침대" : cId = 1; break;
+				case "옷장" : cId = 2; break;
+				case "화장대" : cId = 3; break;
+				case "침실수납장" : cId = 4; break;
+				case "기타" : cId = 5; break;
+				}
+			}else if(cGroup.equals("서재")) {
+				switch (cName) {
+				case "책상" : cId = 11; break;
+				case "책장" : cId = 12; break;
+				case "사무용의자" : cId = 13; break;
+				case "서재수납장" : cId = 14; break;
+				case "기타" : cId = 15; break;
+				}
+			}else if(cGroup.equals("주방")) {
+				switch (cName) {
+				case "식탁" : cId = 21; break;
+				case "식탁의자" : cId = 22; break;
+				case "주방수납장" : cId = 23; break;
+				case "렌지대" : cId = 24; break;
+				case "기타" : cId = 25; break;
+				}
+			}else if(cGroup.equals("거실")) {
+				switch (cName) {
+				case "테이블" : cId = 31; break;
+				case "거실장" : cId = 32; break;
+				case "쇼파" : cId = 33; break;
+				case "거실수납장" : cId = 34; break;
+				case "기타" : cId = 35; break;
+				}
+			}else {
+				cId = 41;
 			}
 			p.setcId(cId);
+			
+			int fId = Integer.parseInt(multiRequest.getParameter("fId"));
 			
 			ArrayList<Attachment> fileList = new ArrayList<Attachment>();
 			
@@ -102,10 +117,9 @@ public class UpdateAdminProductServlet extends HttpServlet {
 				fileList.add(at);
 			}
 			
-			int result = new ProductAdminService().updateProduct(p, fileList);
+			int result = new ProductAdminService().updateProduct(p, fId, fileList);
 			
 			/*PrintWriter out = response.getWriter();*/
-			String view = "/views/admin/product/productInsertList.jsp";
 			String msg = "";
 			
 			if(result > 0) {
@@ -114,7 +128,7 @@ public class UpdateAdminProductServlet extends HttpServlet {
 				out.flush();
 				out.close();*/
 				/*response.sendRedirect(view);*/
-				response.sendRedirect(request.getContextPath() + view);
+				response.sendRedirect("/jootopia/adminProductList.do");
 			}else  {
 				for(int i = 0; i < saveFiles.size(); i++) {
 					File failedFile = new File(filePath + saveFiles.get(i));
@@ -126,7 +140,7 @@ public class UpdateAdminProductServlet extends HttpServlet {
 				out.flush();
 				out.close();*/
 				request.setAttribute("msg", msg);
-				request.getRequestDispatcher(view).forward(request, response);
+				request.getRequestDispatcher("views/common/errorPage500.jsp").forward(request, response);
 			}
 		}
 	}

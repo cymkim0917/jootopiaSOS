@@ -38,16 +38,9 @@ public class InsertAdminNoticeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*String category = request.getParameter("category");
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");*/
-		
-		/*System.out.println(category);
-		System.out.println(title);
-		System.out.println(content);*/
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
-			int maxsize = 1024*1024 * 100;
+			int maxSize = 1024*1024 * 100;
 			
 			String root = request.getSession()
 								.getServletContext()
@@ -56,16 +49,17 @@ public class InsertAdminNoticeServlet extends HttpServlet {
 			
 			String filePath = root+"images/notice/";
 			
-			MultipartRequest multiReq = new MultipartRequest(request, filePath, maxsize, "utf-8", new JootopiaFileRenamePolicy());
+			MultipartRequest multiReq = new MultipartRequest(request, filePath, maxSize, "utf-8", new JootopiaFileRenamePolicy());
 			
 			ArrayList<String> saveFiles = new ArrayList<String>();
 			ArrayList<String> originFiles = new ArrayList<String>();
 			
 			Enumeration<String> files = multiReq.getFileNames();
+			//System.out.println("multiReq파일 이름"+multiReq.getFileNames());
 			
 			while(files.hasMoreElements()) {
 				String name = files.nextElement();
-				System.out.println("name : " + name);
+				
 				
 				saveFiles.add(multiReq.getFilesystemName(name));
 				originFiles.add(multiReq.getOriginalFileName(name));
@@ -75,8 +69,7 @@ public class InsertAdminNoticeServlet extends HttpServlet {
 			String multiTitle = multiReq.getParameter("title");
 			String multiContent = multiReq.getParameter("content");
 			
-			System.out.println(multiTitle);
-			System.out.println(multiContent);
+			
 			
 			Board board = new Board();
 			board.setbTitle(multiTitle);
@@ -88,7 +81,7 @@ public class InsertAdminNoticeServlet extends HttpServlet {
 				 attach.setFilePath(filePath);
 				 attach.setOriginName(originFiles.get(i));
 				 attach.setChangeName(saveFiles.get(i));
-				 
+				 System.out.println("이름확인 : " +attach.getOriginName());
 				 fileList.add(attach);
 			 }	
 			

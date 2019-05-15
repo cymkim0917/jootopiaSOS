@@ -54,6 +54,28 @@ public class CategoryDao {
 		
 		return list;
 	}
-	
+
+	public int selectCid(Connection con, String cName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int cid = 0;
+		
+		String query = prop.getProperty("selectCid");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, cName);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				cid = rset.getInt("CID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return cid;
+	}
 	
 }

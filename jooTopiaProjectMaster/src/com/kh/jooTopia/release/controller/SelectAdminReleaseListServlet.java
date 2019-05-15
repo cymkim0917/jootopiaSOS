@@ -11,12 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.jooTopia.release.model.service.ReleaseAdminService;
-import com.kh.jooTopia.release.model.vo.ReleaseAdmin;
 
+import com.kh.jooTopia.release.model.vo.ReleaseAdminList;
+ 
 /**
  * Servlet implementation class SelectAdminReleaseListServlet
  */
-@WebServlet("/selectAdminRelease.do")
+@WebServlet("/selectAdminReleaseList.do")
 public class SelectAdminReleaseListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,12 +34,12 @@ public class SelectAdminReleaseListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<ReleaseAdmin> list = new ReleaseAdminService().selectAdminList();
-		System.out.println(list);
+		ArrayList<ReleaseAdminList> rlist = new ReleaseAdminService().selectAdminrList();
+		System.out.println(rlist);
 		String page = "";
-		if(list != null) {
-			page = "views/admin/storage/releaseWait.jsp";
-			request.setAttribute("list", list);
+		if(rlist != null) {
+			page = "views/admin/storage/releaseList.jsp";
+			request.setAttribute("rlist", rlist);
 			
 		}else {
 			page = "views/common/errorPage500.jsp";
@@ -46,7 +47,6 @@ public class SelectAdminReleaseListServlet extends HttpServlet {
 		}
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
-		
 		
 	}
 

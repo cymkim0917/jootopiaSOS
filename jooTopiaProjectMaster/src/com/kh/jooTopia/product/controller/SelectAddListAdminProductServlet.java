@@ -21,7 +21,7 @@ public class SelectAddListAdminProductServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		//미등록상품 전체조회
 		ArrayList<HashMap<String,Object>> list = new ProductAdminService().selectAddList();
 		
 		String view = "";

@@ -10,7 +10,7 @@
 <title>JooTopia</title>
 <link rel="stylesheet" type="text/css" href="/jootopia/css/admin/adminCommon.css">
 </head>
-<body>
+<body> 
 	<nav class="sideNav col-sm-2" align="center">
 		<div class="sideMenuImg" id="sideMenuImg">
 			<img src="/jootopia/images/sideMenuImg.png" width="100%">
@@ -31,22 +31,22 @@
 			<div class="sideMenuBtn" id="boardSide1" onclick="location.href='/jootopia/adminBoardList.do'">공지사항</div>
 		</div>
 		<div class="sideMenu" id="sideMenu2">
-			<div class="sideMenuBtn" id="boardSide1" onclick="location.href='review.jsp'">후기게시판</div>
+			<div class="sideMenuBtn" id="boardSide1" onclick="location.href='/jootopia/views/admin/board/review.jsp'">후기게시판</div>
 		</div>
 		<div class="sideMenu" id="sideMenu3">
-			<div class="sideMenuBtn" id="boardSide1" onclick="location.href='qna.jsp'">1:1질문게시판</div>
+			<div class="sideMenuBtn" id="boardSide1" onclick="location.href='/jootopia/views/admin/board/qna.jsp'">1:1질문게시판</div>
 		</div>
 		
 		<% }else if(root.equals("product")) { %>
 		
 		<div class="sideMenu" id="sideMenu1">
-		<div class="sideMenuBtn" id="" onclick="location.href='/jootopia/views/admin/product/productList.jsp'">상품목록</div>
+		<div class="sideMenuBtn" id="" onclick="location.href='/jootopia/adminProductList.do'">상품목록</div>
 		</div>
 		<div class="sideMenu" id="sideMenu2">
 		<div class="sideMenuBtn" id="" onclick="location.href='/jootopia/adminAddProductList.do'">상품등록</div>
 		</div>
 		<div class="sideMenu" id="sideMenu3">
-		<div class="sideMenuBtn" id="" onclick="location.href='/jootopia/views/admin/product/productDeleteList.jsp'">삭제상품</div>
+		<div class="sideMenuBtn" id="" onclick="location.href='/jootopia/adminDeleteProductList.do'">삭제상품</div>
 		</div>	
 		
 		<% }else if(root.equals("order")) { %>
@@ -69,10 +69,10 @@
 		
 
 		<div class="sideMenu" id="sideMenu1"><div class="sideMenuBtn" id="" onclick="location.href='<%=request.getContextPath()%>/selectAdminBuy.do'">상품등록</div></div>
-		<div class="sideMenu" id="sideMenu2"><div class="sideMenuBtn" id="" onclick="location.href='heapWait.jsp'">적치등록</div></div>
+		<div class="sideMenu" id="sideMenu2"><div class="sideMenuBtn" id="" onclick="location.href='<%=request.getContextPath()%>/selectAdminHeap.do'">적치등록</div></div>
 		<div class="sideMenu" id="sideMenu3"><div class="sideMenuBtn" id="" onclick="location.href='<%=request.getContextPath()%>/selectAdminRelease.do'">출고등록</div></div>
-		<div class="sideMenu" id="sideMenu4"><div class="sideMenuBtn" id="" onclick="location.href='releaseList.jsp'">출고리스트</div></div>
-		<div class="sideMenu" id="sideMenu5"><div class="sideMenuBtn" id="" onclick="location.href='stockList.jsp'">재고리스트</div></div>
+		<div class="sideMenu" id="sideMenu4"><div class="sideMenuBtn" id="" onclick="location.href='<%=request.getContextPath()%>/selectAdminReleaseList.do'">출고리스트</div></div>
+		<div class="sideMenu" id="sideMenu5"><div class="sideMenuBtn" id="" onclick="location.href='<%=request.getContextPath()%>/selectAdminStock.do'">재고리스트</div></div>
 		
 		<% } %>
 	</nav>
