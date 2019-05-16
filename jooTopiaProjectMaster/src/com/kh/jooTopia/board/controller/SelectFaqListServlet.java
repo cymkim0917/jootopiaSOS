@@ -38,7 +38,8 @@ public class SelectFaqListServlet extends HttpServlet {
 		ArrayList<Board> list = new BoardService().selectFaqList();
 		
 		System.out.println("list : " + list);
-		System.out.println(list);
+		System.out.println(list); 
+		
 		
 		String page = "";
 		
