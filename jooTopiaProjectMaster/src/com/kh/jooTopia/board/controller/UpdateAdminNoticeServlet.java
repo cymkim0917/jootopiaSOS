@@ -20,16 +20,16 @@ import com.kh.jooTopia.common.JootopiaFileRenamePolicy;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
- * Servlet implementation class InsertAdminNoticeServlet
+ * Servlet implementation class UpdateAdminNoticeServlet
  */
-@WebServlet("/insertAdminNotice.do")
-public class InsertAdminNoticeServlet extends HttpServlet {
+@WebServlet("/updateAdminNotice.do")
+public class UpdateAdminNoticeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertAdminNoticeServlet() {
+    public UpdateAdminNoticeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,16 +38,12 @@ public class InsertAdminNoticeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		if(ServletFileUpload.isMultipartContent(request)) {
-			int maxSize = 1024*1024 * 100;
+			int maxSize = 1024*1024*100;
 			
-			String root = request.getSession()
-								.getServletContext()
-								.getRealPath("/");
-			System.out.println(root);
+			String root = request.getSession().getServletContext().getRealPath("/");
 			
-			String filePath = root+"images/notice/";
+			String filePath = root+"images/notice";
 			
 			MultipartRequest multiReq = new MultipartRequest(request, filePath, maxSize, "utf-8", new JootopiaFileRenamePolicy());
 			
@@ -55,11 +51,9 @@ public class InsertAdminNoticeServlet extends HttpServlet {
 			ArrayList<String> originFiles = new ArrayList<String>();
 			
 			Enumeration<String> files = multiReq.getFileNames();
-			//System.out.println("multiReq파일 이름"+multiReq.getFileNames());
 			
 			while(files.hasMoreElements()) {
 				String name = files.nextElement();
-				
 				
 				saveFiles.add(multiReq.getFilesystemName(name));
 				originFiles.add(multiReq.getOriginalFileName(name));
@@ -68,26 +62,32 @@ public class InsertAdminNoticeServlet extends HttpServlet {
 			
 			String multiTitle = multiReq.getParameter("title");
 			String multiContent = multiReq.getParameter("content");
-			
-			
+			int multibId =Integer.parseInt(multiReq.getParameter("bId"));
 			
 			Board board = new Board();
+			board.setbId(multibId);
 			board.setbTitle(multiTitle);
 			board.setbContent(multiContent);
 			
+			System.out.println("멀티 비아이디 " + multibId);
+			System.out.println("multiTitle" + multiTitle );
+			System.out.println("multiConetet" + multiContent);
+			
+			
 			ArrayList<Attachment> fileList = new ArrayList<Attachment>();
-			 for(int i = originFiles.size()-1; i>=0; i--) {
+			
+			for(int i = originFiles.size()-1; i>=0; i--) {
 				 Attachment attach = new Attachment();
 				 attach.setFilePath(filePath);
 				 attach.setOriginName(originFiles.get(i));
 				 attach.setChangeName(saveFiles.get(i));
-				 //System.out.println("이름확인 : " +attach.getOriginName());
+				 
 				 fileList.add(attach);
-			 }	
+			 }
 			
-			 int result = new BoardAdminService().insertBoard(board, fileList);
+			int result = new BoardAdminService().updateNotice(board, fileList);
 			
-			 if(result>0) {
+			if(result>0) {
 				 response.sendRedirect(request.getContextPath()+"/adminBoardList.do");
 				 
 			 }else {
@@ -99,15 +99,14 @@ public class InsertAdminNoticeServlet extends HttpServlet {
 				 request.getRequestDispatcher("views/common/errorPage500.jsp");
 			 }
 			
+			
 		}
-		
-		
-		
-		
-		
-		
-		
-		
+	
+	
+	
+	
+	
+	
 	}
 
 	/**

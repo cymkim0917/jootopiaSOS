@@ -41,11 +41,14 @@
       	 				<td><input type="text" size="90%" name="title"></td>
       	 			</tr>
       	 			<tr>
-      	 				<td><h3>파일첨부</h3></td>
+      	 				<td><h3>사진첨부</h3></td>
       	 				<td>
-      	 					<input id="file1" type="file" name="file1">
-      	 					<input id="file1" type="file" name="file2">
-      	 					<input id="file3" type="file" name="file3">
+      	 					<div id="contentImgArea1" style="float:left; margin-right:1%;">
+      	 						<img id="contentImg1" width="120" height="100">
+      	 					</div>
+      	 					<div id="contentImgArea2" style="float:left">
+      	 						<img id="contentImg2" width="120" height="100">
+      	 					</div>
       	 				</td>
       	 			</tr>
       	 			<tr>
@@ -60,6 +63,10 @@
       	 			<div id="searchBtnArea" align="center">
       	 				<input type="submit" value="등록" >
 		   				<input type="reset" value="취소" >
+      	 			</div>
+      	 			<div id="fileArea">
+      	 				<input id="file1" type="file" name="file1" onchange="loadImg(this,1)">
+      	 				<input id="file2" type="file" name="file2" onchange="loadImg(this,2)">
       	 			</div>
       	 	</form>
       	 		<form id="insertEvent" action="<%=request.getContextPath() %>/insertAdminEvent.do" method="post" encType="multipart/form-data" style="display:none;" >
@@ -76,11 +83,15 @@
 						</td>
       	 			</tr>
       	 			<tr>
-      	 				<td><h3>파일첨부</h3></td>
+      	 				<td><h3>사진첨부</h3></td>
       	 				<td>
-      	 					<input id="file1" type="file" name="file1">
-      	 					<input id="file1" type="file" name="file2">
-      	 					<input id="file3" type="file" name="file3">
+      	 					<div id="contentImgArea3" style="float:left; margin-right:1%;">
+      	 						<img id="contentImg3" width="120" height="100">
+      	 					</div>
+      	 					
+      	 					<div id="contentImgArea4" style="float:left">
+      	 						<img id="contentImg4" width="120" height="100">
+      	 					</div>
       	 				</td>
       	 			</tr>
       	 			<tr>
@@ -96,6 +107,10 @@
       	 				<input type="submit" value="등록" >
 		   				<input type="reset" value="취소" >
       	 			</div>
+      	 		<div id="fileArea2">
+      	 				<input id="file3" type="file" name="file1" onchange="loadImg(this,3)">
+      	 				<input id="file4" type="file" name="file2" onchange="loadImg(this,4)">
+      	 		</div>
       	 	</form>
       	 </div>
       </div>
@@ -114,14 +129,55 @@
 	  			$("#insertEvent").show();
 	  			
 	  		}
-	  			
-	  	
-	  
 	  });
-  		
   	});		
+  $(function(){
+	  $("#fileArea").hide();
+	 	 $("#contentImgArea1").click(function(){
+			$("#file1").click();   				
+		 });
+		$("#contentImgArea2").click(function(){
+			$("#file2").click(); 
+		 });
+  });
+  $(function(){
+	  $("#fileArea2").hide();
+	 	 $("#contentImgArea3").click(function(){
+			$("#file3").click();   				
+		 });
+		$("#contentImgArea4").click(function(){
+			$("#file4").click(); 
+		 });
+  });
   
-  
+  function loadImg(value, num){
+	  if(value.files && value.files[0]){
+				var reader = new FileReader();
+				reader.onload = function(e){
+					switch(num){
+					case 1 : $("#contentImg1").attr("src",e.target.result); break;
+					case 2 : $("#contentImg2").attr("src",e.target.result); break;
+					}
+					
+					
+				}
+			reader.readAsDataURL(value.files[0]);	
+			}
+  }
+   function loadImg(value, num){
+	  if(value.files && value.files[0]){
+				var reader = new FileReader();
+				reader.onload = function(e){
+					switch(num){
+					case 3 : $("#contentImg3").attr("src",e.target.result); break;
+					case 4 : $("#contentImg4").attr("src",e.target.result); break;
+					}
+					
+					
+				}
+			reader.readAsDataURL(value.files[0]);	
+			}
+  }
   </script>
   
   

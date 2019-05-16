@@ -9,6 +9,7 @@ import static com.kh.jooTopia.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BoardAdminService {
 
@@ -105,6 +106,52 @@ public class BoardAdminService {
 		
 		
 		return list;
+	}
+
+	public HashMap<String, Object> selectOneNotice(int num) {
+		Connection con = getConnection();
+		HashMap<String, Object> hmap = null;
+		
+		int result = new BoardAdminDao().updateCount(con,num);
+		
+		if(result>0) {
+			commit(con);
+			hmap = new BoardAdminDao().selectOneNotice(con,num);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return hmap;
+	}
+
+	public int updateNotice(Board board, ArrayList<Attachment> fileList) {
+		Connection con = getConnection();
+		int result;
+		
+		int result1 = new BoardAdminDao().updateNotice(con, board);
+		
+		if(result1>0) {
+			for(int i = 0; i<fileList.size(); i++) {
+				fileList.get(i).setbId(board.getbId());
+			}
+		}
+		
+		int result2 = new BoardAdminDao().updateNoticeAttachment(con, fileList);
+		
+		if(result1>0 && result2 ==fileList.size()) {
+			commit(con);
+			result=1;
+		}else {
+			rollback(con);
+			result=0;
+		}
+		
+		close(con);
+		
+		
+		return result;
 	}
 
 }
