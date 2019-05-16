@@ -1,75 +1,119 @@
 package com.kh.jooTopia.stock.model.vo;
 
 import java.sql.Date;
- 
-public class StockAdmin {
-	private int sId;
-	private String cate1;
-	private String cate2;
-	private int pNo;
-	private int hNo;
-	private int lNo;
-	private Date hDate;
+
+public class StockAdmin implements java.io.Serializable{
+	
+	private int pId;		//PID - 상품번호(시퀀스)
+	private int hId;		//HID - 적치번호(시퀀스)
+	private int rlId;		//RLID - 출고번호(시퀀스)
+	private int pcdId;		//PCDID - 매입상세번호
+	private String cGroup;	//CGROUP - 대분류
+	private String name;	//NAME - 중분류
+	private int poId;		//POID - 주문번호
+	private int dId;		//DID - 배송번호
+	private int lBarcode;	//LBARCODE - 위치바코드
+	private Date rlDate;	//RLDATE - 출고일자
+	private Date hDate;		//HDATE - 적치일자
+	private String pContent;//PCONTENT - 상품상세정보
 	
 	public StockAdmin() {}
 
-	public StockAdmin(int sId, String cate1, String cate2, int pNo, int hNo, int lNo, Date hDate) {
+	public StockAdmin(int pId, int hId, int rlId, int pcdId, String cGroup, String name, int poId, int dId,
+			int lBarcode, Date rlDate, Date hDate, String pContent) {
 		super();
-		this.sId = sId;
-		this.cate1 = cate1;
-		this.cate2 = cate2;
-		this.pNo = pNo;
-		this.hNo = hNo;
-		this.lNo = lNo;
+		this.pId = pId;
+		this.hId = hId;
+		this.rlId = rlId;
+		this.pcdId = pcdId;
+		this.cGroup = cGroup;
+		this.name = name;
+		this.poId = poId;
+		this.dId = dId;
+		this.lBarcode = lBarcode;
+		this.rlDate = rlDate;
 		this.hDate = hDate;
+		this.pContent = pContent;
 	}
 
-	public int getsId() {
-		return sId;
+	public int getpId() {
+		return pId;
 	}
 
-	public void setsId(int sId) {
-		this.sId = sId;
+	public void setpId(int pId) {
+		this.pId = pId;
 	}
 
-	public String getCate1() {
-		return cate1;
+	public int gethId() {
+		return hId;
 	}
 
-	public void setCate1(String cate1) {
-		this.cate1 = cate1;
+	public void sethId(int hId) {
+		this.hId = hId;
 	}
 
-	public String getCate2() {
-		return cate2;
+	public int getRlId() {
+		return rlId;
 	}
 
-	public void setCate2(String cate2) {
-		this.cate2 = cate2;
+	public void setRlId(int rlId) {
+		this.rlId = rlId;
 	}
 
-	public int getpNo() {
-		return pNo;
+	public int getPcdId() {
+		return pcdId;
 	}
 
-	public void setpNo(int pNo) {
-		this.pNo = pNo;
+	public void setPcdId(int pcdId) {
+		this.pcdId = pcdId;
 	}
 
-	public int gethNo() {
-		return hNo;
+	public String getcGroup() {
+		return cGroup;
 	}
 
-	public void sethNo(int hNo) {
-		this.hNo = hNo;
+	public void setcGroup(String cGroup) {
+		this.cGroup = cGroup;
 	}
 
-	public int getlNo() {
-		return lNo;
+	public String getName() {
+		return name;
 	}
 
-	public void setlNo(int lNo) {
-		this.lNo = lNo;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getPoId() {
+		return poId;
+	}
+
+	public void setPoId(int poId) {
+		this.poId = poId;
+	}
+
+	public int getdId() {
+		return dId;
+	}
+
+	public void setdId(int dId) {
+		this.dId = dId;
+	}
+
+	public int getlBarcode() {
+		return lBarcode;
+	}
+
+	public void setlBarcode(int lBarcode) {
+		this.lBarcode = lBarcode;
+	}
+
+	public Date getRlDate() {
+		return rlDate;
+	}
+
+	public void setRlDate(Date rlDate) {
+		this.rlDate = rlDate;
 	}
 
 	public Date gethDate() {
@@ -80,13 +124,22 @@ public class StockAdmin {
 		this.hDate = hDate;
 	}
 
+	public String getpContent() {
+		return pContent;
+	}
+
+	public void setpContent(String pContent) {
+		this.pContent = pContent;
+	}
+
 	@Override
 	public String toString() {
-		return "StockAdmin [sId=" + sId + ", cate1=" + cate1 + ", cate2=" + cate2 + ", pNo=" + pNo + ", hNo=" + hNo
-				+ ", lNo=" + lNo + ", hDate=" + hDate + "]";
+		return "ProductregAdmin [pId=" + pId + ", hId=" + hId + ", rlId=" + rlId + ", pcdId=" + pcdId + ", cGroup="
+				+ cGroup + ", name=" + name + ", poId=" + poId + ", dId=" + dId + ", lBarcode=" + lBarcode + ", rlDate="
+				+ rlDate + ", hDate=" + hDate + ", pContent=" + pContent + "]";
 	}
+
 	
-	
-	
+
 
 }

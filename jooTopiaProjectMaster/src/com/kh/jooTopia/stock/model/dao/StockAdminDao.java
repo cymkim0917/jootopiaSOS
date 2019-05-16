@@ -48,13 +48,12 @@ public class StockAdminDao {
 			while(rset.next()) {
 				StockAdmin s = new StockAdmin();
 				
-				s.setsId(rset.getInt("SID"));
-				s.setCate1(rset.getString("CATE1"));
-				s.setCate2(rset.getString("CATE2"));
-				s.setpNo(rset.getInt("PNO"));
-				s.sethNo(rset.getInt("HNO"));
-				s.setlNo(rset.getInt("LNO"));
-				s.sethDate(rset.getDate("HDATE"));				
+				s.setcGroup(rset.getString("CGROUP"));
+				s.setName(rset.getString("NAME"));
+				s.setpId(rset.getInt("PID"));
+				s.sethId(rset.getInt("HID"));
+				s.setlBarcode(rset.getInt("LBARCODE"));
+				s.sethDate(rset.getDate("HDATE"));							
 				
 				list.add(s);
 			}

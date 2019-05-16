@@ -115,10 +115,18 @@ public class InsertPurchaseServlet extends HttpServlet {
 			
 			int result = new PurchaseService().insertPurchase(b, p, fileList);
 			
+			HashMap<String, Object> hmap = null;
+			
 			if(result > 0) {
+				 hmap = new PurchaseService().selectPurchaseFin();
+			}
+			System.out.println("servlet에서 hmap : " + hmap);
+			if(hmap != null) {
 				// 일단 메인페이지로 보내본다.
-				request.setAttribute("list", "new PurchaseService().selectOnePurchase()");
-				response.sendRedirect(request.getContextPath() + "/views/purchase/purchaseFin.jsp");
+				request.setAttribute("hmap", hmap);
+				System.out.println("request : " + request.getAttribute("hmap"));
+				// response.sendRedirect(request.getContextPath() + "/views/purchase/purchaseFin.jsp");
+				request.getRequestDispatcher("views/purchase/purchaseFin.jsp").forward(request, response);
 			}else {
 				
 				for(int i = 0; i < saveFiles.size(); i++) {
@@ -130,7 +138,6 @@ public class InsertPurchaseServlet extends HttpServlet {
 				request.setAttribute("msg", "매입신청서 제출 실패!");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
-			
 		} // if
 	}
 

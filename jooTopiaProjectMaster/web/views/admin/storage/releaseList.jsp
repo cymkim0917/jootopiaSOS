@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.kh.jooTopia.release.model.vo.*, java.util.*"%>
 	
-	<% ArrayList<ReleaseAdminList> rlist = (ArrayList<ReleaseAdminList>) request.getAttribute("rlist"); %>
+	<% ArrayList<ReleaseAdmin> rlist = (ArrayList<ReleaseAdmin>) request.getAttribute("rlist"); %>
 	
 <!DOCTYPE html>
 <html>
@@ -75,14 +75,15 @@
 						<th>출고일자</th>
 					</tr>
 				</thead>
-				<% for(ReleaseAdminList r : rlist){ %>
+				<% int i = 0; for(ReleaseAdmin r : rlist){ i++;%>
 				<tbody>
 					<tr>
-						<td><%= r.getrId() %></td>
-						<td><%= r.getoNo() %></td>
-						<td><%= r.getdNo() %></td>
-						<td><%= r.getrNo() %></td>
-						<td><%= r.getrDate() %></td>
+						<td><%= i %></td>
+						<td><%= r.getPoId() %></td>
+						<td><%= r.getdId() %></td>
+						<td><%= r.getRlId() %></td>
+						<td><%= r.getRlDate() %></td>
+						
 					</tr>
 					<% } %>
 					

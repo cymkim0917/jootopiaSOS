@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.*"%>
+<%
+	HashMap<String, Object> hmap = (HashMap<String, Object>) request.getAttribute("hmap");
+	System.out.println("hmap: " + hmap);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,48 +25,56 @@
 					<th>상세정보</th>
 				<tr>
 				<tr>
+					<td>신청자</td>
+					<td><%= hmap.get("applicnat") %></td>
+				<tr>
+				<tr>
 					<td>신청일자</td>
-					<td></td>
+					<td><%= hmap.get("bDate") %></td>
 				<tr>
 				<tr>
 					<td>주소</td>
-					<td></td>
+					<td><%= hmap.get("appAddress") %></td>
+				<tr>
+				<tr>
+					<td>거리 / 배송비</td>
+					<td><%= hmap.get("appDistance") %> / </td>
 				<tr>
 				<tr>
 					<td>연락처</td>
-					<td></td>
+					<td><%= hmap.get("appPhone") %></td>
 				<tr>
 				<tr>
 					<td>신청 카테고리</td>
-					<td></td>
+					<td><%= hmap.get("category") %></td>
 				<tr>
 				<tr>
 					<td>브랜드</td>
-					<td></td>
+					<td><%= hmap.get("brand") %></td>
 				<tr>
 				<tr>
 					<td>모델명</td>
-					<td></td>
+					<td><%= hmap.get("model") %></td>
 				<tr>
 				<tr>
 					<td>사용기간</td>
-					<td></td>
+					<td><%= hmap.get("usePeriod") %></td>
 				<tr>
 				<tr>
 					<td>제품정가</td>
-					<td></td>
+					<td><%= hmap.get("primeCost") %></td>
 				<tr>
 				<tr>
 					<td>판매희망가격</td>
-					<td></td>
+					<td><%= hmap.get("hopeCost") %></td>
 				<tr>
 				<tr>
 					<td>상품특이사항</td>
-					<td></td>
+					<td><%= hmap.get("bContent") %></td>
 				<tr>
 				<tr>
 					<td>매입 요청 사항</td>
-					<td></td>
+					<td><%--= hmap.get("memo") --%></td>
 				<tr>
 			</table>
 		</div>

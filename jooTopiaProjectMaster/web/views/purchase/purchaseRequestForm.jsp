@@ -140,8 +140,8 @@
 	</section>
 	<script>
 		$("#cGroup").change(function(){
-			var cGroup = $(this).children("option:selected").val();
-			var $cName = $("#cName");
+			var cGroup = $(this).children("option:selected").val(); // 대분류
+			var $cName = $("#cName");  // 소분류
 			$.ajax({
 				url:"<%= request.getContextPath() %>/selectNameList.do",
 				data:{cGroup:cGroup},
@@ -173,6 +173,13 @@
 		}
 	</script>
 <%@ include file="/views/common/footer.jsp" %>
-
 </body>
 </html>
+
+
+<!-- 
+추가로 해야할 것!!
+카테고리 미 선택시 신청서 제출되지 않게 하는것 
+사진 갯수가 3개미만일 경우 제출 되지 않게 하는것 
+그외에 정규표현식
+ -->
