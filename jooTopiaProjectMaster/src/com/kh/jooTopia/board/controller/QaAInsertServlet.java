@@ -100,14 +100,14 @@ public class QaAInsertServlet extends HttpServlet {
 			
 			if(result > 0 ) {
 				System.out.println("업로드 성공");			 
-				out.println("<script>alert('게시글 수정 되었습니다');</script>");			 
+				out.println("<script>alert('게시글 작성 되었습니다');</script>");			 
 				response.sendRedirect(request.getContextPath() + "/selectBoardList.do");
 				
 			}else {
 				for (int i = 0; i < saveFiles.size(); i++) {
 					new File(filePath + saveFiles.get(i));					
 				}
-				out.println("<script>alert('게시글이 수정에 실패했습니다.');</script>");	
+				out.println("<script>alert('게시글이 작성에 실패했습니다.');</script>");	
 			/*	request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);*/
 			}
 			out.flush();

@@ -120,7 +120,7 @@ public class BoardService {
 		int returnResult = 0;
 		
 		int boardResult = new BoardDao().upDateQaAContent(con,board);
-		
+		System.out.println("boardResult" + boardResult);
 		if(boardResult>0) {
 			/*int bId = new BoardDao().selectCurrval(con);*/
 			
@@ -129,9 +129,9 @@ public class BoardService {
 			}
 		}
 		
-		int insertResult = new BoardDao().updateQaAPhoto(con,fileList);
-		
-		if(boardResult > 0 && insertResult == fileList.size()) {
+		int updateResult = new BoardDao().updateQaAPhoto(con,fileList);
+		System.out.println("updateResult" + updateResult);
+		if(boardResult > 0 && updateResult == fileList.size()) {
 			commit(con);
 			returnResult = 1;
 		}else {
@@ -142,6 +142,30 @@ public class BoardService {
 		close(con);
 		
 		return returnResult;
+	}
+	public int updateQaAContent(Board board) {
+		Connection con= getConnection();
+		
+		int boardResult = new BoardDao().upDateQaAContent(con,board);
+		
+		if(boardResult >0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return boardResult;
+	}
+	public String[] deleteFiles(int[] fid) {
+		Connection con= getConnection();
+		
+		String[] files = new BoardDao().deleteFiles(con,fid);
+		
+		close(con);
+		
+		return files;
 	}
 
 }
