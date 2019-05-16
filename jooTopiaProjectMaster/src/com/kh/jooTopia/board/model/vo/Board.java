@@ -107,11 +107,11 @@ public class Board implements java.io.Serializable {
 		this.status = status;
 	}
 
-	public Date getBDate() {
+	public Date getbDate() {
 		return bDate;
 	}
 
-	public void setBDate(Date bDate) {
+	public void setbDate(Date bDate) {
 		this.bDate = bDate;
 	}
 
