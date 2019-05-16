@@ -115,9 +115,15 @@ public class InsertPurchaseServlet extends HttpServlet {
 			
 			int result = new PurchaseService().insertPurchase(b, p, fileList);
 			
+			HashMap<String, Object> hmap = null;
+			
+			if(result > 0) {
+				 hmap = new PurchaseService().selectPurchaseFin();
+			}
+			
 			if(result > 0) {
 				// 일단 메인페이지로 보내본다.
-				request.setAttribute("list", "new PurchaseService().selectOnePurchase()");
+				request.setAttribute("hmap", hmap);
 				response.sendRedirect(request.getContextPath() + "/views/purchase/purchaseFin.jsp");
 			}else {
 				
