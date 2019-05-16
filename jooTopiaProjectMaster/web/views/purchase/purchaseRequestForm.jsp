@@ -140,8 +140,8 @@
 	</section>
 	<script>
 		$("#cGroup").change(function(){
-			var cGroup = $(this).children("option:selected").val();
-			var $cName = $("#cName");
+			var cGroup = $(this).children("option:selected").val(); // 대분류
+			var $cName = $("#cName");  // 소분류
 			$.ajax({
 				url:"<%= request.getContextPath() %>/selectNameList.do",
 				data:{cGroup:cGroup},

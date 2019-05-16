@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*"%>
+<%
+	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,15 +72,33 @@
 	    			<tr>
 	    				<td>검색분류</td>
 	    				<td>
-	    					<select>
+	    					<select id="searchType">
 	    						<option value="memberNo">회원번호</option>
 	    						<option value="memberName">회원이름</option>
 	    						<option value="phone">연락처</option>
 	    						<option value="category">카테고리</option>
 	    					</select>
-	    					<input type="text" name="search" placeholder="검색어를 입력해주세요">
+	    					<input type="text" id="search" name="search" placeholder="검색어를 입력해주세요">
+	    					<button onclick="search1();"></button>
 	    				</td>
 	    			</tr>
+	    			<script>
+	    				function search1(){
+		    				var searchType = $("#searchType").val();
+		    				var search = $("#search").val();
+		    				console.log("searchType : " + searchType);
+		    				console.log("search : " + search);
+		    				switch(searchType){
+			    				case "memberNo": location.href='<%= request.getContextPath() %>/selectSearchUnoServlet.do?search=' + search; 
+			    								break;
+			    				case "memberName" :
+			    				case "phone":
+			    				case "category":
+			    					return false;
+			    				
+		    				}
+	    				}
+	    			</script>
 	    			<tr>
 	    				<td>글 등록일</td>
 	    				<td>
@@ -96,7 +117,7 @@
 	    					<input type="radio" hidden="hidden" name="status" value="확인 전" id="waiting" checked>
 	    					<label for="waiting">확인 전</label>
 	    					<input type="radio" name="status" value="수락" id="agree">
-	    		d			<label for="agree">수락</label>
+	    					<label for="agree">수락</label>
 	    					<input type="radio" name="status"  value="거절" id="disagree">
 	    					<label for="disagree">거절</label>
 	    				</td>
@@ -115,105 +136,33 @@
 	    				<th>매입여부</th>
 	    				<th>입고여부</th>
 	    			</tr>
-	    			<tr onclick="location.href='/jootopia/views/admin/purchase/purchaseDetail.jsp'">
-	    				<td>1</td>
-	    				<td>4170001</td>
-	    				<td>김채연</td>
-	    				<td>010-9120-3129</td>
-	    				<td>침실가구 > 침대</td>
-	    				<td>2019-05-09</td>
-	    				<td>Y</td>
-	    				<td>N</td>
-	    			</tr>
-	    			<tr onclick="location.href='/jootopia/views/admin/purchase/purchaseDetail.jsp'">
-	    				<td>2</td>
-	    				<td>4170001</td>
-	    				<td>김채연</td>
-	    				<td>010-9120-3129</td>
-	    				<td>침실가구 > 침대</td>
-	    				<td>2019-05-09</td>
-	    				<td>Y</td>
-	    				<td>N</td>
-	    			</tr>
-	    			<tr onclick="location.href='/jootopia/views/admin/purchase/purchaseDetail.jsp'">
-	    				<td>3</td>
-	    				<td>4170001</td>
-	    				<td>김채연</td>
-	    				<td>010-9120-3129</td>
-	    				<td>침실가구 > 침대</td>
-	    				<td>2019-05-09</td>
-	    				<td>Y</td>
-	    				<td>N</td>
-	    			</tr>
-	    			<tr>
-	    				<td>4</td>
-	    				<td>4170001</td>
-	    				<td>김채연</td>
-	    				<td>010-9120-3129</td>
-	    				<td>침실가구 > 침대</td>
-	    				<td>2019-05-09</td>
-	    				<td>Y</td>
-	    				<td>N</td>
-	    			</tr>
-	    			<tr>
-	    				<td>5</td>
-	    				<td>4170001</td>
-	    				<td>김채연</td>
-	    				<td>010-9120-3129</td>
-	    				<td>침실가구 > 침대</td>
-	    				<td>2019-05-09</td>
-	    				<td>Y</td>
-	    				<td>N</td>
-	    			</tr>
-	    			<tr>
-	    				<td>6</td>
-	    				<td>4170001</td>
-	    				<td>김채연</td>
-	    				<td>010-9120-3129</td>
-	    				<td>침실가구 > 침대</td>
-	    				<td>2019-05-09</td>
-	    				<td>Y</td>
-	    				<td>N</td>
-	    			</tr>
-	    			<tr>
-	    				<td>7</td>
-	    				<td>4170001</td>
-	    				<td>김채연</td>
-	    				<td>010-9120-3129</td>
-	    				<td>침실가구 > 침대</td>
-	    				<td>2019-05-09</td>
-	    				<td>Y</td>
-	    				<td>N</td>
-	    			</tr>
-	    			<tr>
-	    				<td>8</td>
-	    				<td>4170001</td>
-	    				<td>김채연</td>
-	    				<td>010-9120-3129</td>
-	    				<td>침실가구 > 침대</td>
-	    				<td>2019-05-09</td>
-	    				<td>Y</td>
-	    				<td>N</td>
-	    			</tr>
-	    			<tr>
-	    				<td>9</td>
-	    				<td>4170001</td>
-	    				<td>김채연</td>
-	    				<td>010-9120-3129</td>
-	    				<td>침실가구 > 침대</td>
-	    				<td>2019-05-09</td>
-	    				<td>Y</td>
-	    				<td>N</td>
-	    			</tr>
-	    			<tr>
-	    				<td>10</td>
-	    				<td>4170001</td>
-	    				<td>김채연</td>
-	    				<td>010-9120-3129</td>
-	    				<td>침실가구 > 침대</td>
-	    				<td>2019-05-09</td>
-	    				<td>Y</td>
-	    				<td>N</td>
+	    			<% for(HashMap<String, Object> hmap : list){ %>
+	    			<tr onclick="location.href='<%= request.getContextPath() %>/selectPurchaseDetail.do?no='<%= hmap.get("pcid") %>">
+	    				<td><%= hmap.get("pcid") %></td>
+	    				<td><%= hmap.get("uno") %></td>
+	    				<td><%= hmap.get("applicant") %></td>
+	    				<td><%= hmap.get("appPhone") %></td>
+	    				<td><%= hmap.get("category") %></td>
+	    				<td><%= hmap.get("bDate") %></td>
+	    				<td><% if( hmap.get("매입수락") != null){ %>
+	    						매입수락
+	    					<% }else if(hmap.get("매입신청거절") != null){ %>
+	    						매입거절
+	    					<% }else{ %>
+	    						매입대기중
+	    					<% } %>
+	    				</td>
+	    				<td><% if(hmap.get("매입완료") != null){ %>
+								매입완료	    					
+	    					<% }else if(hmap.get("매입중") != null) {%>
+	    						매입중
+	    					<% }else if(hmap.get("매입거절") != null){ %>
+	    						매입거절
+	    					<%}else{ %>
+	    						매입대기
+	    					<% } %>
+	    				</td>
+	    			<% } %>
 	    			</tr>
 	    		</table>
 	    	</div><br><br><br>
