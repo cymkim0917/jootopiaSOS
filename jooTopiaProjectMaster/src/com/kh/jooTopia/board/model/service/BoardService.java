@@ -88,6 +88,11 @@ public class BoardService {
 		
 		return returnResult;
 	}
+	
+	
+
+	
+	
 	public ArrayList<Board> selectBoardList(int uno) {
 		
 		Connection con = getConnection();
@@ -143,6 +148,27 @@ public class BoardService {
 		
 		return returnResult;
 	}
+
+	public ArrayList<Board> selectFaqList() {
+
+		
+		Connection con = getConnection();
+		ArrayList<Board> list = new BoardDao().selectFaqList(con);
+		
+		close(con);
+		
+		return list;
+	}
+	public ArrayList<Board> selectFaqMembershipList() {
+		
+		Connection con = getConnection();
+		ArrayList<Board> list = new BoardDao().selectFaqMembershipList(con);
+		
+		close(con);
+		
+		return list;
+		
+
 	public int updateQaAContent(Board board) {
 		Connection con= getConnection();
 		
@@ -166,6 +192,7 @@ public class BoardService {
 		close(con);
 		
 		return files;
+
 	}
 
 }

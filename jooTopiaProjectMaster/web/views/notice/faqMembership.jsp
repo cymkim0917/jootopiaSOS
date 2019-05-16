@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.jooTopia.board.model.vo.*"%>
+    
+    
+    <%
+		ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
+	%>
+    
+    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,13 +86,14 @@
 		
 		
 		
+		
 		<div class="container">
 		
 		
 		  <!-- <h2>Hover Rows</h2>
 		  <p>The .table-hover class enables a hover state on table rows:</p>   -->          
 		  <table class="table table-hover">
-		    <thead>
+		   
 		      <tr>
 		        <th>글번호</th>
 		        <th>분류</th>
@@ -92,78 +101,30 @@
 		        <th>작성일</th>
 		        <th>조회수</th>
 		      </tr>
-		    </thead>
-		    <tbody>
-		      <tr onclick="location.href='/jootopia/views/notice/faqMembershipPlus.jsp'">
+		   
+		    <% for(Board b: list){ %>
+		      <tr>
+		        <td><%=b.getbId() %></td>
+		        <td><%=b.getfCategory() %></td>
+		        <td><%=b.getbTitle() %></td>
+		        <td><%=b.getuNo() %></td>
+		        <td><%=b.getbCount() %></td>
+		      </tr>		      
+		      
+		  
+		    <!--   <tr onclick="location.href='/jootopia/views/notice/faqMembershipPlus.jsp'">
 		        <td>9</td>
 		        <td>회원가입</td>
 		        <td>회원가입 문의입니다</td>
 		        <td>2019.04.06</td>
 		        <td>2</td>
-		      </tr>
-		      <tr onclick="location.href='/jootopia/views/notice/faqMembershipPlus.jsp'">
-		        <td>8</td>
-		        <td>회원가입</td>
-		        <td>회원가입 문의입니다</td>
-		        <td>2019.04.06</td>
-		        <td>3</td>
-		      </tr>
-		      <tr onclick="location.href='/jootopia/views/notice/faqMembershipPlus.jsp'">
-		        <td>7</td>
-		        <td>회원가입</td>
-		        <td>회원가입 문의입니다</td>
-		        <td>2019.04.06</td>
-		        <td>4</td>
-		      </tr>
-		    </tbody>
+		      </tr> -->
+		      
+		    <%} %>
 		    
-		    <tbody>
-		      <tr onclick="location.href='/jootopia/views/notice/faqMembershipPlus.jsp'">
-		        <td>6</td>
-		        <td>회원가입</td>
-		        <td>회원가입 문의입니다</td>
-		        <td>2019.04.06</td>
-		        <td>5</td>
-		      </tr>
-		      <tr onclick="location.href='/jootopia/views/notice/faqMembershipPlus.jsp'">
-		        <td>5</td>
-		        <td>회원가입</td>
-		        <td>회원가입 문의입니다</td>
-		        <td>2019.04.06</td>
-		        <td>6</td>
-		      </tr>
-		      <tr onclick="location.href='/jootopia/views/notice/faqMembershipPlus.jsp'">
-		        <td>4</td>
-		        <td>회원가입</td>
-		        <td>회원가입 문의입니다</td>
-		        <td>2019.04.06</td>
-		        <td>7</td>
-		      </tr>
-		    </tbody>
-		     
-		    <tbody>
-		      <tr onclick="location.href='/jootopia/views/notice/faqMembershipPlus.jsp'">
-		        <td>3</td>
-		        <td>회원가입</td>
-		        <td>회원가입 문의입니다</td>
-		        <td>2019.04.06</td>
-		        <td>8</td>
-		      </tr>
-		      <tr onclick="location.href='/jootopia/views/notice/faqMembershipPlus.jsp'">
-		        <td>2</td>
-		        <td>회원가입</td>
-		        <td>회원가입 문의입니다</td>
-		        <td>2019.04.06</td>
-		        <td>9</td>
-		      </tr>
-		      <tr onclick="location.href='/jootopia/views/notice/faqMembershipPlus.jsp'">
-		        <td>1</td>
-		        <td>회원가입</td>
-		        <td>회원가입 문의입니다</td>
-		        <td>2019.04.06</td>
-		        <td>1</td>
-		      </tr>
-		    </tbody>
+		    
+		    
+		    
 		  </table>
 		</div>
 		
@@ -188,6 +149,31 @@
 			<button type="submit">></button>&nbsp;
 			<button type="submit">>></button>
 		</div>
+	
+	 <script>
+			 
+			 
+			 $(".table td").click(function() {
+				 
+				 console.log("ddddd");
+				 var num = $(this).parent().children().eq(0).text();
+				 console.log(num);
+				 location.href="<%=request.getContextPath()%>/selectFaqMembershipList.do?num="+num;
+				 
+				/*  $('',this).triger('click'); */
+				 
+			 });
+			
+			
+				
+				
+				
+				
+			</script> 
+	
+	
+	
+	
 	
 	
 		
