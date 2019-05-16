@@ -37,7 +37,7 @@ private Properties prop = new Properties();
 		ResultSet rset = null;
 		ArrayList<HeapAdmin> list = null;
 		
-		String query = prop.getProperty("selectList");
+		String query = prop.getProperty("selecHeaptList");
 		try {
 			stmt = con.createStatement();			
 			rset = stmt.executeQuery(query);			
@@ -47,9 +47,10 @@ private Properties prop = new Properties();
 			while(rset.next()) {
 				HeapAdmin h = new HeapAdmin();
 				
-				h.sethId(rset.getInt("HID"));
-				h.setPcNo(rset.getInt("PCNO"));
-				h.setpNo(rset.getInt("PNO"));							
+				h.setPcdId(rset.getInt("PCDID"));
+				h.setpId(rset.getInt("PID"));
+				h.setcGroup(rset.getString("CGROUP"));
+				h.setName(rset.getString("NAME"));									
 				
 				list.add(h);
 			}

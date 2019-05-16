@@ -14,6 +14,7 @@ import java.util.Properties;
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
 import com.kh.jooTopia.member.model.dao.MemberDao;
+import com.kh.jooTopia.member.model.vo.Member;
 import com.kh.jooTopia.board.model.vo.Attachment;
 import com.kh.jooTopia.board.model.vo.Board;
 import com.kh.jooTopia.board.model.vo.Notice;
@@ -36,11 +37,13 @@ public class BoardDao {
 	}
 	
 	//전체출력
-	public ArrayList<Notice> selectList(Connection con) {
+	public HashMap<String, Object> selectList(Connection con) {
 		
-		PreparedStatement pstmt = null;
+		Statement stmt = null;
 		ResultSet rset = null;
-		ArrayList<Notice> list = null;
+		HashMap<String, Object> hmap = null;
+		ArrayList<Notice> nList = null;
+		ArrayList<Member> mList = null;
 		
 		String query = prop.getProperty("selectList");
 		
@@ -48,13 +51,15 @@ public class BoardDao {
 		int endRow = startRow + pageInfo.getLimit()-1;
 		*/
 		try {
-			pstmt = con.prepareStatement(query);
+			stmt = con.createStatement();
 			/*pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);*/
 			
-			rset = pstmt.executeQuery();
+			rset = stmt.executeQuery(query);
 			
-			list = new ArrayList<Notice>();
+			nList = new ArrayList<Notice>();
+			mList = new ArrayList<Member>();
+			hmap = new HashMap<String, Object>();
 			
 			while(rset.next()) {
 				Notice n = new Notice();
@@ -62,23 +67,31 @@ public class BoardDao {
 				n.setbType(rset.getInt("BTYPE"));
 				n.setbTitle(rset.getString("BTITLE"));
 				n.setbCount(rset.getInt("BCOUNT"));
-				n.setbDate(rset.getDate("BDATE"));
 				n.setModifyDate(rset.getDate("MODIFY_DATE"));
 				
-				list.add(n);
+				nList.add(n);
+				
+				Member m = new Member();
+				m.setUserId(rset.getString("USER_ID"));
+				
+				mList.add(m);
 				
 			}
+			
+			hmap.put("nList", nList);
+			hmap.put("mList", mList);
+			
 			
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}finally {
 			close(rset);
-			close(pstmt);
+			close(stmt);
 		}
 		
-		System.out.println("Dao 페이징 : " + list);
-		return list;
+		System.out.println("Dao 페이징 : " + hmap);
+		return hmap;
 		
 	}
 		
@@ -241,7 +254,7 @@ public class BoardDao {
 			rset = stmt.executeQuery(query);
 
 			if (rset.next()) {
-				bid = rset.getInt("CURRVAL");
+				bid = rset.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -274,7 +287,7 @@ public class BoardDao {
 				board.setbId(rs.getInt("BID"));
 				board.setbNo(rs.getInt("BNO"));
 				board.setbTitle(rs.getString("BTITLE"));
-				board.setBDate(rs.getDate("BDATE"));
+				board.setbDate(rs.getDate("BDATE"));
 				board.setbCount(rs.getInt("BCOUNT"));
 				board.setbType(rs.getInt("BTYPE"));
 				
@@ -319,7 +332,7 @@ public class BoardDao {
 				board.setbTitle(rs.getString("BTITLE"));
 				board.setbCount(rs.getInt("BCOUNT"));
 				board.setbContent(rs.getString("BCONTENT"));
-				board.setBDate(rs.getDate("BDATE"));
+				board.setbDate(rs.getDate("BDATE"));
 				
 				att = new Attachment();
 				att.setfId(rs.getInt("FID"));
@@ -486,13 +499,10 @@ public class BoardDao {
 		
 		String query = prop.getProperty("selectFaqMembershipList");
 		
-		/*int startRow = (pageInfo.getCurrentPage()-1)*pageInfo.getLimit()+1;
-		int endRow = startRow + pageInfo.getLimit()-1;
-		*/
+	
 		try {
 			pstmt = con.prepareStatement(query);
-			/*pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);*/
+			pstmt.setString(1, "회원가입");
 			
 			rset = pstmt.executeQuery();
 			
@@ -502,7 +512,10 @@ public class BoardDao {
 				Board b = new Board();
 				b.setbId(rset.getInt("BID"));
 				b.setfCategory(rset.getString("FCATEGORY"));
+				b.setbType(rset.getInt("BTYPE"));
 				b.setbTitle(rset.getString("BTITLE"));
+				b.setbCount(rset.getInt("BCOUNT"));
+				b.setbDate(rset.getDate("BDATE"));
 				b.setuNo(rset.getInt("UNO"));
 				
 				
@@ -521,11 +534,9 @@ public class BoardDao {
 		System.out.println("Dao 페이징 : " + list);
 		return list;
 		
-		
-	
-	
 	
 	}
+
 
 	public ArrayList<Board> titleSearchList(Connection con, Board board, String searchText) {
 		ArrayList<Board> list = null;
@@ -649,6 +660,41 @@ public class BoardDao {
 		return list;
 	}
 
+
+	public ArrayList<Board> selectFaqTotalList(Connection con, String fCategory) {
+		PreparedStatement pstmt=null;
+		ResultSet rset = null;
+		ArrayList<Board> list = null;
+		
+		
+		try {
+			pstmt=con.prepareStatement(fCategory );
+			pstmt.setString(1, fCategory );
+			rset=pstmt.executeQuery();
+			list = new ArrayList<Board>();
+			
+			while(rset.next()) {
+				Board b =new Board();
+				b.setbId(rset.getInt("BID"));
+				b.setfCategory(rset.getString("FCATEGORY"));
+				b.setbType(rset.getInt("BTYPE"));
+				b.setbTitle(rset.getString("BTITLE"));
+				b.setbCount(rset.getInt("BCOUNT"));
+				b.setbDate(rset.getDate("BDATE"));
+				b.setuNo(rset.getInt("UNO"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
 
 
 

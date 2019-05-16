@@ -42,7 +42,7 @@ public class SelectFaqMembershipListServlet extends HttpServlet {
 		String page = "";
 		
 		if(list != null) {
-			page="views/notice/noticeList.jsp";
+			page="views/notice/faqMembership.jsp";
 			request.setAttribute("list", list);
 			
 		}else {

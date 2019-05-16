@@ -20,19 +20,17 @@ public class SelectOneAdminProductServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("실행");
 		int pId = Integer.parseInt(request.getParameter("num"));
+		System.out.println(pId);
 		
 		HashMap<String, Object> hmap = new ProductAdminService().selectProductOne(pId);
 		
 		String view = ""; //초기화
 		
 		if(hmap != null) {
-			System.out.println("조회성공");
 			view = "views/admin/product/productDetail.jsp";
 			request.setAttribute("hmap", hmap);
 		}else {
-			System.out.println("조회실패");
 			view = "views/common/errorPage500.jsp";
 			request.setAttribute("msg", "상품상세폼 조회 실패");
 		}

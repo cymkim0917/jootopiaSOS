@@ -2,9 +2,9 @@
     pageEncoding="UTF-8" import="java.util.*, com.kh.jooTopia.board.model.vo.*"%>
     
 <%
-
-	ArrayList<Notice> list = (ArrayList<Notice>) request.getAttribute("list");
-	
+	HashMap<String, Object> hmap = (HashMap<String, Object>) request.getAttribute("hmap");
+	ArrayList<Member> mList = (ArrayList<Member>) hmap.get("mList");
+	ArrayList<Notice> nList = (ArrayList<Notice>) hmap.get("nList");
 	
 	/* PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 	int currentPage = pageInfo.getCurrentPage();
@@ -36,7 +36,7 @@
 		text-align:center;
 	}
 	table th{
-	
+		text-align: center;
 	}
 </style>
 
@@ -49,12 +49,13 @@
 		    <br>
 		      <h1 align="center">공지사항/이벤트</h1>
 		      <br>
+		      
+		      
 		       <div class="container">
-		      <form>
 		        <table class="table table-hover">
 		         
-		            <tr >
-		              <th >글번호</th>
+		            <tr>
+		              <th>글번호</th>
 		              <th>유형</th>
 		              <th>제목</th>
 		              <th>작성자</th>
@@ -62,24 +63,23 @@
 		              <th>조회수</th>
 		            </tr>
 		             
-		      		<% for(Notice n : list){ %>
+		      		<% for(int i = 0; i < nList.size(); i++){ %>
 			            <tr>
-			              <td><%=n.getbId() %></td>
-			              <td><%if(n.getbType()==1){ %>
+			              <td><%= nList.get(i).getbId() %></td>
+			              <td><%if(nList.get(i).getbType()==1){ %>
 			              	공지사항
 			              	<%}else{ %>
 			              	이벤트
 			              	<%} %>
 			              </td>
-			              <td><%=n.getbTitle() %></td>
-			              <td><%=n.getuNo() %></td>
-			              <td><%=n.getModifyDate() %></td>
-			              <td><%=n.getbCount() %></td>
+			              <td><%=nList.get(i).getbTitle() %></td>
+			              <td><%=mList.get(i).getUserId() %></td>
+			              <td><%=nList.get(i).getModifyDate() %></td>
+			              <td><%=nList.get(i).getbCount() %></td>
 			            </tr>
 		            <%} %>   
 		         
 		        </table>
-		        </form>
 		      </div>  
 		<br>
 		

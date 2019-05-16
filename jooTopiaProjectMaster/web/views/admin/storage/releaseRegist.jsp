@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.kh.jooTopia.release.model.vo.*, java.util.*"%>
 	
-	<% ReleaseAdmin r = new ReleaseAdmin(1111,2222,3333,4444); %>
+	<% ArrayList<ReleaseAdmin> list = (ArrayList<ReleaseAdmin>) request.getAttribute("list"); %>
 	
 <!DOCTYPE html>
 <html>
@@ -66,21 +66,22 @@
 			
 				<table class="separate" border="1">
 				<%-- <% for(ReleaseAdmin r : list){ %> --%>
+				<% for(ReleaseAdmin r : list){ %>
 					<tr>
 						<td width="120">주문번호</td>
-						<td width="500"><%= r.getoNo() %></td>
+						<td width="500"><%= r.getPoId() %></td>
 					</tr>
 					<tr>
 						<td width="120">배송번호</td>
-						<td width="500"><%= r.getdNo() %></td>
+						<td width="500"><%= r.getdId() %></td>
 					</tr>
 					<tr>
-						<td width="120">적치코드</td>
-						<td width="500"><%= r.gethNo() %></td>
+						<td width="120">적치번호</td>
+						<td width="500"><%= r.gethId() %></td>
 					</tr>
 					<tr>
-						<td width="120">위치번호</td>
-						<td width="500"><%= r.getLocationNo() %></td>
+						<td width="120">위치바코드</td>
+						<td width="500"><%= r.getlBarcode() %></td>
 					</tr>
 					<!-- <tr>
 						<td width="120">출고번호</td>
@@ -90,6 +91,7 @@
 							<input type="button" id="releaseBtn" name="releaseBtn" value="자동생성"/>
 						</td>
 					</tr> -->
+					 <% } %> 
 					<tr>
 						<td width="120">출고일자 등록</td>
 						<td id="selectDate" colspan="2">									

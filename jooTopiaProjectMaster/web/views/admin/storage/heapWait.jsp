@@ -37,16 +37,18 @@
 							<th>No.</th>
 							<th>매입번호</th>
 							<th>상품번호</th>
-							<!-- <th>대분류</th>
-							<th>중분류</th> -->							
+							<th>대분류</th>
+							<th>중분류</th>						
 						</tr>
 					</thead>
-					<% for(HeapAdmin h : list){ %>
+					<% int i = 0; for(HeapAdmin h : list){ i++;%>
 					<tbody>
 						<tr>
-							<td><%= h.gethId() %></td>
-							<td><%= h.getPcNo() %></td>
-							<td><%= h.getpNo() %></td>
+							<td><%= i %></td>							
+							<td><%= h.getPcdId() %></td>
+							<td><%= h.getpId() %></td>
+							<td><%= h.getcGroup() %></td>
+							<td><%= h.getName() %></td>
 													
 						</tr>
 						<% } %>
@@ -101,7 +103,7 @@
 			}).mouseout(function(){
 				$(this).parent();
 			}).click(function(){
-				var num = $(this).parent().children().eq(0).text();
+				var num = $(this).parent().children().eq(0).text();				
 				console.log(num);
 				<%-- location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num; --%>
 				location.href="<%=request.getContextPath()%>/views/admin/storage/heapRegist.jsp?num=" + num;

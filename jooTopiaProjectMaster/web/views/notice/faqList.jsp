@@ -79,35 +79,29 @@
 			
 			
 			<div class="notice">
-			<button onclick="location.href='<%=request.getContextPath()%>/views/notice/faqMembership.jsp'">회원가입</button>
+			<%-- <button onclick="location.href='<%=request.getContextPath()%>/selectFaqMembershipList.do'">회원가입</button>
 			<button onclick="location.href='<%=request.getContextPath()%>/views/notice/faqPersonal.jsp'">개인정보</button>
 			<button onclick="location.href='<%=request.getContextPath()%>/views/notice/faqPurchase.jsp'">상품구매</button>
 			<button onclick="location.href='<%=request.getContextPath()%>/views/notice/faqOrderCancle.jsp'">주문/취소</button>
 			<button onclick="location.href='<%=request.getContextPath()%>/views/notice/faqPaymentSending.jsp'">결제/배송</button>
 			<button onclick="location.href='<%=request.getContextPath()%>/views/notice/faqRefunding.jsp'">교환/환불</button>
 			<button onclick="location.href='<%=request.getContextPath()%>/views/notice/faqTheothers.jsp'">기타</button>
+			 --%>
 			
+			<button onclick="faqList('회원가입')">회원가입</button>
+			<button onclick="faqList('개인정보')">개인정보</button>
+			<button onclick="faqList('상품구매')">상품구매</button>
+			<button onclick="faqList('주문취소')">주문취소</button>
+			<button onclick="faqList('결제배송')">결제배송</button>
+			<button onclick="faqList('교환환불')">교환환불</button>
+			<button onclick="faqList('기타')">기타</button>
 			</div>
-			
-			
 		</div>
-		
-		
 		<br><br><br><br>
-		
-		
-		
-		
-		
-		
-		
 		<div class="container">
-		
-		
 		  <!-- <h2>Hover Rows</h2>
 		  <p>The .table-hover class enables a hover state on table rows:</p>   -->          
 		  <table class="table table-hover">
-		   
 		      <tr>
 		        <th>글번호</th>
 		        <th>분류</th>
@@ -124,27 +118,10 @@
 		        <td><%=b.getuNo() %></td>
 		        <td><%=b.getbCount() %></td>
 		      </tr>
-		     <!--  <tr>
-		        <td>Mary</td>
-		        <td>상품구매</td>
-		        <td>mary@example.com</td>
-		        <td>John</td>
-		        <td>Doe</td>
-		      </tr>
-		      <tr>
-		        <td>July</td>
-		        <td>주문절차/취소</td>
-		        <td>july@example.com</td>
-		        <td>John</td>
-		        <td>Doe</td>
-		      </tr>
-		     -->
-		    
 		      <%} %>
 		   
 		  </table>
 		</div>
-		
 		<br>
 		<div class="checkboxgroup">
 		
@@ -153,10 +130,6 @@
 		<input type="text">&nbsp;
 		<button onclick="location.href='<%=request.getContextPath()%>/views/notice/faqList.jsp'">검색</button>
 		</div>
-		
-		
-		
-		
 		 <div class ="paging button" align="center">
 			<button type="submit"><<</button>&nbsp;
 			<button type="submit"><</button>&nbsp;
@@ -181,6 +154,24 @@
 				
 				 
 			 });
+			 
+			 function faqList (fCategory){
+				 $.ajax({
+					 
+					 url:"selectFaqTotal.do",
+					 data:{fCategory:fCategory},
+					 
+					 success:function(data){
+					 /* location.href:"selectFaqTotal.do" */
+					 console.log(data);
+						for(var key in data) {
+							console.log(data[key].bTitle);
+						}
+					 }
+					 
+				 });
+				 
+			 }
 			
 			
 			</script> 

@@ -21,6 +21,17 @@ public class ReleaseAdminService {
 		return list;
 	}
 
+	public ArrayList<ReleaseAdmin> selectAdminReleaseList() {
+		
+Connection con = getConnection();
+		
+		ArrayList<ReleaseAdmin> rlist = new ReleaseAdminDao().selectAdminReleaseList(con);
+		
+		close(con);
+		
+		return rlist;
+	}
+
 	
 	
 	/*public int insertAdminRelease(ReleaseAdmin r) {

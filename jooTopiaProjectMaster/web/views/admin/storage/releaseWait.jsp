@@ -41,14 +41,15 @@
 						<th>위치바코드</th>
 					</tr>
 				</thead>
-				<% for(ReleaseAdmin r : list){ %>
+				<% int i = 0; for(ReleaseAdmin r : list){ i++;%>
 				<tbody>
 					<tr>
-						<td><%= r.getNo() %></td>
-						<td><%= r.getoNo() %></td>
-						<td><%= r.getdNo() %></td>
-						<td><%= r.gethNo() %></td>
-						<td><%= r.getLocationNo() %></td>
+						<td><%= i %></td>
+						<td><%= r.getPoId() %></td>
+						<td><%= r.getdId() %></td>
+						<td><%= r.gethId() %></td>
+						<td><%= r.getlBarcode() %></td>
+						
 						
 						
 					</tr>

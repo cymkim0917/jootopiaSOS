@@ -432,4 +432,36 @@ public class ProductAdminDao {
 		
 		return result;
 	}
+
+	public Attachment selectAtt(Connection con, int fId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Attachment a = null;
+		
+		String query = prop.getProperty("selectAtt");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, fId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				a = new Attachment();
+				//fId 추후 뺄 수도 있음
+				a.setfId(fId);
+				a.setOriginName(rset.getString("ORIGIN_NAME"));
+				a.setChangeName(rset.getString("CHANGE_NAME"));
+				a.setFilePath(rset.getString("FILE_PATH"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return a;
+	}
 }

@@ -9,6 +9,7 @@ import com.kh.jooTopia.board.model.vo.Attachment;
 import com.kh.jooTopia.board.model.vo.Board;
 import com.kh.jooTopia.product.model.dao.CategoryDao;
 import com.kh.jooTopia.purchase.model.dao.PurchaseDao;
+import com.kh.jooTopia.purchase.model.dao.PurchaseDetailDao;
 import com.kh.jooTopia.purchase.model.vo.Purchase;
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
@@ -26,8 +27,8 @@ public class PurchaseService {
 		}
 		
 		// 2. Purchase테이블에 데이터 삽입
-		int result1 = new PurchaseDao().insertPurchase(con, p, cid);
-		if(result1 < 1) {
+		int resultPC = new PurchaseDao().insertPurchase(con, p, cid);
+		if(resultPC < 1) {
 			System.out.println("insertPurchase error");
 		}
 		
@@ -38,11 +39,14 @@ public class PurchaseService {
 			System.out.println("pcid error");
 		}
 		
+		// 3-1. PurchaseDetail정보 입력 
+		int resultPCD = new PurchaseDetailDao().insertPCDWhenApply(con, pcid);
+		
 		// 4. Board테이블에 매입게시판 데이터 삽입
-		int result2 = new PurchaseDao().insertBoardBno5(con, b, pcid);
-		System.out.println("resul2 : " + result2);
-		if(result2 < 1) {
-			System.out.println("result2 error");
+		int resultB = new PurchaseDao().insertBoardBno5(con, b, pcid);
+		System.out.println("resultB : " + resultB);
+		if(resultB < 1) {
+			System.out.println("resultB error");
 		}
 		// 5. 방금 insert한 Board테이블의 bid조회
 		int bid = new BoardDao().selectCurrval(con);
@@ -57,19 +61,18 @@ public class PurchaseService {
 		// 6. 이미지 파일을 Attachment테이블에 삽입
 		int result3= new PurchaseDao().insertPurchaseImage(con, fileList);
 		
-		result = result1 + result2 + result3;
+		result = resultPC + resultPCD + resultB;
 		if(result >= 5) {
 			commit(con);
 		}else {
 			rollback(con); 
 		}
 		close(con);
-		
 		return result;
-		
 	}
 
 	public HashMap<String, Object> selectPurchaseFin() {
+		// Uno
 		Connection con = getConnection();
 		HashMap<String, Object> hmap = null;
 		
@@ -80,7 +83,7 @@ public class PurchaseService {
 		}else {
 			rollback(con);
 		}
+		close(con);
 		return hmap;
 	}
-
 }

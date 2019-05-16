@@ -34,7 +34,7 @@ public class SelectAdminReleaseListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<ReleaseAdmin> rlist = new ReleaseAdminService().selectAdminList();
+		ArrayList<ReleaseAdmin> rlist = new ReleaseAdminService().selectAdminReleaseList();
 		System.out.println(rlist);
 		String page = "";
 		if(rlist != null) {

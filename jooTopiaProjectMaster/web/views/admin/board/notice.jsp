@@ -94,12 +94,13 @@
 		   				<td><%=board.getbCount() %></td>
 		   				<td><%if(board.getbType()==1){%>
 		   					공지사항
-		   					<%}else{ %>'
+		   					<%}else{ %>
 		   					이벤트
 		   					<%} %>
+		   					<input type="hidden" value="<%=board.getbType()%>">
 		   				</td>
 		   				<td style="display:none">
-		   					<%=board.getbId() %>
+		   					<input value="<%=board.getbId() %>">
 		   				</td>
 		   			</tr>
 		   			<%} %>
@@ -130,6 +131,41 @@
 		
       </div>
    </section>
+   <script>
+   $(function(){
+		$("#noticeList td").mouseenter(function(){
+			$(this).parent().css({"background":"darkgray","cursor":"pointer"});
+		}).mouseout(function(){
+			$(this).parent().css({"background":"white"});
+			
+		}).click(function(){
+			var tr = $(this).parent();
+			var td = tr.children();
+			var tdArr = new Array();
+			var type = td.eq(6).children().val();
+			var num = td.eq(7).children().val();
+			console.log(type);
+			console.log(num);
+			
+			
+			if(type == 1){
+				location.href="<%= request.getContextPath() %>/selectAdminNotice.do?num=" + num;
+				console.log('if문공지사항')
+			}else if(type==2){
+				
+				console.log('if문이벤트')
+			} 
+			<%-- location.href="<%= request.getContextPath() %>/selectAdminNotice.do?num=" + num; --%>
+
+			
+		});
+		
+		
+	});
+
+   
+   </script>
+   
 <%@ include file="/views/common/adminFooter.jsp" %>
 </body>
 </html>

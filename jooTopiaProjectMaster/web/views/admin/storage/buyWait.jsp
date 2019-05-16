@@ -73,7 +73,7 @@
 
 			<div class="container">
 
-				<table class="table table-hover" id="test1">
+				<table class="table table-hover" id="listArea">
 					<thead>
 						<tr>
 							<th>No.</th>
@@ -87,9 +87,9 @@
 					<tbody>
 						<tr>
 							<td><%= i %></td>
-							<td><%= b.getnNo() %></td>
-							<td><%= b.getbCate1() %></td>
-							<td><%= b.getbCate2() %></td>
+							<td><%= b.getPcdId() %></td>
+							<td><%= b.getcGroup() %></td>
+							<td><%= b.getName() %></td>
 							<td><%= b.getStatus() %></td>						
 						</tr>
 						<% } %>						
@@ -144,7 +144,7 @@
 
 	<script>
 		$(function(){
-			$("#test1 td").mouseenter(function(){
+			$("#listArea td").mouseenter(function(){
 				$(this).parent();
 			}).mouseout(function(){
 				$(this).parent();
@@ -153,7 +153,7 @@
 				console.log(num);
 				<%-- location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num; --%>
 				<%-- location.href="<%=request.getContextPath()%>/views/admin/storage/productreg.jsp?num=" + num; --%>
-				location.href="<%=request.getContextPath()%>/insertAdminProductreg.do?num=" + num;
+				location.href="<%=request.getContextPath()%>/selectOneAdminProductreg.do?num=" + num;
 			})
 		})
 	</script>

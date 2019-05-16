@@ -81,7 +81,7 @@ public class InsertAdminNoticeServlet extends HttpServlet {
 				 attach.setFilePath(filePath);
 				 attach.setOriginName(originFiles.get(i));
 				 attach.setChangeName(saveFiles.get(i));
-				 System.out.println("이름확인 : " +attach.getOriginName());
+				 //System.out.println("이름확인 : " +attach.getOriginName());
 				 fileList.add(attach);
 			 }	
 			
