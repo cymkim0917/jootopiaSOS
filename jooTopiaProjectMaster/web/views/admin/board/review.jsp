@@ -77,14 +77,15 @@
 					<td>상품 카테고리</td>
 					<td colspan="2">
 						&nbsp;<select id="searchCategory" onchange="smallCategoty(this.value)">
-							<option value="">- 대분류 -
-							<option value="bedRoom">침실
-							<option value="livingRoom">거실
-							<option value="kitchen">주방
-							<option value="study">서재
+							<option value="">--- 대분류 ---</option>
+							<option value="bedRoom">침실</option>
+							<option value="livingRoom">거실</option>
+							<option value="kitchen">주방</option>
+							<option value="study">서재</option>
 						</select>
 						<select id="small">
-							<option value="">- 중분류 -
+							<option value="">--- 중분류 ---</option>
+							
 						</select>
 					</td>
 				</tr>
