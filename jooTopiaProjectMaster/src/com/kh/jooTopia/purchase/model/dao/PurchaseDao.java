@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.jooTopia.board.model.vo.Attachment;
@@ -109,7 +110,7 @@ public class PurchaseDao {
 		return result;
 	}
 
-	public int insertPurchaseImage(Connection con, int bid, ArrayList<Attachment> fileList) {
+	public int insertPurchaseImage(Connection con, ArrayList<Attachment> fileList) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -125,17 +126,12 @@ public class PurchaseDao {
 				 
 				pstmt = con.prepareStatement(query);
 				
-				pstmt.setInt(1, fileList.get(i).getbId());
-				pstmt.setString(2, fileList.get(i).getOriginName());
-				pstmt.setString(3, fileList.get(i).getChangeName());
-				pstmt.setString(4, fileList.get(i).getFilePath());
-				
-				int level = 0;
-				if(i == 0) level = 0;
-				else level = 1;
-				
-				pstmt.setInt(5, level);
-				
+
+				pstmt.setString(1, fileList.get(i).getOriginName());
+				pstmt.setString(2, fileList.get(i).getChangeName());
+				pstmt.setString(3, fileList.get(i).getFilePath());
+				pstmt.setInt(4, fileList.get(i).getbId());
+					
 				result += pstmt.executeUpdate();
 				
 			} 
@@ -147,8 +143,50 @@ public class PurchaseDao {
 		}
 		return result;
 	}
-}
 
+	public HashMap<String, Object> selectPurchaseFin(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+		
+		String query = prop.getProperty("selectPurchaseFin");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			System.out.println("rset : " + rset);
+			if(rset != null) {
+				// PC.APPLICANT, PC.APPLICANT_ADDRESS, PC.APPLICANT_DISTANCE, PC.APPLICANT_PHONE, PC.BRAND, PC.MODEL, PC.USE_PERIOD, PC.PRIME_COST, PC.HOPE_COST, PC.USE_YEAR,
+				// PC.CID, B.BID, B.BNO, B.BCONTENT, B.BDATE, B.UNO FROM PURCHASE PC JOIN BOARD B ON (B.PCID = PC.PCID) WHERE PC.PCID = (SELECT MAX(PCID) FROM PURCHASE)
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("applicnat", rset.getObject("APPLICANT"));
+				hmap.put("appAddress", rset.getObject("APPLICANT_ADDRESS"));
+				hmap.put("appDistance", rset.getObject("APPLICANT_DISTANCE"));
+				hmap.put("appPhone", rset.getObject("APPLICANT_PHONE"));
+				hmap.put("brand", rset.getObject("BRAND"));
+				hmap.put("model", rset.getObject("MODEL"));
+				hmap.put("usePeriod", rset.getObject("USE_PERIOD"));
+				hmap.put("primeCost", rset.getObject("PRIME_COST"));
+				hmap.put("hopeCost", rset.getObject("HOPE_COST"));
+				hmap.put("useYear", rset.getObject("USE_YEAR"));
+				hmap.put("category", rset.getObject("CATEGORY"));
+				hmap.put("bid", rset.getObject("BID"));
+				hmap.put("bno", rset.getObject("BNO"));
+				hmap.put("bContent", rset.getObject("BCONTENT"));
+				hmap.put("bDate", rset.getObject("BDATE"));
+				hmap.put("uno", rset.getObject("UNO"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		return hmap;
+	}
+}
 
 
 
