@@ -103,6 +103,7 @@
 						<td><label for="">아이디</label></td>
 						<td>
 							<% if(loginUser != null){ %> <%= loginUser.getUserId() %> <% } %>
+							<input type="hidden" name="bid" value="<%= board.getbId() %>" />
 						</td>
 						<td><label for="">수정일자</label></td>
 						<td>
@@ -129,18 +130,23 @@
 						<td> &nbsp; &nbsp;&nbsp;</td>					
 						<td colspan="2">
 						
-								<img id="QaAImg1" width="120" height="100" src="<%=request.getContextPath()%>/images_upload/<%=quesImg1.getChangeName()%>"> &nbsp;
-							
+								<img id="QaAImg1" name="image" width="120" height="100" src="<%=request.getContextPath()%>/images_upload/<%=quesImg1.getChangeName()%>"> &nbsp;
+								<input type="hidden" name="fid" value="<%= quesImg1.getfId() %>"/>
 						 	
 								<img id="QaAImg2" width="120" height="100" src="<%=request.getContextPath()%>/images_upload/<%=quesImg2.getChangeName()%>">
-					
+									<input type="hidden" name="fid" value="<%= quesImg2.getfId() %>"/>
 						</td>				
 					</tr>
 				</table>
 				<div id="fileArea">
 				<!-- 파일 요소를 같이 넘겨줌  this는 파일이 된다.-->
-				<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this,1)">
-				<input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this,2)">
+				<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this,1)" />
+				<input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this,2)" />
+				
+				<input type="hidden" name="changeName" value="<%= quesImg2.getChangeName() %>">
+				<input type="hidden" name="changeName" value="<%= quesImg1.getChangeName() %>">
+				<input type="hidden" name="originName" value="<%= quesImg2.getOriginName() %>">
+				<input type="hidden" name="originName" value="<%= quesImg1.getOriginName() %>">
 			</div>
 				</form>
 			</div>

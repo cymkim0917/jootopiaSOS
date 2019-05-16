@@ -348,14 +348,15 @@ public class BoardDao {
 	public int upDateQaAContent(Connection con, Board board) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String sql = prop.getProperty("insertQaAContent");
+		String sql = prop.getProperty("updateQnAContent");
 
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, board.getbTitle());
 			pstmt.setString(2, board.getbContent());
 			pstmt.setInt(3, board.getuNo());
-
+			pstmt.setInt(4, board.getbId());
+			System.out.println(board);
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -369,8 +370,60 @@ public class BoardDao {
 	}
 
 	public int updateQaAPhoto(Connection con, ArrayList<Attachment> fileList) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateQaAPhoto");
+		System.out.println("DAO [fileList] : " + fileList);
+		try {
+			for (int i = 0; i < fileList.size(); i++) {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, fileList.get(i).getOriginName());
+				System.out.println(i+" fileList.ChangeName : "+fileList.get(i).getChangeName());
+				pstmt.setString(2, fileList.get(i).getChangeName());
+				pstmt.setString(3, fileList.get(i).getFilePath());
+				pstmt.setInt(4, fileList.get(i).getfId());
+				
+				result += pstmt.executeUpdate();
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public String[] deleteFiles(Connection con, int[] fid) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("deleteFiles");
+		String[] files = new String[fid.length];
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			for(int i = files.length -1; i>=0; i--) {
+				pstmt.setInt(1,fid[i]);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					files[i] = rs.getString("CHANGE_NAME");
+				}else {
+					files = null;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		
+		return files;
 	}
 
 
