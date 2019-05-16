@@ -50,10 +50,8 @@ public class ReleaseAdminDao {
 				
 				r.setPoId(rset.getInt("POID"));
 				r.setdId(rset.getInt("DID"));
-				r.setRlId(rset.getInt("RLID"));
-				r.setRlDate(rset.getDate("RLDATE"));
-				
-				
+				r.sethId(rset.getInt("HID"));
+				r.setlBarcode(rset.getInt("LBARCODE"));				
 				
 				list.add(r);
 			}
@@ -69,6 +67,45 @@ public class ReleaseAdminDao {
 		
 		
 		return list;
+	}
+
+	public ArrayList<ReleaseAdmin> selectAdminReleaseList(Connection con) {
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<ReleaseAdmin> rlist = null;
+		
+		String query = prop.getProperty("selectReleaseList");
+		try {
+			stmt = con.createStatement();			
+			rset = stmt.executeQuery(query);			
+			rlist = new ArrayList<ReleaseAdmin>();
+			System.out.println(rlist);
+			
+			while(rset.next()) {
+				ReleaseAdmin r = new ReleaseAdmin();
+				
+				r.setPoId(rset.getInt("POID"));
+				r.setdId(rset.getInt("DID"));
+				r.setRlId(rset.getInt("RLID"));
+				r.setRlDate(rset.getDate("RLDATE"));
+				
+				
+				
+				rlist.add(r);
+			}
+			System.out.println(rlist);
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		
+		
+		return rlist;
 	}
 
 	

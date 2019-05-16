@@ -49,11 +49,11 @@ public class BuyWaitAdminDao {
 			while(rset.next()) {
 				BuyWaitAdmin b = new BuyWaitAdmin();
 				
-				//b.setbId(rset.getInt("PCDID"));
-				b.setnNo(rset.getInt("PCDID"));
-				b.setbCate1(rset.getString("CGROUP"));
-				b.setbCate2(rset.getString("NAME"));
-				b.setStatus(rset.getString("STATUS"));
+				
+				b.setPcdId(rset.getInt("PCDID"));
+				b.setcGroup(rset.getString("CGROUP"));
+				b.setName(rset.getString("NAME"));
+				b.setStatus(rset.getString("STATUS"));				
 				
 				list.add(b);
 			}
