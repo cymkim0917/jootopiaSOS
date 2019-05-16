@@ -13,7 +13,7 @@ import java.util.Properties;
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
 import com.kh.jooTopia.release.model.vo.ReleaseAdmin;
-import com.kh.jooTopia.release.model.vo.ReleaseAdminList;
+
 
 public class ReleaseAdminDao {
 	 
@@ -48,11 +48,12 @@ public class ReleaseAdminDao {
 			while(rset.next()) {
 				ReleaseAdmin r = new ReleaseAdmin();
 				
-				r.setNo(rset.getInt("NO"));
-				r.setoNo(rset.getInt("ONO"));
-				r.setdNo(rset.getInt("DNO"));
-				r.sethNo(rset.getInt("HNO"));
-				r.setLocationNo(rset.getInt("LOCATIONNO"));
+				r.setPoId(rset.getInt("POID"));
+				r.setdId(rset.getInt("DID"));
+				r.setRlId(rset.getInt("RLID"));
+				r.setRlDate(rset.getDate("RLDATE"));
+				
+				
 				
 				list.add(r);
 			}
@@ -72,7 +73,7 @@ public class ReleaseAdminDao {
 
 	
 	
-	public int insertAdminRelease(Connection con, ReleaseAdmin r) {
+	/*public int insertAdminRelease(Connection con, ReleaseAdmin r) {
 		
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -93,46 +94,8 @@ public class ReleaseAdminDao {
 		}
 		
 		return result;
-	}
+	}*/
 
-	public ArrayList<ReleaseAdminList> selectAdminrList(Connection con) {
-		
-		Statement stmt = null;
-		ResultSet rset = null;
-		ArrayList<ReleaseAdminList> rlist = null;
-		
-		String query = prop.getProperty("selectrList");
-		try {
-			stmt = con.createStatement();			
-			rset = stmt.executeQuery(query);			
-			rlist = new ArrayList<ReleaseAdminList>();
-			System.out.println(rlist);
-			
-			while(rset.next()) {
-				ReleaseAdminList r = new ReleaseAdminList();
-				
-				r.setrId(rset.getInt("RID"));
-				r.setoNo(rset.getInt("ONO"));
-				r.setdNo(rset.getInt("DNO"));
-				r.setrNo(rset.getInt("RNO"));
-				r.setrDate(rset.getDate("RDATE"));
-				
-				
-				
-				rlist.add(r);
-			}
-			System.out.println(rlist);
-			
-		} catch (SQLException e) {			
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(stmt);
-		}
-		
-		
-		
-		return rlist;
-	}
+
 
 }

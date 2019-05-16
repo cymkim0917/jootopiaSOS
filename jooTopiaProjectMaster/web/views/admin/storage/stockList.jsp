@@ -90,16 +90,17 @@
 						<th>적치일자</th>
 					</tr>
 				</thead>
-				<% for(StockAdmin s : list){ %>
+				<% int i = 0; for(StockAdmin s : list){ i++; %>
 				<tbody>
 					<tr>
-						<td><%= s.getsId() %></td>
-						<td><%= s.getCate1() %></td>
-						<td><%= s.getCate2() %></td>
-						<td><%= s.getpNo() %></td>
-						<td><%= s.gethNo() %></td>
-						<td><%= s.getlNo() %></td>
+						<td><%= i %></td>
+						<td><%= s.getcGroup() %></td>
+						<td><%= s.getName() %></td>
+						<td><%= s.getpId() %></td>
+						<td><%= s.gethId() %></td>
+						<td><%= s.getlBarcode() %></td>
 						<td><%= s.gethDate() %></td>
+						
 					</tr>
 					<% } %>
 				</tbody>
