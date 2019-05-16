@@ -4,6 +4,7 @@
     
     <%
 		ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
+    
 	%>
     
     
@@ -48,6 +49,10 @@
 	margin-left:10%;
 }
 
+table th{
+		text-align: center;
+	}
+
 </style>
 
 <title>JooTopia</title>
@@ -80,13 +85,6 @@
 		
 		<br><br><br><br>
 		
-		
-		
-		
-		
-		
-		
-		
 		<div class="container">
 		
 		
@@ -97,34 +95,22 @@
 		      <tr>
 		        <th>글번호</th>
 		        <th>분류</th>
-		        <th>제목</th>
-		        <th>작성일</th>
+		        <th>제목</th>		        
 		        <th>조회수</th>
 		      </tr>
-		   
-		    <% for(Board b: list){ %>
-		      <tr>
-		        <td><%=b.getbId() %></td>
-		        <td><%=b.getfCategory() %></td>
-		        <td><%=b.getbTitle() %></td>
-		        <td><%=b.getuNo() %></td>
-		        <td><%=b.getbCount() %></td>
-		      </tr>		      
-		      
-		  
-		    <!--   <tr onclick="location.href='/jootopia/views/notice/faqMembershipPlus.jsp'">
-		        <td>9</td>
-		        <td>회원가입</td>
-		        <td>회원가입 문의입니다</td>
-		        <td>2019.04.06</td>
-		        <td>2</td>
-		      </tr> -->
-		      
-		    <%} %>
-		    
-		    
-		    
-		    
+
+
+			<%for(int i = 0; i < list.size(); i++){ %>
+			<tr>
+				<td><%=list.get(i).getbId() %></td>
+				<td><%=list.get(i).getfCategory() %></td>
+				<td><%=list.get(i).getbTitle() %></td>
+				<td><%=list.get(i).getbCount() %></td>
+			</tr>
+			
+			<%} %>
+				 
+			
 		  </table>
 		</div>
 		

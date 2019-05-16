@@ -15,13 +15,14 @@ import com.kh.jooTopia.board.model.vo.Notice;
 public class BoardService {
 	
 	//전체 출력
-	public ArrayList<Notice> selectList(){
+	public HashMap<String, Object> selectList(){
 		Connection con = getConnection();
-		ArrayList<Notice> list = new BoardDao().selectList(con);
+		/*ArrayList<Notice> list = new BoardDao().selectList(con);*/
+		HashMap<String, Object> hmap = new BoardDao().selectList(con);
 		
 		close(con);
 		
-		return list;
+		return hmap;
 		
 	}
 	//상세
@@ -158,6 +159,8 @@ public class BoardService {
 		
 		return list;
 	}
+	
+	
 	public ArrayList<Board> selectFaqMembershipList() {
 		
 		Connection con = getConnection();
@@ -167,6 +170,14 @@ public class BoardService {
 		
 		return list;
 		
+	}
+	public ArrayList<Board> selectFaqTotalList(String fCategory) {
+		Connection con = getConnection();
+		ArrayList<Board> list = new BoardDao().selectFaqTotalList(con,fCategory);
+		
+		close(con);
+		
+		return list;
 	}
 
 }

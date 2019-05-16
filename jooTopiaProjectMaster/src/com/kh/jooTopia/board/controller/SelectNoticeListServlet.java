@@ -2,6 +2,7 @@ package com.kh.jooTopia.board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,16 +38,18 @@ public class SelectNoticeListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		
-		ArrayList<Notice> list = new BoardService().selectList();
+		/*ArrayList<Notice> list = new BoardService().selectList();*/
+		HashMap<String, Object> hmap = new BoardService().selectList();
+		//hmap 안에는 ArrayList<Notice> nList랑 ArrayList<Member> mList가 들어있다.
 		
-		System.out.println("list : " + list);
-		System.out.println(list);
+		/*System.out.println("list : " + list);
+		System.out.println(list);*/
 		
 		String page = "";
 		
-		if(list != null) {
+		if(hmap != null) {
 			page="views/notice/noticeList.jsp";
-			request.setAttribute("list", list);
+			request.setAttribute("hmap", hmap);
 			
 		}else {
 			page="views/common/errorPage500.jsp";

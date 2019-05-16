@@ -1,6 +1,7 @@
 package com.kh.jooTopia.board.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -10,21 +11,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
+import com.google.gson.Gson;
 import com.kh.jooTopia.board.model.service.BoardService;
 import com.kh.jooTopia.board.model.vo.Board;
-import com.kh.jooTopia.board.model.vo.Notice;
+
+import jdk.nashorn.api.scripting.JSObject;
 
 /**
- * Servlet implementation class SelectFaqMembershipListServlet
+ * Servlet implementation class SelectFaqTotalList
  */
-@WebServlet("/selectFaqMembershipList.do")
-public class SelectFaqMembershipListServlet extends HttpServlet {
+@WebServlet("/selectFaqTotal.do")
+public class SelectFaqTotalList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectFaqMembershipListServlet() {
+    public SelectFaqTotalList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,16 +39,20 @@ public class SelectFaqMembershipListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		ArrayList<Board> list = new BoardService().selectFaqMembershipList();
+		
+		//String fCategory = request.getParameter("fCategory");
+		
+		String fCategory="";
+		System.out.println(fCategory);
+		
+		ArrayList<Board> list = new BoardService().selectFaqTotalList(fCategory);
 		
 		System.out.println("list : " + list);
-		System.out.println(list);
-		
 		String page = "";
-		
 		if(list != null) {
-			page="views/notice/faqMembership.jsp";
-			request.setAttribute("list", list);
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			new Gson().toJson(list, response.getWriter());
 			
 		}else {
 			page="views/common/errorPage500.jsp";
@@ -59,9 +68,15 @@ public class SelectFaqMembershipListServlet extends HttpServlet {
 		System.out.println("request : " + request );
 		System.out.println("response : "  + response);
 	
+	
+	
+	
+	
 	}
-	
-	
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
