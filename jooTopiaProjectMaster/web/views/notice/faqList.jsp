@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.jooTopia.board.model.vo.*"%>
+    
+<%
+		ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
+%>
+    
     
    <%--페이지 처리 --%>
    <%--  <%
@@ -102,7 +107,7 @@
 		  <!-- <h2>Hover Rows</h2>
 		  <p>The .table-hover class enables a hover state on table rows:</p>   -->          
 		  <table class="table table-hover">
-		    <thead>
+		   
 		      <tr>
 		        <th>글번호</th>
 		        <th>분류</th>
@@ -110,16 +115,16 @@
 		        <th>작성일</th>
 		        <th>조회수</th>
 		      </tr>
-		    </thead>
-		    <tbody>
+		   
+		    <% for(Board b: list){ %>
 		      <tr>
-		        <td>John</td>
-		        <td>교환/환불</td>
-		        <td>john@example.com</td>
-		        <td>John</td>
-		        <td>Doe</td>
+		        <td><%=b.getbId() %></td>
+		        <td><%=b.getfCategory() %></td>
+		        <td><%=b.getbTitle() %></td>
+		        <td><%=b.getuNo() %></td>
+		        <td><%=b.getbCount() %></td>
 		      </tr>
-		      <tr>
+		     <!--  <tr>
 		        <td>Mary</td>
 		        <td>상품구매</td>
 		        <td>mary@example.com</td>
@@ -133,55 +138,10 @@
 		        <td>John</td>
 		        <td>Doe</td>
 		      </tr>
-		    </tbody>
+		     -->
 		    
-		    <tbody>
-		      <tr>
-		        <td>John</td>
-		        <td>주문절차/취소</td>
-		        <td>john@example.com</td>
-		        <td>John</td>
-		        <td>Doe</td>
-		      </tr>
-		      <tr>
-		        <td>Mary</td>
-		        <td>개인정보</td>
-		        <td>mary@example.com</td>
-		        <td>John</td>
-		        <td>Doe</td>
-		      </tr>
-		      <tr>
-		        <td>July</td>
-		        <td>회원가입</td>
-		        <td>july@example.com</td>
-		        <td>John</td>
-		        <td>Doe</td>
-		      </tr>
-		    </tbody>
-		     
-		    <tbody>
-		      <tr>
-		        <td>John</td>
-		        <td>회원가입</td>
-		        <td>john@example.com</td>
-		        <td>John</td>
-		        <td>Doe</td>
-		      </tr>
-		      <tr>
-		        <td>Mary</td>
-		        <td>상품구매</td>
-		        <td>mary@example.com</td>
-		        <td>John</td>
-		        <td>Doe</td>
-		      </tr>
-		      <tr>
-		        <td>July</td>
-		        <td>교환/환불</td>
-		        <td>july@example.com</td>
-		        <td>John</td>
-		        <td>Doe</td>
-		      </tr>
-		    </tbody>
+		      <%} %>
+		   
 		  </table>
 		</div>
 		
@@ -208,6 +168,26 @@
 			<button type="submit">></button>&nbsp;
 			<button type="submit">>></button>
 		</div> 
+		
+			 <script>
+			 
+			 
+			 $(".table td").click(function() {
+				 
+				 console.log("ddddd");
+				 var num = $(this).parent().children().eq(0).text();
+				 console.log(num);
+				 location.href="<%=request.getContextPath()%>/selectOneFaq.do?num="+num;
+				
+				 
+			 });
+			
+			
+			</script> 
+		
+		
+		
+		
 		
 	</section>
 	

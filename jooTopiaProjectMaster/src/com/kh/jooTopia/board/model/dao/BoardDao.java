@@ -378,6 +378,102 @@ public class BoardDao {
 		return 0;
 	}
 
+	public ArrayList<Board> selectFaqList(Connection con) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = null;
+		
+		String query = prop.getProperty("selectFaqList");
+		
+		/*int startRow = (pageInfo.getCurrentPage()-1)*pageInfo.getLimit()+1;
+		int endRow = startRow + pageInfo.getLimit()-1;
+		*/
+		try {
+			pstmt = con.prepareStatement(query);
+			/*pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);*/
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Board>();
+			
+			while(rset.next()) {
+				Board b = new Board();
+				b.setbId(rset.getInt("BID"));
+				b.setfCategory(rset.getString("FCATEGORY"));
+				b.setbTitle(rset.getString("BTITLE"));
+				b.setuNo(rset.getInt("UNO"));
+				
+				
+				list.add(b);
+				
+			}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		System.out.println("Dao 페이징 : " + list);
+		return list;
+		
+		
+		
+	
+	}
+
+	public ArrayList<Board> selectFaqMembershipList(Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = null;
+		
+		String query = prop.getProperty("selectFaqMembershipList");
+		
+		/*int startRow = (pageInfo.getCurrentPage()-1)*pageInfo.getLimit()+1;
+		int endRow = startRow + pageInfo.getLimit()-1;
+		*/
+		try {
+			pstmt = con.prepareStatement(query);
+			/*pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);*/
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Board>();
+			
+			while(rset.next()) {
+				Board b = new Board();
+				b.setbId(rset.getInt("BID"));
+				b.setfCategory(rset.getString("FCATEGORY"));
+				b.setbTitle(rset.getString("BTITLE"));
+				b.setuNo(rset.getInt("UNO"));
+				
+				
+				list.add(b);
+				
+			}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		System.out.println("Dao 페이징 : " + list);
+		return list;
+		
+		
+	
+	
+	
+	}
+
 
 
 }

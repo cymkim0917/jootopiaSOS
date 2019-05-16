@@ -107,27 +107,7 @@
 				 
 			 });
 			
-				<%-- $(function(){
-					$(".table table-hover tr")
-				}).click(function(){
-					var num = $(this).parent().children().eq(0).text();
-					console.log(num);
-					location.href="<%=request.getContextPath()%>/selectOne.do?num="+num;
-				}); --%>
-				
-		
-				
-			<%-- 	$(function(){
-					$(function(".listArea td"){
-					
-						var num = $(this).parent().children().eq(0).text();
-						console.log(num);
-																			//쿼리스트링으로 변수를 함께 전달
-						location.href="<%=request.getContextPath()%>/selectOne.do?num="+num;
-					});
-				});
-				 --%>
-				
+			
 				
 				
 				
