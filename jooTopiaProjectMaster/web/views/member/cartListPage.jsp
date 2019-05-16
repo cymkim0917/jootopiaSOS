@@ -1,5 +1,8 @@
+<%@page import="com.kh.jooTopia.cart.model.vo.Cart"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% ArrayList<Cart> cart = (ArrayList<Cart>)request.getAttribute("cart"); %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,6 +76,7 @@
 			<br /><br />
 			<div class="col-sm-3"></div>
 			<div class="col-sm-6">
+				<form action="" id="cartForm" method="post">
 				<table class="table" id="cartTable">
 					<tr>
 						<th>선택</th>
@@ -82,40 +86,63 @@
 						<th>가격</th>
 						<th>재고 여부</th>
 					</tr>
-					<tr>
-						<td><input type="checkBox" /></td>
-						<td>
-						<img src="/jootopia/images/ch1.jpg" alt="" style="width:100px; heihgt:100px;"/>
-						</td>
-						<td>C001</td>
-						<td>가로 세로 의자</td>
-						<td>50,000</td>
-						<td>O</td>
-					</tr>
-					<tr>
-						<td><input type="checkBox" /></td>
-						<td>
-						<img src="/jootopia/images/ch2.jpg" alt="" style="width:100px; heihgt:100px;"/>
-						</td>
-						<td>C002</td>
-						<td>옷장</td>
-						<td>100,000</td>
-						<td>O</td>
-					</tr>
-				</table>
+					<% int totalPrice = 0;
+					   int money = 0;
+					 if(cart != null) { 
+						
+					%>
+					
+					
+					<% for(int i =0; i<cart.size(); i++) { %>
+						<tr>
+							<td><input type="checkBox" name="selectCart" id="selectCart" />
+								<input type="hidden" value="<%= %>" />
+							</td>
+							<td>
+								<img src="<%= request.getContextPath() %>/images_upload/<%= cart.get(i).getChange_name() %>" alt="" style="width:100px; height:100px;" />
+							</td><!--  -->
+							<td><label for=""><%= cart.get(i).getPid() %></label></td>
+							<td><label for=""><%= cart.get(i).getPname() %></label></td>
+							<td><label for=""><%= cart.get(i).getPrice() %></label>
+							
+							</td>
+							<td><label for=""> <% if(cart.get(i).getStatus().equals("y")) {%> 재고 있음 <% } else{%> 재고 없음 <% } %>
+							  </label></td>
+						</tr>
 				
+					<% 
+						totalPrice += cart.get(i).getPrice();
+						} 
+					}else { %>
+						<tr>
+							<td>
+								<h1>등록된 장바구니가 없습니다.</h1>
+							</td>
+						</tr>
+					<% } %>
+
+				</table>
+				</form>
 				<table class="table">
 					<tr>
-						<td colspan="2">총 상품 금액</td>
-						<td>150,000원</td>
+						<td colspan="2">상품 금액</td>
+						<td><%= totalPrice %></td>
 					</tr>
 					<tr>
 						<td colspan="2">배송비</td>
-						<td>0원</td>
+						<td> 
+							<% if(totalPrice > 150000){
+								money = 0;
+								%></td>
+							<td><%= money %></td>
+							<% } else{ money = 25000; %>
+								<td><%= money %></td>
+							<% } %>
+						
 					</tr>
 					<tr>
 						<td colspan="2" style="color:red; height:50px; font-weight:bold;">총 상품 금액</td>
-						<td colspan="2" style="color:red; height:50px; font-weight:bold;">150,000원</td>
+						<td colspan="2" style="color:red; height:50px; font-weight:bold;"><%= totalPrice + money %></td>
 					</tr>				
 				</table>			
 			</div>
@@ -124,9 +151,20 @@
 		
 		<div id="btnArea" align="center">
 		<a href="modifyQaAPage.jsp" id="modifyBtn">주문하기</a>
-		<a href="modifyQaAPage.jsp" id="delBtn">삭제하기</a>
+		<a onclick="deleteCart()" id="delBtn">삭제하기</a>
 		</div>
 	</section>
+	
+	
+	<script>
+
+		function deleteCart(){
+			
+			
+			$("#cartForm").attr("action","<%= request.getContextPath() %>/delCart.do").submit();			
+		}
+	</script>
+	
 <%@ include file="/views/common/footer.jsp" %>
 </body>
 </html>

@@ -18,6 +18,7 @@
 </head>
 <body>
 	<header class="row">
+	<!--  -->
 		<span class="col-lg-1"></span> 
 		<span class="col-lg-1" onclick="location.href='/jootopia/views/notice/csMain.jsp'">
 			고객센터
@@ -28,7 +29,7 @@
 		<span class="col-lg-1" onclick="location.href='/jootopia/views/member/userInfomationPage.jsp'"> 
 			마이페이지
 		</span> 
-		<span class="col-lg-1" onclick="location.href='/jootopia/views/member/cartListPage.jsp'"> 
+		<span class="col-lg-1" onclick="location.href='<%= request.getContextPath()%>/selectAllCart.do'"> 
 			장바구니
 		</span> 
 		<span class="col-lg-3 logo"> 

@@ -537,6 +537,130 @@ public class BoardDao {
 	
 	}
 
+
+	public ArrayList<Board> titleSearchList(Connection con, Board board, String searchText) {
+		ArrayList<Board> list = null;
+		Board addBoard = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("titleSearchList");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, board.getuNo());
+			pstmt.setInt(2, board.getbType());
+			pstmt.setString(3,searchText);
+			rs = pstmt.executeQuery();
+			
+			list = new ArrayList<Board>();
+			
+			//No	제목	작성 일자	조회수	게시글 타입
+			while(rs.next()) {
+				addBoard = new Board();
+				addBoard.setbId(rs.getInt("BID"));
+				addBoard.setbTitle(rs.getString("BTITLE"));
+				addBoard.setBDate(rs.getDate("BDATE"));
+				addBoard.setbCount(rs.getInt("BCOUNT"));
+				addBoard.setbType(rs.getInt("BTYPE"));
+				
+				list.add(addBoard);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		return list;
+	}
+
+	public ArrayList<Board> contentSearchList(Connection con, Board board, String searchText) {
+		ArrayList<Board> list = null;
+		Board addBoard = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("contentSearchList");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, board.getuNo());
+			pstmt.setInt(2, board.getbType());
+			pstmt.setString(3,searchText);
+			rs = pstmt.executeQuery();
+			
+			list = new ArrayList<Board>();
+			
+			//No	제목	작성 일자	조회수	게시글 타입
+			while(rs.next()) {
+				addBoard = new Board();
+				addBoard.setbId(rs.getInt("BID"));
+				addBoard.setbTitle(rs.getString("BTITLE"));
+				addBoard.setBDate(rs.getDate("BDATE"));
+				addBoard.setbCount(rs.getInt("BCOUNT"));
+				addBoard.setbType(rs.getInt("BTYPE"));
+				
+				list.add(addBoard);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Board> contentAllSearchList(Connection con, Board board, String searchText) {
+		ArrayList<Board> list = null;
+		Board addBoard = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("contentSearchList");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, board.getuNo());
+			pstmt.setInt(2, board.getbType());
+			pstmt.setString(3,searchText);
+			pstmt.setString(4,searchText);
+			rs = pstmt.executeQuery();
+			
+			list = new ArrayList<Board>();
+			
+			//No	제목	작성 일자	조회수	게시글 타입
+			while(rs.next()) {
+				addBoard = new Board();
+				addBoard.setbId(rs.getInt("BID"));
+				addBoard.setbTitle(rs.getString("BTITLE"));
+				addBoard.setBDate(rs.getDate("BDATE"));
+				addBoard.setbCount(rs.getInt("BCOUNT"));
+				addBoard.setbType(rs.getInt("BTYPE"));
+				
+				list.add(addBoard);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+
 	public ArrayList<Board> selectFaqTotalList(Connection con, String fCategory) {
 		PreparedStatement pstmt=null;
 		ResultSet rset = null;

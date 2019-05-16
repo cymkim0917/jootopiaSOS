@@ -170,7 +170,7 @@ public class BoardService {
 		close(con);
 		
 		return list;
-		
+	}
 
 	public int updateQaAContent(Board board) {
 		Connection con= getConnection();
@@ -197,11 +197,30 @@ public class BoardService {
 		return files;
 
 	}
+
+	public ArrayList<Board> searchList(Board board, int searchType, String searchText) {
+		Connection con = getConnection();
+		
+		ArrayList<Board> list = null;
+		
+		switch(searchType) {
+		case 1:
+			list = new BoardDao().titleSearchList(con,board,searchText);//제목으로 검색
+			break;
+		case 2: 
+			list = new BoardDao().contentSearchList(con,board,searchText);//내용으로 검색
+			break;
+		case 3:
+			list = new BoardDao().contentAllSearchList(con,board,searchText);//제목+내용
+			break;
+		}
+
 	public ArrayList<Board> selectFaqTotalList(String fCategory) {
 		Connection con = getConnection();
 		ArrayList<Board> list = new BoardDao().selectFaqTotalList(con,fCategory);
 		
 		close(con);
+
 		
 		return list;
 	}
