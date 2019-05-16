@@ -23,9 +23,10 @@
 		<span class="col-lg-1" onclick="location.href='/jootopia/adminBoardList.do'">
 			게시판관리
 		</span>
-		<span class="col-lg-1" onclick="location.href='/jootopia/views/admin/purchase/purchaseList.jsp'">
-			매입관리
+		<span class="col-lg-1" id="purchse" onclick="location.href='<%= request.getContextPath() %>/selectPurchaseAdminList.do'">
+			매입관리 
 		</span>
+		
 		<span class="col-lg-1" onclick="location.href='/jootopia/adminProductList.do'">
 			상품관리
 		</span>

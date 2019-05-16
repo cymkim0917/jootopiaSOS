@@ -17,7 +17,7 @@ import com.kh.jooTopia.purchase.model.vo.Purchase;
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
 public class PurchaseDao {
-	Properties prop = new Properties();
+	private Properties prop = new Properties();
 	
 	public PurchaseDao() {
 		String fileName = PurchaseDao
@@ -155,8 +155,8 @@ public class PurchaseDao {
 			stmt = con.createStatement();
 			
 			rset = stmt.executeQuery(query);
-			System.out.println("rset : " + rset);
-			if(rset != null) {
+			if(rset.next()) {
+				System.out.println("rset 존재함");
 				// PC.APPLICANT, PC.APPLICANT_ADDRESS, PC.APPLICANT_DISTANCE, PC.APPLICANT_PHONE, PC.BRAND, PC.MODEL, PC.USE_PERIOD, PC.PRIME_COST, PC.HOPE_COST, PC.USE_YEAR,
 				// PC.CID, B.BID, B.BNO, B.BCONTENT, B.BDATE, B.UNO FROM PURCHASE PC JOIN BOARD B ON (B.PCID = PC.PCID) WHERE PC.PCID = (SELECT MAX(PCID) FROM PURCHASE)
 				hmap = new HashMap<String, Object>();
@@ -177,7 +177,9 @@ public class PurchaseDao {
 				hmap.put("bContent", rset.getObject("BCONTENT"));
 				hmap.put("bDate", rset.getObject("BDATE"));
 				hmap.put("uno", rset.getObject("UNO"));
+				hmap.put("memo", rset.getObject("MEMO"));
 			}
+			System.out.println("dao에서 hmap : " + hmap);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -186,6 +188,7 @@ public class PurchaseDao {
 		}
 		return hmap;
 	}
+
 }
 
 

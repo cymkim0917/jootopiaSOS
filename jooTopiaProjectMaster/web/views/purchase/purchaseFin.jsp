@@ -60,38 +60,21 @@
 					<td>사용기간</td>
 					<td><%= hmap.get("usePeriod") %></td>
 				<tr>
-				
-				<!-- hmap.put("applicnat", rset.getObject("APPLICANT"));
-				hmap.put("appAddress", rset.getObject("APPLICANT_ADDRESS"));
-				hmap.put("appDistance", rset.getObject("APPLICANT_DISTANCE"));
-				hmap.put("appPhone", rset.getObject("APPLICANT_PHONE"));
-				hmap.put("brand", rset.getObject("BRAND"));
-				hmap.put("model", rset.getObject("MODEL"));
-				hmap.put("usePeriod", rset.getObject("USE_PERIOD"));
-				hmap.put("primeCost", rset.getObject("PRIME_COST"));
-				hmap.put("hopeCost", rset.getObject("HOPE_COST"));
-				hmap.put("useYear", rset.getObject("USE_YEAR"));
-				hmap.put("cid", rset.getObject("CID"));
-				hmap.put("bid", rset.getObject("BID"));
-				hmap.put("bno", rset.getObject("BNO"));
-				hmap.put("bContent", rset.getObject("BCONTENT"));
-				hmap.put("bDate", rset.getObject("BDATE"));
-				hmap.put("uno", rset.getObject("UNO")); -->
 				<tr>
 					<td>제품정가</td>
-					<td></td>
+					<td><%= hmap.get("primeCost") %></td>
 				<tr>
 				<tr>
 					<td>판매희망가격</td>
-					<td></td>
+					<td><%= hmap.get("hopeCost") %></td>
 				<tr>
 				<tr>
 					<td>상품특이사항</td>
-					<td></td>
+					<td><%= hmap.get("bContent") %></td>
 				<tr>
 				<tr>
 					<td>매입 요청 사항</td>
-					<td></td>
+					<td><%--= hmap.get("memo") --%></td>
 				<tr>
 			</table>
 		</div>
