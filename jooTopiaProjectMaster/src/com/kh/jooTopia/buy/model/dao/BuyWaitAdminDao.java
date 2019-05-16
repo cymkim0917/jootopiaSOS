@@ -3,6 +3,7 @@ package com.kh.jooTopia.buy.model.dao;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -32,26 +33,27 @@ public class BuyWaitAdminDao {
 
 	public ArrayList<BuyWaitAdmin> selectAdminList(Connection con) {
 		
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<BuyWaitAdmin> list = null;
 		
 		String query = prop.getProperty("selectList");
 		
 		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "매입완료");
+			rset = pstmt.executeQuery();
 			list = new ArrayList<BuyWaitAdmin>();
 			System.out.println(list);
 			
 			while(rset.next()) {
 				BuyWaitAdmin b = new BuyWaitAdmin();
 				
-				b.setbId(rset.getInt("BID"));
-				b.setnNo(rset.getInt("NNO"));
-				b.setbCate1(rset.getString("CATE1"));
-				b.setbCate2(rset.getString("CATE2"));
-				
+				//b.setbId(rset.getInt("PCDID"));
+				b.setnNo(rset.getInt("PCDID"));
+				b.setbCate1(rset.getString("CGROUP"));
+				b.setbCate2(rset.getString("NAME"));
+				b.setStatus(rset.getString("STATUS"));
 				
 				list.add(b);
 			}
@@ -62,9 +64,8 @@ public class BuyWaitAdminDao {
 			e.printStackTrace();
 		}finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}
-		
 		return list;
 	}
 

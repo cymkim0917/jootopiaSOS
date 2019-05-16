@@ -1,13 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8" %>
-<%-- import="com.kh.jooTopia.product.model.vo.*, java.util.*, java.lang.*" --%>
+pageEncoding="UTF-8" import="com.kh.jooTopia.product.model.vo.*, com.kh.jooTopia.board.model.vo.* ,java.util.*, java.lang.*"%>
 <%
-	/* Product productList = (Product) session.getAttribute("productList");
-	java.util.Date date = new java.util.Date();
-	java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat("yy-MM-dd");
-	String startDay = dateFormat.format(date);
-	String endDay = dateFormat.format(date); */
-
+	HashMap<String, Object> hmap = (HashMap<String, Object>) request.getAttribute("hmap");
+	HashMap<String, Object> p = (HashMap<String, Object>) hmap.get("p");
+	ArrayList<Attachment> imgList = (ArrayList<Attachment>) hmap.get("img");
 %>
 <!DOCTYPE html>
 <html>
@@ -34,15 +30,15 @@ pageEncoding="UTF-8" %>
 		<table id="pInfo1">
 			<tr>
 				<th>상품명</th>
-				<td><%= "상품명 임시" %></td>
+				<td><%= p.get("pName") %></td>
 			</tr>
 			<tr>
 				<th>상품코드</th>
-				<td><%= "상품코드 임시" %></td>
+				<td><%= p.get("pId") %></td>
 			</tr>
 			<tr>
 				<th>상품상태</th>
-				<td><%= "상품상태 임시" %></td>
+				<td><%= p.get("status") %></td>
 			</tr>
 		</table>
 		</div>
@@ -55,38 +51,23 @@ pageEncoding="UTF-8" %>
 
 			<tr>
 				<th>상품카테고리</th>
-				<td>
-					<select id="big" disabled="disabled">
-						<option value="">- 대분류 -
-						<option value="bedRoom" selected="selected">침실
-						<option value="livingRoom">거실
-						<option value="kitchen">주방
-						<option value="study">서재
-					</select>
-					<select id="small" disabled="disabled">
-						<option value="">- 중분류 -
-					</select>
-				</td>
+				<td><%= p.get("cGroup") %> / <%= p.get("cName") %></td>
 			</tr>
 			<tr>
 				<th>상품명</th>
-				<td><%= "상품명 임시" %></td>
+				<td><%= p.get("pName") %></td>
 			</tr>
 			<tr>
 				<th>상품코드</th>
-				<td><%= "상품코드 임시" %></td>
+				<td><%= p.get("pId") %></td>
 			</tr>
 			<tr>
 				<th>상품 판매가</th>
-				<td><%= "상품판매가 임시" %> (원)</td>
+				<td><%= p.get("pPrice") %> (원)</td>
 			</tr>
 			<tr>
 				<th>할인가</th>
-				<td><%= "할인가 임시" %> (원) / <%= "할인률 임시" %> (%)</td>
-			</tr>
-			<tr>
-				<th>상품 수량</th>
-				<td><%= "상품수량 임시" %> (개)</td>
+				<td><%= p.get("salePrice") %> (원) / <%= p.get("sale") %> (%)</td>
 			</tr>
 		</table>
 
@@ -104,7 +85,7 @@ pageEncoding="UTF-8" %>
 				<th>상품 상세설명</th>
 
 				<td>
-				<textarea name="" rows="30" cols="88em" style="resize: none" readonly><%= "상품 상세설명 임시 블라블라" %></textarea>
+				<textarea name="" rows="30" cols="88em" style="resize: none" readonly><%= p.get("pContent") %></textarea>
 				</td>
 			</tr>
 		</table>
@@ -121,13 +102,15 @@ pageEncoding="UTF-8" %>
 			<tr>
 				<th>대표 이미지</th>
 				<td>
-				<img src="/jootopia/images/logo2.png" width="50%">
+				<img id="mainImg" src="/jootopia/images/product/<%= imgList.get(0).getChangeName() %>" width="50%">
+				<input type="hidden" name="fId" value="<%= imgList.get(0).getfId() %>">
 				</td>
 			</tr>
 			<tr>
 				<th>상세 이미지</th>
 				<td>
-				<img src="/jootopia/images/logo2.png" width="50%">
+				<img id="mainImg" src="/jootopia/images/product/<%= imgList.get(1).getChangeName() %>" width="50%">
+				<input type="hidden" name="fId" value="<%= imgList.get(1).getfId() %>">
 				</td>
 			</tr>
 		</table>
@@ -144,39 +127,6 @@ pageEncoding="UTF-8" %>
 		</div>
 	</section>
 	<%@ include file="/views/common/adminFooter.jsp" %>
-	
-	<script>
-		$(document).ready(function() {
-			
-			var big = $("#big>option[selected='selected']").val();
-
-			var bedRoom = ["침대", "옷장", "화장대", "수납장"];
-			var livingRoom = ["테이블", "거실장", "쇼파", "수납장"];
-			var kitchen = ["식탁", "식탁의자", "수납장", "렌지대"];
-			var study = ["책상", "책장", "사무용의자", "수납장"];
-			
-			if(big == "") {
-				smallCategory = [];
-			}else if(big == "bedRoom") {
-				smallCategory = bedRoom;
-			}else if(big == "livingRoom") {
-				smallCategory = livingRoom;
-			}else if(big == "kitchen") {
-				smallCategory = kitchen;
-			}else if(big == "study") {
-				smallCategory = study;
-			}
-			
-			$("#small").empty();
-			$("#small").append("<option value=''>- 중분류 -</option>");
-			
-			for(var i = 0; i < smallCategory.length; i++) {
-				var option = $("<option>" + smallCategory[i] + "</option>");
-				$("#small").append(option);
-			}
-		})
-		
-	</script>
 	
 </body>
 </html>

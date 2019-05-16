@@ -65,7 +65,7 @@ public class AdminBoardListServlet extends HttpServlet {
 		
 		ArrayList<Board> list = new BoardAdminService().selectNoticeList(pageInfo);
 		
-		System.out.println(list);
+		
 		
 		String page = "";
 		

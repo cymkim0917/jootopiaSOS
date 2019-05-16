@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.jooTopia.board.model.vo.Attachment;
+import com.kh.jooTopia.board.model.vo.PageInfo;
 import com.kh.jooTopia.product.model.dao.ProductAdminDao;
 import com.kh.jooTopia.product.model.vo.Product;
 
@@ -13,10 +14,10 @@ import static com.kh.jooTopia.common.JDBCTemplate.*;
 public class ProductAdminService {
 
 
-	public ArrayList<HashMap<String, Object>> selectAddList() {
+	public ArrayList<HashMap<String, Object>> selectAddList(PageInfo pageInfo) {
 		//미등록상품 전체 조회
 		Connection con = getConnection();
-		ArrayList<HashMap<String, Object>> list = new ProductAdminDao().selectAddList(con);
+		ArrayList<HashMap<String, Object>> list = new ProductAdminDao().selectAddList(con, pageInfo);
 		
 		close(con);
 		
@@ -73,23 +74,75 @@ public class ProductAdminService {
 		return result;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectList() {
+	public ArrayList<HashMap<String, Object>> selectList(PageInfo pageInfo) {
 		//판매미등록, 판매중 상품 전체조회
 		Connection con = getConnection();
-		ArrayList<HashMap<String, Object>> list = new ProductAdminDao().selectList(con);
+		ArrayList<HashMap<String, Object>> list = new ProductAdminDao().selectList(con, pageInfo);
 		
 		close(con);
 		
 		return list;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectDeleteList() {
+	public ArrayList<HashMap<String, Object>> selectDeleteList(PageInfo pageInfo) {
 		//삭제상품 전체조회
 		Connection con = getConnection();
-		ArrayList<HashMap<String, Object>> list = new ProductAdminDao().selectDeleteList(con);
+		ArrayList<HashMap<String, Object>> list = new ProductAdminDao().selectDeleteList(con, pageInfo);
 		
 		close(con);
 		
 		return list;
 	}
+
+	public HashMap<String, Object> selectProductOne(int pId) {
+		//상품상세 조회
+		Connection con = getConnection();
+		HashMap<String, Object> hmap = null;
+		
+		//상품정보 조회
+		HashMap<String, Object> pmap = new ProductAdminDao().selectProOne(con, pId);
+		
+		if(pmap != null) {
+			System.out.println("pmap 조회성공");
+			//상품이미지 조회
+			ArrayList<Attachment> imgList = new ProductAdminDao().selectAttOne(con, pId);
+			
+			if(pmap != null && imgList.size() == 2) {
+				System.out.println("imgList 조회성공");
+				
+				hmap = new HashMap<String, Object>();
+				hmap.put("p", pmap);
+				hmap.put("img", imgList);
+			}else {
+				System.out.println("imgList 조회실패");
+			}
+			
+		}else {
+			System.out.println("pmap 조회실패");
+		}
+		
+		close(con);
+				
+		return hmap;
+	}
+
+	public int getProductListCount(String query) {
+		Connection con = getConnection();
+		
+		int listCount = new ProductAdminDao().getProductListCount(con, query);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+	public int changeStatusProduct(String status, int[] pId) {
+		Connection con = getConnection();
+		int result = new ProductAdminDao().changeStatusProduct(con, status, pId);
+		
+		close(con);
+		
+		return result;
+	}
+
 }

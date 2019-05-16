@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, java.lang.*"%>
+    pageEncoding="UTF-8" import="java.util.*, java.lang.*, com.kh.jooTopia.board.model.vo.*"%>
 <%
 	int count = 1;
 	ArrayList<HashMap<String,Object>> list = 
 	(ArrayList<HashMap<String,Object>>) request.getAttribute("list");
 	int sell = 0;
 	int noSell = 0;
+	
+	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
+	int currentPage = pageInfo.getCurrentPage();
+	int maxPage = pageInfo.getMaxPage();
+	int startPage = pageInfo.getStartPage();
+	int endPage = pageInfo.getEndPage();
 %>
 
 <!DOCTYPE html>
@@ -166,7 +172,7 @@
 				<% for(int i = 0; i < list.size(); i++) { 
 				HashMap<String,Object> hmap = list.get(i); %>
 				<tr>
-					<th><input type="checkbox"></th>
+					<th><input type="checkbox" class="check" value="<%= hmap.get("pId") %>"></th>
 					<td><%= count++ %></td>
 					<td><%= hmap.get("status") %></td>
 					<td><%= hmap.get("cGroup") %> / <%= hmap.get("cName") %></td>
@@ -183,15 +189,29 @@
 	<br><br><br>
 	<div class="paging" align="center">
 		<ul class="pagination">
-			<li><a href="#">Previous</a></li>
-			<li><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">4</a></li>
-			<li><a href="#">5</a></li>
-			<li><a href="#">Previous</a></li>
+		<% if(currentPage <= 1) { %>
+		<li><a>이전</a></li>
+		<% } else { %>
+		<li><a href="<%=request.getContextPath()%>/adminProductList.do?currentPage=<%= currentPage - 1 %>">이전</a></li>
+		<% } %>
+		
+		<% for(int p = startPage; p <= endPage; p++) { 
+			if(p == currentPage) { %>
+		<li><a><%= p %></a></li>
+		<% 	}else { %>
+		<li><a href="<%=request.getContextPath()%>/adminProductList.do.do?currentPage=<%= p %>"><%= p %></a></li>	
+		<% 	} 
+		} %>
+		
+		<% if(currentPage >= maxPage) { %>
+		<li><a>다음</a></li>
+		<% }else { %>
+		<li><a href="<%=request.getContextPath()%>/adminProductList.do.do?currentPage=<%= currentPage + 1 %>">다음</a></li>
+		<% } %>
 		</ul>
 	</div>
+	
+	
 	
 	</div> <!-- col-sm-10 -->
 	</section>
@@ -207,7 +227,7 @@
 		}).click(function(){
 			var num = $(this).parent().children().eq(4).text();
 			console.log(num);
-			<%-- location.href="<%=request.getContextPath()%>/adminAddProductOne.do?num=" + num; --%>
+			location.href="<%=request.getContextPath()%>/adminProductOne.do?num=" + num;
 		});
 		
 		$(".btnDate").click(function() {
@@ -220,9 +240,29 @@
 		
 		function pTypeChange(text) {
 			var answer = window.confirm("선택한 상품을 " + text + " 하시겠습니까?");
-			
 			if(answer) {
-				alert("해당상품을 " + text + " 처리 하였습니다.");
+				var numArr = [];
+				$(".check").each(function() {
+					if($(this).is(":checked"))
+						if($(this) !== $("#allCheck")) {
+							numArr += $(this).val() + "|";
+						}
+				});
+				
+				console.log( numArr );
+				
+				$.ajax({
+					url : "adminChangeStatusProduct.do",
+					type : "post",
+					data : {numArr : numArr, text : text},
+					success : function(data) {
+						alert(data);
+						location.href='adminProductList.do';
+					},
+					error : function(data) {
+						alert("해당상품 " + text + " 처리 실패");
+					}
+				});
 			}
 		};
 		
