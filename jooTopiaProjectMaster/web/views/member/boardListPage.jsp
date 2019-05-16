@@ -51,13 +51,19 @@
 	
 	table{
 		text-align:center;
-		width:800px;
-		heihgt:500px;
+		width:100%;
 	}
 	
 	#tableArea{
 		width:800px;
 		height:500px;
+	}
+	
+	#searchArea{
+	
+		width:100%;
+		align:center;
+		text-align:center;
 	}
 </style>
 </head>
@@ -69,12 +75,46 @@
 	int boardIndex = 1;//
 %>
 	<section>
-	<br /><br />
+	<br />
 		<div class="row">
-			<h1 align="center">게시글 조회</h1>
-			<div class="col-sm-3"></div>
-			<div class="col-sm-6" id="tableArea">
-				<table class="table">
+			<h1 align="center">게시글 조회</h1><br /><br />
+			<div class="col-sm-2"></div>
+			<div class="col-sm-7" id="tableArea" style="text-align:center;">
+			
+			
+				<div id="searchArea">
+
+				
+				<table class="table" style="text-align:center;" >
+						<tr>
+							<td colspan="2" rowspan="2"><br />
+							<br /> <label for="">게시글 카테고리</label> <select name="btype"id="btype">
+									<option value="1">FAQ</option>
+									<option value="2">공지</option>
+									<option value="3">1:1문의</option>
+									<option value="4">후기</option>
+									<option value="5">매입요청</option>
+
+							</select><br />
+
+							<label for="">검색 유형</label>
+							 <select name="searchType" id="searchType">
+									<option value="1">제목</option>
+									<option value="2">내용</option>
+									<option value="3">내용+제목</option>
+							</select>						
+							<label for="">검색 내용</label>
+							<input type="text" name="searchText" id="searchText"/> &nbsp;
+							<input type="button" value="검색" onclick="searchBoard()" />
+							</td>							
+
+						</tr>
+					</table>
+				</div>
+				
+				<div id="tableArea">
+				<table class="table" id="printTable">
+				<thead>
 					<tr>
 						<th>No</th>
 						<th>제목</th>
@@ -82,9 +122,12 @@
 						<th>조회수</th>
 						<th>게시글 타입</th>
 					</tr>
+					</thead>
+					<tbody>
 					<% 
 					if(list != null) {
 					for(int i=0; i<list.size(); i++){ %>
+					
 					<tr>
 						
 						<td><label><%= boardIndex %><% boardIndex++; %></label>
@@ -114,29 +157,9 @@
 						}
 					} %>
 					</tr>
-				<!-- 	<tr>
-						<td>2</td>
-						<td>너무 좋내요~~@^^@</td>
-						<td>2018-12-24</td>
-						<td>0<td>
-						<td>후기</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td><a href="purchaseListDetail.jsp">소파 가져가주세용~ㅋ</a></td>
-						<td>2019-01-01</td>
-						<td>30</td>
-						<td>매입 신청</td>
-					</tr>	
-					<tr>
-						<td>4</td>
-						<td><a href="QaAPage.jsp">저 궁금한 게 있는데용;ㅋ</a></td>
-						<td>2019-02-03</td>
-						<td>25</td>
-						<td>1:1 문의</td>
-					</tr> -->
+					</tbody>
 				</table>
-				
+				</div>
 				<div align="center" id="btnArea">
 					<ul class="pagination">
 						<li><a href="">1</a> </li>
@@ -151,6 +174,78 @@
 	</div>
 
 	</section>
+	
+	<script>
+		function searchBoard(){
+			 var btype = $("#btype").val();
+			 var searchType = $("#searchType").val();
+			 var searchText  = $("#searchText").val();
+/* 			 console.log(btype);
+			 console.log(searchType);
+			 console.log(searchText); */
+			 
+			 $.ajax({
+				url:"<%= request.getContextPath() %>/searchBoard.do",
+				type:"post",
+				data:{btype:btype,searchType:searchType,searchText:searchText},
+				success:function(data){
+					console.log(data);
+					var $printTable = $("#printTable tbody");
+					$printTable.html('');
+					
+					if(data.length == 0){
+						
+					}else{
+							var index = 1;
+						for(var key in data){
+							var bid = data[key].bId;
+							var $tr = $("<tr>");
+							var $td = $("<td>");
+							var $noLabel = $("<td>").text(index);
+							var $titleLabel = $("<td>").text(data[key].bTitle);
+							
+							var $dateLabel = $("<td>").text(data[key].bDate);
+							var $countLabel = $("<td>").text(data[key].bCount);
+							
+							index++;
+							var type = "";
+							switch(data[key].bType){
+							case 1: type = "FAQ"; break;
+							case 2: type = "공지"; break;
+							case 3: type = "1:1문의"; break;
+							case 4: type = "후기"; break;
+							case 5: type = "매입요청"; break;
+							}
+							var $typeLabel = $("<td>").text(type);
+							
+							$tr.append($noLabel);
+							
+
+						 	$tr.append($titleLabel);
+							
+							$tr.append($dateLabel);
+						
+							$tr.append($countLabel);
+						
+							$tr.append($typeLabel);
+						
+							$printTable.append($tr);
+							
+							$titleLabel.css("cursor","pointer");
+							
+							$titleLabel.click(function(){
+								location.href = '<%= request.getContextPath() %>/selectQaA.do?num=' + bid;
+							});
+						}
+					}
+				},
+				error:function(){
+					console.log("실패");
+				}
+			 });	
+		}
+		
+	</script>
 <%@ include file="/views/common/footer.jsp" %>
 </body>
 </html>
