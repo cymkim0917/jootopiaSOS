@@ -47,7 +47,7 @@ pageEncoding="UTF-8" import="com.kh.jooTopia.product.model.vo.*, com.kh.jooTopia
 	
 		<div class="pInfo2Area">
 		<table id="pInfo2">
-			<tr><th colspan="2" height="40px"><%= "[" + "상품코드 임시" + "]" %>  <%= "상품명 임시" %></th></tr>
+			<tr><th colspan="2" height="40px"><%= "[ " + p.get("pId") + " ]" %>  <%= p.get("pName") %></th></tr>
 
 			<tr>
 				<th>상품카테고리</th>
@@ -120,8 +120,8 @@ pageEncoding="UTF-8" import="com.kh.jooTopia.product.model.vo.*, com.kh.jooTopia
 		<br>
 		
 		<div class="btnArea" align="center">
-			<button onclick="location.href='productUpdateForm.jsp'">수정</button>
-			<button onclick="location.href='productList.jsp'">목록</button>
+			<button onclick="location.href='/jootopia/updateDetailOneAdminProduct.do?num=<%= p.get("pId") %>'">수정</button>
+			<button onclick="location.href='/jootopia/adminProductList.do'">목록</button>
 		</div>
 	
 		</div>

@@ -145,4 +145,28 @@ public class ProductAdminService {
 		return result;
 	}
 
+	public Attachment selectAtt(int fId) {
+		Connection con = getConnection();
+		Attachment a = new ProductAdminDao().selectAtt(con, fId);
+		
+		close(con);
+		
+		return a;
+	}
+
+	public int updateDetailProduct(Product p, int[] fId, ArrayList<Attachment> fileList) {
+		//상품상세 수정
+		Connection con = null;
+		int result = 0;
+		
+		//상품상세 내용 수정
+		/*int result1 = new ProductAdminDao().updateDetailProduct(con, p);*/
+		
+		//이미지 오리진네임, 체인지네임, 패스 수정 (메인, 상세 두번)
+		int result2 = 0;
+		
+		
+		return result;
+	}
+
 }
