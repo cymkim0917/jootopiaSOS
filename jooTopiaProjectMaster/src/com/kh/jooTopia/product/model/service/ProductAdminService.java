@@ -84,10 +84,10 @@ public class ProductAdminService {
 		return list;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectDeleteList() {
+	public ArrayList<HashMap<String, Object>> selectDeleteList(PageInfo pageInfo) {
 		//삭제상품 전체조회
 		Connection con = getConnection();
-		ArrayList<HashMap<String, Object>> list = new ProductAdminDao().selectDeleteList(con);
+		ArrayList<HashMap<String, Object>> list = new ProductAdminDao().selectDeleteList(con, pageInfo);
 		
 		close(con);
 		
@@ -125,4 +125,24 @@ public class ProductAdminService {
 				
 		return hmap;
 	}
+
+	public int getProductListCount(String query) {
+		Connection con = getConnection();
+		
+		int listCount = new ProductAdminDao().getProductListCount(con, query);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+	public int changeStatusProduct(String status, int[] pId) {
+		Connection con = getConnection();
+		int result = new ProductAdminDao().changeStatusProduct(con, status, pId);
+		
+		close(con);
+		
+		return result;
+	}
+
 }
