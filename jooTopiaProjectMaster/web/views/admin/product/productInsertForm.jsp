@@ -192,21 +192,25 @@
 		var study = ["책상", "책장", "사무용의자", "서재수납장", "기타"];
 		var kitchen = ["식탁", "식탁의자", "주방수납장", "렌지대", "기타"];
 		var livingRoom = ["테이블", "거실장", "쇼파", "거실수납장", "기타"];
+		var etc = ["기타"];
 		
 		if(cGroup == "") {
 			cNameArr = [];
-		}else if(cGroup = "침실") {
+		}else if(cGroup == "침실") {
 			$("#cGroup option[value='침실']").attr("selected", true);
 			cNameArr = bedRoom;
-		}else if(cGroup = "서재") {
+		}else if(cGroup == "서재") {
 			$("#cGroup option[value='서재']").attr("selected", true);
 			cNameArr = study;
-		}else if(cGroup = "주방") {
+		}else if(cGroup == "주방") {
 			$("#cGroup option[value='주방']").attr("selected", true);
 			cNameArr = kitchen;
-		}else if(cGroup = "거실") {
+		}else if(cGroup == "거실") {
 			$("#cGroup option[value='거실']").attr("selected", true);
 			cNameArr = livingRoom;
+		}else if(cGroup == "기타") {
+			$("#cGroup option[value='기타']").attr("selected", true);
+			cNameArr = etc;
 		};
 		
 		$("#cName").empty();
@@ -278,8 +282,6 @@
 		});
 		
         });
-
-		
 </script>
 
 </body>

@@ -226,7 +226,6 @@
 			$(this).parent().css({"background":"white", "color":"black"});
 		}).click(function(){
 			var num = $(this).parent().children().eq(4).text();
-			console.log(num);
 			location.href="<%=request.getContextPath()%>/adminProductOne.do?num=" + num;
 		});
 		
