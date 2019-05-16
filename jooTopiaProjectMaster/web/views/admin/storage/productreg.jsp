@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.jooTopia.productreg.model.vo.*, java.util.*"%>
+	
+	<% ArrayList<ProductregAdmin> list = (ArrayList<ProductregAdmin>) request.getAttribute("list"); %>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,9 +83,10 @@
 
 			<div class="listArea1" align="center">
 				<table class="separate" border="1">
+				<% for(ProductregAdmin p : list){ %>
 					<tr>
 						<td width="120">매입번호</td>
-						<td width="500">a123</td>
+						<td width="500"><%= p.getPcdId() %></td>
 					</tr>
 					<!-- <tr>
 						<td width="120">매입가</td>
@@ -99,6 +103,7 @@
 						</select>
 						</td>
 					</tr> -->
+					<% } %>
 					<tr>
 						<td width="120">치수 및 비고</td>
 						<td width="500"><textarea id="pcontent" cols="120px" rows="5"></textarea></td>

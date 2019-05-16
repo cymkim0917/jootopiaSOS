@@ -46,13 +46,13 @@ public class InsertAdminReleaseServlet extends HttpServlet {
 		
 		ReleaseAdmin r = new ReleaseAdmin();
 		
-		r.setReleaseNo(releaseNo);
-		r.setReleaseDate(day);
+		//r.setReleaseNo(releaseNo);
+		//r.setReleaseDate(day);
 		
-		int result = new ReleaseAdminService().insertAdminRelease(r);
+		//int result = new ReleaseAdminService().insertAdminRelease(r);
 		
 		String page = "";
-		if(result > 0) {
+		/*if(result > 0) {
 			//response.sendRedirect("/jooTopia/listAdminRelease.do");
 			response.sendRedirect("views/admin/storage/releaseList");
 		}else {
@@ -60,7 +60,7 @@ public class InsertAdminReleaseServlet extends HttpServlet {
 			request.setAttribute("msg","실패");
 			request.getRequestDispatcher(page).forward(request,response);
 		}
-		
+		*/
 		
 		
 		
