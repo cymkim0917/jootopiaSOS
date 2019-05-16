@@ -100,7 +100,7 @@
 							</td>
 							<td>
 								<img src="<%= request.getContextPath() %>/images_upload/<%= cart.get(i).getChange_name() %>" alt="" style="width:100px; height:100px;" />
-							</td>
+							</td><!--  -->
 							<td><label for=""><%= cart.get(i).getPid() %></label></td>
 							<td><label for=""><%= cart.get(i).getPname() %></label></td>
 							<td><label for=""><%= cart.get(i).getPrice() %></label>

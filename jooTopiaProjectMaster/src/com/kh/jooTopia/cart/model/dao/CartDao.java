@@ -51,7 +51,7 @@ public class CartDao {
 				cart.setPrice(rs.getInt("PPRICE"));
 				cart.setStatus(rs.getString("STATUS"));
 				cart.setCartId(rs.getInt("CARTID"));
-				
+				//
 				list.add(cart);
 			}
 

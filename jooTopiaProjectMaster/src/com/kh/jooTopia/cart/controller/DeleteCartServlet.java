@@ -21,7 +21,7 @@ public class DeleteCartServlet extends HttpServlet {
      */
     public DeleteCartServlet() {
         super();
-        // TODO Auto-generated constructor stub
+        // TODO Auto-generated constructor stub//
     }
 
 	/**

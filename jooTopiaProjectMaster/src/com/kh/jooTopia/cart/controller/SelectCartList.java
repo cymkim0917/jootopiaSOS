@@ -15,7 +15,7 @@ import com.kh.jooTopia.cart.model.service.CartService;
 import com.kh.jooTopia.cart.model.vo.Cart;
 import com.kh.jooTopia.member.model.vo.Member;
 
-@WebServlet("/selectAllCart.do")
+@WebServlet("/selectAllCart.do")//
 public class SelectCartList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

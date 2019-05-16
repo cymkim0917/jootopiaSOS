@@ -37,7 +37,7 @@ public class SearchBoardContentServlet extends HttpServlet {
 		
 		System.out.println("board : "  + board);
 		System.out.println("searchType : " + searchType);
-		System.out.println("searchText : " + searchText);
+		System.out.println("searchText : " + searchText);//
 		
 		ArrayList<Board> list = new BoardService().searchList(board,searchType,searchText);
 		

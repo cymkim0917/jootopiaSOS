@@ -9,7 +9,7 @@ public class Cart implements Serializable{
 	private String pname;
 	private int price;
 	private int uno;
-	private String status;
+	private String status;//
 	
 	public Cart() {}
 
