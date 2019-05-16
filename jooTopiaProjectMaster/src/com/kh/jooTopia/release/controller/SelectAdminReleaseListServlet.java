@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.jooTopia.release.model.service.ReleaseAdminService;
+import com.kh.jooTopia.release.model.vo.ReleaseAdmin;
 
-import com.kh.jooTopia.release.model.vo.ReleaseAdminList;
  
 /**
  * Servlet implementation class SelectAdminReleaseListServlet
@@ -34,7 +34,7 @@ public class SelectAdminReleaseListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<ReleaseAdminList> rlist = new ReleaseAdminService().selectAdminrList();
+		ArrayList<ReleaseAdmin> rlist = new ReleaseAdminService().selectAdminList();
 		System.out.println(rlist);
 		String page = "";
 		if(rlist != null) {

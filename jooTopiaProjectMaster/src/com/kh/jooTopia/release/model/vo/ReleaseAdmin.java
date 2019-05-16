@@ -1,106 +1,145 @@
 package com.kh.jooTopia.release.model.vo;
 
 import java.sql.Date;
- 
+
 public class ReleaseAdmin implements java.io.Serializable{
 	
-	private int no;				//순번
-	private int oNo;			//주문번호
-	private int dNo;			//배송번호
-	private int hNo;			//적치번호
-	private int locationNo;		//위치번호
-	private String releaseNo;	//출고번호
-	private Date releaseDate;	//출고날짜
+	private int pId;		//PID - 상품번호(시퀀스)
+	private int hId;		//HID - 적치번호(시퀀스)
+	private int rlId;		//RLID - 출고번호(시퀀스)
+	private int pcdId;		//PCDID - 매입상세번호
+	private String cGroup;	//CGROUP - 대분류
+	private String name;	//NAME - 중분류
+	private int poId;		//POID - 주문번호
+	private int dId;		//DID - 배송번호
+	private int lBarcode;	//LBARCODE - 위치바코드
+	private Date rlDate;	//RLDATE - 출고일자
+	private Date hDate;		//HDATE - 적치일자
+	private String pContent;//PCONTENT - 상품상세정보
 	
 	public ReleaseAdmin() {}
-	
-	
 
-	public ReleaseAdmin(int oNo, int dNo, int hNo, int locationNo) {
+	public ReleaseAdmin(int pId, int hId, int rlId, int pcdId, String cGroup, String name, int poId, int dId,
+			int lBarcode, Date rlDate, Date hDate, String pContent) {
 		super();
-		this.oNo = oNo;
-		this.dNo = dNo;
-		this.hNo = hNo;
-		this.locationNo = locationNo;
+		this.pId = pId;
+		this.hId = hId;
+		this.rlId = rlId;
+		this.pcdId = pcdId;
+		this.cGroup = cGroup;
+		this.name = name;
+		this.poId = poId;
+		this.dId = dId;
+		this.lBarcode = lBarcode;
+		this.rlDate = rlDate;
+		this.hDate = hDate;
+		this.pContent = pContent;
 	}
 
-
-
-	public ReleaseAdmin(int no, int oNo, int dNo, int hNo, int locationNo, String releaseNo, Date releaseDate) {
-		super();
-		this.no = no;
-		this.oNo = oNo;
-		this.dNo = dNo;
-		this.hNo = hNo;
-		this.locationNo = locationNo;
-		this.releaseNo = releaseNo;
-		this.releaseDate = releaseDate;
+	public int getpId() {
+		return pId;
 	}
 
-	public int getNo() {
-		return no;
+	public void setpId(int pId) {
+		this.pId = pId;
 	}
 
-	public void setNo(int no) {
-		this.no = no;
+	public int gethId() {
+		return hId;
 	}
 
-	public int getoNo() {
-		return oNo;
+	public void sethId(int hId) {
+		this.hId = hId;
 	}
 
-	public void setoNo(int oNo) {
-		this.oNo = oNo;
+	public int getRlId() {
+		return rlId;
 	}
 
-	public int getdNo() {
-		return dNo;
+	public void setRlId(int rlId) {
+		this.rlId = rlId;
 	}
 
-	public void setdNo(int dNo) {
-		this.dNo = dNo;
+	public int getPcdId() {
+		return pcdId;
 	}
 
-	public int gethNo() {
-		return hNo;
+	public void setPcdId(int pcdId) {
+		this.pcdId = pcdId;
 	}
 
-	public void sethNo(int hNo) {
-		this.hNo = hNo;
+	public String getcGroup() {
+		return cGroup;
 	}
 
-	public int getLocationNo() {
-		return locationNo;
+	public void setcGroup(String cGroup) {
+		this.cGroup = cGroup;
 	}
 
-	public void setLocationNo(int locationNo) {
-		this.locationNo = locationNo;
+	public String getName() {
+		return name;
 	}
 
-	public String getReleaseNo() {
-		return releaseNo;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public void setReleaseNo(String releaseNo) {
-		this.releaseNo = releaseNo;
+	public int getPoId() {
+		return poId;
 	}
 
-	public Date getReleaseDate() {
-		return releaseDate;
+	public void setPoId(int poId) {
+		this.poId = poId;
 	}
 
-	public void setReleaseDate(Date releaseDate) {
-		this.releaseDate = releaseDate;
+	public int getdId() {
+		return dId;
+	}
+
+	public void setdId(int dId) {
+		this.dId = dId;
+	}
+
+	public int getlBarcode() {
+		return lBarcode;
+	}
+
+	public void setlBarcode(int lBarcode) {
+		this.lBarcode = lBarcode;
+	}
+
+	public Date getRlDate() {
+		return rlDate;
+	}
+
+	public void setRlDate(Date rlDate) {
+		this.rlDate = rlDate;
+	}
+
+	public Date gethDate() {
+		return hDate;
+	}
+
+	public void sethDate(Date hDate) {
+		this.hDate = hDate;
+	}
+
+	public String getpContent() {
+		return pContent;
+	}
+
+	public void setpContent(String pContent) {
+		this.pContent = pContent;
 	}
 
 	@Override
 	public String toString() {
-		return "ReleaseAdmin [no=" + no + ", oNo=" + oNo + ", dNo=" + dNo + ", hNo=" + hNo + ", locationNo="
-				+ locationNo + ", releaseNo=" + releaseNo + ", releaseDate=" + releaseDate + "]";
+		return "ProductregAdmin [pId=" + pId + ", hId=" + hId + ", rlId=" + rlId + ", pcdId=" + pcdId + ", cGroup="
+				+ cGroup + ", name=" + name + ", poId=" + poId + ", dId=" + dId + ", lBarcode=" + lBarcode + ", rlDate="
+				+ rlDate + ", hDate=" + hDate + ", pContent=" + pContent + "]";
 	}
 
 	
-	
-	
+
 
 }

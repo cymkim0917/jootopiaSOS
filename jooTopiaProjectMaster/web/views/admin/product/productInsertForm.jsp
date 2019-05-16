@@ -32,7 +32,7 @@
 		<table id="pInfo2">
 			<tr>
 			<th colspan="2" height="40px">기본정보</th>
-			<td hidden="hidden"><input type="text" name="pId" value="<%= 1 %>"></td>
+			<td hidden="hidden"><input type="text" name="pId" value="<%= hmap.get("pId") %>"></td>
 			</tr>
 			<tr>
 				<th>상품카테고리</th>
@@ -78,7 +78,7 @@
 			<tr>
 				<th>상품명</th>
 				<td>
-				<input type="text" size="45" name="pName" placeholder="<%= hmap.get("pName") %>">
+				<input type="text" size="45" name="pName" value="<%= hmap.get("pName") %>">
 				</td>
 			</tr>
 			<tr>
@@ -96,7 +96,7 @@
 			<tr>
 				<th>상품 판매가</th>
 				<td>
-				<input type="number" size="45" name="pPrice" placeholder="<%= hmap.get("pPrice") %>"> (원)
+				<input type="number" size="45" name="pPrice" value="<%= hmap.get("pPrice") %>"> (원)
 				</td>
 			</tr>
 		</table>
