@@ -17,37 +17,12 @@ public class PurchaseAdminService {
 		ArrayList<HashMap<String, Object>> list;
 		HashMap<String, Object> hmap = null;
 		
-		System.out.println();
-		System.out.println();
-		
-		// 1. purchase정보를 가져온다. 
 		list = new PurchaseAdminDao().selectPurchaseList(con);
-		System.out.println("selectPurchaseList의 List : " + list);
 		
-		// 2. pid값읕 통해 purchaseDetail값을 조회한다.
-		// 매입여부, 매입 수락여부를 조회하기 위한 작업
-		// list에 있는 각각의 레코드에 대하여 매입상태를 확인하여 추가해주는 작업
-		
-		String status = "";
 		for(int i = 0; i < list.size(); i++) {
 			hmap = list.get(i);
 			
-			status = "매입수락";
-			hmap = new PurchaseDetailDao().selectPCDstatus(con, hmap, status);
-			status = "매입신청거절";
-			hmap = new PurchaseDetailDao().selectPCDstatus(con, hmap, status);
-			/*status = "신청수락대기"; 
-			hmap = new PurchaseDetailDao().selectPCDstatus(con, hmap, status);
-			if(hmap.get(status) != null) {
-				status = "매입수락";
-				hmap = new PurchaseDetailDao().selectPCDstatus(con, hmap, status);
-			}else {
-				status = "매입신청거절";
-				hmap = new PurchaseDetailDao().selectPCDstatus(con, hmap, status);
-			}*/
-			
-			status = "매입완료"; 
-			hmap = new PurchaseDetailDao().selectPCDstatus(con, hmap, status);
+			hmap.put("status", new PurchaseDetailDao().selectPCDstatus(con, Integer.parseInt(String.valueOf(hmap.get("pcid")))));
 		}
 		close(con);
 		
@@ -58,11 +33,14 @@ public class PurchaseAdminService {
 		Connection con = getConnection();
 		HashMap<String, Object> hmap = null;
 		
+		// purchase정보 조회
 		hmap = new PurchaseAdminDao().selectPurchaseOne(con, pcid);
+		hmap.put("status", new PurchaseDetailDao().selectPCDstatus(con, pcid));
+		hmap.put("pBarcode", new PurchaseDetailDao().selectPCDbarcode(con, pcid));
+		hmap.put("denyReason", new PurchaseDetailDao().selectPCDdenyReason(con, pcid));
 		
 		close(con);
 		
 		return hmap; 
 	}
-
 }

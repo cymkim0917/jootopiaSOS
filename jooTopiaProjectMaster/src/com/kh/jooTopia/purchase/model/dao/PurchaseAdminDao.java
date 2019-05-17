@@ -78,6 +78,24 @@ public class PurchaseAdminDao {
 			pstmt.setInt(1, pcid);
 			rset = pstmt.executeQuery();
 			
+			if(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("applicant", rset.getObject("APPLICANT"));
+				hmap.put("bDate", rset.getObject("BDATE"));
+				hmap.put("appAddress", rset.getObject("APPLICANT_ADDRESS"));
+				hmap.put("appDistance", rset.getObject("APPLICANT_DISTANCE"));
+				hmap.put("appPhone", rset.getObject("APPLICANT_PHONE"));
+				hmap.put("category", rset.getObject("CATEGORY"));
+				hmap.put("usePeriod", rset.getObject("USE_PERIOD"));
+				hmap.put("brand", rset.getObject("BRAND"));
+				hmap.put("model", rset.getObject("MODEL"));
+				hmap.put("primeCost", rset.getObject("PRIME_COST"));
+				hmap.put("hopeCost", rset.getObject("HOPE_COST"));
+				hmap.put("bContent", rset.getObject("BCONTENT"));
+				hmap.put("memo", rset.getObject("MEMO"));
+				hmap.put("pcid", rset.getObject("PCID"));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

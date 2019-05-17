@@ -83,10 +83,10 @@
 
 			<div class="listArea1" align="center">
 				<table class="separate" border="1">
-				<% for(ProductregAdmin p : list){ %>
+				<%-- for(ProductregAdmin p : list){ --%>
 					<tr>
 						<td width="120">매입번호</td>
-						<td width="500"><%= p.getPcdId() %></td>
+						<td width="500"><%--= p.getPcdId() --%></td>
 					</tr>
 					<!-- <tr>
 						<td width="120">매입가</td>
@@ -103,7 +103,7 @@
 						</select>
 						</td>
 					</tr> -->
-					<% } %>
+					<%-- } --%>
 					<tr>
 						<td width="120">치수 및 비고</td>
 						<td width="500"><textarea id="pcontent" cols="120px" rows="5"></textarea></td>
@@ -119,9 +119,6 @@
 				<button type="button">등록</button>
 			</div>
 		</div>
-			
-		
-		
 	</section>
 	<%@ include file="/views/common/adminFooter.jsp"%>
 </body>

@@ -3,7 +3,6 @@ package com.kh.jooTopia.stock.model.vo;
 import java.sql.Date;
 
 public class StockAdmin implements java.io.Serializable{
-	
 	private int pId;		//PID - 상품번호(시퀀스)
 	private int hId;		//HID - 적치번호(시퀀스)
 	private int rlId;		//RLID - 출고번호(시퀀스)

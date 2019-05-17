@@ -72,7 +72,6 @@ public class PurchaseService {
 	}
 
 	public HashMap<String, Object> selectPurchaseFin() {
-		// Uno
 		Connection con = getConnection();
 		HashMap<String, Object> hmap = null;
 		

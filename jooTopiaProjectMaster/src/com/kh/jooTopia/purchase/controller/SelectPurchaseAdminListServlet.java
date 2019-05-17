@@ -27,14 +27,11 @@ public class SelectPurchaseAdminListServlet extends HttpServlet {
 		
 		list = new PurchaseAdminService().selectList();
 		
-		for(int i = 0; i < list.size(); i++) {
-			System.out.println("list in Servlet : " + list.get(i));
-			System.out.println();
-		}
+		
+		
 		
 		if(list != null) {
 			request.setAttribute("list", list);
-			// request.getRequestDispatcher("views/admin/purchase/purchaseList.jsp");
 			request.getRequestDispatcher("views/admin/purchase/purchaseList.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "매입신청 리스트 조회 실패!");
