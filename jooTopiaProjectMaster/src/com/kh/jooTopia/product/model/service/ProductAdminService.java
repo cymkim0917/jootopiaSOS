@@ -189,4 +189,14 @@ public class ProductAdminService {
 		return result;
 	}
 
+	public ArrayList<HashMap<String, Object>> selectSearchProduct(PageInfo pageInfo, String query) {
+		Connection con = getConnection();
+		ArrayList<HashMap<String, Object>> list = new ProductAdminDao().selectSearchProduct(pageInfo, query);
+		
+		System.out.println("서비스의 list : " + list);
+		close(con);
+		
+		return list;
+	}
+
 }
