@@ -145,6 +145,7 @@
 						<h4 class="modal-title">Login</h4>
 					</div>
 					<div class="modal-body">
+					<% if(loginUser == null){ %>
 						<form action="<%= request.getContextPath() %>/loginCheck.do" method="post">
 							<table align="center">
 								<tr><td colspan="2"><p>아이디</p></td></tr>
@@ -161,7 +162,6 @@
 			
 
 							</table>
-							
 						</form>
 						<div id="searchArea">
 							<p id="searchId">아이디 찾기</p>
@@ -172,106 +172,15 @@
 						<div id="loginAPIArea" align="center">
 						  <a id="kakao-login-btn"></a> 
 						</div>
+							<% }else { %>
+						<div id="loginUserForm" align="center">
+							<p style="font-weight:bold; size:30px; font-color:red;"> Welcome To JooTopia</p>
+							<p style="font-weight:bold;" id="nameArea"><%= loginUser.getUserName() %> &nbsp; </p><p>님 환영합니다 ! </p>
 						
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<!-- joinModal -->
-	<div id="wrapper">
-		<div class="modal fade" id="joinModal" role="dialog">
-			<div class="modal-dialog modal-lg">
-
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title" style="font-weight: bold;" align="center">
-							회원가입</h4>
-					</div>
-					<form action="<%= request.getContextPath() %>/insert.do"
-						method="post" id="joinForm">
-						<div class="modal-body">
-							<table id="joinArea" align="center">
-								<tr>
-									<td><label for="">아이디</label></td>
-									<td><input type="text" name="userId" id="userId" /></td>
-								</tr>
-								<tr>
-									<td><label for="">비밀번호</label></td>
-									<td><input type="password" name="userPwd" id="userPwd" /></td>
-
-								</tr>
-								<tr>
-									<td><p>숫자+영문자+특수문자 조합 8자리 이상</p> &nbsp; &nbsp; &nbsp;</td>
-									<td><p id="pwdArea" style="color: red;"></p></td>
-								</tr>
-								<tr>
-									<td><label for="">비밀번호 확인</label></td>
-									<td><input type="password" name="userPwd2" id="userPwd2" />
-										&nbsp; &nbsp; &nbsp;</td>
-									<td><p id="pwdArea2" style="color: red;"></p></td>
-								</tr>
-								<tr>
-									<td><label for="">이름</label></td>
-									<td><input type="text" name="userName" id="userName" /></td>
-								</tr>
-								<tr>
-									<td><label>생년월일</label></td>
-									<td><input type="date" name="date" /></td>
-								</tr>
-								<tr>
-									<td><label>핸드폰 번호</label></td>
-									<td><input type="tel" name="tel1" size="3" /> - <input
-										type="tel" name="tel2" size="4" /> - <input type="tel"
-										name="tel3" size="4" /> <br /></td>
-								</tr>
-								<tr>
-									<td><label for="">성별</label></td>
-									<td><input type="checkBox" value="M" id="gender"
-										value="gender" /> <label for="">남자</label> <input
-										type="checkBox" value="F" id="gender" value="gender" /> <label
-										for="">여자</label></td>
-								</tr>
-								<tr>
-									<td><label for="">우편번호</label></td>
-									<td><input type="text" name="zipCode" id="zipCode"></td>
-									<td><div id="ckZip" class="ckZip"
-											onclick="searchAddress()">검색</div></td>
-								</tr>
-								<tr>
-									<td><label for="">주소</label></td>
-									<td><input type="text" name="address1" id="address1"></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td><label for="">상세주소</label></td>
-									<td><input type="text" name="address2" id="address2"></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td><label for="">이메일</label></td>
-									<td><input type="email" name="email" /></td>
-								</tr>
-							</table>
-
-
-							<br> <input type="button" class="btn btn-info"
-								value="Submit" onclick="checkPassword();"> <input
-								type="reset" class="btn btn-info" value="Reset"> <a
-								id="kakao-jogin-btn"></a>
-
 						</div>
-					</form>
-					<form action="<%= request.getContextPath()  %>/getkakao.do" id="kakaoJoinForm" method="post">
-						<input type="text" name="kakaoToken" id="kakaoToken" />
-					</form>
+						
+						<% } %>
+					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
@@ -279,6 +188,55 @@
 			</div>
 		</div>
 	</div>
+
+
+	   <!-- joinModal -->
+   <div id="wrapper">
+      <div class="modal fade" id="joinModal" role="dialog">
+         <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title" style="font-weight: bold;" align="center">
+                     회원가입 유형 선택</h4>
+               </div>
+               <form action="<%= request.getContextPath() %>/insert.do"
+                  method="post" id="joinForm">
+                  <div class="modal-body">
+                  	<div id="btnArea" align="center">
+                  	<table>
+                  		<tr>
+                  			<td><img src="/jootopia/images/logo2.png" alt="" onclick="location.href='views/member/joinForm.jsp'" width="223px" height="50px"/><br /></td>
+                  		</tr>
+                  		<tr>
+                  			<td>
+                  			<br />
+                  			<a id="kakao-jogin-btn"></a></td>
+                  		</tr>
+                  		<tr>
+                  			<td>구글이당</td>
+                  		</tr>
+                  	</table>
+					</div>
+
+                     <br> <input type="button" class="btn btn-info"
+                        value="Submit" onclick="checkPassword();"> <input
+                        type="reset" class="btn btn-info" value="Reset">
+
+                  </div>
+               </form>
+               <form action="<%= request.getContextPath()  %>/getkakao.do" id="kakaoJoinForm" method="post">
+                  <input type="text" name="kakaoToken" id="kakaoToken" />
+               </form>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
 
 
 	<script>
@@ -379,10 +337,8 @@
     Kakao.Auth.createLoginButton({
         container: '#kakao-login-btn',
         success: function (authObj) {
-            alert(JSON.stringify(authObj));
-     /*        $("#kakaoToken").val(JSON.stringify(authObj));
-            
-            console.log($("#kakaoToken").val()); //*/
+        	$("#kakaoToken").val(JSON.stringify(authObj));
+        	$("#kakaoJoinForm").submit();
             
         },
         fail: function (err) {

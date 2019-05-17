@@ -1,5 +1,8 @@
+<%@page import="com.kh.jooTopia.order.model.vo.Order, java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<% ArrayList<Order> orderList = (ArrayList<Order>)request.getAttribute("orderList"); %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,34 +59,22 @@
 			
 			<br /><br />
 				<table class="table table-striped">
+	
+					
+					<% for(int i=0; i<orderList.size(); i++){ %>
 					<tr>
-						<th>No.</th>
-						<th>상품명</th>
-						<th>결제 금액</th>
-						<th>주문일</th>
-						<th>배송 정보</th>
-					</tr>
-					<tr style="color:black;">
-						<td>1</td>
-						<td><a href="detailOrderPage.jsp">멀미나는 쇼파</a></td>
-						<td>200,000</td>
-						<td>2019-04-17</td>
+						<td><%= i+1 %></td>
+						<td>
+						
+						<input type="hidden" value="<%= orderList.get(i).getPoid() %>" name="poid" />
+						<a href="#"><%= orderList.get(i).getPname() %></a>
+						</td>
+						<td><label for=""><%= orderList.get(i).getPpice() %></label></td>
+						<td><label for=""><%= orderList.get(i).getpDate() %></label></td>
 						<td><a href="#" id="delBtn">조회</a></td>
 					</tr>
-					<tr>
-						<td>2</td>
-						<td><a href="#">스치면 부러지는 의자</a></td>
-						<td>100,000</td>
-						<td>2019-04-12</td>
-						<td><a href="#" id="delBtn">조회</a></td>
-					</tr>	
-					<tr>
-						<td>3</td>
-						<td><a href="#">흔들리지 않는 흔들 의자</a></td>
-						<td>50,000</td>
-						<td>2019-03-17</td>
-						<td><a href="#" id="delBtn">조회</a></td>
-					</tr>
+					
+					<% } %>
 				</table>
 			
 			<div class="text-center">

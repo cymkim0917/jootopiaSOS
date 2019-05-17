@@ -135,7 +135,7 @@
 						<input type="hidden" name="bid" value="<%= list.get(i).getbId() %>"/>
 						</td>
 						<td><a href="<%= request.getContextPath() %>/selectQaA.do?num=<%=list.get(i).getbId() %>"><%= list.get(i).getbTitle() %></a></td>
-						<td><label for=""><%= list.get(i).getBDate() %></label></td>
+						<td><label for=""><%= list.get(i).getbDate() %></label></td>
 						<td><label for=""><%= list.get(i).getbCount() %></label><td>
 							<% int num = list.get(i).getbType();
 							   String bType = "";
