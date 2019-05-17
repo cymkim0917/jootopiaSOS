@@ -24,4 +24,15 @@ public class PurchaseDetailService {
 		
 		return result;
 	}
+
+	public int insertPCDdeny(PurchaseDetail pcd) {
+		Connection con = getConnection();
+		int result = 0;
+			
+		result = new PurchaseDetailDao().insertPCDdeny(con, pcd);
+		
+		close(con);
+		
+		return result;
+	}
 }

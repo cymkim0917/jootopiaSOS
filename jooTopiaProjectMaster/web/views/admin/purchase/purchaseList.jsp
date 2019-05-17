@@ -144,24 +144,8 @@
 	    				<td><%= hmap.get("appPhone") %></td>
 	    				<td><%= hmap.get("category") %></td>
 	    				<td><%= hmap.get("bDate") %></td>
-	    				<td><% if( hmap.get("매입수락") != null){ %>
-	    						매입수락
-	    					<% }else if(hmap.get("매입신청거절") != null){ %>
-	    						매입거절
-	    					<% }else{ %>
-	    						매입대기중
-	    					<% } %>
-	    				</td>
-	    				<td><% if(hmap.get("매입완료") != null){ %>
-								매입완료	    					
-	    					<% }else if(hmap.get("매입중") != null) {%>
-	    						매입중
-	    					<% }else if(hmap.get("매입거절") != null){ %>
-	    						매입거절
-	    					<%}else{ %>
-	    						매입대기
-	    					<% } %>
-	    				</td>
+	    				<td><%= hmap.get("status") %></td>
+	    				<td><%= hmap.get("status") %></td>
 	    			<% } %>
 	    			</tr>
 	    		</table>
