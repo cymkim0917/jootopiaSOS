@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.kh.jooTopia.heap.model.vo.*, java.util.*"%>
 
-
+	<% HeapAdmin h = (HeapAdmin) request.getAttribute("h"); %> 
 
 <!DOCTYPE html>
 <html>
@@ -62,40 +62,41 @@
 			</div>
 
 			<div class="listArea1" align="center">
+			<form action="<%=request.getContextPath()%>/insertAdminHeap.do" method="get">
 				<table class="separate" border="1">
-					<tr>
+					<%-- <tr>
 						<td width="120">매입번호</td>
-						<td width="500">1234</td>
-					</tr>
+						<td width="500"><%= h.getPcdId() %>
+						<input type="hidden" name="pcdId" value="<%= h.getPcdId() %>">
+						</td>
+					</tr> --%>
 					<tr>
 						<td width="120">상품번호</td>
-						<td width="500">9999</td>
-					</tr>
-					<!-- <tr>
-						<td width="120">적치바코드 등록</td>
-						<td width="500"><input type="text" placeholder="적치바코드를 등록하세요" width="500">
-						(자동생성)
+						<td width="500"><%= h.getpId() %>
+						<input type="hidden" name="pId" value="<%= h.getpId() %>">
 						</td>
-					</tr> -->
+					</tr>					
 					<tr>
 						<td width="120">적치일자 등록</td>
 						<td id="selectDate" colspan="2">
-						<!-- &nbsp;<a href="#" class="btnDate" period="0"><span>오늘</span></a>&nbsp;&nbsp; -->						
-						<input type="date" id="heapDate" name="heapDate" class="date" <%-- value="<%= heapDay %>" --%>>						
+						<input type="date" name="hDate">					
 					</td>
 					</tr>
 					<tr>
 						<td width="120">위치번호</td>
-						<td width="500"><input type="text" placeholder="위치번호를 입력하세요" width="700"></td>
+						<td width="500">
+						<input type="text" placeholder="위치번호를 입력하세요" name="lbarcode">
+						</td>
 					</tr>										
 				</table>
+			<div align="center" class="btnArea">
+				<button type="submit">등록</button>
+			</div>
+				</form>
 			</div>
 				
 				<br />
 				
-			<div align="center" class="btnArea">
-				<button type="button">등록</button>
-			</div>
 		</div>
 		
 	</section>

@@ -58,30 +58,7 @@
 				</tbody>
 			</table>
 
-			<!-- db 생기면 적용 -->
-			<%-- <script>
-				$(function(){
-					<% for(Product p : list){ %>
-					
-					var $tableBody = $("table tbody");
-					
-					var $tr = $("<tr>");
-					var $idTd = $("<td>").text('<%= p.get상품코드()%>');
-					var $phoneTd = $("<td>").text('<%= p.get대분류() %>');
-					var $addressTd = $("<td>").text('<%= p.get중분류() %>');			
-										
-					
-					$tr.append($상품코드Td);
-					$tr.append($대분류Td);
-					$tr.append($중분류Td);
-										
-					
-					$tableBody.append($tr);					
-					
-					<% } %>
-				});
-			</script> --%>
-
+			
 			<hr>
 			<div align="center">
 				<ul class="pagination">
@@ -110,7 +87,7 @@
 				console.log(num);
 				<%-- location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num; --%>
 				<%-- location.href="<%=request.getContextPath()%>/insertAdminRelease.do"; --%>
-				location.href="<%=request.getContextPath()%>/views/admin/storage/releaseRegist.jsp?num=" + num;
+				location.href="<%=request.getContextPath()%>selectOneAdminRelease.do?num=" + num;
 				/* location.href="views/admin/storage/releaseRegist.jsp"; */
 			})
 		})
