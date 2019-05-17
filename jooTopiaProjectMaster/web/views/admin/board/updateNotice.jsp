@@ -46,10 +46,12 @@
       	 				<td>
       	 					<div id="contentImgArea1" style="float:left; margin-right:1%;">
       	 						<img id="contentImg1" width="120" height="100" src="<%=request.getContextPath()%>/images/notice/<%=img1.getChangeName()%>">
+      	 						<input type="hidden" name = "img1Fid" value="<%=img1.getfId()%>">
       	 					</div>
       	 					
       	 					<div id="contentImgArea2" style="float:left">
       	 						<img id="contentImg2" width="120" height="100" src="<%=request.getContextPath()%>/images/notice/<%=img2.getChangeName()%>">
+      	 						<input type="hidden" name = "img2Fid" value="<%=img2.getfId()%>">
       	 					</div>
       	 				</td>
       	 			</tr>

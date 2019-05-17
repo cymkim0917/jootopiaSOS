@@ -83,7 +83,7 @@ public class BoardAdminDao {
 				board.setbTitle(rset.getString("BTITLE"));
 				board.setbContent(rset.getString("BCONTENT"));
 				board.setStatus(rset.getString("STATUS"));
-				board.setBDate(rset.getDate("BDATE"));
+				board.setbDate(rset.getDate("BDATE"));
 				board.setModifyDate(rset.getDate("MODIFY_DATE"));
 				board.setbCount(rset.getInt("BCOUNT"));
 				board.setStartDate(rset.getDate("START_DATE"));
@@ -248,7 +248,7 @@ public class BoardAdminDao {
 					board.setbTitle(rset.getString("BTITLE"));
 					board.setbContent(rset.getString("BCONTENT"));
 					board.setStatus(rset.getString("STATUS"));
-					board.setBDate(rset.getDate("BDATE"));
+					board.setbDate(rset.getDate("BDATE"));
 					board.setModifyDate(rset.getDate("MODIFY_DATE"));
 					board.setbCount(rset.getInt("BCOUNT"));
 					board.setStartDate(rset.getDate("START_DATE"));
@@ -294,7 +294,7 @@ public class BoardAdminDao {
 					board.setbTitle(rset.getString("BTITLE"));
 					board.setbContent(rset.getString("BCONTENT"));
 					board.setStatus(rset.getString("STATUS"));
-					board.setBDate(rset.getDate("BDATE"));
+					board.setbDate(rset.getDate("BDATE"));
 					board.setModifyDate(rset.getDate("MODIFY_DATE"));
 					board.setbCount(rset.getInt("BCOUNT"));
 					board.setStartDate(rset.getDate("START_DATE"));
@@ -372,12 +372,13 @@ public class BoardAdminDao {
 				board.setbTitle(rset.getString("BTITLE"));
 				board.setbContent(rset.getString("BCONTENT"));
 				board.setStatus(rset.getString("STATUS"));
-				board.setBDate(rset.getDate("BDATE"));
+				board.setbDate(rset.getDate("BDATE"));
 				board.setModifyDate(rset.getDate("MODIFY_DATE"));
 				board.setbCount(rset.getInt("BCOUNT"));
 				board.setuNo(rset.getInt("UNO"));
 				
 				attach = new Attachment();
+				attach.setfId(rset.getInt("FID"));
 				attach.setOriginName(rset.getString("ORIGIN_NAME"));
 				attach.setChangeName(rset.getString("CHANGE_NAME"));
 				attach.setFilePath(rset.getString("FILE_PATH"));
