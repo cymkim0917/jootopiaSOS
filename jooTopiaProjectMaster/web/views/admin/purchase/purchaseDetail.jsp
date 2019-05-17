@@ -2,6 +2,8 @@
     pageEncoding="UTF-8" import="java.util.*"%>
 <%
 	HashMap<String, Object> hmap = (HashMap<String, Object>)request.getAttribute("hmap");
+	String status = (String) hmap.get("status");
+	System.out.println("status : " + status);
 %>
 <!DOCTYPE html>
 <html>
@@ -15,6 +17,26 @@
 <title>JooTopia</title>
 
 <style>
+.statusArea{
+	width: 70%;
+	margin: 10px auto 40px;
+}
+.statusArea table{
+	width: 100%;
+	box-sizing: border-box;
+	text-align: center;
+}
+.statusArea table th{
+	border-top: 2px solid black;
+	border-bottom: 1px solid black;
+	height : 45px;
+}
+.statusArea > table td{
+	border-bottom: 2px solid black;
+	display: table-cell;
+	height : 80px;
+	line-height : 30px;
+}
 .tableArea{
 	width: 80%;
 	margin : 0 auto;
@@ -74,6 +96,31 @@
 		<div class="col-sm-10">
 	    	<h3 class="title">매입신청 상세</h3>
 	    	<hr>
+	    	<% if(status.equals("매입신청거절")){ %>
+	    		<div class="statusArea">	
+	    		<table align="center">
+	    			<tr>
+	    				<th>매입 거절 사유</th>
+	    			</tr>
+	    			<tr>
+	    				<td><%= hmap.get("denyReason") %></td>
+	    			</tr>
+	    		</table>
+	    	</div>
+	    	<% }else if(!status.equals("신청수락대기")){ %>
+	    	<div class="statusArea">	
+	    		<table align="center">
+	    			<tr>
+	    				<th>상품바코드</th>
+	    				<th>상태</th>
+	    			</tr>
+	    			<tr>
+	    				<td><%= hmap.get("pBarcode") %></td>
+	    				<td><%= hmap.get("status") %></td>
+	    			</tr>
+	    		</table>
+	    	</div>
+	    	<% } %>
 	      	<div class="tableArea" align="center">
 	      		<table>
 	      			<tr>
@@ -154,10 +201,12 @@
 	      		</table>
 	      	</div>
 	      	<div class="btnArea" align="center"> 
-	      		<div class="submitBtnArea">
-	      			<button class="jBtn" onclick="location.href='<%= request.getContextPath() %>/insertPurchaseAccept.do?no=<%= hmap.get("pcid")%>'">매입하기</button>
+		      	<% if(status.equals("신청수락대기")){ %>
+	    		<div class="submitBtnArea">
+	      			<button class="jBtn" onclick="location.href='<%= request.getContextPath() %>/insertPCAdminAccept.do?no=<%= hmap.get("pcid")%>'">매입하기</button>
 	      			<button class="jBtn" data-toggle="modal" data-target="#denyModal">매입거절</button>
 	      		</div>
+		    	<% } %>
 	      		<div class="moveBtnArea">
 					<ul class="pagination">
 						<li><a href="#">이전</a></li>
@@ -179,15 +228,21 @@
 		    <div class="modal-content">
 		      <div class="modal-body"><br>
 			      <h3 align="center">매입 거절 이유를 작성해주세요</h3><br><br>
-			      <textarea cols="60%" rows="10" name="denyReason" style="resize:none;">매입거절 사유를 작성해주세요.</textarea>
+			      <textarea cols="60%" rows="10" name="denyReason" id="denyReason" style="resize:none;">매입거절 사유를 작성해주세요.</textarea>
 		      </div><br><br>
 		      <div class="modal-footer">
-		      	<button class="btn btn-danger" onclick="location.href='/jootopia/views/admin/purchase/purchaseDeny.jsp'">매입거절</button>
+		      	<button class="btn btn-danger" onclick="purchaseDeny();">매입거절</button>
 		        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 		      </div>
 		    </div>
 		  </div>
 		</div>
+		<script>
+			function purchaseDeny(){
+				var denyReason = $("#denyReason").val();
+				location.href="<%= request.getContextPath() %>/insertPCAdminDeny.do?no=<%= hmap.get("pcid") %>&denyReason=" + denyReason;
+			}
+		</script>
 	    
 	</section>
 <%@ include file="/views/common/adminFooter.jsp" %>
