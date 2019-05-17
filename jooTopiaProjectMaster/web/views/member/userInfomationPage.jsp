@@ -100,9 +100,9 @@
 				</table>			
 				<% } %>
 				<div class="btnArea" id="btnArea">
-					<a href="passwordCheckPage.jsp" id="modifyBtn">수정</a>					
+					<p onclick="checkModify();" id="modifyBtn">수정</p>					
 					<a href="passwordCheckPage2.jsp" id="delBtn">삭제</a><br />
-					<a href="orderListPage.jsp" id="orderBtn">임시)주문내역</a><br />
+					<a href="<%= request.getContextPath() %>/orderList.do" id="orderBtn">임시)주문내역</a><br />
 					<a href="<%= request.getContextPath() %>/selectBoardList.do" id="orderBtn">임시)게시글 조회</a>
 				</div>
 				
@@ -110,6 +110,18 @@
 			<div class="col-sm-3"></div>
 		</div>
 	</section>
+	
+	<script>
+		function checkModify(){
+			var join_type = <%= loginUser.getJoinType() %>;
+			
+			if(join_type == 2){
+				location.href='modifyUserInfoPage.jsp';
+			}else{
+				location.href='passwordCheckPage.jsp'
+			}
+		}
+	</script>
 <%@ include file="../common/footer.jsp" %>
 </body>
 </html>

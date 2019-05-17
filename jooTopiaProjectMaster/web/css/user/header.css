@@ -119,3 +119,9 @@ header > span:nth-child(4) > *:hover{
         border-radius: 10px; 
 }
 
+.nameArea{
+	color:#FAED7D;
+	font-size:20px;
+	background:blue;
+}
+

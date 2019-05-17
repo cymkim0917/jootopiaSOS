@@ -1,4 +1,4 @@
-package com.kh.jooTopia.productreg.model.vo;
+package com.kh.jooTopia.product.model.vo;
 
 import java.sql.Date;
 
@@ -16,11 +16,18 @@ public class ProductregAdmin implements java.io.Serializable{
 	private Date rlDate;	//RLDATE - 출고일자
 	private Date hDate;		//HDATE - 적치일자
 	private String pContent;//PCONTENT - 상품상세정보
+	private String brand;	//BRAND - 브랜드
+	private String model;	//MODEL - 모델
+	private String uPeriod;	//USER_PERIOD - 사용기간
+	private int pCost;		//PRIME_COST - 구매원가
+	private int hCost;		//HOPE_COST - 판매희망가
+	private String memo;	//MEMO - 메모
 	
 	public ProductregAdmin() {}
 
 	public ProductregAdmin(int pId, int hId, int rlId, int pcdId, String cGroup, String name, int poId, int dId,
-			int lBarcode, Date rlDate, Date hDate, String pContent) {
+			int lBarcode, Date rlDate, Date hDate, String pContent, String brand, String model, String uPeriod,
+			int pCost, int hCost, String memo) {
 		super();
 		this.pId = pId;
 		this.hId = hId;
@@ -34,6 +41,12 @@ public class ProductregAdmin implements java.io.Serializable{
 		this.rlDate = rlDate;
 		this.hDate = hDate;
 		this.pContent = pContent;
+		this.brand = brand;
+		this.model = model;
+		this.uPeriod = uPeriod;
+		this.pCost = pCost;
+		this.hCost = hCost;
+		this.memo = memo;
 	}
 
 	public int getpId() {
@@ -132,13 +145,63 @@ public class ProductregAdmin implements java.io.Serializable{
 		this.pContent = pContent;
 	}
 
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public String getuPeriod() {
+		return uPeriod;
+	}
+
+	public void setuPeriod(String uPeriod) {
+		this.uPeriod = uPeriod;
+	}
+
+	public int getpCost() {
+		return pCost;
+	}
+
+	public void setpCost(int pCost) {
+		this.pCost = pCost;
+	}
+
+	public int gethCost() {
+		return hCost;
+	}
+
+	public void sethCost(int hCost) {
+		this.hCost = hCost;
+	}
+
+	public String getMemo() {
+		return memo;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductregAdmin [pId=" + pId + ", hId=" + hId + ", rlId=" + rlId + ", pcdId=" + pcdId + ", cGroup="
 				+ cGroup + ", name=" + name + ", poId=" + poId + ", dId=" + dId + ", lBarcode=" + lBarcode + ", rlDate="
-				+ rlDate + ", hDate=" + hDate + ", pContent=" + pContent + "]";
+				+ rlDate + ", hDate=" + hDate + ", pContent=" + pContent + ", brand=" + brand + ", model=" + model
+				+ ", uPeriod=" + uPeriod + ", pCost=" + pCost + ", hCost=" + hCost + ", memo=" + memo + "]";
 	}
 
+	
 	
 
 

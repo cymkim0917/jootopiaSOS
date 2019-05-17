@@ -1,6 +1,7 @@
 package com.kh.jooTopia.member.model.service;
 
 import com.kh.jooTopia.member.model.dao.MemberDao;
+import com.kh.jooTopia.member.model.vo.KakaoMember;
 import com.kh.jooTopia.member.model.vo.Member;
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
@@ -16,7 +17,13 @@ public class MemberService {
 		System.out.println("checkId" + checkId);
 		
 		if(checkId == 0) {
-			result = new MemberDao().insertMember(con,member);
+			
+			if(member.getUserId().substring(0, 5).equals("Kakao")) {
+				result = new MemberDao().insertMember(con,member,2);		
+			}else {
+				result = new MemberDao().insertMember(con,member);							
+			}
+			
 			
 			if(result >0) {
 				commit(con);
@@ -77,6 +84,27 @@ public class MemberService {
 		close(con);
 		
 		return result;
+	}
+
+	public int kakaoMemberNY(KakaoMember member) {
+		Connection con = getConnection();
+		int result = new MemberDao().idCheck(con, member.getUserId());
+		
+		
+		close(con);
+		
+		
+		return result;
+	}
+
+	public Member searchMember(KakaoMember kakao) {
+		Connection con = getConnection();
+		
+		Member member = new MemberDao().searchMember(con,kakao);
+		
+		close(con);
+		
+		return member;
 	}
 
 }
