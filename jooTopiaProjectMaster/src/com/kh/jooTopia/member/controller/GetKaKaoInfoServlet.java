@@ -18,6 +18,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.kh.jooTopia.member.model.service.MemberService;
+import com.kh.jooTopia.member.model.vo.KakaoMember;
+import com.kh.jooTopia.member.model.vo.Member;
 import com.kh.jooTopia.wrapper.LoginWrapper;
 
 @WebServlet("/getkakao.do")
@@ -37,7 +39,6 @@ public class GetKaKaoInfoServlet extends HttpServlet {
 		System.out.println(tempVal2[1]);		
 		String accessToken = tempVal2[1].replace("\"", "");
 	
-		HashMap<String, Object> userInfo = new HashMap<>();
 		String reqURL = "https://kapi.kakao.com/v2/user/me";
 		
 		URL url = new URL(reqURL);
@@ -68,20 +69,27 @@ public class GetKaKaoInfoServlet extends HttpServlet {
         
         
         String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-
-       
-       request.setAttribute("userPwd", id);
-       request.setAttribute("userName", nickname);
-       request.setAttribute("userId", "Kakao"+id.substring(0, 3));
-       
-       String test = LoginWrapper.getSha512(id);
-       System.out.println(test);
-       
-       /*PrintWriter out = response.getWriter();
-       System.out.println("<script> var openWindow = window.open('views/member/kakaoJoinForm.jsp','kakaoJoinForm','width=570,height=570,resizable=no,scrollbars=no'); openWindow.document.getElementById('userPwd').value = '" + id + "';</script>");
-       out.println("<script> var openWindow = window.open('views/member/kakaoJoinForm.jsp','kakaoJoinForm','width=570,height=570,resizable=no,scrollbars=no'); openWindow.document.getElementById('userPwd').value = '"+ id +"';</script>");
-       */
-       //
+        
+        KakaoMember kakao = new KakaoMember();
+        
+        kakao.setUserId("Kakao"+id.substring(0, 3));
+        kakao.setUserPwd(id);
+        kakao.setUserName(nickname);
+      
+        
+    	int searchResult = new MemberService().kakaoMemberNY(kakao);
+    	
+    	if(searchResult == 0 ) {
+    		System.out.println("searchResult:0 : " + kakao);
+    		request.setAttribute("kakao", kakao);    		
+    		request.getRequestDispatcher("views/member/kakaoJoinForm.jsp").forward(request, response);
+    	}else {
+    		
+    		Member member = new MemberService().searchMember(kakao);
+    		
+    		request.getSession().setAttribute("loginUser", member);
+    		request.getRequestDispatcher("index.jsp").forward(request, response);
+    	}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -132,11 +132,53 @@ public class BoardAdminService {
 		
 		int result1 = new BoardAdminDao().updateNotice(con, board);
 		
-		if(result1>0) {
-			for(int i = 0; i<fileList.size(); i++) {
-				fileList.get(i).setbId(board.getbId());
-			}
+		int result2 = new BoardAdminDao().updateNoticeAttachment(con, fileList);
+		
+		if(result1>0 && result2 ==fileList.size()) {
+			commit(con);
+			result=1;
+		}else {
+			rollback(con);
+			result=0;
 		}
+		
+		close(con);
+		
+		
+		return result;
+	}
+
+	public Attachment selectAttach(int fId) {
+		Connection con = getConnection();
+		Attachment attach = new BoardAdminDao().selectAttach(con, fId);
+		close(con);
+		return attach;
+	}
+
+	public HashMap<String, Object> selectOneEvent(int num) {
+		Connection con = getConnection();
+		HashMap<String, Object> hmap = null;
+		
+		int result = new BoardAdminDao().updateCount(con,num);
+		
+		if(result>0) {
+			commit(con);
+			hmap = new BoardAdminDao().selectOneEvent(con,num);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return hmap;
+	}
+
+	public int updateEvent(Board board, ArrayList<Attachment> fileList) {
+		Connection con = getConnection();
+		int result;
+		
+		int result1 = new BoardAdminDao().updateEvent(con, board);
+		
 		
 		int result2 = new BoardAdminDao().updateNoticeAttachment(con, fileList);
 		
@@ -150,6 +192,22 @@ public class BoardAdminService {
 		
 		close(con);
 		
+		
+		return result;
+	}
+
+	public int deleteNotice(int bId) {
+		Connection con = getConnection();
+		
+		int result = new BoardAdminDao().deleteNotice(con, bId);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
 		
 		return result;
 	}

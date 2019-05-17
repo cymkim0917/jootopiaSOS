@@ -66,14 +66,14 @@
 			<br>
 			
 			<div id="searchBtnArea" align="center">
-				<input type="submit" value="검색" onclick="">
-				<input type="reset" value="초기화" onclick="">
+				<input type="submit" value="검색" >
+				<input type="reset" value="초기화" >
 			</div>
 			</form>
 		</div>
 		<hr>
 		<div id="resultArea">
-			<form>
+			<form action="<%=request.getContextPath() %>/deleteAdminNotice.do"  method="post">
 		   		<table id="noticeList" border="1" align="center"> 
 		   			<tr>
 		   				<th width="50px;">선택</th>
@@ -86,7 +86,7 @@
 		   			</tr>
 		   			<%for(Board board:list){ %>
 		   			<tr>
-		   				<td><input type="checkbox"></td>
+		   				<th><input class="checkA" name="checkBid" type="checkbox" value="<%=board.getbId() %>"></th>
 		   				<td><%=board.getbNo() %></td>
 		   				<td><%=board.getbTitle() %></td>
 		   				<td><%=board.getbDate() %></td>
@@ -105,15 +105,14 @@
 		   			</tr>
 		   			<%} %>
 		   		</table>
-		   	</form>
 		</div>	
 		   	<br>
 		   	<hr>
 		   	<div id="updateBtnArea" align="right">
 		   		<input type="button" value="글쓰기" onclick="location.href='/jootopia/views/admin/board/noticeInsertForm.jsp'">
-		   		<input type="button" value="수정"   onclick="location.href='/jootopia/views/admin/board/updateNotice.jsp'">
-		   		<input type="button" value="삭제">
+		   		<input type="submit" value="삭제" onclick="deleteBoard();">
 		   	</div>
+		   	</form>
 		
 		<div class="paging" align="center">
 		<ul class="pagination">
@@ -132,7 +131,7 @@
       </div>
    </section>
    <script>
-   $(function(){
+  	 $(function(){
 		$("#noticeList td").mouseenter(function(){
 			$(this).parent().css({"background":"darkgray","cursor":"pointer"});
 		}).mouseout(function(){
@@ -147,21 +146,55 @@
 			console.log(type);
 			console.log(num);
 			
-			
 			if(type == 1){
 				location.href="<%= request.getContextPath() %>/selectAdminNotice.do?num=" + num;
 				console.log('if문공지사항')
 			}else if(type==2){
-				
-				console.log('if문이벤트')
+				location.href="<%= request.getContextPath() %>/selectAdminEvent.do?num=" + num;
 			} 
-			<%-- location.href="<%= request.getContextPath() %>/selectAdminNotice.do?num=" + num; --%>
-
-			
 		});
 		
-		
 	});
+		
+  	 	/* $("#noticeList th").click(function(){
+			var numArr;
+			var chk;
+			
+			
+				
+			
+  	 		$("input:checkbox[name=checkBid]").each(function(){
+				if($(this).is(":checked"))
+					numArr += $(this).val()+",";
+			});
+					console.log(numArr);
+  	 	});
+  	 	 */
+  	 	/* $("#noticeList th").click(function() {
+ 				var numArr = [];
+ 				
+ 				$(".checkA").each(function() {
+ 					if($(this).is(":checked"))
+ 						
+ 							numArr += $(this).val() + ",";
+ 						
+ 			
+ 				console.log( numArr );
+ 				
+ 			});
+  	 	});
+  	 	  */
+  	 	 function deleteBoard(){
+  	 		 var values = document.getElementsByName("checkBid");
+  	 		 for(var i = 0; i<values.length; i++){
+  	 			 if(values[i].checked){
+  	 				 console.log(values[i].value);
+  	 			 }
+  	 			 
+  	 		 }
+ 				
+  	 		 
+  	 	 }
 
    
    </script>

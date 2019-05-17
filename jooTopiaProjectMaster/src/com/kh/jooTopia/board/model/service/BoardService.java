@@ -214,6 +214,9 @@ public class BoardService {
 			list = new BoardDao().contentAllSearchList(con,board,searchText);//제목+내용
 			break;
 		}
+		
+		return list;
+	}
 
 	public ArrayList<Board> selectFaqTotalList(String fCategory) {
 		Connection con = getConnection();

@@ -546,4 +546,62 @@ public class ProductAdminDao {
 		
 		return result;
 	}
+
+	public ArrayList<HashMap<String, Object>> selectSearchProduct(PageInfo pageInfo, String query) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String,Object> hmap = null;
+		
+		int startRow = (pageInfo.getCurrentPage()-1)*pageInfo.getLimit()+1;
+		int endRow = startRow + pageInfo.getLimit()-1;
+		
+		System.out.println("startRow : " + startRow);
+		System.out.println("endRow : " + endRow);
+		
+		String queryFront = prop.getProperty("selectSearchProductFront");
+		String queryBack = prop.getProperty("selectSearchProductBack");
+		
+		String queryEnd = queryFront + query + " " + queryBack;
+		
+		System.out.println("dao의 전체 완성쿼리 : " + queryEnd);
+		
+		try {
+			pstmt = getConnection().prepareStatement(queryEnd);
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+				
+				hmap.put("status", rset.getString("STATUS"));
+				hmap.put("cGroup", rset.getString("CGROUP"));
+				hmap.put("cName", rset.getString("NAME"));
+				hmap.put("pId", rset.getInt("PID"));
+				hmap.put("fId", rset.getInt("FID"));
+				hmap.put("originName", rset.getString("ORIGIN_NAME"));
+				hmap.put("changeName", rset.getString("CHANGE_NAME"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				hmap.put("pName", rset.getString("PNAME"));
+				hmap.put("pPrice", rset.getInt("PPRICE"));
+				hmap.put("sale", rset.getInt("GRADESALES"));
+				
+				list.add(hmap);
+			}
+			
+			System.out.println("dao의 list : " + list);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 }
