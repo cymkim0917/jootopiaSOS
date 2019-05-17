@@ -1,5 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+`<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="com.kh.jooTopia.member.model.vo.*, java.util.*, com.kh.jooTopia.board.model.vo.*"%>
+<%
+	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");
+	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
+	int currentPage = pageInfo.getCurrentPage();
+	int maxPage = pageInfo.getMaxPage();
+	int startPage = pageInfo.getStartPage();
+	int endPage = pageInfo.getEndPage();
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,15 +78,17 @@
 		   				<th width="200px;">email</th>
 		   				<th width="300px;">주소</th>
 		   			</tr>
+		   			<%for(Member member:list){ %>
 		   			<tr>
-		   				<td><input type="checkbox"></td>
-		   				<td>kyu</td>
-		   				<td>김규형</td>
-		   				<td>990302</td>
-		   				<td>01022223333</td>
-		   				<td>kyu@co.kr</td>
-		   				<td>서울시 서대문구</td>
+		   				<th><input type="checkbox" value="<%=member.getUno()%>"></th>
+		   				<td><%=member.getUserId() %></td>
+		   				<td><%=member.getUserName() %></td>
+		   				<td><%=member.getUserDate() %></td>
+		   				<td><%=member.getPhone() %></td>
+		   				<td><%=member.getEmail() %></td>
+		   				<td><%=member.getAddress() %></td>
 		   			</tr>
+		   			<%} %>
 		   		</table>
 		   	</form>
 		   	<hr>
@@ -88,6 +99,19 @@
 		
 		
 		</div>
+		
+		<div class="paging" align="center">
+		<ul class="pagination">
+			<li><a href="<%=request.getContextPath()%>/selectAdminMember.do?currentPage=<%=currentPage-1%>">이전</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminMember.do?currentPage=1">1</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminMember.do?currentPage=2">2</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminMember.do?currentPage=3">3</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminMember.do?currentPage=4">4</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminMember.do?currentPage=5">5</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminMember.do?currentPage=<%=currentPage+1%>">다음</a></li>
+		</ul>
+		</div>
+		
       	
    </div>
    
@@ -96,6 +120,24 @@
    		location.href="detailMemberList.jsp"
    	});
    
+   	$(function(){
+		$("#memberList td").mouseenter(function(){
+			$(this).parent().css({"background":"darkgray","cursor":"pointer"});
+		}).mouseout(function(){
+			$(this).parent().css({"background":"white"});
+			
+		}).click(function(){
+			var tr = $(this).parent();
+			var td = tr.children();
+			
+			var num = td.eq(0).children().val();
+			
+			location.href="<%= request.getContextPath() %>/detailAdminMember.do?num=" + num;
+			
+			
+		});
+		
+	});
    </script>
       
       

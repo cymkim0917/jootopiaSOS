@@ -52,9 +52,9 @@
 				<tr><th colspan="3" style="background: rgb(224, 224, 224); height: 35px;">　</th></tr>
 				<tr>
 					<td colspan="2">
-						&nbsp;<input type="radio" name="pType" value=0><label>전체</label>
-						&nbsp;<input type="radio" name="pType" value=1><label>공지사항</label>
-						&nbsp;<input type="radio" name="pType" value=2><label>이벤트</label>
+						&nbsp;<input type="radio" name="nType" value="All"><label>전체</label>
+						&nbsp;<input type="radio" name="nType" value="공지사항"><label>공지사항</label>
+						&nbsp;<input type="radio" name="nType" value="이벤트"><label>이벤트</label>
 					</td>
 					<td colspan="2">
 						&nbsp;
@@ -92,20 +92,13 @@
 		   				<td><%=board.getbDate() %></td>
 		   				<td><%=board.getModifyDate() %></td>
 		   				<td><%=board.getbCount() %></td>
-		   				<td><%if(board.getbType()==1){%>
-		   					공지사항
-		   					<%}else{ %>
-		   					이벤트
-		   					<%} %>
-		   					<input type="hidden" value="<%=board.getbType()%>">
-		   				</td>
+		   				<td><%=board.getnType() %></td>
 		   				<td style="display:none">
 		   					<input value="<%=board.getbId() %>">
 		   				</td>
 		   			</tr>
 		   			<%} %>
 		   		</table>
-		</div>	
 		   	<br>
 		   	<hr>
 		   	<div id="updateBtnArea" align="right">
@@ -113,6 +106,7 @@
 		   		<input type="submit" value="삭제" onclick="deleteBoard();">
 		   	</div>
 		   	</form>
+		</div>	
 		
 		<div class="paging" align="center">
 		<ul class="pagination">
@@ -141,15 +135,15 @@
 			var tr = $(this).parent();
 			var td = tr.children();
 			var tdArr = new Array();
-			var type = td.eq(6).children().val();
+			var type = td.eq(6).text();
 			var num = td.eq(7).children().val();
 			console.log(type);
 			console.log(num);
 			
-			if(type == 1){
+			if(type == '공지사항'){
 				location.href="<%= request.getContextPath() %>/selectAdminNotice.do?num=" + num;
 				console.log('if문공지사항')
-			}else if(type==2){
+			}else if(type=='이벤트'){
 				location.href="<%= request.getContextPath() %>/selectAdminEvent.do?num=" + num;
 			} 
 		});
