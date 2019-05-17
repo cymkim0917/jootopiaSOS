@@ -81,6 +81,7 @@ public class GetKaKaoInfoServlet extends HttpServlet {
        System.out.println("<script> var openWindow = window.open('views/member/kakaoJoinForm.jsp','kakaoJoinForm','width=570,height=570,resizable=no,scrollbars=no'); openWindow.document.getElementById('userPwd').value = '" + id + "';</script>");
        out.println("<script> var openWindow = window.open('views/member/kakaoJoinForm.jsp','kakaoJoinForm','width=570,height=570,resizable=no,scrollbars=no'); openWindow.document.getElementById('userPwd').value = '"+ id +"';</script>");
        */
+       //
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

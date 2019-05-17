@@ -382,7 +382,7 @@
             alert(JSON.stringify(authObj));
      /*        $("#kakaoToken").val(JSON.stringify(authObj));
             
-            console.log($("#kakaoToken").val()); */
+            console.log($("#kakaoToken").val()); //*/
             
         },
         fail: function (err) {
