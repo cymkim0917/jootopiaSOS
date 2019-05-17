@@ -150,18 +150,7 @@ public class BoardService {
 		return returnResult;
 	}
 
-	public ArrayList<Board> selectFaqList() {
 
-		
-		Connection con = getConnection();
-		ArrayList<Board> list = new BoardDao().selectFaqList(con);
-		
-		close(con);
-		
-		return list;
-	}
-	
-	
 	public ArrayList<Board> selectFaqMembershipList() {
 		
 		Connection con = getConnection();
@@ -214,18 +203,57 @@ public class BoardService {
 			list = new BoardDao().contentAllSearchList(con,board,searchText);//제목+내용
 			break;
 		}
-		
+
 		return list;
 	}
+	
+	//(s) FAQ 메인 전체리스트 
 
 	public ArrayList<Board> selectFaqTotalList(String fCategory) {
 		Connection con = getConnection();
+		
 		ArrayList<Board> list = new BoardDao().selectFaqTotalList(con,fCategory);
 		
 		close(con);
-
 		
 		return list;
 	}
-
+	
+	//(s) FAQ 개별 카테고리별 리스트
+	public ArrayList<Board> selectFaqCategoryList(String fCategory) {
+		
+		Connection con = getConnection();
+		ArrayList<Board> list = new BoardDao().selectFaqCategoryList(con,fCategory);
+		
+		System.out.println("list in service : " + list);
+		close(con);
+		return list;
+	}
+	
+	
+	public Board selectOneFaqTotalList(int num) {
+		Connection con = getConnection();
+		Board b = new BoardDao().selectOneFaqTotalList(con,num);
+		
+		if(b !=null) {
+			int result=new BoardDao().updateCount(con,b.getbId());
+			
+			if(result > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		}
+		
+		close(con);
+		
+		
+		return b;
+	}
+	
+	
 }
+
+
+	
+

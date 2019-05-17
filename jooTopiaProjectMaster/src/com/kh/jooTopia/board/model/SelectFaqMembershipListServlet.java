@@ -17,7 +17,7 @@ import com.kh.jooTopia.board.model.vo.Notice;
 /**
  * Servlet implementation class SelectFaqMembershipListServlet
  */
-@WebServlet("/selectFaqMembershipList.do")
+@WebServlet("/selectFaqMembershipList.dojjj")
 public class SelectFaqMembershipListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

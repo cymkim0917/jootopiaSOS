@@ -208,7 +208,6 @@ public class BoardDao {
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
@@ -271,8 +270,7 @@ public class BoardDao {
 		ResultSet rs = null;
 		Board board = null;
 		String sql = prop.getProperty("selectQaAList");
-		
-		
+
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, uno);
@@ -280,7 +278,6 @@ public class BoardDao {
 			
 			list = new ArrayList<Board>();
 			
-			//selectQaAList = SELECT BNO,BTITLE,BDATE,BCOUNT,BTYPE FROM MEMBER,BOARD WHERE MEMBER.UNO = BOARD.UNO AND MEMBER.UNO = ?
 			while(rs.next()) {
 				board = new Board();
 				board.setuNo(uno);
@@ -293,26 +290,20 @@ public class BoardDao {
 				
 				list.add(board);
 			}
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rs);
 			close(pstmt);
 		}
-		
-		
 		return list;
 	}
 
 	public HashMap<String,Object> selectQaA(Connection con, int bid) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
 		Board board = null;
 		HashMap<String,Object> quesMap = null;
-		
 		Attachment att = null;
 		ArrayList<Attachment> attList = null;
 		
@@ -343,23 +334,17 @@ public class BoardDao {
 				
 				attList.add(att);
 			}
-			
 			quesMap = new HashMap<String,Object>();
 			
 			quesMap.put("board", board);
 			quesMap.put("attachment", attList);
 			
-			
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rs);
 			close(pstmt);
 		}
-		
-		
 		return quesMap;
 	}
 
@@ -376,14 +361,11 @@ public class BoardDao {
 			pstmt.setInt(4, board.getbId());
 			System.out.println(board);
 			result = pstmt.executeUpdate();
-
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-
 		return result;
 	}
 
@@ -403,13 +385,11 @@ public class BoardDao {
 				
 				result += pstmt.executeUpdate();
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
 		}
-
 		return result;
 	}
 
@@ -438,27 +418,19 @@ public class BoardDao {
 			close(rs);
 			close(pstmt);
 		}
-		
-		
-		
 		return files;
 	}
 
-	public ArrayList<Board> selectFaqList(Connection con) {
-
+	//(s) FAQ전체 통합 메인 리스트 출력
+	public ArrayList<Board> selectFaqTotalList(Connection con,String fCategory) {
 		Statement stmt = null;
 		ResultSet rset = null;
 		ArrayList<Board> list = null;
 		
-		String query = prop.getProperty("selectFaqList");
+		String query = prop.getProperty("selectFaqTotalList");
 		
-		/*int startRow = (pageInfo.getCurrentPage()-1)*pageInfo.getLimit()+1;
-		int endRow = startRow + pageInfo.getLimit()-1;
-		*/
 		try {
-			stmt = con.prepareStatement(query);
-			/*pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);*/
+			stmt = con.createStatement();
 			
 			rset = stmt.executeQuery(query);
 			
@@ -469,13 +441,10 @@ public class BoardDao {
 				b.setbId(rset.getInt("BID"));
 				b.setfCategory(rset.getString("FCATEGORY"));
 				b.setbTitle(rset.getString("BTITLE"));
-				/*b.setuNo(rset.getInt("UNO"));*/
-				
-				
+				b.setbDate(rset.getDate("BDATE"));
+				b.setbCount(rset.getInt("BCOUNT"));
 				list.add(b);
-				
 			}
-			
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -483,13 +452,8 @@ public class BoardDao {
 			close(rset);
 			close(stmt);
 		}
-		
 		System.out.println("Dao 페이징 : " + list);
 		return list;
-		
-		
-		
-	
 	}
 
 	public ArrayList<Board> selectFaqMembershipList(Connection con) {
@@ -518,11 +482,8 @@ public class BoardDao {
 				b.setbDate(rset.getDate("BDATE"));
 				b.setuNo(rset.getInt("UNO"));
 				
-				
 				list.add(b);
-				
 			}
-			
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -530,13 +491,8 @@ public class BoardDao {
 			close(rset);
 			close(pstmt);
 		}
-		
-		System.out.println("Dao 페이징 : " + list);
 		return list;
-		
-	
 	}
-
 
 	public ArrayList<Board> titleSearchList(Connection con, Board board, String searchText) {
 		ArrayList<Board> list = null;
@@ -559,23 +515,17 @@ public class BoardDao {
 				addBoard = new Board();
 				addBoard.setbId(rs.getInt("BID"));
 				addBoard.setbTitle(rs.getString("BTITLE"));
-				addBoard.setBDate(rs.getDate("BDATE"));
+				addBoard.setbDate(rs.getDate("BDATE"));
 				addBoard.setbCount(rs.getInt("BCOUNT"));
 				addBoard.setbType(rs.getInt("BTYPE"));
-				
 				list.add(addBoard);
 			}
-			
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rs);
 			close(pstmt);
 		}
-		
-		
 		return list;
 	}
 
@@ -600,16 +550,12 @@ public class BoardDao {
 				addBoard = new Board();
 				addBoard.setbId(rs.getInt("BID"));
 				addBoard.setbTitle(rs.getString("BTITLE"));
-				addBoard.setBDate(rs.getDate("BDATE"));
+				addBoard.setbDate(rs.getDate("BDATE"));
 				addBoard.setbCount(rs.getInt("BCOUNT"));
 				addBoard.setbType(rs.getInt("BTYPE"));
-				
 				list.add(addBoard);
 			}
-			
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rs);
@@ -641,16 +587,12 @@ public class BoardDao {
 				addBoard = new Board();
 				addBoard.setbId(rs.getInt("BID"));
 				addBoard.setbTitle(rs.getString("BTITLE"));
-				addBoard.setBDate(rs.getDate("BDATE"));
+				addBoard.setbDate(rs.getDate("BDATE"));
 				addBoard.setbCount(rs.getInt("BCOUNT"));
 				addBoard.setbType(rs.getInt("BTYPE"));
-				
 				list.add(addBoard);
 			}
-			
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rs);
@@ -660,19 +602,22 @@ public class BoardDao {
 		return list;
 	}
 
-
-	public ArrayList<Board> selectFaqTotalList(Connection con, String fCategory) {
+	
+	//(s) FAQ 전체리스트에서 버튼눌러서 각 카테고리별로 게시글이 갈리는 기능 
+	public ArrayList<Board> selectFaqCategoryList(Connection con, String fCategory) {
 		PreparedStatement pstmt=null;
 		ResultSet rset = null;
 		ArrayList<Board> list = null;
 		
-		String query = prop.getProperty("selectFaqTotalList");
+		String query = prop.getProperty("selectFaqCategoryList");
 		
 		try {
-			pstmt=con.prepareStatement(fCategory );
-			pstmt.setString(1, fCategory );
-			rset=pstmt.executeQuery();
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, fCategory);
+			rset = pstmt.executeQuery();
 			list = new ArrayList<Board>();
+			System.out.println("list in dao : " + list);
+			
 			
 			while(rset.next()) {
 				Board b =new Board();
@@ -684,19 +629,56 @@ public class BoardDao {
 				b.setbDate(rset.getDate("BDATE"));
 				b.setuNo(rset.getInt("UNO"));
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			
 			close(pstmt);
 			close(rset);
 		}
-		
 		
 		return list;
 	}
 
 
+
+	public Board selectOneFaqTotalList(Connection con, int num) {
+
+		PreparedStatement pstmt=null;
+		ResultSet rset = null;
+		Board b = null;
+		
+		String query = prop.getProperty("selectOne");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			rset=pstmt.executeQuery();
+			
+			if(rset.next()) {
+				b=new Board();
+				
+				b.setbId(rset.getInt("BID"));
+				b.setbNo(rset.getInt("BNO"));
+				b.setbType(rset.getInt("BTYPE"));
+				b.setbTitle(rset.getString("BTITLE"));
+				b.setbContent(rset.getString("BCONTENT"));
+				b.setStatus(rset.getString("STATUS"));
+				/*n.setEnrollDate(rset.getDate("ENROLL_DATE"));*/
+				b.setModifyDate(rset.getDate("MODIFY_DATE"));
+				b.setbCount(rset.getInt("BCOUNT"));
+				b.setuNo(rset.getInt("UNO"));
+			}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println("b : " + b);
+		return b;
+		
+	}
 
 }

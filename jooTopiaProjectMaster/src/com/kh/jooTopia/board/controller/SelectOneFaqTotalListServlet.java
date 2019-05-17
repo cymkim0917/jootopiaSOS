@@ -1,9 +1,6 @@
 package com.kh.jooTopia.board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,20 +9,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.jooTopia.board.model.service.BoardService;
 import com.kh.jooTopia.board.model.vo.Board;
-import com.kh.jooTopia.board.model.vo.Notice;
-import com.kh.jooTopia.board.model.vo.PageInfo;
 
 /**
- * Servlet implementation class SelectFaqListServlet
+ * Servlet implementation class SelectOneFaqTotalListServlet
  */
-@WebServlet("/selectFaqList.do")
-public class SelectFaqListServlet extends HttpServlet {
+@WebServlet("/SelectOneFaqTotalList.do")
+public class SelectOneFaqTotalListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectFaqListServlet() {
+    public SelectOneFaqTotalListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,36 +29,33 @@ public class SelectFaqListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		int num = Integer.parseInt(request.getParameter("num"));
 		
-		ArrayList<Board> list = new BoardService().selectFaqList();
+		System.out.println("num : " +num);
 		
-		System.out.println("list : " + list);
-		System.out.println(list); 
+		Board b = new BoardService().selectOneFaqTotalList(num);
 		
+		System.out.println("b in selectOneFaqTotalListServlet : " + b);
 		
-		String page = "";
+		String page="";
 		
-		if(list != null) {
-			page="views/notice/faqList.jsp";
-			request.setAttribute("list", list);
+		if(b != null) {
+			System.out.println("조회성공");
+			page="views/notice/selectOneFaqTotalListPlus.jsp";
+			request.setAttribute("b", b);
 			
 		}else {
+			System.out.println("조회실패");
 			page="views/common/errorPage500.jsp";
-			request.setAttribute("msg", "공지사항 조회 실패");
+			request.setAttribute("msg", "게시글 상세 보기 실패");
 		}
+		request.getRequestDispatcher(page).forward(request, response);
 		
 		
 		
-		RequestDispatcher view = request.getRequestDispatcher(page);
-		
-		view.forward(request, response);
-		
-		System.out.println("request : " + request );
-		System.out.println("response : "  + response);
-	
 	}
-	
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
