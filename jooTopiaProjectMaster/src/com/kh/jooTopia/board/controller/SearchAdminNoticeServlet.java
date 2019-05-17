@@ -62,12 +62,12 @@ public class SearchAdminNoticeServlet extends HttpServlet {
 				
 				PageInfo pageInfo = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
 		
-			String type = request.getParameter("pType");
+			String nType = request.getParameter("nType");
 			String searchTitle = request.getParameter("searchTitle");
 			
-			int bType = Integer.parseInt(type);
 			
-			ArrayList<Board> list = new BoardAdminService().searchNotice(pageInfo, bType, searchTitle);
+			
+			ArrayList<Board> list = new BoardAdminService().searchNotice(pageInfo, nType, searchTitle);
 			
 			String page = "";
 			

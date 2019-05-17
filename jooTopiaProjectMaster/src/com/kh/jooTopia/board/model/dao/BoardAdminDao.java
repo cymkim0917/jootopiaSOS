@@ -41,6 +41,7 @@ public class BoardAdminDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, board.getbTitle());
 			pstmt.setString(2, board.getbContent());
+			pstmt.setString(3, "공지사항");
 			
 			result = pstmt.executeUpdate();
 			
@@ -88,6 +89,7 @@ public class BoardAdminDao {
 				board.setbCount(rset.getInt("BCOUNT"));
 				board.setStartDate(rset.getDate("START_DATE"));
 				board.setFinishDate(rset.getDate("FINISH_DATE"));
+				board.setnType(rset.getString("NTYPE"));
 				board.setuNo(rset.getInt("UNO"));
 				
 				list.add(board);
@@ -107,7 +109,6 @@ public class BoardAdminDao {
 	}
 
 	public int getNoticeListCount(Connection con) {
-		
 		Statement stmt = null;
 		int listCount = 0;
 		ResultSet rset = null;
@@ -200,6 +201,7 @@ public class BoardAdminDao {
 			pstmt.setString(2, board.getbContent());
 			pstmt.setDate(3, board.getStartDate());
 			pstmt.setDate(4, board.getFinishDate());
+			pstmt.setString(5, "이벤트");
 			
 			result = pstmt.executeUpdate();
 			
@@ -215,19 +217,20 @@ public class BoardAdminDao {
 		return result;
 	}
 
-	public ArrayList<Board> searchNotice(Connection con, PageInfo pageInfo, int bType, String searchTitle) {
+	public ArrayList<Board> searchNotice(Connection con, PageInfo pageInfo, String nType, String searchTitle) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Board> list = null;
+		String all = "All";
 		
 		
 		int startRow = (pageInfo.getCurrentPage()-1)*pageInfo.getLimit()+1;
 		int endRow = startRow + pageInfo.getLimit()-1;
 		
-		System.out.println("dao 출력 비타입 : " + bType);
+		System.out.println("dao 출력 n타입 : " + nType);
 		
-		if(bType==0) {
-			System.out.println("b타입 0일때");
+		if(nType.equals(all)) {
+			System.out.println("N타입 ALL일때");
 			String query=query = prop.getProperty("searchNoticeAll");
 			
 			try {
@@ -253,6 +256,7 @@ public class BoardAdminDao {
 					board.setbCount(rset.getInt("BCOUNT"));
 					board.setStartDate(rset.getDate("START_DATE"));
 					board.setFinishDate(rset.getDate("FINISH_DATE"));
+					board.setnType(rset.getString("NTYPE"));
 					board.setuNo(rset.getInt("UNO"));
 					
 					list.add(board);
@@ -273,11 +277,11 @@ public class BoardAdminDao {
 			
 		}else {
 			
-			System.out.println("b타입 1이나 2일때");
+		
 			String query=query = prop.getProperty("searchNotice");
 			try {
 				pstmt = con.prepareStatement(query);
-				pstmt.setInt(1, bType);
+				pstmt.setString(1, nType);
 				pstmt.setString(2, searchTitle);
 				pstmt.setInt(3, startRow);
 				pstmt.setInt(4, endRow);
@@ -299,6 +303,7 @@ public class BoardAdminDao {
 					board.setbCount(rset.getInt("BCOUNT"));
 					board.setStartDate(rset.getDate("START_DATE"));
 					board.setFinishDate(rset.getDate("FINISH_DATE"));
+					board.setnType(rset.getString("NTYPE"));
 					board.setuNo(rset.getInt("UNO"));
 					
 					list.add(board);

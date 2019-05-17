@@ -97,10 +97,10 @@ public class BoardAdminService {
 		
 	}
 
-	public ArrayList<Board> searchNotice(PageInfo pageInfo, int bType, String searchTitle) {
+	public ArrayList<Board> searchNotice(PageInfo pageInfo, String nType, String searchTitle) {
 		Connection con = getConnection();
 		
-		ArrayList<Board> list = new BoardAdminDao().searchNotice(con, pageInfo, bType, searchTitle);
+		ArrayList<Board> list = new BoardAdminDao().searchNotice(con, pageInfo, nType, searchTitle);
 		
 		close(con);
 		

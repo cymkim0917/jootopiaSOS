@@ -17,7 +17,7 @@
 		<span class="col-lg-1" onclick="location.href='/jootopia/views/main/AdminMainPage.jsp'">
 			<img id="navHomeBtn" src="/jootopia/images/adminMenuHomeBtn.png">
 		</span>
-		<span class="col-lg-1" onclick="location.href='/jootopia/views/admin/member/member.jsp'">
+		<span class="col-lg-1" onclick="location.href='<%= request.getContextPath()%>/selectAdminMember.do'">
 			회원관리
 		</span>
 		<span class="col-lg-1" onclick="location.href='/jootopia/adminBoardList.do'">
