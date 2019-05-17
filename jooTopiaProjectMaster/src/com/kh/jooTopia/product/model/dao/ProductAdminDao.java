@@ -15,6 +15,7 @@ import java.util.Properties;
 import com.kh.jooTopia.board.model.vo.Attachment;
 import com.kh.jooTopia.board.model.vo.PageInfo;
 import com.kh.jooTopia.product.model.vo.Product;
+import com.kh.jooTopia.product.model.vo.ProductregAdmin;
 
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
@@ -463,5 +464,51 @@ public class ProductAdminDao {
 		}
 		
 		return a;
+	}
+
+	public ProductregAdmin selectOneAdminProductreg(Connection con, int num) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ProductregAdmin p = null;
+		
+		String query = prop.getProperty("selectOneProductregAdmin");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				p = new ProductregAdmin();
+				
+				p.setPcdId(rset.getInt("PCDID"));
+				p.setBrand(rset.getString("BRAND"));
+				p.setcGroup(rset.getString("CGROUP"));
+				p.setName(rset.getString("NAME"));
+				p.setModel(rset.getString("MODEL"));
+				p.setuPeriod(rset.getString("USE_PERIOD"));
+				p.setpCost(rset.getInt("PRIME_COST"));
+				p.sethCost(rset.getInt("HOPE_COST"));
+				p.setMemo(rset.getString("MEMO"));
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return p;
+	}
+
+	public int updateCount(Connection con, int pcdId) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

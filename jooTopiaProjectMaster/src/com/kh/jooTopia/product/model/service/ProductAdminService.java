@@ -8,6 +8,7 @@ import com.kh.jooTopia.board.model.vo.Attachment;
 import com.kh.jooTopia.board.model.vo.PageInfo;
 import com.kh.jooTopia.product.model.dao.ProductAdminDao;
 import com.kh.jooTopia.product.model.vo.Product;
+import com.kh.jooTopia.product.model.vo.ProductregAdmin;
 
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
@@ -167,6 +168,26 @@ public class ProductAdminService {
 		
 		
 		return result;
+	}
+
+	public ProductregAdmin selectOneAdminProductreg(int num) {
+		
+		Connection con = getConnection();
+		
+		ProductregAdmin p = new ProductAdminDao().selectOneAdminProductreg(con, num);
+		
+		if(p != null) {
+			int result = new ProductAdminDao().updateCount(con, p.getPcdId());
+			
+			if(result > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		}
+		close(con);
+		
+		return p;
 	}
 
 }

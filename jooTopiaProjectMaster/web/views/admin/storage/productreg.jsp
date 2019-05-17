@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.jooTopia.productreg.model.vo.*, java.util.*"%>
+	pageEncoding="UTF-8" import="com.kh.jooTopia.product.model.vo.*, java.util.*"%>
 	
-	<% ArrayList<ProductregAdmin> list = (ArrayList<ProductregAdmin>) request.getAttribute("list"); %>
+	<% ProductregAdmin p = (ProductregAdmin) request.getAttribute("p"); %>
 	
 <!DOCTYPE html>
 <html>
@@ -83,10 +83,42 @@
 
 			<div class="listArea1" align="center">
 				<table class="separate" border="1">
-				<% for(ProductregAdmin p : list){ %>
+				
 					<tr>
 						<td width="120">매입번호</td>
 						<td width="500"><%= p.getPcdId() %></td>
+					</tr>
+					<tr>
+						<td width="120">대분류</td>
+						<td width="500"><%= p.getcGroup() %></td>
+					</tr>
+					<tr>
+						<td width="120">중분류</td>
+						<td width="500"><%= p.getName() %></td>
+					</tr>
+					<tr>
+						<td width="120">브랜드</td>
+						<td width="500"><%= p.getBrand() %></td>
+					</tr>
+					<tr>
+						<td width="120">모델</td>
+						<td width="500"><%= p.getModel() %></td>
+					</tr>
+					<tr>
+						<td width="120">사용기간</td>
+						<td width="500"><%= p.getuPeriod() %></td>
+					</tr>
+					<tr>
+						<td width="120">구매원가</td>
+						<td width="500"><%= p.getpCost() %></td>
+					</tr>
+					<tr>
+						<td width="120">판매희망가</td>
+						<td width="500"><%= p.gethCost() %></td>
+					</tr>
+					<tr>
+						<td width="120">메모</td>
+						<td width="500"><%= p.getMemo() %></td>
 					</tr>
 					<!-- <tr>
 						<td width="120">매입가</td>
@@ -103,7 +135,7 @@
 						</select>
 						</td>
 					</tr> -->
-					<% } %>
+					
 					<tr>
 						<td width="120">치수 및 비고</td>
 						<td width="500"><textarea id="pcontent" cols="120px" rows="5"></textarea></td>
