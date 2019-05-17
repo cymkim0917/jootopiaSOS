@@ -2,6 +2,7 @@ package com.kh.jooTopia.board.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
@@ -20,16 +21,16 @@ import com.kh.jooTopia.common.JootopiaFileRenamePolicy;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
- * Servlet implementation class UpdateAdminNoticeServlet
+ * Servlet implementation class UpdateAdminEventServlet
  */
-@WebServlet("/updateAdminNotice.do")
-public class UpdateAdminNoticeServlet extends HttpServlet {
+@WebServlet("/updateAdminEvent.do")
+public class UpdateAdminEventServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateAdminNoticeServlet() {
+    public UpdateAdminEventServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,9 +42,9 @@ public class UpdateAdminNoticeServlet extends HttpServlet {
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 1024*1024*100;
 			
-			String root = request.getSession().getServletContext().getRealPath("/");
+			String root =request.getSession().getServletContext().getRealPath("/");
 			
-			String filePath = root+"images/notice";
+			String filePath = root+"images/event";
 			
 			MultipartRequest multiReq = new MultipartRequest(request, filePath, maxSize, "utf-8", new JootopiaFileRenamePolicy());
 			
@@ -62,16 +63,23 @@ public class UpdateAdminNoticeServlet extends HttpServlet {
 			
 			String multiTitle = multiReq.getParameter("title");
 			String multiContent = multiReq.getParameter("content");
+			String sModiDate = multiReq.getParameter("startDate");
+			String fModiDate = multiReq.getParameter("endDate");
+			
+			Date startDate = Date.valueOf(sModiDate);
+			Date finishDate = Date.valueOf(fModiDate);
+				
 			int multibId =Integer.parseInt(multiReq.getParameter("bId"));
 			int img1Fid = Integer.parseInt(multiReq.getParameter("img1Fid"));
 			int img2Fid = Integer.parseInt(multiReq.getParameter("img2Fid"));
 			int [] fId = {img1Fid, img2Fid};
 			
-			
 			Board board = new Board();
 			board.setbId(multibId);
 			board.setbTitle(multiTitle);
 			board.setbContent(multiContent);
+			board.setStartDate(startDate);
+			board.setFinishDate(finishDate);
 			
 			Attachment originFile1 = null;
 			Attachment originFile2 = null;
@@ -82,11 +90,6 @@ public class UpdateAdminNoticeServlet extends HttpServlet {
 			
 			File updateDeleteFile1 = new File(originFile1.getFilePath()+originFile1.getChangeName());
 			File updateDeleteFile2 = new File(originFile2.getFilePath()+originFile2.getChangeName());
-			
-			
-			/*System.out.println("img1:" + img1Fid);
-			System.out.println("img2:" + img2Fid);*/
-			
 			
 			ArrayList<Attachment> fileList = new ArrayList<Attachment>();
 			
@@ -100,7 +103,7 @@ public class UpdateAdminNoticeServlet extends HttpServlet {
 				 fileList.add(attach);
 			 }
 			
-			int result = new BoardAdminService().updateNotice(board, fileList);
+			int result = new BoardAdminService().updateEvent(board, fileList);
 			
 			if(result>0) {
 				 response.sendRedirect(request.getContextPath()+"/adminBoardList.do");
@@ -117,10 +120,8 @@ public class UpdateAdminNoticeServlet extends HttpServlet {
 			 }
 			
 			
+			
 		}
-	
-	
-	
 	
 	
 	

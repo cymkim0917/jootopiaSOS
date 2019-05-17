@@ -441,7 +441,7 @@ public class BoardAdminDao {
 				pstmt = con.prepareStatement(query);
 				pstmt.setString(1, fileList.get(i).getOriginName());
 				pstmt.setString(2, fileList.get(i).getChangeName());
-				pstmt.setInt(3, fileList.get(i).getbId());
+				pstmt.setInt(3, fileList.get(i).getfId());
 				result += pstmt.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -451,6 +451,144 @@ public class BoardAdminDao {
 			close(pstmt);
 		}
 		
+		return result;
+	}
+
+	public Attachment selectAttach(Connection con, int fId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Attachment attach = null;
+		
+		String query = prop.getProperty("selectAttach");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, fId);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				attach = new Attachment();
+				attach.setOriginName(rset.getString("ORIGIN_NAME"));
+				attach.setChangeName(rset.getString("CHANGE_NAME"));
+				attach.setFilePath(rset.getString("FILE_PATH"));
+				attach.setbId(rset.getInt("BID"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return attach;
+	}
+
+	public HashMap<String, Object> selectOneEvent(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+		Board board = null;
+		Attachment attach = null;
+		ArrayList<Attachment> list = null;
+		
+		String query = prop.getProperty("selectOneEvent");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Attachment>();
+			
+			
+			while(rset.next()) {
+				board = new Board();
+				board.setbId(rset.getInt("BID"));
+				board.setbNo(rset.getInt("BNO"));
+				board.setbType(rset.getInt("BTYPE"));
+				board.setbTitle(rset.getString("BTITLE"));
+				board.setbContent(rset.getString("BCONTENT"));
+				board.setStartDate(rset.getDate("START_DATE"));
+				board.setFinishDate(rset.getDate("FINISH_DATE"));
+				board.setStatus(rset.getString("STATUS"));
+				board.setbDate(rset.getDate("BDATE"));
+				board.setModifyDate(rset.getDate("MODIFY_DATE"));
+				board.setbCount(rset.getInt("BCOUNT"));
+				board.setuNo(rset.getInt("UNO"));
+				
+				attach = new Attachment();
+				attach.setfId(rset.getInt("FID"));
+				attach.setOriginName(rset.getString("ORIGIN_NAME"));
+				attach.setChangeName(rset.getString("CHANGE_NAME"));
+				attach.setFilePath(rset.getString("FILE_PATH"));
+				attach.setbId(rset.getInt("BID"));
+				
+				list.add(attach);
+			}
+			
+			hmap = new HashMap<String, Object>();
+			hmap.put("board", board);
+			hmap.put("attachment", list);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return hmap;
+	}
+
+	public int updateEvent(Connection con, Board board) {
+		PreparedStatement pstmt = null;
+		int result=0;
+		
+		String query = prop.getProperty("updateEvent");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, board.getbTitle());
+			pstmt.setString(2, board.getbContent());
+			pstmt.setDate(3, board.getStartDate());
+			pstmt.setDate(4, board.getFinishDate());
+			pstmt.setInt(5, board.getbId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteNotice(Connection con, int bId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteNotice");
+		
+		try {
+			pstmt= con.prepareStatement(query);
+			pstmt.setInt(1, bId);
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
 		return result;
 	}
 
