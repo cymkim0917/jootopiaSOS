@@ -108,8 +108,8 @@
 		   				<input type="reset" value="취소" >
       	 			</div>
       	 		<div id="fileArea2">
-      	 				<input id="file3" type="file" name="file1" onchange="loadImg(this,3)">
-      	 				<input id="file4" type="file" name="file2" onchange="loadImg(this,4)">
+      	 				<input id="file3" type="file" name="file3" onchange="loadImg2(this,3)">
+      	 				<input id="file4" type="file" name="file4" onchange="loadImg2(this,4)">
       	 		</div>
       	 	</form>
       	 </div>
@@ -164,7 +164,7 @@
 			reader.readAsDataURL(value.files[0]);	
 			}
   }
-   function loadImg(value, num){
+   function loadImg2(value, num){
 	  if(value.files && value.files[0]){
 				var reader = new FileReader();
 				reader.onload = function(e){

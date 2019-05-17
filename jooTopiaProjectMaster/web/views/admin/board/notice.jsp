@@ -89,7 +89,7 @@
 		   				<td><input type="checkbox"></td>
 		   				<td><%=board.getbNo() %></td>
 		   				<td><%=board.getbTitle() %></td>
-		   				<td><%=board.getBDate() %></td>
+		   				<td><%=board.getbDate() %></td>
 		   				<td><%=board.getModifyDate() %></td>
 		   				<td><%=board.getbCount() %></td>
 		   				<td><%if(board.getbType()==1){%>

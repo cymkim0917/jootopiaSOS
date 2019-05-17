@@ -63,15 +63,17 @@ public class UpdateAdminNoticeServlet extends HttpServlet {
 			String multiTitle = multiReq.getParameter("title");
 			String multiContent = multiReq.getParameter("content");
 			int multibId =Integer.parseInt(multiReq.getParameter("bId"));
+			int img1Fid = Integer.parseInt(multiReq.getParameter("img1Fid"));
+			int img2Fid = Integer.parseInt(multiReq.getParameter("img2Fid"));
 			
 			Board board = new Board();
 			board.setbId(multibId);
 			board.setbTitle(multiTitle);
 			board.setbContent(multiContent);
 			
-			System.out.println("멀티 비아이디 " + multibId);
-			System.out.println("multiTitle" + multiTitle );
-			System.out.println("multiConetet" + multiContent);
+			
+			System.out.println("img1:" + img1Fid);
+			System.out.println("img2:" + img2Fid);
 			
 			
 			ArrayList<Attachment> fileList = new ArrayList<Attachment>();
@@ -81,7 +83,8 @@ public class UpdateAdminNoticeServlet extends HttpServlet {
 				 attach.setFilePath(filePath);
 				 attach.setOriginName(originFiles.get(i));
 				 attach.setChangeName(saveFiles.get(i));
-				 
+				 System.out.println("수정하는"+attach.getOriginName());
+				 System.out.println(attach.getChangeName());
 				 fileList.add(attach);
 			 }
 			
@@ -93,7 +96,7 @@ public class UpdateAdminNoticeServlet extends HttpServlet {
 			 }else {
 				 for(int i=0; i<saveFiles.size(); i++) {
 					 File failedFile = new File(filePath + saveFiles.get(i));
-					 
+					 failedFile.delete();
 					 
 				 }
 				 request.getRequestDispatcher("views/common/errorPage500.jsp");
