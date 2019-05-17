@@ -61,7 +61,7 @@
 			
 			<button onclick="location.href='<%=request.getContextPath()%>/selectList.do'">공지사항</button>
 			<button onclick="location.href='<%=request.getContextPath()%>/views/notice/reviewList.jsp'">상품후기</button>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectFaqList.do'">FAQ</button>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectFaqTotalList.do'">FAQ</button>
 			</div>
 			
 			
