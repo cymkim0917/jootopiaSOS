@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!-- import="com.kh.jooTopia.product.model.vo.*, java.util.*, java.lang.*" -->
+    pageEncoding="UTF-8" import="java.util.*"%>
+<%
+	HashMap<String, Object> hmap;
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,31 +28,34 @@
 		<table id="pInfo1">
 			<tr>
 				<th>전체</th>
-				<td><a href="/jootopia/views/admin/order/orderMain.jsp">10</a>건</td>
+				<td><a href="<%=request.getContextPath()%>/selectAdminTotalOrder.do">0</a>건</td>
 			</tr>
 			<tr>
 				<th>입금전</th>
-				<td><a href="/jootopia/views/admin/order/paymentList.jsp">10</a>건</td>
+				<td><a href="/jootopia/views/admin/order/paymentList.jsp">0</a>건</td>
 			</tr>
 			<tr>
 				<th>상품준비중</th>
-				<td><a href="/jootopia/views/admin/order/preparingProductList.jsp">10</a>건</td>
+				<td><a href="/jootopia/views/admin/order/preparingProductList.jsp">0</a>건</td>
+				
 			</tr>
 			<tr>
 				<th>배송중</th>
-				<td><a href="/jootopia/views/admin/order/deliveryList.jsp">10</a>건</td>
+				<td><a href="/jootopia/views/admin/order/deliveryList.jsp">0</a>건</td>
 			</tr>
 			<tr>
 				<th>배송완료</th>
-				<td><a href="/jootopia/views/admin/order/deliveryCompletedList.jsp">10</a>건</td>
+				<td><a href="/jootopia/views/admin/order/deliveryCompletedList.jsp">0</a>건</td>
+				
 			</tr>
 			<tr>
 				<th>주문취소</th>
-				<td><a href="/jootopia/views/admin/order/orderCancelList.jsp">10</a>건</td>
+				<td><a href="/jootopia/views/admin/order/orderCancelList.jsp">0</a>건</td>
 			</tr>
 			<tr>
 				<th>환불중</th>
-				<td><a href="/jootopia/views/admin/order/refundList.jsp">10</a>건</td>
+				<td><a href="/jootopia/views/admin/order/refundList.jsp">0</a>건</td>
+				
 			</tr>
 		</table>
 		</div>

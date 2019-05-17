@@ -52,17 +52,17 @@
 		<% }else if(root.equals("order")) { %>
 		
 		<div class="sideMenu" id="sideMenu1">
-		<div class="sideMenuBtn" id="" onclick="location.href='paymentList.jsp'">입금전 관리</div></div>
+		<div class="sideMenuBtn" id="" onclick="location.href='/jootopia/selectAdminPaymentList.do'">입금전 관리</div></div>
 		<div class="sideMenu" id="sideMenu2">
-		<div class="sideMenuBtn" id="" onclick="location.href='preparingProductList.jsp'">상품준비중 관리</div></div>
+		<div class="sideMenuBtn" id="" onclick="location.href='views/admin/order/preparingProductList.jsp'">상품준비중 관리</div></div>
 		<div class="sideMenu" id="sideMenu3">
-		<div class="sideMenuBtn" id="" onclick="location.href='deliveryList.jsp'">배송중 관리</div></div>
+		<div class="sideMenuBtn" id="" onclick="location.href='views/admin/order/deliveryList.jsp'">배송중 관리</div></div>
 		<div class="sideMenu" id="sideMenu4">
-		<div class="sideMenuBtn" id="" onclick="location.href='deliveryCompletedList.jsp'">배송완료 관리</div></div>
+		<div class="sideMenuBtn" id="" onclick="location.href='views/admin/order/deliveryCompletedList.jsp'">배송완료 관리</div></div>
 		<div class="sideMenu" id="sideMenu5">
-		<div class="sideMenuBtn" id="" onclick="location.href='orderCancelList.jsp'">주문취소 관리</div></div>
+		<div class="sideMenuBtn" id="" onclick="location.href='views/admin/order/orderCancelList.jsp'">주문취소 관리</div></div>
 		<div class="sideMenu" id="sideMenu6">
-		<div class="sideMenuBtn" id="" onclick="location.href='refundList.jsp'">환불 관리</div></div>
+		<div class="sideMenuBtn" id="" onclick="location.href='views/admin/order/refundList.jsp'">환불 관리</div></div>
 		
 		<% }else if(root.equals("storage")) { %>
 		
