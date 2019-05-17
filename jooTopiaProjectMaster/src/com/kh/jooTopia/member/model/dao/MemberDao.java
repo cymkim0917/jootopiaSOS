@@ -2,6 +2,7 @@ package com.kh.jooTopia.member.model.dao;
 
 import java.util.Properties;
 
+import com.kh.jooTopia.member.model.vo.KakaoMember;
 import com.kh.jooTopia.member.model.vo.Member;
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
@@ -73,6 +74,7 @@ public class MemberDao {
 				member.setPhone(rs.getString("PHONE"));
 				member.setGender(rs.getString("GENDER"));
 				member.setAddress(rs.getString("ADDRESS"));
+				member.setUserDate(rs.getDate("USER_DATE"));
 			}
 			
 		} catch (SQLException e) {
@@ -188,6 +190,73 @@ public class MemberDao {
 		
 		
 		return result;
+	}
+
+	public int insertMember(Connection con, Member member, int i) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("kakaoInsertMember");
+		System.out.println(sql);
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, member.getUserId());
+			pstmt.setString(2, member.getUserPwd());
+			pstmt.setString(3, member.getUserName());
+			pstmt.setDate(4, member.getUserDate());
+			pstmt.setString(5, member.getPhone());
+			pstmt.setString(6, member.getGender());
+			pstmt.setString(7, member.getAddress());
+			pstmt.setString(8, member.getEmail());
+			result = pstmt.executeUpdate();	
+			System.out.println(result);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public Member searchMember(Connection con, KakaoMember kakao) {
+		//UNO,USER_ID,USER_PWD,USER_NAME,USER_DATE,PHONE,GENDER,ADDRESS,EMAIL
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Member member = null;
+		String sql = prop.getProperty("searchMember");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, kakao.getUserId());
+			pstmt.setString(2, kakao.getUserName());
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+			member = new Member();
+			member.setUno(rs.getInt(1));
+			member.setUserId(rs.getString(2));
+			member.setUserPwd(rs.getString(3));
+			member.setUserName(rs.getString(4));
+			member.setUserDate(rs.getDate(5));
+			member.setPhone(rs.getString(6));
+			member.setGender(rs.getString(7));
+			member.setAddress(rs.getString(8));
+			member.setEmail(rs.getString(9));
+			member.setJoinType(rs.getInt(10));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return member;
 	}
 
 }
