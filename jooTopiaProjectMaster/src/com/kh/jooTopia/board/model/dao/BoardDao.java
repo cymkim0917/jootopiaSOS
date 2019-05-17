@@ -615,8 +615,8 @@ public class BoardDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, fCategory);
 			rset = pstmt.executeQuery();
+			
 			list = new ArrayList<Board>();
-			System.out.println("list in dao : " + list);
 			
 			
 			while(rset.next()) {
@@ -628,6 +628,8 @@ public class BoardDao {
 				b.setbCount(rset.getInt("BCOUNT"));
 				b.setbDate(rset.getDate("BDATE"));
 				b.setuNo(rset.getInt("UNO"));
+				
+				list.add(b);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -635,6 +637,7 @@ public class BoardDao {
 			close(pstmt);
 			close(rset);
 		}
+		System.out.println("list in dao : " + list);
 		
 		return list;
 	}
@@ -643,6 +646,46 @@ public class BoardDao {
 
 	public Board selectOneFaqTotalList(Connection con, int num) {
 
+		PreparedStatement pstmt=null;
+		ResultSet rset = null;
+		Board b = null;
+		
+		String query = prop.getProperty("selectOne");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			rset=pstmt.executeQuery();
+			
+			if(rset.next()) {
+				b=new Board();
+				
+				b.setbId(rset.getInt("BID"));
+				b.setbNo(rset.getInt("BNO"));
+				b.setbType(rset.getInt("BTYPE"));
+				b.setbTitle(rset.getString("BTITLE"));
+				b.setbContent(rset.getString("BCONTENT"));
+				b.setStatus(rset.getString("STATUS"));
+				/*n.setEnrollDate(rset.getDate("ENROLL_DATE"));*/
+				b.setModifyDate(rset.getDate("MODIFY_DATE"));
+				b.setbCount(rset.getInt("BCOUNT"));
+				b.setuNo(rset.getInt("UNO"));
+			}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println("b : " + b);
+		return b;
+		
+	}
+
+	public Board selectOneFaqCategoryList(Connection con, int num) {
+		
 		PreparedStatement pstmt=null;
 		ResultSet rset = null;
 		Board b = null;

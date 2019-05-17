@@ -250,6 +250,28 @@ public class BoardService {
 		
 		return b;
 	}
+	public Board selectOneFaqCategoryList(int num) {
+
+		Connection con = getConnection();
+		Board b = new BoardDao().selectOneFaqCategoryList(con,num);
+		
+		if(b !=null) {
+			int result=new BoardDao().updateCount(con,b.getbId());
+			
+			if(result > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		}
+		
+		close(con);
+		
+		
+		return b;
+		
+		
+	}
 	
 	
 }
