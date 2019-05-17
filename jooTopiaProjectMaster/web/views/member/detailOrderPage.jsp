@@ -1,5 +1,8 @@
+<%@page import="com.kh.jooTopia.order.model.vo.Order"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<% Order order = (Order)request.getAttribute("order"); %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,30 +66,34 @@
 		<br /><br /><br />
 		
 			<table class="table">
+				<% if(order != null){ %>
+			
 				<tr>
 					<td><label for="">제품명</label></td>
-					<td>멀미나는 쇼파</td>
+					<td><%= order.getPname() %></td>
 				</tr>
 				<tr>
 					<td><label for="">주문일</label></td>
-					<td>2019-04-17</td>
+					<td><%= order.getpDate() %></td>
 				</tr>
 				<tr>
 					<td><label for="">주문 상태</label></td>
-					<td>상품 준비중</td>
+					<td><%= order.getStatus() %></td>
 				</tr>
 				<tr>
 					<td><label for="">주문 금액</label></td>
-					<td>200,000</td>
+					<td><%= order.getPpice() %></td>
 				</tr>
 				<tr>
 					<td><label for="">배송지</label></td>
-					<td>서울시 성동구 금호로</td>
+					<td><%= order.getAddress() %></td>
 				</tr>
 				<tr>
 					<td> </td>
 					<td> </td>
 				</tr>
+				
+				<% } %>
 			</table>	
 
 		</div>		
@@ -96,7 +103,8 @@
 				
 				<tr>
 					<td rowspan="4">
-					<img src="/jootopia/images/so.jpg" alt="" style="width:280px; heihgt:200px;"/>
+					
+					<img src="<%= request.getContextPath() %>/images_upload/<%= order.getChange_name() %>" alt="" style="width:280px; heihgt:200px;"/>
 					</td>
 				</tr>
 			</table>
@@ -108,7 +116,7 @@
 		
 		<div align="center">
 			<div class="btnArea" id="btnArea">
-				<a href="orderListPage.jsp" id="modifyBtn">확인</a>
+				<a href="<%= request.getContextPath() %>/orderList.do" id="modifyBtn">확인</a>
 				<a href="orderCancelPage.jsp" id="delBtn">주문취소</a>						
 			</div>	
 		</div>

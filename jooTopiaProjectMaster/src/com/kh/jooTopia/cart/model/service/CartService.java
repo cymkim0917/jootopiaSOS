@@ -20,10 +20,10 @@ public class CartService {//
 		return list;
 	}
 
-	public int deleteCart(int[] delList) {
+	public int deleteCart(int[] delList,int uno) {
 		Connection con = getConnection();
 		
-		int result = new CartDao().deleteCart(con,delList);
+		int result = new CartDao().deleteCart(con,delList,uno);
 		
 		if(result > 0 ) {
 			commit(con);

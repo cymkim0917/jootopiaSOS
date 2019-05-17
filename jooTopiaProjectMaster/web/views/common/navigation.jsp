@@ -1,9 +1,6 @@
 <%@page import="com.google.gson.JsonObject"%>
 <%@page import="com.google.gson.JsonElement"%>
 <%@page import="com.google.gson.JsonParser"%>
-<%@page import="java.io.BufferedReader"%>
-<%@page import="java.net.HttpURLConnection"%>
-<%@page import="java.net.URL"%>
 <%@page import="java.util.*,java.io.*"%>
 <%@page import="com.kh.jooTopia.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -32,7 +29,6 @@
 </head>
 <body>
 	<header class="row">
-	<!--  -->
 		<span class="col-lg-1"></span> 
 		<span class="col-lg-1" onclick="location.href='/jootopia/views/notice/csMain.jsp'">
 			고객센터
@@ -51,13 +47,20 @@
 		</span>
 		<span class="col-lg-1" onclick="location.href='/jootopia/views/main/AdminMainPage.jsp'"> 
 			Admin
-		</span> 
+		</span>
+		
+		<% if(loginUser == null){ %>
 		<span class="col-lg-1"data-toggle="modal" data-target="#logModal"> 
 			Login
 		</span> 
+			
 		<span class="col-lg-1" href="#joinModal" data-toggle="modal"  data-target="#joinModal"> 
 			Join us
 		</span> 
+			<% } else{ %>
+			<span class="col-lg-2" id ="userName" onclick="location.href='<%= request.getContextPath() %>/logout.do'"> <%= loginUser.getUserName() %>님 환영! </span>
+			<%} %>
+			
 		<span class="col-lg-1"></span>
 	</header>
 
@@ -164,7 +167,7 @@
 							</table>
 						</form>
 						<div id="searchArea">
-							<p id="searchId">아이디 찾기</p>
+							<p id="searchId" onclick="showSearchId()">아이디 찾기</p>
 							<p id="searchPwd">비밀번호 찾기</p> <br />
 								
 						</div>
@@ -208,7 +211,7 @@
                   	<div id="btnArea" align="center">
                   	<table>
                   		<tr>
-                  			<td><img src="/jootopia/images/logo2.png" alt="" onclick="location.href='views/member/joinForm.jsp'" width="223px" height="50px"/><br /></td>
+                  			<td><img src="/jootopia/images/logo2.png" alt="" onclick="location.href='<%= request.getContextPath()  %>/views/member/joinForm.jsp'" width="223px" height="50px"/><br /></td>
                   		</tr>
                   		<tr>
                   			<td>
@@ -221,14 +224,12 @@
                   	</table>
 					</div>
 
-                     <br> <input type="button" class="btn btn-info"
-                        value="Submit" onclick="checkPassword();"> <input
-                        type="reset" class="btn btn-info" value="Reset">
+                     
 
                   </div>
                </form>
                <form action="<%= request.getContextPath()  %>/getkakao.do" id="kakaoJoinForm" method="post">
-                  <input type="text" name="kakaoToken" id="kakaoToken" />
+                  <input type="hidden" name="kakaoToken" id="kakaoToken" />
                </form>
                <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -283,6 +284,17 @@
 	    	$("#joinForm").submit();
 	    }	    
 	}
+	
+	function showSearchId(){
+		  cw=450;
+	      ch=580;
+	      sw=screen.availWidth;
+	      sh=screen.availHeight;
+	      px=(sw-cw)/2;
+	      py=(sh-ch)/2;
+
+		window.open('views/member/searchIdForm.jsp','','status=no, height='+ch+', width='+cw+', left='+ px + ', top=10');
+	   }
 	
    
     function searchAddress() {

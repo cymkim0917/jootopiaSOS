@@ -72,7 +72,7 @@ public class GetKaKaoInfoServlet extends HttpServlet {
         
         KakaoMember kakao = new KakaoMember();
         
-        kakao.setUserId("Kakao"+id.substring(0, 3));
+        kakao.setUserId("Kakao"+id.substring(4));
         kakao.setUserPwd(id);
         kakao.setUserName(nickname);
       

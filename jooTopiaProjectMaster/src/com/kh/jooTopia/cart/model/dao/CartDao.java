@@ -61,9 +61,7 @@ public class CartDao {
 		}finally {
 			close(rs);
 			close(pstmt);
-		}
-		
-		
+		}	
 		return list;
 	}
 
@@ -80,17 +78,11 @@ public class CartDao {
 				pstmt.setInt(2, delList[i]);
 				
 				result += pstmt.executeUpdate();
-				/*result += count*/
-			}
-			
-			
+			}	
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
 		return result;
 	}
 

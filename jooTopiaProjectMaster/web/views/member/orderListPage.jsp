@@ -59,15 +59,23 @@
 			
 			<br /><br />
 				<table class="table table-striped">
-	
-					
-					<% for(int i=0; i<orderList.size(); i++){ %>
 					<tr>
-						<td><%= i+1 %></td>
+						<th>No.</th>
+						<th>상품명</th>
+						<th>가격</th>
+						<th>주문 일자</th>
+						<th>배송 조회</th>
+				<!-- 		<th>배송 조회</th> -->
+					</tr>
+					
+					<% for(int i=0; i<orderList.size(); i++){
+						%>
+					<tr>
+						<td><%= i+1 %>
+						<input type="hidden" value="<%= orderList.get(i).getOdid() %>" name="poid" />
+						</td>
 						<td>
-						
-						<input type="hidden" value="<%= orderList.get(i).getPoid() %>" name="poid" />
-						<a href="#"><%= orderList.get(i).getPname() %></a>
+						<a href="<%= request.getContextPath() %>/selectOrder.do?num=<%= orderList.get(i).getOdid() %>"><%= orderList.get(i).getPname() %></a>
 						</td>
 						<td><label for=""><%= orderList.get(i).getPpice() %></label></td>
 						<td><label for=""><%= orderList.get(i).getpDate() %></label></td>

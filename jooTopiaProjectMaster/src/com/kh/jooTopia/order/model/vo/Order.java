@@ -13,11 +13,12 @@ public class Order implements Serializable {
 	private Date pDate;
 	private String status;
 	private String address;
+	private int odid;
 	
 	public Order() {}
 
 	public Order(int uno, int pid, int poid, String pname, int ppice, String change_name, Date pDate, String status,
-			String address) {
+			String address,int odid) {
 		super();
 		this.uno = uno;
 		this.pid = pid;
@@ -28,6 +29,17 @@ public class Order implements Serializable {
 		this.pDate = pDate;
 		this.status = status;
 		this.address = address;
+		this.odid = odid;
+	}
+	
+	
+
+	public int getOdid() {
+		return odid;
+	}
+
+	public void setOdid(int odid) {
+		this.odid = odid;
 	}
 
 	public int getUno() {

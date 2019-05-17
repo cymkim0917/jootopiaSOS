@@ -52,6 +52,7 @@ public class OrderDao {
 				order.setStatus(rs.getString(6));
 				order.setAddress(rs.getString(7));
 				order.setChange_name(rs.getString(8));
+				order.setOdid(rs.getInt("ODID"));
 				list.add(order);
 			}
 			
@@ -64,6 +65,39 @@ public class OrderDao {
 		}
 		
 		return list;
+	}
+
+	public Order orderDetail(Connection con, int poid,int uno) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("orderDetail");
+		Order order = null;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, uno);
+			pstmt.setInt(2, poid);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				order = new Order();
+				order.setUno(uno);
+				order.setPid(rs.getInt(1));
+				order.setPoid(rs.getInt(2));
+				order.setPname(rs.getString(3));
+				order.setPpice(rs.getInt(4));
+				order.setpDate(rs.getDate(5));
+				order.setStatus(rs.getString(6));
+				order.setAddress(rs.getString(7));
+				order.setChange_name(rs.getString(8));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return order;
 	}
 
 }
