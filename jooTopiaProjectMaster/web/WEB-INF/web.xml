@@ -10,11 +10,11 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
-     <servlet-name>PurchaseAdminAccept</servlet-name>
-     <servlet-class>com.kh.jooTopia.purchase.controller.InsertPurchaseAcceptAdminServlet</servlet-class>
+    <servlet-name>PurchaseAdminAccept</servlet-name>
+    <servlet-class>com.kh.jooTopia.purchase.controller.InsertPurchaseAcceptAdminServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-     <servlet-name>PurchaseAdminAccept</servlet-name>
-     <url-pattern>/insertPurchaseAccept.do</url-pattern>
-  </servlet-mapping>  
+    <servlet-name>PurchaseAdminAccept</servlet-name>
+    <url-pattern>/insertPurchaseAccept.do</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.jooTopia.board.model.vo.*"%>
 <%
 	HashMap<String, Object> hmap = (HashMap<String, Object>)request.getAttribute("hmap");
 	String status = (String) hmap.get("status");
-	System.out.println("status : " + status);
+	// System.out.println("status : " + status);
+	ArrayList<Attachment> fileList = (ArrayList<Attachment>) hmap.get("fileList");
+	System.out.println("fileList : " + fileList);
 %>
 <!DOCTYPE html>
 <html>
@@ -15,7 +17,6 @@
 <script src="/jootopia/js/external/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/jootopia/css/admin/adminCommon.css">
 <title>JooTopia</title>
-
 <style>
 .statusArea{
 	width: 70%;
@@ -115,7 +116,10 @@
 	    				<th>상태</th>
 	    			</tr>
 	    			<tr>
-	    				<td><%= hmap.get("pBarcode") %></td>
+	    				<%-- <td><%= hmap.get("pBarcode") %></td> --%>
+	    				<td>
+	    					<img src="/jootopia/images/barcode/<%= hmap.get("pBarcode") %>.PNG">
+	    				</td>
 	    				<td><%= hmap.get("status") %></td>
 	    			</tr>
 	    		</table>
@@ -178,24 +182,11 @@
 					<tr>	
 						<td>이미지</td>
 						<td>
+							<% for(Attachment at : fileList){ %>
 							<div class="detailImgBox">
-								<img src="/jootopia/images/sample.PNG">
+								<img src="/jootopia/images/<%= at.getChangeName() %>">
 							</div>
-							<div class="detailImgBox">
-								<img src="/jootopia/images/b1.jpg">
-							</div>
-							<div class="detailImgBox">
-								<img src="/jootopia/images/s1.jpg">
-							</div>
-							<div class="detailImgBox">
-								<img src="/jootopia/images/notice1.jpg">
-							</div>
-							<div class="detailImgBox">
-								<img src="/jootopia/images/b1.jpg">
-							</div>
-							<div class="detailImgBox">
-								<img src="/jootopia/images/s1.jpg">
-							</div>
+							<% } %>
 						</td>
 					</tr>
 	      		</table>
@@ -240,10 +231,9 @@
 		<script>
 			function purchaseDeny(){
 				var denyReason = $("#denyReason").val();
-				location.href="<%= request.getContextPath() %>/insertPCAdminDeny.do?no=<%= hmap.get("pcid") %>&denyReason=" + denyReason;
+				location.href="<%= request.getContextPath() %>/insertDeny.do?no=<%= hmap.get("pcid") %>&denyReason=" + denyReason;
 			}
 		</script>
-	    
 	</section>
 <%@ include file="/views/common/adminFooter.jsp" %>
 </body>
