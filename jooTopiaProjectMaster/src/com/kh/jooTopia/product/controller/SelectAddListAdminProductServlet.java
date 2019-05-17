@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.jooTopia.board.model.service.BoardAdminService;
 import com.kh.jooTopia.board.model.vo.PageInfo;
 import com.kh.jooTopia.product.model.service.ProductAdminService;
 

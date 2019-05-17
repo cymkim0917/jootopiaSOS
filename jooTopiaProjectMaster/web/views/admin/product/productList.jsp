@@ -12,6 +12,7 @@
 	int maxPage = pageInfo.getMaxPage();
 	int startPage = pageInfo.getStartPage();
 	int endPage = pageInfo.getEndPage();
+	
 %>
 
 <!DOCTYPE html>
@@ -55,23 +56,24 @@
 		</div>
 		<br>
 		
+		<form action="<%=request.getContextPath()%>/searchAdminProduct.do">
 		<div class="searchArea">
 			<table id="searchBox"  border="1" align="center">
 				<tr><th colspan="3" style="height: 35px;">　</th></tr>
 				<tr>
 					<td>검색 분류</td>
 					<td colspan="2">
-						<select id="searchCondition">
+						<select id="searchCondition" name="searchCondition">
 							<option value="pName">상품명
 							<option value="pCode">상품코드
 						</select>
-						<input type="search" placeholder="검색 단어를 입력하세요." width="20px">
+						<input type="search" placeholder="검색 단어를 입력하세요." width="20px" name="searchConditionValue">
 					</td>
 				</tr>
 				<tr>
 					<td>상품 카테고리</td>
 					<td colspan="2">
-						<select id="cGroup">
+						<select id="cGroup" name="cGroup">
 							<option selected>-- 대분류 --</option>	
 							<option value="침실">침실</option>
 							<option value="서재">서재</option>
@@ -79,7 +81,7 @@
 							<option value="거실">거실</option>
 							<option value="기타">기타</option>
 						</select>
-					<select id="cName">
+					<select id="cName" name="cName">
 						<option>-- 중분류 --</option>
 					</select>
 					<script>
@@ -117,17 +119,17 @@
 						<a href="#" class="btnDate" period="30"><span>1개월</span></a>
 						<a href="#" class="btnDate" period="90"><span>3개월</span></a>
 						<a href="#" class="btnDate" period="365"><span>1년</span></a>
-						<a href="#" class="btnDate" period="-1"><span>전체</span></a>
-						<input type="date" id="startDate" name="startDate" class="date" value="<%--= new Date() --%>"> ~ 
-						<input type="date" id="endDate" name="endDate" class="date" value="<%--= new Date() --%>">
+						<a href="#" class="btnDate selected" period="-1"><span>전체</span></a>
+						<input type="date" id="startDate" name="startDate" class="dateBox" value=""> ~ 
+						<input type="date" id="endDate" name="endDate" class="dateBox" value="">
 					</td>
 				</tr>
 				<tr>
 					<td>상품 상태</td>
 					<td colspan="2">
-						<input type="radio" name="pType" id="all"><label for="all">전체</label>
-						<input type="radio" name="pType" id="onSale"><label for="onSale">판매중</label>
-						<input type="radio" name="pType" id="soldOut"><label for="soldOut">판매미등록</label>
+						<input type="radio" name="pType" id="all" checked><label for="all">전체</label>
+						<input type="radio" name="pType" id="onSale" value="판매중"><label for="onSale">판매중</label>
+						<input type="radio" name="pType" id="soldOut" value="판매미등록"><label for="soldOut">판매미등록</label>
 					</td>
 				</tr>
 			</table>
@@ -135,10 +137,11 @@
 			<br>
 			
 			<div id="searchBtnArea" align="center">
-				<input type="submit" value="검색" onclick="">
-				<input type="reset" value="초기화" onclick="">
+				<input type="submit" value="검색">
+				<input type="reset" value="초기화" onclick="location.href='<%=request.getContextPath()%>/adminProductList.do'">
 			</div>
 		</div>
+		</form>
 		
 		<br>
 		
@@ -210,9 +213,6 @@
 		<% } %>
 		</ul>
 	</div>
-	
-	
-	
 	</div> <!-- col-sm-10 -->
 	</section>
 	
@@ -220,6 +220,56 @@
 	
 	<script>
 		
+		//------검색테이블 날짜 관련 펑션
+		$(function() {
+			var today = new Date().toISOString().substr(0, 10);
+			
+			console.log(today);
+			$("#startDate").attr("disabled", true).val(today);
+			$("#endDate").attr("disabled", true).val(today);
+		});
+		
+		$(".btnDate").click(function() {
+			
+			$("#selectDate>a").removeClass();
+			$("#selectDate>a").addClass("btnDate");
+			$(this).toggleClass("selected");
+			
+		});
+		
+		$(".btnDate").click(function() {
+			var date = $(this).attr("period");
+			console.log( date );
+			
+			if(date != -1) {
+				$(".dateBox").attr("disabled", false);
+				$.ajax({
+					url : "searchDate.do",
+					data : {date : date},
+					success : function(data) {
+						console.log("에이잭스 성공");
+						console.log(data);
+						
+						var change = new Date(data).toISOString().substr(0, 10);
+						
+						console.log(change);
+						$("#startDate").val(change);
+					},
+					error : function(data) {
+						console.log("전송실패");
+					}
+				});
+			}else {
+				$(".dateBox").attr("disabled", true);
+			}
+		});
+		
+		$(".dateBox").click(function() {
+			$("#selectDate>a").removeClass();
+			$("#selectDate>a").addClass("btnDate");
+		});
+		
+		//------해당 상품정보(게시물) 조회 펑션
 		$("#selectList td").mouseenter(function(){
 			$(this).parent().css({"background":"rgb(61, 81, 113)", "color":"white", "cursor":"pointer"});
 		}).mouseout(function(){
@@ -229,12 +279,14 @@
 			location.href="<%=request.getContextPath()%>/adminProductOne.do?num=" + num;
 		});
 		
-		$(".btnDate").click(function() {
+		//------체크된 상품 상태 변화 관련 펑션
+		$("#allCheck").click(function() {
 			
-			$("#selectDate>a").removeClass();
-			$("#selectDate>a").addClass("btnDate");
-			$(this).toggleClass("selected");
-			
+			if($("#allCheck").prop("checked")) {
+				$("input[type=checkBox]").prop("checked", true);
+			}else {
+				$("input[type=checkBox]").prop("checked", false);
+			}
 		});
 		
 		function pTypeChange(text) {
@@ -264,19 +316,6 @@
 				});
 			}
 		};
-		
-		function select() {
-			location.href="<%= request.getContextPath() %>/selectProduct";
-		};
-		
-		$("#allCheck").click(function() {
-			
-			if($("#allCheck").prop("checked")) {
-				$("input[type=checkBox]").prop("checked", true);
-			}else {
-				$("input[type=checkBox]").prop("checked", false);
-			}
-		});
 		
 	</script>
 	

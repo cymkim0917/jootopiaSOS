@@ -83,7 +83,7 @@
 			</tr>
 			<tr>
 				<th>상품코드</th>
-				<td name="pId"><%= hmap.get("pId") %></td>
+				<td><%= hmap.get("pId") %></td>
 			</tr>
 			<tr>
 				<th>상품 매입가</th>

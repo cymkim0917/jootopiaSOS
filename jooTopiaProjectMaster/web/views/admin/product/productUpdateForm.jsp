@@ -102,11 +102,12 @@ pageEncoding="UTF-8" import="com.kh.jooTopia.product.model.vo.*, com.kh.jooTopia
 			<tr>
 				<th>상품코드</th>
 				<td><%= p.get("pId") %></td>
+				<td hidden="hidden"><input type="text" name="pId" value="<%= p.get("pId") %>"></td>
 			</tr>
 			<tr>
 				<th>상품 판매가</th>
 				<td>
-				<input type="number" size="45" name="pName" value="<%= p.get("pPrice") %>"> (원)
+				<input type="number" size="45" name="pPrice" value="<%= p.get("pPrice") %>"> (원)
 				</td>
 			</tr>
 			<tr>
@@ -126,7 +127,7 @@ pageEncoding="UTF-8" import="com.kh.jooTopia.product.model.vo.*, com.kh.jooTopia
 			<tr>
 				<th>상품 상세설명</th>
 				<td>
-				<textarea name="" rows="30" cols="88em" style="resize: none"><%= p.get("pContent") %></textarea>
+				<textarea name="pContent" rows="30" cols="88em" style="resize: none"><%= p.get("pContent") %></textarea>
 				</td>
 			</tr>
 		</table>
