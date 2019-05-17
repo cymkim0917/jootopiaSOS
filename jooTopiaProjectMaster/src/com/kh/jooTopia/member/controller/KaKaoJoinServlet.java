@@ -1,4 +1,4 @@
-package com.kh.jooTopia.cart.controller;
+package com.kh.jooTopia.member.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,42 +7,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.jooTopia.cart.model.service.CartService;
-import com.kh.jooTopia.member.model.vo.Member;
-
 /**
- * Servlet implementation class DeleteCartServlet
+ * Servlet implementation class KaKaoJoinServlet
  */
-@WebServlet("/delCart.do")
-public class DeleteCartServlet extends HttpServlet {
+@WebServlet("/kakaoJoin.do")
+public class KaKaoJoinServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteCartServlet() {
+    public KaKaoJoinServlet() {
         super();
-        // TODO Auto-generated constructor stub//
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Member member = (Member) request.getSession().getAttribute("loginUser");
-		int uno = member.getUno();
-		String tempList[] = request.getParameterValues("selectCart");
-		int delList[] = new int[tempList.length];
-		
-		for (int i = 0; i < tempList.length; i++) {
-			delList[i] = Integer.parseInt(tempList[i]);
-			System.out.println("delList[" + i + "] : " + delList[i]);
-		}
-
-		
-		int result = new CartService().deleteCart(delList,uno);
-		
-		System.out.println(result);
+	
 	}
 
 	/**

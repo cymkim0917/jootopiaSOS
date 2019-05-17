@@ -67,17 +67,20 @@ public class CartDao {
 		return list;
 	}
 
-	public int deleteCart(Connection con, int[] delList) {
+	public int deleteCart(Connection con, int[] delList,int uno) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		int count = 0;
 		String sql = prop.getProperty("deleteCart");
 		
 		try {
 			pstmt = con.prepareStatement(sql);
 			
 			for (int i = 0; i < delList.length; i++) {
-				pstmt.setInt(1, delList[i]);
+				pstmt.setInt(1, uno);
+				pstmt.setInt(2, delList[i]);
+				
+				result += pstmt.executeUpdate();
+				/*result += count*/
 			}
 			
 			
@@ -88,7 +91,7 @@ public class CartDao {
 		
 		
 		
-		return 0;
+		return result;
 	}
 
 }
