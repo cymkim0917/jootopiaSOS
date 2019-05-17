@@ -121,16 +121,13 @@ public class InsertPurchaseServlet extends HttpServlet {
 				// 일단 메인페이지로 보내본다.
 				request.setAttribute("hmap", hmap);
 				System.out.println("request : " + request.getAttribute("hmap"));
-				// response.sendRedirect(request.getContextPath() + "/views/purchase/purchaseFin.jsp");
 				request.getRequestDispatcher("views/purchase/purchaseFin.jsp").forward(request, response);
 			}else {
 				
 				for(int i = 0; i < saveFiles.size(); i++) {
 					File failedFile = new File(filePath + saveFiles.get(i));
-					
 					failedFile.delete();
 				}
-				
 				request.setAttribute("msg", "매입신청서 제출 실패!");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}

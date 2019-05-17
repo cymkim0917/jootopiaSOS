@@ -59,9 +59,9 @@ public class PurchaseService {
 		}
 		
 		// 6. 이미지 파일을 Attachment테이블에 삽입
-		int result3= new PurchaseDao().insertPurchaseImage(con, fileList);
+		int resultImg= new PurchaseDao().insertPurchaseImage(con, fileList);
 		
-		result = resultPC + resultPCD + resultB;
+		result = resultPC + resultPCD + resultB + resultImg;
 		if(result >= 5) {
 			commit(con);
 		}else {

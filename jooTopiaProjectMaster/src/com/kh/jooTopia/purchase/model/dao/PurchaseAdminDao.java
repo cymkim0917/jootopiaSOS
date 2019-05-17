@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.jooTopia.board.model.vo.Attachment;
+
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
 public class PurchaseAdminDao {
@@ -103,6 +105,37 @@ public class PurchaseAdminDao {
 			close(rset);
 		}
 		return hmap;
+	}
+
+	public ArrayList<Attachment> selectAttachment(Connection con, int pcid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Attachment> list = null;
+		Attachment at = null;
+		
+		String query = prop.getProperty("selectPurchaseAttachment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pcid);
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Attachment>();
+			while(rset.next()) {
+				at = new Attachment();
+				at.setfId(rset.getInt("FID"));
+				at.setOriginName(rset.getString("ORIGIN_NAME"));
+				at.setChangeName(rset.getString("CHANGE_NAME"));
+				at.setFilePath(rset.getString("FILE_PATH"));
+				at.setUploadDate(rset.getDate("UPDATE_DATE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return list;
 	}
 }
 
