@@ -108,6 +108,34 @@ public class ReleaseAdminDao {
 		return rlist;
 	}
 
+	public ReleaseAdmin selectOneAdminRelease(Connection con, int num) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ReleaseAdmin r = null;
+		
+		String query = prop.getProperty("selectOneReleaseAdmin");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				r = new ReleaseAdmin();
+				
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
 	
 	
 	/*public int insertAdminRelease(Connection con, ReleaseAdmin r) {

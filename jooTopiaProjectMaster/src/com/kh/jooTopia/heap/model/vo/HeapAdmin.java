@@ -16,11 +16,12 @@ public class HeapAdmin implements java.io.Serializable{
 	private Date rlDate;	//RLDATE - 출고일자
 	private Date hDate;		//HDATE - 적치일자
 	private String pContent;//PCONTENT - 상품상세정보
+	private String pName;	//PNAME - 상품명
 	
 	public HeapAdmin() {}
 
-	public HeapAdmin(int pId, int hId, int rlId, int pcdId, String cGroup, String name, int poId, int dId,
-			int lBarcode, Date rlDate, Date hDate, String pContent) {
+	public HeapAdmin(int pId, int hId, int rlId, int pcdId, String cGroup, String name, int poId, int dId, int lBarcode,
+			Date rlDate, Date hDate, String pContent, String pName) {
 		super();
 		this.pId = pId;
 		this.hId = hId;
@@ -34,6 +35,7 @@ public class HeapAdmin implements java.io.Serializable{
 		this.rlDate = rlDate;
 		this.hDate = hDate;
 		this.pContent = pContent;
+		this.pName = pName;
 	}
 
 	public int getpId() {
@@ -132,13 +134,22 @@ public class HeapAdmin implements java.io.Serializable{
 		this.pContent = pContent;
 	}
 
-	@Override
-	public String toString() {
-		return "ProductregAdmin [pId=" + pId + ", hId=" + hId + ", rlId=" + rlId + ", pcdId=" + pcdId + ", cGroup="
-				+ cGroup + ", name=" + name + ", poId=" + poId + ", dId=" + dId + ", lBarcode=" + lBarcode + ", rlDate="
-				+ rlDate + ", hDate=" + hDate + ", pContent=" + pContent + "]";
+	public String getpName() {
+		return pName;
 	}
 
+	public void setpName(String pName) {
+		this.pName = pName;
+	}
+
+	@Override
+	public String toString() {
+		return "HeapAdmin [pId=" + pId + ", hId=" + hId + ", rlId=" + rlId + ", pcdId=" + pcdId + ", cGroup=" + cGroup
+				+ ", name=" + name + ", poId=" + poId + ", dId=" + dId + ", lBarcode=" + lBarcode + ", rlDate=" + rlDate
+				+ ", hDate=" + hDate + ", pContent=" + pContent + ", pName=" + pName + "]";
+	}
+
+	
 	
 
 

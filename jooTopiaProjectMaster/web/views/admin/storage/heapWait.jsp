@@ -34,9 +34,9 @@
 				<table class="table table-hover" id="test1">
 					<thead>
 						<tr>
-							<th>No.</th>
-							<th>매입번호</th>
+							<th>No.</th>							
 							<th>상품번호</th>
+							<th>상품명</th>
 							<th>대분류</th>
 							<th>중분류</th>						
 						</tr>
@@ -45,8 +45,8 @@
 					<tbody>
 						<tr>
 							<td><%= i %></td>							
-							<td><%= h.getPcdId() %></td>
 							<td><%= h.getpId() %></td>
+							<td><%= h.getpName() %></td>
 							<td><%= h.getcGroup() %></td>
 							<td><%= h.getName() %></td>
 													
@@ -54,32 +54,7 @@
 						<% } %>
 					</tbody>
 				</table>
-			</div>
-			
-
-			
-
-			<!-- db 생기면 적용 -->
-			<%-- <script>
-				$(function(){
-					<% for(Product p : list){ %>
-					
-					var $tableBody = $("table tbody");
-					
-					var $tr = $("<tr>");
-					var $idTd = $("<td>").text('<%= p.get상품코드()%>');
-					var $phoneTd = $("<td>").text('<%= p.get대분류() %>');
-					var $addressTd = $("<td>").text('<%= p.get중분류() %>');										
-					
-					$tr.append($상품코드Td);
-					$tr.append($대분류Td);
-					$tr.append($중분류Td);										
-					
-					$tableBody.append($tr);					
-					
-					<% } %>
-				});
-			</script> --%>
+			</div>		
 
 			<hr>
 			<div align="center">
@@ -106,7 +81,7 @@
 				var num = $(this).parent().children().eq(0).text();				
 				console.log(num);
 				<%-- location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num; --%>
-				location.href="<%=request.getContextPath()%>/views/admin/storage/heapRegist.jsp?num=" + num;
+				location.href="<%=request.getContextPath()%>/selectOneAdminHeap.do?num=" + num;
 				//location.href="heapRegist.jsp";
 			})
 		})

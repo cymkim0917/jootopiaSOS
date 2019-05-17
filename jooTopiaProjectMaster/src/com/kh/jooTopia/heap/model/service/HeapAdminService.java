@@ -7,8 +7,8 @@ import com.kh.jooTopia.heap.model.dao.HeapAdminDao;
 import com.kh.jooTopia.heap.model.vo.HeapAdmin;
 
 
-import static com.kh.jooTopia.common.JDBCTemplate.close;
-import static com.kh.jooTopia.common.JDBCTemplate.getConnection;
+import static com.kh.jooTopia.common.JDBCTemplate.*;
+
  
 public class HeapAdminService {
 
@@ -23,4 +23,33 @@ public class HeapAdminService {
 		return list;
 	}
 
+	public int insertAdminHeap(HeapAdmin h) {
+		
+		Connection con = getConnection();
+		
+		int result = new HeapAdminDao().insertAdminHeap(con, h);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+				
+		
+		return result;
+	}
+
+	public HeapAdmin selectOneAdminHeap(int num) {
+		
+		Connection con = getConnection();
+		
+		HeapAdmin h = new HeapAdminDao().selectOneAdminHeap(con, num);
+		
+		close(con);
+		
+		return h;
+	}
+
+	
 }

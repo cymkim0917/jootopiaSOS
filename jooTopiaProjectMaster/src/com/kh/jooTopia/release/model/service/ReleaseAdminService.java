@@ -32,6 +32,17 @@ Connection con = getConnection();
 		return rlist;
 	}
 
+	public ReleaseAdmin selectOneAdminRelease(int num) {
+		
+		Connection con = getConnection();
+		
+		ReleaseAdmin r = new ReleaseAdminDao().selectOneAdminRelease(con, num);
+		
+		close(con);
+		
+		return r;
+	}
+
 	
 	
 	/*public int insertAdminRelease(ReleaseAdmin r) {

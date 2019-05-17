@@ -539,10 +539,7 @@ public class ProductAdminDao {
 		}finally {
 			
 			close(pstmt);
-		}
-		
-		
-		
+		}		
 		
 		return result;
 	}
