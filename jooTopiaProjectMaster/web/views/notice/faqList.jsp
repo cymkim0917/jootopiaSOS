@@ -88,7 +88,7 @@
 		<div class="container">
 		  <!-- <h2>Hover Rows</h2>
 		  <p>The .table-hover class enables a hover state on table rows:</p>   -->          
-		  <table class="table table-hover">
+		  <table class="table table-hover" id="faqList">
 		      <tr>
 		        <th>글번호</th>
 		        <th>분류</th>
@@ -143,12 +143,59 @@
 					 url:"selectFaqCategoryList.do",
 					 data:{fCategory:fCategory},
 					 success:function(data){
-						 console.log(data);
+						/*  console.log(data);
 					 /* location.href:"selectFaqTotal.do" */
-					 console.log(data[0]);
+					 //console.log(data[0]); */
+					 
+					 $tableBody = $("#faqList tbody"); //tbody는 자동으로 생성되있고 눈에는 보이지 않는다.
+					 $tableBody.html('');//초기화
+					 
+					 var $tr1=$("<tr>")
+					 var $noTh=$("<th>").text("글번호");
+					 var $fCategoryTh=$("<th>").text("분류");
+					 var $bTitleTh=$("<th>").text("제목");
+					 var $bDateTh=$("<th>").text("작성일");
+					 var $bCountTh=$("<th>").text("조회수");
+					 
+					 $tr1.append($noTh);
+					 $tr1.append($fCategoryTh);
+					 $tr1.append($bTitleTh);
+					 $tr1.append($bDateTh);
+					 $tr1.append($bCountTh);
+					 $tableBody.append($tr1);
+					 
+					 $.each(data,function(index,value){
+						 var $tr=$("<tr>");
+						 var $noTd=$("<td>").text(value.bId);
+						 var $fCategoryTd=$("<td>").text(value.fCategory);
+						 var $bTitleTd=$("<td>").text(decodeURIComponent(value.bTitle));
+						 var $bDateTd=$("<td>").text(value.bDate);
+						 var $bCountTd=$("<td>").text(value.bCount);
+						 
+						 
+						 $tr.append($noTd);
+						 $tr.append($fCategoryTd);
+						 $tr.append($bTitleTd);
+						 $tr.append($bDateTd);
+						 $tr.append($bCountTd);
+						 $tableBody.append($tr);
+					 })
+					 
+					 
+			$("td").click(function() {
+				 console.log("ddddd");
+				 var num = $(this).parent().children().eq(0).text();
+				 console.log(num);
+				 location.href="<%=request.getContextPath()%>/selectFaqCList.do?num="+num;
+			 });
 					 }
 				 });
+			  
 			 } 
+			
+			
+			
+			
 			</script> 
 	</section>
 	<br>

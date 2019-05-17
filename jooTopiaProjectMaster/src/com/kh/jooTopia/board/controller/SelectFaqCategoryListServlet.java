@@ -36,7 +36,9 @@ public class SelectFaqCategoryListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String fCategory = request.getParameter("fCategory");
 		System.out.println("fCategory in servlet : " + fCategory);
+		System.out.println("서블릿 들어옴");
 		ArrayList<Board> list = new BoardService().selectFaqCategoryList(fCategory);
+		System.out.println("서블릿 후");
 		System.out.println("list in SelectFaqCategoryListServlet : " + list);
 		
 		String page = "";

@@ -31,12 +31,13 @@
 }
 </style>
 
+
+
 </head>
 <body>
 <%@ include file="/views/common/navigation.jsp" %>
 	<section>
-	
-	<h1 align="center">FAQ TOTAL LIST PLUS</h1>
+		<h1 align="center">FAQ CATEGORY LIST PLUS</h1>
 		<br>
 		<div class="containaer" align="center">
 			<table class="listArea">
@@ -63,14 +64,12 @@
 			
 			</table>
 			</div>
-	<script>
-	
-	
-	
-	
-	</script>
-			
-			
+		
+		
+		
+		
+		
+		
 	</section>
 <%@ include file="/views/common/footer.jsp" %>
 </body>
