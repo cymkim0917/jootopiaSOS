@@ -14,9 +14,9 @@
 <link rel="stylesheet" href="/jootopia/css/admin/adminCommon.css">
 <title>JooTopia</title>
 <style>
-.table th {
+/* .table th {
 	text-align: left;
-}
+} */
 </style>
 </head>
 <body>
@@ -76,17 +76,17 @@
 				<table class="table table-hover" id="listArea">
 					<thead>
 						<tr>
-							<th>No.</th>
+							<!-- <th>No.</th> -->
 							<th>매입번호</th>
 							<th>대분류</th>
 							<th>중분류</th>
 							<th>상태</th>						
 						</tr>
 					</thead>
-					<% int i = 0; for(BuyWaitAdmin b : list){ i++;%>
+					<% /* int i = 0;  */for(BuyWaitAdmin b : list){ /* i++; */%>
 					<tbody>
 						<tr>
-							<td><%= i %></td>
+							<%-- <td><%= i %></td> --%>
 							<td><%= b.getPcdId() %></td>
 							<td><%= b.getcGroup() %></td>
 							<td><%= b.getName() %></td>
@@ -153,7 +153,7 @@
 				console.log(num);
 				<%-- location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num; --%>
 				<%-- location.href="<%=request.getContextPath()%>/views/admin/storage/productreg.jsp?num=" + num; --%>
-				location.href="<%=request.getContextPath()%>/selectOneAdminProductreg.do?num=" + num;
+				location.href="<%=request.getContextPath()%>/selectOneAdminProductr.do?num=" + num;
 			})
 		})
 	</script>

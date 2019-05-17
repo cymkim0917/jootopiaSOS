@@ -15,6 +15,7 @@ import java.util.Properties;
 import com.kh.jooTopia.board.model.vo.Attachment;
 import com.kh.jooTopia.board.model.vo.PageInfo;
 import com.kh.jooTopia.product.model.vo.Product;
+import com.kh.jooTopia.product.model.vo.ProductregAdmin;
 
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
@@ -465,57 +466,83 @@ public class ProductAdminDao {
 		return a;
 	}
 
-	public int updateDetailProduct(Connection con, Product p) {
-		//상품 상세내용 수정
+	public ProductregAdmin selectOneAdminProductreg(Connection con, int num) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ProductregAdmin p = null;
+		
+		String query = prop.getProperty("selectOneProductregAdmin");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				p = new ProductregAdmin();
+				
+				p.setPcdId(rset.getInt("PCDID"));
+				p.setBrand(rset.getString("BRAND"));
+				p.setcGroup(rset.getString("CGROUP"));
+				p.setName(rset.getString("NAME"));
+				p.setModel(rset.getString("MODEL"));
+				p.setuPeriod(rset.getString("USE_PERIOD"));
+				p.setpCost(rset.getInt("PRIME_COST"));
+				p.sethCost(rset.getInt("HOPE_COST"));
+				p.setMemo(rset.getString("MEMO"));
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return p;
+	}
+
+	public int updateCount(Connection con, int pcdId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int insertAdminProductreg(Connection con, Product p) {
+		
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("updateDetailProduct");
-
+		String query = prop.getProperty("insertAdminProductreg");
+		
 		try {
 			pstmt = con.prepareStatement(query);
 			
 			pstmt.setString(1, p.getpName());
 			pstmt.setInt(2, p.getpPrice());
 			pstmt.setString(3, p.getpContent());
-			pstmt.setInt(4, p.getcId());
-			pstmt.setInt(5, p.getpId());
+			pstmt.setString(4, p.getpGrade());
+			pstmt.setString(5, p.getpBrand());
+			pstmt.setString(6, p.getpModelName());
+			pstmt.setInt(7, p.getcId());
+			pstmt.setInt(8, p.getPcDId());
 			
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
-
-	public int updateDetailAttachment(Connection con, ArrayList<Attachment> fileList) {
-		//상품상세 사진 수정
-		
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String query = prop.getProperty("updateDetailAttachment");
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			for(Attachment a : fileList) {
-				pstmt.setString(1, a.getOriginName());
-				pstmt.setString(2, a.getChangeName());
-				pstmt.setString(3, a.getFilePath());
-				pstmt.setInt(4, a.getfId());
-				
-				result += pstmt.executeUpdate();
-			}
+		}finally {
 			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
 			close(pstmt);
 		}
+		
+		
+		
 		
 		return result;
 	}
