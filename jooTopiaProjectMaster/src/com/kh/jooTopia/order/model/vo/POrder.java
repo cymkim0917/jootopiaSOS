@@ -1,24 +1,27 @@
 package com.kh.jooTopia.order.model.vo;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class POrder {
+public class POrder implements Serializable {
 	
 	private int poId;
 	private Date poDate;
 	private String status;
 	private int uNo;
 	private int pymId;
+	private String dMessage;
 	
 	public POrder() {}
 
-	public POrder(int poId, Date poDate, String status, int uNo, int pymId) {
+	public POrder(int poId, Date poDate, String status, int uNo, int pymId, String dMessage) {
 		super();
 		this.poId = poId;
 		this.poDate = poDate;
 		this.status = status;
 		this.uNo = uNo;
 		this.pymId = pymId;
+		this.dMessage = dMessage;
 	}
 
 	public int getPoId() {
@@ -59,6 +62,14 @@ public class POrder {
 
 	public void setPymId(int pymId) {
 		this.pymId = pymId;
-	};
+	}
+
+	public String getdMessage() {
+		return dMessage;
+	}
+
+	public void setdMessage(String dMessage) {
+		this.dMessage = dMessage;
+	}
 	
 }
