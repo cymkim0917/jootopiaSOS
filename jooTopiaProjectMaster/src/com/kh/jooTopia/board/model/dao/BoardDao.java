@@ -446,7 +446,7 @@ public class BoardDao {
 
 	public ArrayList<Board> selectFaqList(Connection con) {
 
-		PreparedStatement pstmt = null;
+		Statement stmt = null;
 		ResultSet rset = null;
 		ArrayList<Board> list = null;
 		
@@ -456,11 +456,11 @@ public class BoardDao {
 		int endRow = startRow + pageInfo.getLimit()-1;
 		*/
 		try {
-			pstmt = con.prepareStatement(query);
+			stmt = con.prepareStatement(query);
 			/*pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);*/
 			
-			rset = pstmt.executeQuery();
+			rset = stmt.executeQuery(query);
 			
 			list = new ArrayList<Board>();
 			
@@ -469,7 +469,7 @@ public class BoardDao {
 				b.setbId(rset.getInt("BID"));
 				b.setfCategory(rset.getString("FCATEGORY"));
 				b.setbTitle(rset.getString("BTITLE"));
-				b.setuNo(rset.getInt("UNO"));
+				/*b.setuNo(rset.getInt("UNO"));*/
 				
 				
 				list.add(b);
@@ -481,7 +481,7 @@ public class BoardDao {
 			e.printStackTrace();
 		}finally {
 			close(rset);
-			close(pstmt);
+			close(stmt);
 		}
 		
 		System.out.println("Dao 페이징 : " + list);
@@ -666,6 +666,7 @@ public class BoardDao {
 		ResultSet rset = null;
 		ArrayList<Board> list = null;
 		
+		String query = prop.getProperty("selectFaqTotalList");
 		
 		try {
 			pstmt=con.prepareStatement(fCategory );

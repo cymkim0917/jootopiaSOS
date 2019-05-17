@@ -155,7 +155,13 @@
 				 
 			 });
 			 
-			 function faqList (fCategory){
+			
+			 
+			 
+			 
+			 
+		 	
+			function faqList (fCategory){
 				 $.ajax({
 					 
 					 url:"selectFaqTotal.do",
@@ -163,15 +169,16 @@
 					 
 					 success:function(data){
 					 /* location.href:"selectFaqTotal.do" */
-					 console.log(data);
+					 console.log(data[0]);
+				/* 	 console.log(data);
 						for(var key in data) {
 							console.log(data[key].bTitle);
-						}
+						} */
 					 }
 					 
 				 });
 				 
-			 }
+			 } 
 			
 			
 			</script> 

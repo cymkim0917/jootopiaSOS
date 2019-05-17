@@ -40,9 +40,9 @@ public class SelectFaqTotalList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		
-		//String fCategory = request.getParameter("fCategory");
+		String fCategory = request.getParameter("fCategory");
 		
-		String fCategory="";
+		/*String fCategory="";*/
 		System.out.println(fCategory);
 		
 		ArrayList<Board> list = new BoardService().selectFaqTotalList(fCategory);
