@@ -75,6 +75,7 @@ public class MemberDao {
 				member.setGender(rs.getString("GENDER"));
 				member.setAddress(rs.getString("ADDRESS"));
 				member.setUserDate(rs.getDate("USER_DATE"));
+				member.setEmail(rs.getString("EMAIL"));
 			}
 			
 		} catch (SQLException e) {

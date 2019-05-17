@@ -96,7 +96,7 @@
 						<td><label for="">아이디</label></td>
 						<td><label for=""><%= loginUser.getUserId() %></label></td>
 						<td><label for="">작성일자</label></td>
-						<td><label for=""><%= board.getBDate()  %></label></td>
+						<td><label for=""><%= board.getbDate()  %></label></td>
 					</tr>
 
 					<tr>

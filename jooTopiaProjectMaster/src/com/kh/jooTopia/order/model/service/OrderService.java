@@ -18,4 +18,14 @@ public class OrderService {
 		return list;
 	}
 
+	public Order orderDetail(int poid,int uno) {
+		Connection con = getConnection();
+		
+		Order order = new OrderDao().orderDetail(con,poid,uno);
+		
+		close(con);
+		
+		return order;
+	}
+
 }

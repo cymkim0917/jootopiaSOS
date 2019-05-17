@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.jooTopia.cart.model.service.CartService;
+import com.kh.jooTopia.member.model.vo.Member;
 
 /**
  * Servlet implementation class DeleteCartServlet
@@ -24,26 +25,23 @@ public class DeleteCartServlet extends HttpServlet {
         // TODO Auto-generated constructor stub//
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		Member member = (Member) request.getSession().getAttribute("loginUser");
+		int uno = member.getUno();
 		String tempList[] = request.getParameterValues("selectCart");
 		int delList[] = new int[tempList.length];
 		
-		for (int i = 0; i < delList.length; i++) {
+		for (int i = 0; i < tempList.length; i++) {
 			delList[i] = Integer.parseInt(tempList[i]);
+			System.out.println("delList[" + i + "] : " + delList[i]);
 		}
+
 		
-		int result = new CartService().deleteCart(delList);
+		int result = new CartService().deleteCart(delList,uno);
 		
-		
+		response.sendRedirect("views/member/cartListPage.jsp");
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

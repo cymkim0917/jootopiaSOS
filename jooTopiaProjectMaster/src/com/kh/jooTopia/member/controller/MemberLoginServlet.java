@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.jooTopia.member.model.service.MemberService;
+import com.kh.jooTopia.member.model.service.*;
 import com.kh.jooTopia.member.model.vo.Member;
 
 @WebServlet("/loginCheck.do")
@@ -21,10 +21,6 @@ public class MemberLoginServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		System.out.println(request);
-		System.out.println(request.getParameter("userId") + " ~! " + request.getParameter("userPwd"));
-		
 		Member member = new MemberService().loginCheck(request.getParameter("userId"),request.getParameter("userPwd"));
 		PrintWriter out = response.getWriter();
 		String view = "views/main/MainPage.jsp";
