@@ -66,7 +66,6 @@ public class InsertPurchaseServlet extends HttpServlet {
 				
 				saveFiles.add(mRequest.getFilesystemName(fName));
 				originFiles.add(mRequest.getOriginalFileName(fName));
-				System.out.println("while");
 			}
 				
 			ArrayList<Attachment> fileList = new ArrayList<Attachment>();
@@ -91,8 +90,6 @@ public class InsertPurchaseServlet extends HttpServlet {
 			String hopePrice = mRequest.getParameter("hopePrice");
 			String content = mRequest.getParameter("content");
 			String memo = mRequest.getParameter("memo");
-			
-			System.out.println("cNAme :" + cName);
 			
 			Member loginUser = (Member) request.getSession().getAttribute("loginUser");;
 
@@ -120,7 +117,6 @@ public class InsertPurchaseServlet extends HttpServlet {
 			if(result > 0) {
 				 hmap = new PurchaseService().selectPurchaseFin();
 			}
-			System.out.println("servlet에서 hmap : " + hmap);
 			if(hmap != null) {
 				// 일단 메인페이지로 보내본다.
 				request.setAttribute("hmap", hmap);

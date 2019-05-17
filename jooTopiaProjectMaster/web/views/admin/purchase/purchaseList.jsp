@@ -137,7 +137,7 @@
 	    				<th>입고여부</th>
 	    			</tr>
 	    			<% for(HashMap<String, Object> hmap : list){ %>
-	    			<tr onclick="location.href='<%= request.getContextPath() %>/selectPurchaseDetail.do?no='<%= hmap.get("pcid") %>">
+	    			<tr onclick="location.href='<%= request.getContextPath() %>/selectPurchaseDetail.do?no=<%= hmap.get("pcid")%>'">
 	    				<td><%= hmap.get("pcid") %></td>
 	    				<td><%= hmap.get("uno") %></td>
 	    				<td><%= hmap.get("applicant") %></td>

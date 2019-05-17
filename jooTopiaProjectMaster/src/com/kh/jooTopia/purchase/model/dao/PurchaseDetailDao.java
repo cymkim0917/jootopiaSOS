@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.jooTopia.purchase.model.vo.PurchaseDetail;
+
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
 public class PurchaseDetailDao {
@@ -47,29 +49,104 @@ public class PurchaseDetailDao {
 	}
 	
 	// PurchaseDetail의 신청 수락 대기
-	public HashMap<String, Object> selectPCDstatus(Connection con, HashMap<String, Object> hmap, String status) {
+	public String selectPCDstatus(Connection con, int pcid) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		String status = "";
 		
 		String sql = prop.getProperty("selectPCDstatus");
 		
 		try {
 			pstmt = con.prepareStatement(sql);
 			
-			pstmt.setInt(1, Integer.parseInt(String.valueOf(hmap.get("pcid"))));
-			pstmt.setString(2, status);
+			pstmt.setInt(1, pcid);
 			
 			rset = pstmt.executeQuery();
 			
-			if(rset.next() && rset.getInt(1) > 0) {
-				hmap.put(status, "Y");
+			if(rset.next()) {
+				status = rset.getString("STATUS");
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 			close(rset);
 		}
-		return hmap;
+		return status;
+	}
+
+	public String selectPCDbarcode(Connection con, int pcid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String barcode = "";
+		
+		String sql = prop.getProperty("selectPCDbarcode");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, pcid);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				barcode = rset.getString("pBarcode");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return barcode;
+	}
+
+	public Object selectPCDdenyReason(Connection con, int pcid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String denyReason = "";
+		
+		String sql = prop.getProperty("selectPCDdenyReason");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, pcid);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				denyReason = rset.getString("APPLY_DENY_REASON");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return null;
+	}
+
+	public int insertPCDaccept(Connection con, PurchaseDetail pcd) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertPCDaccept");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, pcd.getPcid());
+			pstmt.setString(2, pcd.getpBarcode());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 }

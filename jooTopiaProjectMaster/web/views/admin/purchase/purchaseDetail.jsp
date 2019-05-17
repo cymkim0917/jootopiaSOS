@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*"%>
+<%
+	HashMap<String, Object> hmap = (HashMap<String, Object>)request.getAttribute("hmap");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,60 +82,50 @@
 	      			</tr>
 	      			<tr>
 	      				<td>신청자명</td>
-	      				<td>pc.getpcName</td>
+	      				<td><%= hmap.get("applicant") %></td>
 	      			</tr>
 	      			<tr>
 	      				<td>신청일자</td>
-	      				<td>pc.getpcDate</td>
+	      				<td><%= hmap.get("bDate") %></td>
 	      			</tr>
 	      			<tr>
 	      				<td>주소</td>
-	      				<td>pc.getpcAddress</td>
+	      				<td><%= hmap.get("appAddress") %></td>
 	      			</tr>
 	      			<tr>
 	      				<td>연락처</td>
-	      				<td>010-9120-3120</td>
+	      				<td><%= hmap.get("appPhone") %></td>
 	      			</tr>
 	      			<tr>
 	      				<td>카테고리</td>
-	      				<td>침실가구 > 침대</td>
-	      			</tr>
-	      			<tr>
-	      				<td>사용기간</td>
-	      				<td>
-	      					<span>2019-05-01</span> ~ 
-	      					<span>2019-05-10</span>
-	      				</td>
+	      				<td><%= hmap.get("category") %></td>
 	      			</tr>
 					<tr>
 						<td>브랜드</td>
-						<td>KH가구</td>
+						<td><%= hmap.get("brand") %></td>
 					</tr>	
 					<tr>
 						<td>모델명</td>
-						<td>KH123456</td>
+						<td><%= hmap.get("model") %></td>
 					</tr>      	
 					<tr>
 						<td>사용기간</td>
-						<td>1년미만</td>
+						<td><%= hmap.get("usePeriod") %></td>
 					</tr>		
 					<tr>
 						<td>희망가격 / 구매정가</td>
 						<td> 
-							<span>30,000</span> / <span>200,000</span>
+							<span><%= hmap.get("primeCost") %></span> / <span><%= hmap.get("hopeCost") %></span>
 						</td>
 					</tr>
 					<tr>
 						<td>상품 특이사항</td>
-						<td>스크래치 있음 <br> 하지만 인기상품이었음<br>딸이 사용하던걸로 깔끔함</td>
+						<td><%= hmap.get("bContent") %></td>
 					</tr>
 					<tr>
 						<td>매입 요청 사항</td>
 						<td>
-							기사님이 오전시간에 와주시면 좋을 것 같습니다<br>
-							기사님이 집에 들어오실때 신발 신고 들어오시는 분들이 간혹 있는데<br>
-							오셔서 물품이나 집을 깨끗히 다뤄주실 기사님이 오셨으면 좋겠습니다.<br>
-							힘드신데 기사님들 고생 많으십니다 ㅎㅎ	
+							<%= hmap.get("memo") %>
 						</td>
 					</tr>
 					<tr>	
@@ -162,23 +155,19 @@
 	      	</div>
 	      	<div class="btnArea" align="center"> 
 	      		<div class="submitBtnArea">
-	      			<button class="jBtn" onclick="location.href='/jootopia/views/admin/purchase/purchaseAccept.jsp'">매입하기</button>
+	      			<button class="jBtn" onclick="location.href='<%= request.getContextPath() %>/insertPurchaseAccept.do?no=<%= hmap.get("pcid")%>'">매입하기</button>
 	      			<button class="jBtn" data-toggle="modal" data-target="#denyModal">매입거절</button>
 	      		</div>
 	      		<div class="moveBtnArea">
 					<ul class="pagination">
 						<li><a href="#">이전</a></li>
 						<li>
-							<a href="/jootopia/views/admin/purchase/purchaseList.jsp">
+							<a href="<%= request.getContextPath() %>/selectPurchaseAdminList.do">
 								&nbsp;&nbsp;&nbsp;목록으로&nbsp;&nbsp;&nbsp;
 							</a>
 						</li>
 						<li><a href="#">다음</a></li>
 					</ul>
-
-	      			<!-- <button class="jBtnSide">이전</button>
-	      			<button class="jBtnMid">목록으로</button>
-	      			<button class="jBtnSide">다음</button> -->
 	      		</div>
 	      	</div>
 	    </div><!-- col-sm-10 -->

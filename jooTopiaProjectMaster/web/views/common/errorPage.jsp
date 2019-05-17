@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*"%>
 <%
 	String msg = (String) request.getAttribute("msg");
+	HashMap<String, Object> hmap = (HashMap<String, Object>) request.getAttribute("hmap");
+	System.out.println("hamp : " + hmap);
 %>    
 <!DOCTYPE html>
 <html>
