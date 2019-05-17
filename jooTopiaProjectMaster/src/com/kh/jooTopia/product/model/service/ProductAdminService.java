@@ -8,6 +8,7 @@ import com.kh.jooTopia.board.model.vo.Attachment;
 import com.kh.jooTopia.board.model.vo.PageInfo;
 import com.kh.jooTopia.product.model.dao.ProductAdminDao;
 import com.kh.jooTopia.product.model.vo.Product;
+import com.kh.jooTopia.product.model.vo.ProductregAdmin;
 
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
@@ -154,39 +155,66 @@ public class ProductAdminService {
 		return a;
 	}
 
-	public int updateDetailProduct(Product p, ArrayList<Attachment> fileList) {
+	public int updateDetailProduct(Product p, int[] fId, ArrayList<Attachment> fileList) {
 		//상품상세 수정
-		Connection con = getConnection();
+		Connection con = null;
 		int result = 0;
 		
 		//상품상세 내용 수정
-		int result1 = new ProductAdminDao().updateDetailProduct(con, p);
+		/*int result1 = new ProductAdminDao().updateDetailProduct(con, p);*/
 		
-		if(result1 > 0) {
-			System.out.println("--------------상품 상세내용 수정 완료");
-			//이미지 오리진네임, 체인지네임, 패스 수정 (메인, 상세 두번)
-			if(fileList.size() > 0) {
-				int result2 = new ProductAdminDao().updateDetailAttachment(con, fileList);
-				
-				if(result2 > 0) {
-					System.out.println("--------------상품 사진내용 수정 완료");
-					commit(con);
-					result = 1;
-				}else {
-					System.out.println("--------------상품 사진내용 수정 실패");
-					rollback(con);
-				}
-			}
-			result = 1;
-			
-		}else {
-			System.out.println("--------------상품 상세내용 수정 완료");
-			rollback(con);
-		}
+		//이미지 오리진네임, 체인지네임, 패스 수정 (메인, 상세 두번)
+		int result2 = 0;
 		
-		close(con);
 		
 		return result;
+	}
+
+	public ProductregAdmin selectOneAdminProductreg(int num) {
+		
+		Connection con = getConnection();
+		
+		ProductregAdmin p = new ProductAdminDao().selectOneAdminProductreg(con, num);
+		
+		if(p != null) {
+			int result = new ProductAdminDao().updateCount(con, p.getPcdId());
+			
+			if(result > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		}
+		close(con);
+		
+		return p;
+	}
+
+	public int insertAdminProductreg(Product p) {
+	
+		Connection con = getConnection();
+		
+		int result = new ProductAdminDao().insertAdminProductreg(con, p);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);		
+		
+		
+		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectSearchProduct(PageInfo pageInfo, String query) {
+		Connection con = getConnection();
+		ArrayList<HashMap<String, Object>> list = new ProductAdminDao().selectSearchProduct(pageInfo, query);
+		
+		System.out.println("서비스의 list : " + list);
+		close(con);
+		
+		return list;
 	}
 
 }

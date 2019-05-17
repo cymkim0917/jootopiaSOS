@@ -95,8 +95,8 @@
 					
 					<% for(int i =0; i<cart.size(); i++) { %>
 						<tr>
-							<td><input type="checkBox" name="selectCart" id="selectCart" />
-								<input type="hidden" value="<%= %>" />
+							<td><input type="checkBox" name="selectCart" id="selectCart" value="<%=cart.get(i).getCartId() %>" />
+						
 							</td>
 							<td>
 								<img src="<%= request.getContextPath() %>/images_upload/<%= cart.get(i).getChange_name() %>" alt="" style="width:100px; height:100px;" />

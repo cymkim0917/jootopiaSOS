@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.jooTopia.productreg.model.vo.*, java.util.*"%>
+	pageEncoding="UTF-8" import="com.kh.jooTopia.product.model.vo.*, java.util.*"%>
 	
-	<% ArrayList<ProductregAdmin> list = (ArrayList<ProductregAdmin>) request.getAttribute("list"); %>
+	<% ProductregAdmin p = (ProductregAdmin) request.getAttribute("p"); %> 
 	
 <!DOCTYPE html>
 <html>
@@ -50,6 +50,7 @@
 .btnArea {
 	margin-bottom: 30px;
 }
+
 </style>
 <title>JooTopia</title>
 </head>
@@ -82,43 +83,82 @@
 			</div>
 
 			<div class="listArea1" align="center">
-				<table class="separate" border="1">
-				<%-- for(ProductregAdmin p : list){ --%>
+				<form action="<%=request.getContextPath()%>/insertAdminProductreg.do" method="get">
+				<table class="separat<e></e>" border="1">
+				
 					<tr>
 						<td width="120">매입번호</td>
-						<td width="500"><%--= p.getPcdId() --%></td>
+						<td width="500"><%= p.getPcdId() %>
+						<input type="hidden" name="pcdId" value="<%= p.getPcdId() %>"></td>
 					</tr>
-					<!-- <tr>
-						<td width="120">매입가</td>
-						<td width="500"><input type="text" placeholder="매입가입력" size="117"></td>
-					</tr> -->
-					<!-- <tr>
+					<tr>
+						<td width="120">대분류</td>
+						<td width="500"><%= p.getcGroup() %>
+						<input type="hidden" name="cGroup" value="<%= p.getcGroup() %>"></td>
+					</tr>
+					<tr>
+						<td width="120">중분류</td>
+						<td width="500"><%= p.getName() %>
+						<input type="hidden" name="cName" value="<%= p.getName() %>"></td>
+					</tr>
+					<tr>
+						<td width="120">브랜드</td>
+						<td width="500"><%= p.getBrand() %>
+						<input type="hidden" name="pBrand" value="<%= p.getBrand() %>"></td>
+					</tr>
+					<tr>
+						<td width="120">모델</td>
+						<td width="500"><%= p.getModel() %>
+						<input type="hidden" name="pModel" value="<%= p.getModel() %>"></td>
+					</tr>
+					<tr>
+						<td width="120">사용기간</td>
+						<td width="500"><%= p.getuPeriod() %></td>
+					</tr>
+					<tr>
+						<td width="120">구매원가</td>
+						<td width="500" ><%= p.getpCost() %>
+						<input type="hidden" name="pCost" value="<%= p.getpCost() %>"></td>
+					</tr>
+					<tr>
+						<td width="120">판매희망가</td>
+						<td width="500"><%= p.gethCost() %></td>
+					</tr>
+					<tr>
+						<td width="120">메모</td>
+						<td width="500"><%= p.getMemo() %></td>
+					</tr>					
+					<tr>
+						<td width="120">상품명</td>
+						<td width="500"><input name="pName" size="50"></td>
+					</tr>
+					<tr>
 						<td width="120">상품등급</td>
 						<td width="500">
-						<select name='level'>
-								<option value='' selected>-- 선택 --</option>
-								<option value='high'>상</option>
-								<option value='middle'>중</option>
-								<option value='row'>하</option>
+						<select name="pGrade" id="">
+							<option value="">---선택---</option>
+							<option value="A">A</option>
+							<option value="B">B</option>
+							<option value="C">C</option>
+							<option value="D">D</option>
 						</select>
 						</td>
-					</tr> -->
-					<%-- } --%>
+					</tr>
 					<tr>
 						<td width="120">치수 및 비고</td>
-						<td width="500"><textarea id="pcontent" cols="120px" rows="5"></textarea></td>
-					</tr>
-					<!-- <tr>
-						<td width="120">비고</td>
-						<td width="500"><textarea id="text2" cols="120px" rows="5"></textarea></td>
-					</tr> -->
+						<td width="500"><textarea name="pContent" cols="120px" rows="5"></textarea></td>
+					</tr>					
 				</table>
-				<br />
-			</div>
-			<div align="center" class="btnArea">
-				<button type="button">등록</button>
+				<div align="center" class="btnArea">
+					<button type="submit">등록</button>
+				</div>
+				</form>
+				<br>
 			</div>
 		</div>
+			
+		
+		
 	</section>
 	<%@ include file="/views/common/adminFooter.jsp"%>
 </body>

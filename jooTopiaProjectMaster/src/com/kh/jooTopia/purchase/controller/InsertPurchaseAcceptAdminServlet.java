@@ -11,7 +11,7 @@ import com.kh.jooTopia.purchase.model.service.PurchaseAdminService;
 import com.kh.jooTopia.purchase.model.service.PurchaseDetailService;
 import com.kh.jooTopia.purchase.model.vo.PurchaseDetail;
 
-// @WebServlet("/insertPurchasAccept.do")
+@WebServlet("/insertPCAdminAccept.do")
 public class InsertPurchaseAcceptAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -27,7 +27,6 @@ public class InsertPurchaseAcceptAdminServlet extends HttpServlet {
 		pcd.setpBarcode(pBarcode);
 		pcd.setPcid(pcid);
 		
-		// 바코드 api를 이용해서 바코드 생성
 		int result = new PurchaseDetailService().insertPCDaccept(pcd);
 		
 		if(result > 0) {

@@ -15,6 +15,7 @@ import java.util.Properties;
 import com.kh.jooTopia.board.model.vo.Attachment;
 import com.kh.jooTopia.board.model.vo.PageInfo;
 import com.kh.jooTopia.product.model.vo.Product;
+import com.kh.jooTopia.product.model.vo.ProductregAdmin;
 
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
@@ -465,58 +466,142 @@ public class ProductAdminDao {
 		return a;
 	}
 
-	public int updateDetailProduct(Connection con, Product p) {
-		//상품 상세내용 수정
+	public ProductregAdmin selectOneAdminProductreg(Connection con, int num) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ProductregAdmin p = null;
+		
+		String query = prop.getProperty("selectOneProductregAdmin");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				p = new ProductregAdmin();
+				
+				p.setPcdId(rset.getInt("PCDID"));
+				p.setBrand(rset.getString("BRAND"));
+				p.setcGroup(rset.getString("CGROUP"));
+				p.setName(rset.getString("NAME"));
+				p.setModel(rset.getString("MODEL"));
+				p.setuPeriod(rset.getString("USE_PERIOD"));
+				p.setpCost(rset.getInt("PRIME_COST"));
+				p.sethCost(rset.getInt("HOPE_COST"));
+				p.setMemo(rset.getString("MEMO"));
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return p;
+	}
+
+	public int updateCount(Connection con, int pcdId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int insertAdminProductreg(Connection con, Product p) {
+		
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("updateDetailProduct");
-
+		String query = prop.getProperty("insertAdminProductreg");
+		
 		try {
 			pstmt = con.prepareStatement(query);
 			
 			pstmt.setString(1, p.getpName());
 			pstmt.setInt(2, p.getpPrice());
 			pstmt.setString(3, p.getpContent());
-			pstmt.setInt(4, p.getcId());
-			pstmt.setInt(5, p.getpId());
+			pstmt.setString(4, p.getpGrade());
+			pstmt.setString(5, p.getpBrand());
+			pstmt.setString(6, p.getpModelName());
+			pstmt.setInt(7, p.getcId());
+			pstmt.setInt(8, p.getPcDId());
 			
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
+		}finally {
+			
 			close(pstmt);
 		}
+		
+		
+		
 		
 		return result;
 	}
 
-	public int updateDetailAttachment(Connection con, ArrayList<Attachment> fileList) {
-		//상품상세 사진 수정
-		
+	public ArrayList<HashMap<String, Object>> selectSearchProduct(PageInfo pageInfo, String query) {
 		PreparedStatement pstmt = null;
-		int result = 0;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String,Object> hmap = null;
 		
-		String query = prop.getProperty("updateDetailAttachment");
+		int startRow = (pageInfo.getCurrentPage()-1)*pageInfo.getLimit()+1;
+		int endRow = startRow + pageInfo.getLimit()-1;
+		
+		System.out.println("startRow : " + startRow);
+		System.out.println("endRow : " + endRow);
+		
+		String queryFront = prop.getProperty("selectSearchProductFront");
+		String queryBack = prop.getProperty("selectSearchProductBack");
+		
+		String queryEnd = queryFront + query + " " + queryBack;
+		
+		System.out.println("dao의 전체 완성쿼리 : " + queryEnd);
 		
 		try {
-			pstmt = con.prepareStatement(query);
-			for(Attachment a : fileList) {
-				pstmt.setString(1, a.getOriginName());
-				pstmt.setString(2, a.getChangeName());
-				pstmt.setString(3, a.getFilePath());
-				pstmt.setInt(4, a.getfId());
+			pstmt = getConnection().prepareStatement(queryEnd);
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
 				
-				result += pstmt.executeUpdate();
+				hmap.put("status", rset.getString("STATUS"));
+				hmap.put("cGroup", rset.getString("CGROUP"));
+				hmap.put("cName", rset.getString("NAME"));
+				hmap.put("pId", rset.getInt("PID"));
+				hmap.put("fId", rset.getInt("FID"));
+				hmap.put("originName", rset.getString("ORIGIN_NAME"));
+				hmap.put("changeName", rset.getString("CHANGE_NAME"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				hmap.put("pName", rset.getString("PNAME"));
+				hmap.put("pPrice", rset.getInt("PPRICE"));
+				hmap.put("sale", rset.getInt("GRADESALES"));
+				
+				list.add(hmap);
 			}
+			
+			System.out.println("dao의 list : " + list);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			close(rset);
 			close(pstmt);
 		}
 		
-		return result;
+		return list;
 	}
 }

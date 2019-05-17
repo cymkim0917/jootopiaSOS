@@ -65,15 +65,27 @@ public class UpdateAdminNoticeServlet extends HttpServlet {
 			int multibId =Integer.parseInt(multiReq.getParameter("bId"));
 			int img1Fid = Integer.parseInt(multiReq.getParameter("img1Fid"));
 			int img2Fid = Integer.parseInt(multiReq.getParameter("img2Fid"));
+			int [] fId = {img1Fid, img2Fid};
+			
 			
 			Board board = new Board();
 			board.setbId(multibId);
 			board.setbTitle(multiTitle);
 			board.setbContent(multiContent);
 			
+			Attachment originFile1 = null;
+			Attachment originFile2 = null;
 			
-			System.out.println("img1:" + img1Fid);
-			System.out.println("img2:" + img2Fid);
+			originFile1 = new BoardAdminService().selectAttach(fId[0]);
+			originFile2 = new BoardAdminService().selectAttach(fId[1]);
+				
+			
+			File updateDeleteFile1 = new File(originFile1.getFilePath()+originFile1.getChangeName());
+			File updateDeleteFile2 = new File(originFile2.getFilePath()+originFile2.getChangeName());
+			
+			
+			/*System.out.println("img1:" + img1Fid);
+			System.out.println("img2:" + img2Fid);*/
 			
 			
 			ArrayList<Attachment> fileList = new ArrayList<Attachment>();
@@ -83,8 +95,8 @@ public class UpdateAdminNoticeServlet extends HttpServlet {
 				 attach.setFilePath(filePath);
 				 attach.setOriginName(originFiles.get(i));
 				 attach.setChangeName(saveFiles.get(i));
-				 System.out.println("수정하는"+attach.getOriginName());
-				 System.out.println(attach.getChangeName());
+				 attach.setfId(fId[i]);
+				
 				 fileList.add(attach);
 			 }
 			
@@ -92,6 +104,8 @@ public class UpdateAdminNoticeServlet extends HttpServlet {
 			
 			if(result>0) {
 				 response.sendRedirect(request.getContextPath()+"/adminBoardList.do");
+				 updateDeleteFile1.delete();
+				 updateDeleteFile2.delete();
 				 
 			 }else {
 				 for(int i=0; i<saveFiles.size(); i++) {

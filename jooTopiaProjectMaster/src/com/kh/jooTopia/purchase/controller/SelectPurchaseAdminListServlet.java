@@ -22,13 +22,8 @@ public class SelectPurchaseAdminListServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		ArrayList<HashMap<String, Object>> list;
-		
 		list = new PurchaseAdminService().selectList();
-		
-		
-		
 		
 		if(list != null) {
 			request.setAttribute("list", list);
