@@ -80,8 +80,8 @@
 						<td width="120">적치일자 등록</td>
 						<td id="selectDate" colspan="2">
 						<input type="date" name="hDate">					
-					</td> -->
-					</tr>
+					</td> 
+					</tr>-->
 					<tr>
 						<td width="120">위치번호</td>
 						<td width="500">
