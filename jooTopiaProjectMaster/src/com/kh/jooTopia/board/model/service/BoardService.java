@@ -272,6 +272,15 @@ public class BoardService {
 		
 		
 	}
+	public HashMap<String, Object> selectReviewTotalList() {
+		Connection con = getConnection();
+		HashMap<String, Object> list = new BoardDao().selectReviewTotalList(con);
+		close(con);
+		
+		return list;
+		
+		
+	}
 	
 	
 }

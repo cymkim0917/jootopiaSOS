@@ -724,4 +724,86 @@ public class BoardDao {
 		
 	}
 
+	public HashMap<String, Object> selectReviewTotalList(Connection con) {
+
+		Statement stmt = null;
+		ResultSet rset = null;
+		HashMap<String,Object> list = null;
+		ArrayList<Board> bList = null;
+		ArrayList<Member> mList = null;
+		ArrayList<Attachment> aList = null;
+		//ArrayList<HashMap<String,Object>> list = null;
+		
+		String quary = prop.getProperty("selectReviewTotalList");
+		
+		try {
+			stmt=con.createStatement();
+			rset = stmt.executeQuery(quary);
+			bList = new ArrayList<Board>();
+			mList = new ArrayList<Member>();
+			aList = new ArrayList<Attachment>();
+			list = new HashMap<String,Object>();
+			//list = new ArrayList<HashMap<String,Object>>();
+			
+			while(rset.next()) {
+				//list=new HashMap<String,Object>();
+				Board b = new Board();
+				b.setbId(rset.getInt("BID"));
+				b.setbNo(rset.getInt("BNO"));
+				b.setbTitle(rset.getString("BTITLE"));
+				b.setbContent(rset.getString("BCONTENT"));
+				b.setbCount(rset.getInt("BCOUNT"));
+				b.setbDate(rset.getDate("BDATE"));
+				bList.add(b);
+				
+				Member m = new Member();
+				m.setUserId(rset.getString("USER_ID"));
+				mList.add(m);
+				
+				Attachment a = new Attachment();
+				a.setfId(rset.getInt("FID"));
+				a.setOriginName(rset.getString("ORIGIN_NAME"));
+				a.setChangeName(rset.getString("CHANGE_NAME"));
+				a.setFilePath(rset.getString("FILE_PATH"));
+				a.setUploadDate(rset.getDate("UPLOAD_DATE"));
+				aList.add(a);
+				
+				
+				
+				
+				/*list.put("bid", rset.getInt("BID"));
+				list.put("bno", rset.getInt("BNO"));
+				list.put("btitle", rset.getString("BTITLE"));
+				list.put("bcontent", rset.getString("BCONTENT"));
+				list.put("userId", rset.getString("USERID"));
+				//list.put("bwriter", rset.getString("NICK_NAME"));
+				list.put("bcount", rset.getInt("BCOUNT"));
+				list.put("bdate", rset.getDate("BDATE"));
+				list.put("fid", rset.getInt("FID"));
+				list.put("originName", rset.getString("ORIGIN_NAME"));
+				list.put("changeName", rset.getString("CHANGE_NAME"));
+				list.put("filePath", rset.getString("FILE_PATH"));
+				list.put("uploadDate", rset.getDate("UPLOAD_DATE"));
+				
+				list.add(list);
+				*/
+			}
+			list.put("bList", bList);
+			list.put("mList", mList);
+			list.put("aList", aList);
+			System.out.println(list.get("bList"));
+			System.out.println(list.get("mList"));
+			System.out.println(list.get("aList"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+			
+		}
+		return list;
+		
+	}
+
 }
