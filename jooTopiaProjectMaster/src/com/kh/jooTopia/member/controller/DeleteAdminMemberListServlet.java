@@ -14,16 +14,16 @@ import com.kh.jooTopia.member.model.service.MemberAdminService;
 import com.kh.jooTopia.member.model.vo.Member;
 
 /**
- * Servlet implementation class SelectAdminMemberServlet
+ * Servlet implementation class DeleteAdminMemberListServlet
  */
-@WebServlet("/selectAdminMember.do")
-public class SelectAdminMemberServlet extends HttpServlet {
+@WebServlet("/deleteAdminMember.do")
+public class DeleteAdminMemberListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectAdminMemberServlet() {
+    public DeleteAdminMemberListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -46,7 +46,7 @@ public class SelectAdminMemberServlet extends HttpServlet {
 		
 		limit = 10;
 		
-		int listCount = new MemberAdminService().getMemberListCount();
+		int listCount = new MemberAdminService().getdeleteMemberCount();
 		
 		maxPage = (int)((double)listCount/limit+0.9);
 		
@@ -60,23 +60,19 @@ public class SelectAdminMemberServlet extends HttpServlet {
 		
 		PageInfo pageInfo = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
 		
-		ArrayList<Member> list = new MemberAdminService().selectMemberList(pageInfo);
+		ArrayList<Member> list = new MemberAdminService().deleteMemberList(pageInfo);
 		
 		String page = "";
 		
 		if(list != null) {
-			page="/views/admin/member/member.jsp";
+			page="views/admin/member/deleteMemberList.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pageInfo", pageInfo);
-		
 		}else {
-			page="/views/common/errorPage500.jsp";
+			page = "/views/common/errorPage500.jsp";
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);
-		
-		
-		
 	}
 
 	/**

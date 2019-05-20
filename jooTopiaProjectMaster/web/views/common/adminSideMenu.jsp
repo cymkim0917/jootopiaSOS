@@ -19,10 +19,10 @@
 		<% if(root.equals("member")) { %>
 		
 		<div class="sideMenu" id="sideMenu1">
-			<div class="sideMenuBtn" id="memberSide1" onclick="location.href='member.jsp'">회원조회</div>
+			<div class="sideMenuBtn" id="memberSide1" onclick="location.href='/jootopia/selectAdminMember.do'">회원조회</div>
 		</div>
 		<div class="sideMenu" id="sideMenu2">
-			<div class="sideMenuBtn" id="memberSide2" onclick="location.href='deleteMemberList.jsp'">탈퇴회원 조회</div>
+			<div class="sideMenuBtn" id="memberSide2" onclick="location.href='/jootopia/deleteAdminMember.do'">탈퇴회원 조회</div>
 		</div>
 		
 		<% }else if(root.equals("board")) { %>
