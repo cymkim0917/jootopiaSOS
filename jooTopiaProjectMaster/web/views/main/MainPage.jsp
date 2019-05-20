@@ -122,8 +122,9 @@
 		<br>
 		<div class = "totalList">
 			<div class = "photogroup">
-				<table class="photogtoup1" align="center">
-					<tr>
+				<table class="photogtoup1" align="center" id="productGroupTable">
+					<tbody>
+				<!-- 	<tr>
 						<td align="center">
 							<a href="/jootopia/views/notice/productListPlus.jsp"><img src="/jootopia/images/bed1.jpg"  width="300px" height="300px"></a>
 							<p>삼성 15인치 세탁기</p>
@@ -188,12 +189,64 @@
 							<p>삼성 15인치 세탁기</p>
 							<p>125,000원</p>
 						</td> 
-					</tr>
+					</tr> -->
+					</tbody>
 				</table>
 			</div>
 		</div>
 	</section>
 	
 	<%@ include file="/views/common/adminFooter.jsp" %>
+	
+	<script>
+		$(function(){  	
+		    $.ajax({
+		    	url:"<%= request.getContextPath() %>/selectProduct.do",
+		    	type:"post",
+		    	success:function(data){
+		    		console.log(data);
+		    		var $productGroupTable = $("#productGroupTable>tbody");
+		    		$productGroupTable.html('');
+		    		
+		    		var index = 0;
+		    		var $tr = $('<tr>');
+		    		
+		    		for(var key in data){
+		    			console.log(data[key].pid);
+		    		if(index < 4){
+		    			var $td = $('<td>');
+		    			
+		    			var $a = $('<a>');
+		    			
+		    			var $img = $('<img>');
+		    			var $pnamep = $('<p>').text(data[key].pname);	
+		    			var $pricep = $('<p>').text(data[key].pprice);
+		    			
+		    			$a.attr('href','<%= request.getContextPath() %>/detailProduct.do?num='+ data[key].pid);
+		    			
+		    			$img.attr('src','<%= request.getContextPath() %>/images/product/'+ data[key].change_name);
+		    			$img.attr('width','300px');
+		    			$img.attr('height','300px');
+		    			
+		    			$a.append($img);
+		    			$td.append($a);
+		    			$td.append($pnamep);
+		    			$td.append($pricep);
+		    			index++;
+		    			$tr.append($td);
+		    				}else{
+		    			$productGroupTable.append($tr);	
+		    					index=0;
+		    					$tr = $('<tr>');
+		    				}
+		    			}
+		    			
+		    		if(index >= 1){
+		    			$productGroupTable.append($tr);	
+		    		}
+		    	}	    	
+		    })	
+		})
+	</script>
 </body>
 </html>
