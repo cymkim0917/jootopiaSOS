@@ -1,8 +1,7 @@
 package com.kh.jooTopia.release.controller;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.util.GregorianCalendar;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,37 +32,28 @@ public class InsertAdminReleaseServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String releaseNo = request.getParameter("releaseNo");
-		String releaseDate = request.getParameter("releaseDate");
-		
-		java.sql.Date day = null;
-		
-		if(releaseDate != "") {
-			day = Date.valueOf(releaseDate);
-		}else {
-			day = new java.sql.Date(new GregorianCalendar().getTimeInMillis());
-		}
+		int pId = Integer.parseInt(request.getParameter("pId"));
+		int poId = Integer.parseInt(request.getParameter("poId"));
+		/*int dId = Integer.parseInt(request.getParameter("dId"));
+		int hId = Integer.parseInt(request.getParameter("hId"));
+		int lBarcode = Integer.parseInt(request.getParameter("lBarcode"));*/		
 		
 		ReleaseAdmin r = new ReleaseAdmin();
+		r.setPoId(poId);
+		r.setpId(pId);
 		
-		//r.setReleaseNo(releaseNo);
-		//r.setReleaseDate(day);
-		
-		//int result = new ReleaseAdminService().insertAdminRelease(r);
+				
+		int result = new ReleaseAdminService().insertAdminRelease(r);
 		
 		String page = "";
-		/*if(result > 0) {
-			//response.sendRedirect("/jooTopia/listAdminRelease.do");
-			response.sendRedirect("views/admin/storage/releaseList");
+		if(result > 0) {
+			page = "/jootopia/selectAdminRelease.do";
+			response.sendRedirect(page);
 		}else {
 			page = "views/common/errorPage500.jsp";
 			request.setAttribute("msg","실패");
 			request.getRequestDispatcher(page).forward(request,response);
-		}
-		*/
-		
-		
-		
+		}		
 		
 	}
 

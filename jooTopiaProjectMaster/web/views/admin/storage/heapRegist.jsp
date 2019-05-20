@@ -76,11 +76,11 @@
 						<input type="hidden" name="pId" value="<%= h.getpId() %>">
 						</td>
 					</tr>					
-					<tr>
+					<!-- <tr>
 						<td width="120">적치일자 등록</td>
 						<td id="selectDate" colspan="2">
 						<input type="date" name="hDate">					
-					</td>
+					</td> -->
 					</tr>
 					<tr>
 						<td width="120">위치번호</td>

@@ -34,7 +34,7 @@ public class ReleaseAdminDao {
 
 	public ArrayList<ReleaseAdmin> selectAdminList(Connection con) {
 		
-		Statement stmt = null;
+		/*Statement stmt = null;
 		ResultSet rset = null;
 		ArrayList<ReleaseAdmin> list = null;
 		
@@ -48,8 +48,10 @@ public class ReleaseAdminDao {
 			while(rset.next()) {
 				ReleaseAdmin r = new ReleaseAdmin();
 				
+				r.setStatus(rset.getString("STATUS"));
 				r.setPoId(rset.getInt("POID"));
 				r.setdId(rset.getInt("DID"));
+				r.setpId(rset.getInt("PID"));
 				r.sethId(rset.getInt("HID"));
 				r.setlBarcode(rset.getInt("LBARCODE"));				
 				
@@ -66,7 +68,44 @@ public class ReleaseAdminDao {
 		
 		
 		
+		return list;*/
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<ReleaseAdmin> list = null;
+		
+		String query = prop.getProperty("selectList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "결재완료");
+			rset = pstmt.executeQuery();
+			list = new ArrayList<ReleaseAdmin>();
+			System.out.println(list);
+			
+			while(rset.next()) {
+				ReleaseAdmin r = new ReleaseAdmin();
+				
+				r.setStatus(rset.getString("STATUS"));
+				r.setPoId(rset.getInt("POID"));
+				r.setdId(rset.getInt("DID"));
+				r.setpId(rset.getInt("PID"));
+				r.sethId(rset.getInt("HID"));
+				r.setlBarcode(rset.getInt("LBARCODE"));				
+				
+				list.add(r);
+			}
+			System.out.println(list);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
 		return list;
+		
+		
 	}
 
 	public ArrayList<ReleaseAdmin> selectAdminReleaseList(Connection con) {
@@ -125,15 +164,48 @@ public class ReleaseAdminDao {
 			if(rset.next()) {
 				r = new ReleaseAdmin();
 				
-				
+				r.setpId(rset.getInt("PID"));
+				r.setPoId(rset.getInt("POID"));
+				r.setdId(rset.getInt("DID"));
+				r.sethId(rset.getInt("HID"));
+				r.setlBarcode(rset.getInt("LBARCODE"));
 			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
 		}
 		
-		return null;
+		return r;
+	}
+
+	public int insertAdminRelease(Connection con, ReleaseAdmin r) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertAdminRelease");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, r.getPoId());
+			pstmt.setInt(2, r.getpId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 	

@@ -42,7 +42,7 @@
 						<input type="search" placeholder="검색 단어를 입력하세요." width="20px">
 					</td>
 				</tr>
-				<tr>
+				<!-- <tr>
 					<td>상품 카테고리</td>
 					<td colspan="2">
 						&nbsp;<select id="searchCategory" onchange="smallCategoty(this.value)">
@@ -56,14 +56,14 @@
 							<option value="">- 중분류 -
 						</select>
 					</td>
-				</tr>
-				<tr>
+				</tr> -->
+				<%-- <tr>
 					<td>적치일자</td>
 					<td id="selectDate" colspan="2">						
-						<input type="date" id="startDate" name="startDate" class="date" <%-- value="<%= startDay %>" --%>> ~ 
-						<input type="date" id="endDate" name="endDate" class="date" <%-- value="<%= endDay %>" --%>>
+						<input type="date" id="startDate" name="startDate" class="date" value="<%= startDay %>"> ~ 
+						<input type="date" id="endDate" name="endDate" class="date" value="<%= endDay %>">
 					</td>
-				</tr>				
+				</tr> --%>				
 			</table>
 			
 			<br>

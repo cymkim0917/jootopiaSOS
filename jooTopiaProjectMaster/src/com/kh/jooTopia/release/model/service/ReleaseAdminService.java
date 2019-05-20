@@ -23,7 +23,7 @@ public class ReleaseAdminService {
 
 	public ArrayList<ReleaseAdmin> selectAdminReleaseList() {
 		
-Connection con = getConnection();
+		Connection con = getConnection();
 		
 		ArrayList<ReleaseAdmin> rlist = new ReleaseAdminDao().selectAdminReleaseList(con);
 		
@@ -41,6 +41,22 @@ Connection con = getConnection();
 		close(con);
 		
 		return r;
+	}
+
+	public int insertAdminRelease(ReleaseAdmin r) {
+		
+		Connection con = getConnection();
+		
+		int result = new ReleaseAdminDao().insertAdminRelease(con, r);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
 	}
 
 	

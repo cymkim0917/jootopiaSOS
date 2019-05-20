@@ -37,7 +37,7 @@ public class SelectOneAdminReleaseServlet extends HttpServlet {
 		String page = "";
 		
 		if(r != null) {
-			page = "views/admin/storage/releaseRegist";
+			page = "views/admin/storage/releaseRegist.jsp";
 			request.setAttribute("r", r);
 		}else {
 			page = "views/admin/common/errorPage500.jsp";
