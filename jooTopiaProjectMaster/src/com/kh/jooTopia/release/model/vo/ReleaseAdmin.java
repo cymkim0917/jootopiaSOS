@@ -16,11 +16,12 @@ public class ReleaseAdmin implements java.io.Serializable{
 	private Date rlDate;	//RLDATE - 출고일자
 	private Date hDate;		//HDATE - 적치일자
 	private String pContent;//PCONTENT - 상품상세정보
+	private String status;	//STATUS - 상태
 	
 	public ReleaseAdmin() {}
 
 	public ReleaseAdmin(int pId, int hId, int rlId, int pcdId, String cGroup, String name, int poId, int dId,
-			int lBarcode, Date rlDate, Date hDate, String pContent) {
+			int lBarcode, Date rlDate, Date hDate, String pContent, String status) {
 		super();
 		this.pId = pId;
 		this.hId = hId;
@@ -34,6 +35,7 @@ public class ReleaseAdmin implements java.io.Serializable{
 		this.rlDate = rlDate;
 		this.hDate = hDate;
 		this.pContent = pContent;
+		this.status = status;
 	}
 
 	public int getpId() {
@@ -132,13 +134,22 @@ public class ReleaseAdmin implements java.io.Serializable{
 		this.pContent = pContent;
 	}
 
-	@Override
-	public String toString() {
-		return "ProductregAdmin [pId=" + pId + ", hId=" + hId + ", rlId=" + rlId + ", pcdId=" + pcdId + ", cGroup="
-				+ cGroup + ", name=" + name + ", poId=" + poId + ", dId=" + dId + ", lBarcode=" + lBarcode + ", rlDate="
-				+ rlDate + ", hDate=" + hDate + ", pContent=" + pContent + "]";
+	public String getStatus() {
+		return status;
 	}
 
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "ReleaseAdmin [pId=" + pId + ", hId=" + hId + ", rlId=" + rlId + ", pcdId=" + pcdId + ", cGroup="
+				+ cGroup + ", name=" + name + ", poId=" + poId + ", dId=" + dId + ", lBarcode=" + lBarcode + ", rlDate="
+				+ rlDate + ", hDate=" + hDate + ", pContent=" + pContent + ", status=" + status + "]";
+	}
+
+	
 	
 
 

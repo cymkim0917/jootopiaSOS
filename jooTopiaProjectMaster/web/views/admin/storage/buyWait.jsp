@@ -13,11 +13,7 @@
 <script src="/jootopia/js/external/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/jootopia/css/admin/adminCommon.css">
 <title>JooTopia</title>
-<style>
-/* .table th {
-	text-align: left;
-} */
-</style>
+
 </head>
 <body>
 	<%@ include file="/views/common/adminNavigation.jsp"%>
@@ -28,7 +24,7 @@
 			<h3 class="title">매입리스트</h3>
 			<hr>
 
-			<div class="searchArea">
+			<!-- <div class="searchArea">
 				<table id="searchBox" border="1" align="center">
 					<tr>
 						<th colspan="3"
@@ -61,14 +57,15 @@
 					<input type="submit" value="검색" onclick=""> <input
 						type="reset" value="초기화" onclick="">
 				</div>
-			</div>
+			</div> -->
 
-			<br>
+			<!-- <br>
 			<br>
 			
 			<br>
 			<br>
 			<br>
+			<br> -->
 			<br>
 
 			<div class="container">
@@ -97,36 +94,6 @@
 				</table>
 			</div>
 
-
-
-
-			<!-- db 생기면 적용 -->
-			<%-- <script>
-				$(function(){
-					<% for(Product p : list){ %>
-					
-					var $tableBody = $("table tbody");
-					
-					var $tr = $("<tr>");
-					var $idTd = $("<td>").text('<%= p.get상품코드()%>');
-					var $phoneTd = $("<td>").text('<%= p.get대분류() %>');
-					var $addressTd = $("<td>").text('<%= p.get중분류() %>');			
-					var $nameTd = $("<td>").text('<%= p.get아이디()%>');				
-					var $emailTd = $("<td>").text('<%= p.get주문자명() %>');					
-					
-					$tr.append($상품코드Td);
-					$tr.append($대분류Td);
-					$tr.append($중분류Td);
-					$tr.append($아이디Td);
-					$tr.append($주문자명Td);					
-					
-					$tableBody.append($tr);					
-					
-					<% } %>
-				});
-			</script> --%>
-
-
 			<br />
 			<div align="center">
 				<ul class="pagination">
@@ -150,9 +117,7 @@
 				$(this).parent();
 			}).click(function(){
 				var num = $(this).parent().children().eq(0).text();
-				console.log(num);
-				<%-- location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num; --%>
-				<%-- location.href="<%=request.getContextPath()%>/views/admin/storage/productreg.jsp?num=" + num; --%>
+				console.log(num);				
 				location.href="<%=request.getContextPath()%>/selectOneAdminProductr.do?num=" + num;
 			})
 		})

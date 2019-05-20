@@ -44,13 +44,13 @@
 						</select> <input type="search" placeholder="검색 단어를 입력하세요." width="20px">
 						</td>
 					</tr>
-					<tr>
+					<%-- <tr>
 						<td>출고일자</td>
 						<td id="selectDate" colspan="2">&nbsp;						
-						<input type="date" id="startDate" name="startDate" class="date"<%-- value="<%= startDay %>" --%>>
-							~ <input type="date" id="endDate" name="endDate" class="date"<%-- value="<%= endDay %>" --%>>
+						<input type="date" id="startDate" name="startDate" class="date"value="<%= startDay %>">
+							~ <input type="date" id="endDate" name="endDate" class="date"value="<%= endDay %>">
 						</td>
-					</tr>
+					</tr> --%>
 				</table>
 
 				<br>
@@ -65,7 +65,7 @@
 
 			<div class="container">
 
-				<table class="table table-striped" id="test1">
+				<table class="table table-striped">
 					<thead>
 					<tr>
 						<th>No.</th>

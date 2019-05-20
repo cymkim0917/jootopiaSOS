@@ -34,17 +34,17 @@
 				<table class="table table-hover" id="test1">
 					<thead>
 						<tr>
-							<th>No.</th>							
+							<!-- <th>No.</th> -->							
 							<th>상품번호</th>
 							<th>상품명</th>
 							<th>대분류</th>
 							<th>중분류</th>						
 						</tr>
 					</thead>
-					<% int i = 0; for(HeapAdmin h : list){ i++;%>
+					<% /* int i = 0; */ for(HeapAdmin h : list){ /* i++; */%>
 					<tbody>
 						<tr>
-							<td><%= i %></td>							
+							<%-- <td><%= i %></td> --%>							
 							<td><%= h.getpId() %></td>
 							<td><%= h.getpName() %></td>
 							<td><%= h.getcGroup() %></td>

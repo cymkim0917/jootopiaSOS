@@ -34,24 +34,24 @@
 				<table class="table table-hover" id="test1">
 					<thead>
 					<tr>
-						<th>No.</th>
+						<!-- <th>No.</th> -->
+						<th>상태</th>
 						<th>주문번호</th>
 						<th>배송번호</th>
+						<th>상품번호</th>
 						<th>적치번호</th>
 						<th>위치바코드</th>
 					</tr>
 				</thead>
-				<% int i = 0; for(ReleaseAdmin r : list){ i++;%>
+				<% for(ReleaseAdmin r : list){ %>
 				<tbody>
 					<tr>
-						<td><%= i %></td>
+						<td><%= r.getStatus() %></td>						
 						<td><%= r.getPoId() %></td>
 						<td><%= r.getdId() %></td>
+						<td><%= r.getpId() %></td>
 						<td><%= r.gethId() %></td>
-						<td><%= r.getlBarcode() %></td>
-						
-						
-						
+						<td><%= r.getlBarcode() %></td>						
 					</tr>
 					<% } %>
 					
@@ -83,11 +83,11 @@
 			}).mouseout(function(){
 				$(this).parent();
 			}).click(function(){
-				var num = $(this).parent().children().eq(0).text();
+				var num = $(this).parent().children().eq(0).text();				
 				console.log(num);
 				<%-- location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num; --%>
 				<%-- location.href="<%=request.getContextPath()%>/insertAdminRelease.do"; --%>
-				location.href="<%=request.getContextPath()%>selectOneAdminRelease.do?num=" + num;
+				location.href="<%=request.getContextPath()%>/selectOneAdminRelease.do?num=" + num;
 				/* location.href="views/admin/storage/releaseRegist.jsp"; */
 			})
 		})
