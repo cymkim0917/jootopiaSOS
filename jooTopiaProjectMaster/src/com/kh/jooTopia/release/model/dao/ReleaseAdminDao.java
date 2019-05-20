@@ -77,7 +77,7 @@ public class ReleaseAdminDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, "결재완료");
+			pstmt.setString(1, "결제완료");
 			rset = pstmt.executeQuery();
 			list = new ArrayList<ReleaseAdmin>();
 			System.out.println(list);

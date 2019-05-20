@@ -217,4 +217,17 @@ public class ProductAdminService {
 		return list;
 	}
 
+	public int insertPAttachment(Product p, ArrayList<Attachment> fileList) {
+		
+		Connection con = getConnection();
+		int result = 0;
+		//사진 insert
+		int resultA = new ProductAdminDao().insertAttachment(con, fileList, p);
+		
+		//상품 insert
+		int resultP = new ProductAdminDao().insertAdminProductreg(con, p);
+		
+		return result;
+	}
+
 }

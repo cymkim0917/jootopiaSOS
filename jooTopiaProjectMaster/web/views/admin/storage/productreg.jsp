@@ -31,20 +31,34 @@
 	border: 1px solid #ccc;
 }
 
-.imgArea1 img {
-	width: 500px;
+#mainImg1 {
+	width: 550px;
 	height: 400px;
 	margin-bottom: 20px;
 	border: 2px solid orangered;
+	
 
 }
 
-.imgArea2 img {
+#subImg1{
 	width: 165px;
 	height: 120px;
 	margin-bottom: 20px;
 	border: 2px solid orangered;
+	float:left;
+	margin-right:1%;
+	margin-left:4%;
+	
+}
 
+#subImg2, #subImg3 {
+	width: 165px;
+	height: 120px;
+	margin-bottom: 20px;
+	border: 2px solid orangered;
+	float:left;
+	margin-right:1%;
+	
 }
 
 .btnArea {
@@ -63,28 +77,36 @@
 			<h3 class="title">상품등록</h3>
 			<hr>
 			<br />
-
-			<div class="imgArea1" align="center">
-				<div id="ImgArea1">
-					<img src="/jootopia/images/so.jpg" id="Img1">					
-				</div>
-			</div>
-			<div class="imgArea2" align="center">
-				<div id="ImgArea1">
-					<img src="/jootopia/images/so.jpg" id="Img1">
-					<img src="/jootopia/images/so.jpg" id="Img2">
-					<img src="/jootopia/images/so.jpg" id="Img3">				
-				</div>
-				<div id="ImgArea1">
-					<img src="/jootopia/images/so.jpg" id="Img4">
-					<img src="/jootopia/images/so.jpg" id="Img5">
-					<img src="/jootopia/images/so.jpg" id="Img6">				
-				</div>
-			</div>
-
+			
 			<div class="listArea1" align="center">
-				<form action="<%=request.getContextPath()%>/insertAdminProductreg.do" method="get">
-				<table class="separat<e></e>" border="1">
+				<form action="<%=request.getContextPath()%>/insertAdminProductreg.do" method="post">
+				<table >
+					<tr>
+						<td>
+							<div id="mainImg1">
+								<img  id="Img1" width="545px" height="395px">					
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+						
+							<div id="subImg1">
+								<img  id="Img2" width="160px" height="115px">
+							</div>
+							<div id="subImg2">
+								<img  id="Img3" width="160px" height="115px">
+							</div>
+							<div id="subImg3">
+								<img  id="Img4" width="160px" height="115px">
+							</div>
+						
+						</td>
+					</tr>
+				</table>			
+				
+				
+				<table class="separate" border="1">
 				
 					<tr>
 						<td width="120">매입번호</td>
@@ -113,7 +135,8 @@
 					</tr>
 					<tr>
 						<td width="120">사용기간</td>
-						<td width="500"><%= p.getuPeriod() %></td>
+						<td width="500"><%= p.getuPeriod() %>
+						<input type="hidden" name="uPeriod" value="<%= p.getuPeriod() %>"></td>
 					</tr>
 					<tr>
 						<td width="120">구매원가</td>
@@ -122,11 +145,13 @@
 					</tr>
 					<tr>
 						<td width="120">판매희망가</td>
-						<td width="500"><%= p.gethCost() %></td>
+						<td width="500"><%= p.gethCost() %>
+						<input type="hidden" name="hCost" value="<%= p.gethCost() %>"></td>
 					</tr>
 					<tr>
 						<td width="120">메모</td>
-						<td width="500"><%= p.getMemo() %></td>
+						<td width="500"><%= p.getMemo() %>
+						<input type="hidden" name="Memo" value="<%= p.getMemo() %>"></td>
 					</tr>					
 					<tr>
 						<td width="120">상품명</td>
@@ -152,12 +177,53 @@
 				<div align="center" class="btnArea">
 					<button type="submit">등록</button>
 				</div>
+				<div id="fileArea">
+					<input type="file" id="thumbnailImg1" name="ThumbnailImg1" onchange="LoadImg(this,1)">
+					<input type="file" id="thumbnailImg2" name="ThumbnailImg2" onchange="LoadImg(this,2)" />
+					<input type="file" id="thumbnailImg3" name="ThumbnailImg3" onchange="LoadImg(this,3)" />
+					<input type="file" id="thumbnailImg4" name="ThumbnailImg4" onchange="LoadImg(this,4)"/>
+				
+				</div>
 				</form>
 				<br>
 			</div>
 		</div>
 			
-		
+		<script>
+			$(function(){
+				$("#fileArea").hide();
+				
+				$("#mainImg1").click(function(){
+					$("#thumbnailImg1").click();
+				});
+				$("#subImg1").click(function(){
+					$("#thumbnailImg2").click();
+				});
+				$("#subImg2").click(function(){
+					$("#thumbnailImg3").click();
+				});
+				$("#subImg3").click(function(){
+					$("#thumbnailImg4").click();
+				});
+			});
+			
+			function LoadImg(value, num){
+				if(value.files && value.files[0]){
+					var reader = new FileReader();
+					reader.onload = function(e){
+						switch(num){
+						case 1 : $("#Img1").attr("src", e.target.result); break;
+						case 2 : $("#Img2").attr("src", e.target.result); break;
+						case 3 : $("#Img3").attr("src", e.target.result); break;
+						case 4 : $("#Img4").attr("src", e.target.result); break;
+						}
+					}
+					reader.readAsDataURL(value.files[0]);
+				}
+			}
+			
+			
+		</script>
 		
 	</section>
 	<%@ include file="/views/common/adminFooter.jsp"%>
