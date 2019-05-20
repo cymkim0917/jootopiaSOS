@@ -103,6 +103,14 @@ public class MemberAdminDao {
 		
 		String query = prop.getProperty("detailMember");
 		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 

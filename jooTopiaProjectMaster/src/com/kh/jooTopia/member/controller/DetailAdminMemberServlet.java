@@ -1,4 +1,4 @@
-package com.kh.jooTopia.board.controller;
+package com.kh.jooTopia.member.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
