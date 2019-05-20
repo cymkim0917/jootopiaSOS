@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.jooTopia.board.model.vo.Attachment;
+import com.kh.jooTopia.board.model.vo.PageInfo;
 
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
@@ -130,6 +131,48 @@ public class PurchaseAdminDao {
 				at.setFilePath(rset.getString("FILE_PATH"));
 				at.setUploadDate(rset.getDate("UPLOAD_DATE"));
 				list.add(at);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectPagingList(Connection con, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		
+		String query = prop.getProperty("selectPagingList");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		System.out.println("startRow : " + startRow + " , endRow : " + endRow);
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			while(rset.next()) {
+				HashMap<String, Object> hmap = new HashMap<String, Object>();
+				
+				hmap.put("pcid", rset.getObject("PCID"));
+				hmap.put("bno", rset.getObject("BNO"));
+				hmap.put("uno", rset.getObject("UNO"));
+				hmap.put("applicant", rset.getObject("APPLICANT"));
+				hmap.put("appPhone", rset.getObject("APPLICANT_PHONE"));
+				hmap.put("category", rset.getObject("CATEGORY"));
+				hmap.put("bDate", rset.getObject("BDATE"));
+				
+				list.add(hmap);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

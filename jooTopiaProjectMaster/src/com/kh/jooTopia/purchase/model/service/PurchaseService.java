@@ -85,4 +85,26 @@ public class PurchaseService {
 		close(con);
 		return hmap;
 	}
+
+	public int getListCount() {
+		Connection con = getConnection();
+		int listCount = -1;
+		
+		listCount = new PurchaseDao().getListCount(con); 
+		
+		close(con);
+		
+	return listCount;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
