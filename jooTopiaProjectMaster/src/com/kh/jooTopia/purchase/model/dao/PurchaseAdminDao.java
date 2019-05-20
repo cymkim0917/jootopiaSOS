@@ -123,11 +123,13 @@ public class PurchaseAdminDao {
 			list = new ArrayList<Attachment>();
 			while(rset.next()) {
 				at = new Attachment();
+				System.out.println("at 생성");
 				at.setfId(rset.getInt("FID"));
 				at.setOriginName(rset.getString("ORIGIN_NAME"));
 				at.setChangeName(rset.getString("CHANGE_NAME"));
 				at.setFilePath(rset.getString("FILE_PATH"));
-				at.setUploadDate(rset.getDate("UPDATE_DATE"));
+				at.setUploadDate(rset.getDate("UPLOAD_DATE"));
+				list.add(at);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
