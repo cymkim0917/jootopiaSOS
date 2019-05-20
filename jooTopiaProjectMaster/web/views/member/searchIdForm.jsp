@@ -52,17 +52,17 @@
 		<script>
 			var getData;
 			$(function(){
-				$("#reqNum").hide();
+				$("#writerNum").hide();
+				$("#reqNums2").hide();
 				$("#reqBtn").hide();
-				 $("#reqNums").val('');
-				 $("#reqNums2").val('');
+
 				
-				$("#writerNum").keyup(function(){
+			/* 	$("#writerNum").keyup(function(){
 					 $("#reqNums").val($(this).val());
 					 console.log("1 : " + $("#reqNums").val());
 					 console.log("2 : " + $("#reqNums2").val());
 					 console.log($("#reqNums").val() == $("#reqNums2").val());
-				})
+				}) */
 			})
 			$("#submitBtn").click(function(){			
 				if($('#userName').val().replace(/\s/g,"").length == 0 
@@ -73,7 +73,7 @@
 				var email = $("#email").val();
 				console.log(userName);
 				console.log(email);
-				$("#reqNum").show();
+				$("#writerNum").show();
 				$("#reqBtn").show();
 				$("#submitBtn").hide();
 				$.ajax({
@@ -95,11 +95,7 @@
 			}
 		});
 		
-		function getUserId(){
-				/* name = reqNum , id = reqNum*/
-				
-				console.log($("#reqNums2").val());
-				
+		function getUserId(){				
 				var reqNum = $("#reqNums2").val();
 				var writerNum = $("#writerNum").val();
 				var userName =$('#userName').val();
@@ -107,7 +103,18 @@
 				console.log('reqNum = ' + reqNum + ' / wirterNum = ' + writerNum);
 				
 				if(reqNum == writerNum){
-					console.log('true');
+					$.ajax({
+						url:"<%= request.getContextPath() %>/returnUserId.do",
+						type:"post",
+						data:{
+							userName : userName,
+							email : email
+						},
+						success : function(data){
+							alert('회원님의 아이디는 ' + data + '입니다.' + "\n 메인 페이지로 이동합니다.");
+							location.href='index.jsp';
+						}
+					})
 				}	
 			}
 		

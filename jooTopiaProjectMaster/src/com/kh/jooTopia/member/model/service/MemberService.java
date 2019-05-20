@@ -107,4 +107,30 @@ public class MemberService {
 		return member;
 	}
 
+	public String getUserId(String userName, String email) {
+		Connection con = getConnection();
+		String userId = new MemberDao().getUserId(con,userName,email);
+		
+		
+		close(con);
+		
+		return userId;
+	}
+
+	public void issuancePwd(String userPwd,String userName,String email,String userId) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().issuancePwd(userPwd, userName, email, userId, con);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		
+	}
+
 }
