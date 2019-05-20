@@ -40,6 +40,7 @@ public class SearchUserIdServlet extends HttpServlet {
       response.setContentType("text/html; charset=UTF-8");
       String userName = request.getParameter("userName");
       String email = request.getParameter("email");
+
       
       System.out.println("userName : " + userName);
       System.out.println("email : " + email);
@@ -63,9 +64,7 @@ public class SearchUserIdServlet extends HttpServlet {
 			String from = "beagles1004@gmail.com"; // 보내는이
 			String to = member.getEmail();// 받는이
 			String subject = "주토피아 아이디 찾기 서비스입니다. ";
-	/*		String content = "다음 링크에 접속하여 이메일 확인을 진행하세요.</br>" + "<a href='" + host + "emailCheckAction.jsp?code="
-					+ SHA256.getSHA256(to) + "'>이메일 인증하기</a>";*/
-			String content = "<h1> 주토피아 이메일 인증 서비스 ! </h1> </br> <h4> 인증번호["+ randNum + "</h4>";
+			String content = "<h1> 주토피아 이메일 인증 서비스 ! </h1> </br> <h4> 인증번호["+ randNum + "]</h4>";
 			Properties p = new Properties();
 			p.put("mail.smtp.user", from);
 			p.put("mail.smtp.host", "smtp.googlemail.com");

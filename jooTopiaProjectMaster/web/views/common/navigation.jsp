@@ -168,7 +168,7 @@
 						</form>
 						<div id="searchArea">
 							<p id="searchId" onclick="showSearchId()">아이디 찾기</p>
-							<p id="searchPwd">비밀번호 찾기</p> <br />
+							<p id="searchPwd" onclick="showSearchPass();">비밀번호 찾기</p> <br />
 								
 						</div>
 						
@@ -296,6 +296,17 @@
 		window.open('views/member/searchIdForm.jsp','','status=no, height='+ch+', width='+cw+', left='+ px + ', top=10');
 	   }
 	
+	
+	function showSearchPass(){
+		  cw=450;
+	      ch=580;
+	      sw=screen.availWidth;
+	      sh=screen.availHeight;
+	      px=(sw-cw)/2;
+	      py=(sh-ch)/2;
+
+		window.open('views/member/searchUserPwdForm.jsp','','status=no, height='+ch+', width='+cw+', left='+ px + ', top=10');
+	}
    
     function searchAddress() {
         new daum.Postcode( {
