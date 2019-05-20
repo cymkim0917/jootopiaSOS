@@ -29,7 +29,6 @@ public class ChangeStatusAdminProductServlet extends HttpServlet {
 			pId[i] = Integer.parseInt(num[i]);
 		}
 		
-		int result = 0;
 		String status = "";
 		String text = request.getParameter("text");
 		switch (text) {
@@ -38,7 +37,7 @@ public class ChangeStatusAdminProductServlet extends HttpServlet {
 		case "판매미등록" : status = "판매미등록"; break;
 		}
 		
-		result = new ProductAdminService().changeStatusProduct(status, pId);
+		int result = new ProductAdminService().changeStatusProduct(status, pId);
 		
 		String msg = "";
 		if(result > 0) {

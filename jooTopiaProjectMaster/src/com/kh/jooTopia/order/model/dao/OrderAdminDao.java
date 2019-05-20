@@ -152,4 +152,79 @@ public class OrderAdminDao {
 		return result;
 	}
 
+	public HashMap<String, Object> selectPaymentOne(Connection con, int poId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+		ArrayList<HashMap<String, Object>> orderDetail = null;
+		HashMap<String, Object> orderDetailHmap = null;
+		
+		//주문 테이블에 배송정보 추가 후 쿼리문에 추가할 것!
+		String query = prop.getProperty("selectPaymentOne");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, poId);
+			
+			rset = pstmt.executeQuery();
+			
+			hmap = new HashMap<String, Object>();
+			orderDetail = new ArrayList<HashMap<String, Object>>();
+			while(rset.next()) {
+				orderDetailHmap = new HashMap<String, Object>();
+				//주문 상세 조회 : D.ODID, P.PNAME, (P.PPRICE + (P.PPRICE * G.GRADESALES)), O.STATUS, PY.DELIVERY_PRICE
+				orderDetailHmap.put("odId", rset.getInt("ODID"));
+				orderDetailHmap.put("pName", rset.getString("PNAME"));
+				orderDetailHmap.put("pPrice", rset.getInt(3));
+				orderDetailHmap.put("status", rset.getString(4));
+				orderDetailHmap.put("deliveryPrice", rset.getInt("DELIVERY_PRICE"));
+				
+				orderDetail.add(orderDetailHmap);
+				
+				//그 외 조회 : O.POID, O.PODATE, PY.DEPOSIT_NAME, PY.PAYMENT_OPTION, M.USER_NAME, M.PHONE, O.DMESSAGE
+				//배송정보 추가되면 추가로 넣을 것
+				hmap.put("poId", rset.getInt("POID"));
+				hmap.put("poDate", rset.getDate("PODATE"));
+				hmap.put("depositName", rset.getString("DEPOSIT_NAME"));
+				hmap.put("paymentOption", rset.getString("PAYMENT_OPTION"));
+				hmap.put("userName", rset.getString("USER_NAME"));
+				hmap.put("phone", rset.getString("PHONE"));
+				hmap.put("dMessage", rset.getString("DMESSAGE"));
+				hmap.put("deliveryPrice", rset.getInt("DELIVERY_PRICE"));
+				
+			}
+			
+			
+			hmap.put("orderDetail", orderDetail);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return hmap;
+	}
+
+	public int changeConditionOne(Connection con, String changeQuery) {
+		Statement stmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("changeConditionOne");
+		
+		try {
+			stmt = con.createStatement();
+			
+			result = stmt.executeUpdate(query + changeQuery);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+		}
+				
+		return result;
+	}
+
 }

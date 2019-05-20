@@ -43,11 +43,36 @@ public class OrderAdminService {
 	}
 
 	public int changeStatusOrder(String status, int[] poId) {
+		//주문상태 변경
 		Connection con = getConnection();
 		int result = new OrderAdminDao().changeStatusOrder(con, status, poId);
 
 		close(con);
 
+		return result;
+	}
+
+	public HashMap<String, Object> selectPaymentOne(int poId) {
+		//입금전 주문 상세보기
+		Connection con = getConnection();
+		HashMap<String, Object> hmap = new OrderAdminDao().selectPaymentOne(con, poId);
+		
+		close(con);
+		
+		return hmap;
+	}
+
+	public int changeConditionOne(String changeQuery) {
+		//배송메시지, 배송지주소 등 한가지만 변경
+		Connection con = getConnection();
+		int result = new OrderAdminDao().changeConditionOne(con, changeQuery);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
 		return result;
 	}
 

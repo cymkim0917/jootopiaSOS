@@ -4,28 +4,24 @@
 <%
 	int count = 1;
 	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+
 	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 	int currentPage = pageInfo.getCurrentPage();
 	int maxPage = pageInfo.getMaxPage();
 	int startPage = pageInfo.getStartPage();
 	int endPage = pageInfo.getEndPage();
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="/jootopia/images/favicon.ico">
+<link rel="stylesheet" href="/jootopia/js/external/jquery-3.4.0.min.js">
 <link rel="stylesheet" href="/jootopia/css/admin/adminCommon.css">
  
-<link rel="stylesheet" href="/jootopia/js/external/jquery-3.4.0.min.js">
-
 <title>JooTopia</title>
-<style>
-br 
-{mso-data-placement:same-cell;} 
-</style>
 </head>
-<body>
 <body>
 
 	<%@ include file="/views/common/adminNavigation.jsp" %>
@@ -43,7 +39,6 @@ br
 		<% }else { %>
 		전체 <a href="#">0</a>건	
 		<% } %>
-
 		</div>
 		<br>
 		
@@ -51,9 +46,9 @@ br
 		<span>주문 목록</span><br>
 		<span>[총 <a><% if(list != null) { %><%= list.size() %><% }else { %>0<% } %></a>개]</span>
 		</div>
-
+		
 		<br>
-
+		
 		<div class="selectListArea">
 			<table id="selectList" class="selectList" border="1">
 				<tr>
@@ -75,6 +70,13 @@ br
 				<% for(int i = 0; i < list.size(); i++) { 
 				HashMap<String,Object> hmap = list.get(i);
 				POrder o = (POrder)hmap.get("o");
+				int beforePoId = 0;
+				%>
+				<% if(i > 0) { 
+				POrder beforeO = (POrder) list.get(i-1).get("o");
+				beforePoId = beforeO.getPoId();
+				} %>
+				<% if(i >= 0 && o.getPoId() != beforePoId) { 
 				%>
 				<tr>
 					<th><input type="checkbox" class="check" value="<%= o.getPoId() %>"></th>
@@ -84,15 +86,17 @@ br
 					<td><%= o.getPoId() %></td>
 					<td><%= hmap.get("userName") %></td>
 					<td><%= hmap.get("pName") %></td>
-					<td>
+					<th>
 					<div id="memo" class="memo">MEMO
 					</div>
 					<input type="hidden" id="dMsg" value=<%= o.getdMessage() %>>
-					</td>
+					</th>
 				</tr>
+				<% } %>
 				<% } %>
 			</table>
 		</div> <!-- selectListArea -->
+	
 	<br><br><br>
 	<div class="paging" align="center">
 		<ul class="pagination">
@@ -101,7 +105,7 @@ br
 		<% } else { %>
 		<li><a href="<%=request.getContextPath()%>/adminProductList.do?currentPage=<%= currentPage - 1 %>">이전</a></li>
 		<% } %>
-
+		
 		<% for(int p = startPage; p <= endPage; p++) { 
 			if(p == currentPage) { %>
 		<li><a><%= p %></a></li>
@@ -109,7 +113,7 @@ br
 		<li><a href="<%=request.getContextPath()%>/adminProductList.do.do?currentPage=<%= p %>"><%= p %></a></li>	
 		<% 	} 
 		} %>
-
+		
 		<% if(currentPage >= maxPage) { %>
 		<li><a>다음</a></li>
 		<% }else { %>
@@ -122,7 +126,6 @@ br
 	</section>
 <%@ include file="/views/common/adminFooter.jsp" %>
 
-
 <!-- The Modal -->
 <div id="memoModal" class="memoModal">
 	<div class="memoModalContent">
@@ -131,8 +134,7 @@ br
 	<h4>구매자 배송메시지</h4>
 	<hr>
 	</div>
-	
-	<!-- Modal content -->
+<!-- Modal content -->
     <div class="memoModalBody">
     	<table class="memoModalTable">
     		<tr>
@@ -146,21 +148,20 @@ br
     			<th>배송메시지</th>
     		</tr>
     		<tr>
-				<td>
-    			<input type="text" id="oMemo" name="oMemo" placeholder="배송메시지를 입력하세요">
+    			<td>
+    			<input type="text" id="oMemo" name="oMemo" placeholder="배송메시지를 입력하세요" value="">
     			</td>
-       		</tr>
+    		</tr>
     	</table>
     	<br>
     	
     	<div class="modalBtnArea" align="center">
-				<input type="submit" value="수정" onclick="">
+				<input type="submit" value="수정" onclick="changeMemo();">
 				<input type="reset" value="닫기">
 		</div>
     </div>
     </div>
 </div>
-
 <script>
 	$("#allCheck").click(function() {
 		
@@ -171,12 +172,13 @@ br
 		}
 	});
 	
+	//배송메시지 모달용 펑션
 	$(".memo").click(function() {
 		var code = $(this).parent().parent().children().eq(0).children().eq(0).val();
 		var date = $(this).parent().parent().children().eq(3).text();
 		var message = $(this).parent().children().eq(1).val();
 		
-		if(message = null) {
+		if(message == null) {
 			message = "";
 		}
 		
@@ -185,8 +187,6 @@ br
 			$("#modalPoDate").text(date);
 			$("#oMemo").val(message);
 		});
-		
-		console.log(message);
 		
 		$("#memoModal").css("display", "block");
 		
@@ -197,43 +197,80 @@ br
 		$(".modalBtnArea>input[type=reset]").click(function() {
 			$("#memoModal").css("display", "none");
 		});
-		$("#allCheck").click(function() {
-			
-			if($("#allCheck").prop("checked")) {
-				$("input[type=checkBox]").prop("checked", true);
-			}else {
-				$("input[type=checkBox]").prop("checked", false);
+	});
+	
+	//배송메시지 변경
+	function changeMemo() {
+		var poId = $("#modalPoId").text();
+		var condition = 'DMESSAGE';
+		var changeValue = $("#oMemo").val();
+		
+		console.log(changeValue);
+		
+		$.ajax({
+			url : "changeConditionOne.do",
+			type : "post",
+			data : {poId : poId, condition : condition, changeValue : changeValue},
+			success : function(data) {
+				//왜.. 띄어쓰기를 인식하지 못할까?
+				$("#oMemo").val(changeValue);
+				console.log(changeValue);
+				location.href='selectAdminPaymentList.do';
+				alert(data);
+			},
+			error : function(data) {
+				alert("에이젝스 접속실패");
 			}
 		});
+	};
+	
+	//------체크된 주문 상태 변화 관련 펑션
+	$("#allCheck").click(function() {
 		
-		function oTypeChange(text) {
-			var answer = window.confirm("선택한 상품을 " + text + " 하시겠습니까?");
-			if(answer) {
-				var numArr = [];
-				$(".check").each(function() {
-					if($(this).is(":checked"))
-						if($(this) !== $("#allCheck")) {
-							numArr += $(this).val() + "|";
-						}
-				});
-				
-				console.log( numArr );
-				
-				$.ajax({
-					url : "adminChangeStatusOrder.do",
-					type : "post",
-					data : {numArr : numArr, text : text},
-					success : function(data) {
-						alert(data);
-						location.href='selectAdminPaymentList.do';
-					},
-					error : function(data) {
-						alert("해당상품 " + text + " 처리 실패");
+		if($("#allCheck").prop("checked")) {
+			$("input[type=checkBox]").prop("checked", true);
+		}else {
+			$("input[type=checkBox]").prop("checked", false);
+		}
+	});
+	
+	function oTypeChange(text) {
+		var answer = window.confirm("선택한 상품을 " + text + " 하시겠습니까?");
+		if(answer) {
+			var numArr = [];
+			$(".check").each(function() {
+				if($(this).is(":checked"))
+					if($(this) !== $("#allCheck")) {
+						numArr += $(this).val() + "|";
 					}
-				});
-			}
-		};
-
+			});
+			
+			console.log( numArr );
+			
+			$.ajax({
+				url : "adminChangeStatusOrder.do",
+				type : "post",
+				data : {numArr : numArr, text : text},
+				success : function(data) {
+					alert(data);
+					location.href='selectAdminPaymentList.do';
+				},
+				error : function(data) {
+					alert("해당상품 " + text + " 처리 실패");
+				}
+			});
+		}
+	};
+	
+	//------해당 상품정보(게시물) 조회 펑션
+	$("#selectList td").mouseenter(function(){
+		$(this).parent().css({"background":"rgb(61, 81, 113)", "color":"white", "cursor":"pointer"});
+	}).mouseout(function(){
+		$(this).parent().css({"background":"white", "color":"black"});
+	}).click(function(){
+		var num = $(this).parent().children().eq(4).text();
+		location.href="<%=request.getContextPath()%>/adminPaymentOne.do?num=" + num;
+	});
 	
 </script>
 </body>
