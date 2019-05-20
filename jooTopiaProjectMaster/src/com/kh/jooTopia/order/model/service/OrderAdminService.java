@@ -63,7 +63,7 @@ public class OrderAdminService {
 	}
 
 	public int changeConditionOne(String changeQuery) {
-		//배송메시지, 배송지주소 등 한가지만 변경
+		//수령자명, 수령자 연락처, 배송지 주소, 배송메시지 중 한가지만 변경
 		Connection con = getConnection();
 		int result = new OrderAdminDao().changeConditionOne(con, changeQuery);
 		
@@ -74,6 +74,26 @@ public class OrderAdminService {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectPreProductList(PageInfo pageInfo) {
+		//상품준비중 리스트 출력
+		Connection con = getConnection();
+		ArrayList<HashMap<String, Object>> list= new OrderAdminDao().selectPreProductList(con, pageInfo);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public HashMap<String, Object> selectPreProductOne(int poId) {
+		//상품준비중 주문 상세보기
+		Connection con = getConnection();
+		HashMap<String, Object> hmap = new OrderAdminDao().selectPreProductOne(con, poId);
+				
+		close(con);
+				
+		return hmap;
 	}
 
 }

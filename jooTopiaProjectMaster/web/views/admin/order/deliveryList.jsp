@@ -1,36 +1,27 @@
+<%@page import="com.kh.jooTopia.delivery.model.vo.Delivery"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!-- import="com.kh.jooTopia.product.model.vo.*, java.util.*, java.lang.*" -->
+    pageEncoding="UTF-8" import="com.kh.jooTopia.board.model.vo.*, com.kh.jooTopia.order.model.vo.* ,java.util.*, java.lang.*"%>
 <%
 	int count = 1;
-	String memo = "배송메시지 임시";
+	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
 	
-	/* Product productList = (Product) session.getAttribute("productList");
-	java.util.Date date = new java.util.Date();
-	java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
-	String startDay = dateFormat.format(date);
-	String endDay = dateFormat.format(date);
-	
-	ArrayList<Product> list = new ArrayList<Product>();
-	list.add(new Product()); */
+	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
+	int currentPage = pageInfo.getCurrentPage();
+	int maxPage = pageInfo.getMaxPage();
+	int startPage = pageInfo.getStartPage();
+	int endPage = pageInfo.getEndPage();
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="/jootopia/images/favicon.ico">
-<!-- <link rel="stylesheet" href="/jootopia/js/external/jquery-3.4.0.min.js"> -->
+<link rel="stylesheet" href="/jootopia/js/external/jquery-3.4.0.min.js">
 <link rel="stylesheet" href="/jootopia/css/admin/adminCommon.css">
- 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
 <title>JooTopia</title>
-<style>
-br 
-{mso-data-placement:same-cell;} 
-</style>
 </head>
-<body>
 <body>
 
 	<%@ include file="/views/common/adminNavigation.jsp" %>
@@ -104,7 +95,7 @@ br
 		
 		<div class="selectTopList">
 		<span>주문 목록</span><br>
-		<span>[총 <a><%= 1 %></a>개]</span>
+		<span>[총 <a><% if(list != null) { %><%= list.size() %><% }else { %>0<% } %></a>개]</span>
 		</div>
 		
 		<br>
@@ -113,13 +104,14 @@ br
 			<table id="selectList" class="selectList" border="1">
 				<tr>
 					<th colspan="9" style="height: 45px; text-align: left;">
-						<button class="selectBtn" onclick="oTypeChange('배송 완료')">배송 완료</button>
+						<button class="selectBtn" onclick="dTypeChange('배송중')">배송중</button>
+						<button class="selectBtn" onclick="dTypeChange('배송완료')">배송완료</button>
 					</th>
 				</tr>
 				<tr>
 					<th width="25px"><input type="checkbox" id="allCheck"></th>
 					<th width="25px">No</th>
-					<th width="100px">주문상태</th>
+					<th width="100px">배송상태</th>
 					<th width="150px">주문일/주문코드</th>
 					<th width="90px">배송예정일</th>
 					<th width="150px">배송코드</th>
@@ -127,31 +119,34 @@ br
 					<th width="250px">상품명</th>
 					<th width="100px">배송메시지</th>
 				</tr>
+				<% for(int i = 0; i < list.size(); i++) { 
+				HashMap<String,Object> hmap = list.get(i);
+				POrder o = (POrder)hmap.get("o");
+				int beforePoId = 0;
+				%>
+				<% if(i > 0) { 
+				POrder beforeO = (POrder) list.get(i-1).get("o");
+				beforePoId = beforeO.getPoId();
+				} %>
+				<% if(i >= 0 && o.getPoId() != beforePoId) { 
+				%>
 				<tr>
-					<td><input type="checkbox"></td>
-					<td>1</td>
-					<td>배송중</td>
-					<td><a href="deliveryForm.jsp">2019-05-10 /<br>O20190510_01</a></td>
-					<td>2019-05-20</td>
-					<td><a href="deliveryForm.jsp">D20190520_01</a></td>
-					<td>주문자</td>
-					<td>상품명</td>
-					<td><div id="memo" class="memo">MEMO</div></td>
-				</tr>
-				
-				<%-- <% for(Product p : list) { %>
-				<tr>
-					<td ><input type="checkbox"></td>
+					<th><input type="checkbox" class="check" value="<%= o.getPoId() %>"></th>
 					<td><%= count++ %></td>
-					<td >주문상태</td>
-					<td>주문일<br>/ 주문코드 임시</td>
-					<td>배송예정일 임시</td>
-					<td><a href="#">배송코드 임시</a></td>
-					<td>주문자 임시</td>
-					<td>상품명</td>
-					<td><div id="memo" class="memo">MEMO</div></td>
+					<td><%= "배송상태" %></td>
+					<td><%= "주문일/주문코드" %></td>
+					<td><%= "배송예정일" %></td>
+					<td><%= "배송코드" %></td>
+					<td><%= "주문자" %></td>
+					<td><%= "상품명" %></td>
+					<th>
+					<div id="memo" class="memo">MEMO
+					</div>
+					<input type="hidden" id="dMsg" value="<%= o.getdMessage() %>">
+					</th>
 				</tr>
-				<% } %> --%>
+				<% } %>
+				<% } %>
 			</table>
 		
 	</div> <!-- selectListArea -->

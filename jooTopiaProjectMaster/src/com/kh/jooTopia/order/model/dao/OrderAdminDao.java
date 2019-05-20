@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import com.kh.jooTopia.board.model.vo.PageInfo;
 import com.kh.jooTopia.order.model.vo.POrder;
+import com.kh.jooTopia.payment.model.vo.Payment;
 import com.kh.jooTopia.product.model.dao.ProductAdminDao;
 
 import static com.kh.jooTopia.common.JDBCTemplate.*;
@@ -157,9 +158,8 @@ public class OrderAdminDao {
 		ResultSet rset = null;
 		HashMap<String, Object> hmap = null;
 		ArrayList<HashMap<String, Object>> orderDetail = null;
-		HashMap<String, Object> orderDetailHmap = null;
+		HashMap<String, Object> orderDetailMap = null;
 		
-		//주문 테이블에 배송정보 추가 후 쿼리문에 추가할 것!
 		String query = prop.getProperty("selectPaymentOne");
 		
 		try {
@@ -170,31 +170,44 @@ public class OrderAdminDao {
 			
 			hmap = new HashMap<String, Object>();
 			orderDetail = new ArrayList<HashMap<String, Object>>();
+			orderDetailMap = new HashMap<String, Object>();
 			while(rset.next()) {
-				orderDetailHmap = new HashMap<String, Object>();
-				//주문 상세 조회 : D.ODID, P.PNAME, (P.PPRICE + (P.PPRICE * G.GRADESALES)), O.STATUS, PY.DELIVERY_PRICE
-				orderDetailHmap.put("odId", rset.getInt("ODID"));
-				orderDetailHmap.put("pName", rset.getString("PNAME"));
-				orderDetailHmap.put("pPrice", rset.getInt(3));
-				orderDetailHmap.put("status", rset.getString(4));
-				orderDetailHmap.put("deliveryPrice", rset.getInt("DELIVERY_PRICE"));
+				POrder o = new POrder();
+				//주문 정보 : O.NAME, O.PHONE, O.ADDRESS, O.DMESSAGE, O.STATUS, O.POID, O.PODATE
+				o.setName(rset.getString("NAME"));
+				o.setPhone(rset.getString("OPHONE"));
+				o.setAddress(rset.getString("ADDRESS"));
+				o.setdMessage(rset.getString("DMESSAGE"));
+				o.setStatus(rset.getString("STATUS"));
+				o.setPoId(rset.getInt("POID"));
+				o.setPoDate(rset.getDate("PODATE"));
+				hmap.put("o", o);
 				
-				orderDetail.add(orderDetailHmap);
+				//결제 정보 : PY.DEPOSIT_NAME, PY.PAYMENT_OPTION, PY.CARD_COMPANY, PY.CARD_KIND,
+				//PY.INSTALLMENT, PY.TID, PY.PRODUCT_PRICE, PY.DELIVERY_PRICE
+				Payment pym = new Payment();
+				pym.setDepositName(rset.getString("DEPOSIT_NAME"));
+				pym.setPaymentOption(rset.getString("PAYMENT_OPTION"));
+				pym.setCardCompany(rset.getString("CARD_COMPANY"));
+				pym.setCardKind(rset.getString("CARD_KIND"));
+				pym.setInstallment(rset.getInt("INSTALLMENT"));
+				pym.settId(rset.getInt("TID"));
+				pym.setProductPrice(rset.getInt("PRODUCT_PRICE"));
+				pym.setDeliveryPrice(rset.getInt("DELIVERY_PRICE"));
+				hmap.put("pym", pym);
 				
-				//그 외 조회 : O.POID, O.PODATE, PY.DEPOSIT_NAME, PY.PAYMENT_OPTION, M.USER_NAME, M.PHONE, O.DMESSAGE
-				//배송정보 추가되면 추가로 넣을 것
-				hmap.put("poId", rset.getInt("POID"));
-				hmap.put("poDate", rset.getDate("PODATE"));
-				hmap.put("depositName", rset.getString("DEPOSIT_NAME"));
-				hmap.put("paymentOption", rset.getString("PAYMENT_OPTION"));
+				//그 외 : M.USER_NAME, M.PHONE
 				hmap.put("userName", rset.getString("USER_NAME"));
-				hmap.put("phone", rset.getString("PHONE"));
-				hmap.put("dMessage", rset.getString("DMESSAGE"));
-				hmap.put("deliveryPrice", rset.getInt("DELIVERY_PRICE"));
+				hmap.put("mPhone", rset.getString("MPHONE"));
 				
+				//상세조회 : P.PNAME, TRUNC(P.PPRICE + (P.PPRICE * G.GRADESALES)), D.ODID, PY.DELIVERY_PRICE
+				orderDetailMap.put("pName", rset.getString("PNAME"));
+				orderDetailMap.put("pPrice", rset.getInt("PPRICE"));
+				orderDetailMap.put("odId", rset.getInt("ODID"));
+				orderDetailMap.put("deliveryPrice", rset.getString("DELIVERY_PRICE"));
+				
+				orderDetail.add(orderDetailMap);
 			}
-			
-			
 			hmap.put("orderDetail", orderDetail);
 			
 		} catch (SQLException e) {
@@ -225,6 +238,114 @@ public class OrderAdminDao {
 		}
 				
 		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectPreProductList(Connection con, PageInfo pageInfo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		
+		String query = prop.getProperty("selectPreProductList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "상품준비중");
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				//O.STATUS, O.PODATE, O.POID, M.USER_NAME, O.DMESSAGE, P.PNAME, 
+				//(PY.PRODUCT_PRICE + PY.DELIVERY_PRICE) AS TOTALPRICE
+				
+				hmap.put("status", rset.getString("STATUS"));
+				hmap.put("poDate", rset.getDate("PODATE"));
+				hmap.put("poId", rset.getInt("POID"));
+				hmap.put("userName", rset.getString("USER_NAME"));
+				hmap.put("dMessage", rset.getString("DMESSAGE"));
+				hmap.put("pName", rset.getString("PNAME"));
+				hmap.put("totalPrice", rset.getInt("TOTALPRICE"));
+				
+				list.add(hmap);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	public HashMap<String, Object> selectPreProductOne(Connection con, int poId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+		ArrayList<HashMap<String, Object>> orderDetail = null;
+		HashMap<String, Object> orderDetailMap = null;
+		
+		String query = prop.getProperty("selectPreProductOne");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, poId);
+			
+			rset = pstmt.executeQuery();
+			
+			hmap = new HashMap<String, Object>();
+			orderDetail = new ArrayList<HashMap<String, Object>>();
+			orderDetailMap = new HashMap<String, Object>();
+			while(rset.next()) {
+				POrder o = new POrder();
+				//주문 정보 : O.NAME, O.PHONE, O.ADDRESS, O.DMESSAGE, O.STATUS, O.POID, O.PODATE
+				o.setName(rset.getString("NAME"));
+				o.setPhone(rset.getString("OPHONE"));
+				o.setAddress(rset.getString("ADDRESS"));
+				o.setdMessage(rset.getString("DMESSAGE"));
+				o.setStatus(rset.getString("STATUS"));
+				o.setPoId(rset.getInt("POID"));
+				o.setPoDate(rset.getDate("PODATE"));
+				hmap.put("o", o);
+				
+				//결제 정보 : PY.DEPOSIT_NAME, PY.PAYMENT_OPTION, PY.CARD_COMPANY, PY.CARD_KIND,
+				//PY.INSTALLMENT, PY.TID
+				Payment pym = new Payment();
+				pym.setDepositName(rset.getString("DEPOSIT_NAME"));
+				pym.setPaymentOption(rset.getString("PAYMENT_OPTION"));
+				pym.setCardCompany(rset.getString("CARD_COMPANY"));
+				pym.setCardKind(rset.getString("CARD_KIND"));
+				pym.setInstallment(rset.getInt("INSTALLMENT"));
+				pym.settId(rset.getInt("TID"));
+				pym.setProductPrice(rset.getInt("PRODUCT_PRICE"));
+				pym.setDeliveryPrice(rset.getInt("DELIVERY_PRICE"));
+				hmap.put("pym", pym);
+				
+				//그 외 : M.USER_NAME, M.PHONE
+				hmap.put("userName", rset.getString("USER_NAME"));
+				hmap.put("mPhone", rset.getString("MPHONE"));
+				
+				//상세조회 : P.PNAME, TRUNC(P.PPRICE + (P.PPRICE * G.GRADESALES)), D.ODID, PY.DELIVERY_PRICE
+				orderDetailMap.put("pName", rset.getString("PNAME"));
+				orderDetailMap.put("pPrice", rset.getInt("PPRICE"));
+				orderDetailMap.put("odId", rset.getInt("ODID"));
+				orderDetailMap.put("deliveryPrice", rset.getString("DELIVERY_PRICE"));
+				
+				orderDetail.add(orderDetailMap);
+			}
+			hmap.put("orderDetail", orderDetail);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return hmap;
 	}
 
 }

@@ -1,6 +1,6 @@
-<%@page import="com.kh.jooTopia.payment.model.vo.Payment"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, java.lang.*, com.kh.jooTopia.order.model.vo.*"%>
+    pageEncoding="UTF-8" 
+    import="java.util.*, java.lang.*, com.kh.jooTopia.order.model.vo.*, com.kh.jooTopia.payment.model.vo.*"%>
 <%
 	HashMap<String, Object> hmap = (HashMap<String, Object>) request.getAttribute("hmap");
 	POrder o = (POrder) hmap.get("o");
@@ -27,17 +27,17 @@
 		<%@ include file="/views/common/adminSideMenu.jsp" %>
 		
 		<div class="col-sm-10">
-		<h3 class="title">입금전 주문상세</h3>
+		<h3 class="title">상품준비중 주문상세</h3>
 		<hr>
 		
 		<div id="infoArea">
 		<table id="pInfo1">
 			<tr>
-				<th>주문코드</th>
+				<th>주문일</th>
 				<td><%= o.getPoId() %></td>
 			</tr>
 			<tr>
-				<th>주문일</th>
+				<th>주문코드</th>
 				<td><%= o.getPoDate() %></td>
 			</tr>
 			<tr>
@@ -50,17 +50,17 @@
 		<br><br>
 		
 		<div class="selectListArea">
-				<table id="selectList" class="selectList" border="1">
-					<tr>
-						<th colspan="5">주문내역</th>
-					</tr>
-					<tr>
-						<th width="200px">품목별 주문번호</th>
-						<th width="150px">상품명</th>
-						<th width="100px">판매가(원)</th>
-						<th width="100px">배송비(원)</th>
-						<th width="100px">주문상태</th>
-					</tr>
+			<table id="selectList" class="selectList" border="1">
+				<tr>
+					<th colspan="5">주문내역</th>
+				</tr>
+				<tr>
+					<th width="200px">품목별 주문번호</th>
+					<th width="150px">상품명</th>
+					<th width="100px">판매가(원)</th>
+					<th width="100px">배송비(원)</th>
+					<th width="100px">주문상태</th>
+				</tr>
 					<% for(int i = 0; i < orderDetail.size(); i++) { 
 						totalPPrice += (int) orderDetail.get(i).get("pPrice");
 					%>
@@ -82,7 +82,7 @@
 						<th><%= orderDetail.get(0).get("deliveryPrice") %></th>
 						<th></th>
 					</tr>
-				</table>
+			</table>
 		</div>
 		
 		<br><br>
@@ -99,12 +99,12 @@
 				<td><%= pym.getDeliveryPrice() %> (원)</td>
 			</tr>
 			<tr>
-				<th>결제예정금액</th>
+				<th>결제금액</th>
 				<td><%= pym.getProductPrice() + pym.getDeliveryPrice() %> (원)</td>
 			</tr>
 			<tr>
 				<th>총 실결제금액</th>
-				<td>0 (원)</td>
+				<td><%= pym.getProductPrice() + pym.getDeliveryPrice() %> (원)</td>
 			</tr>
 		</table>
 		</div>
@@ -190,7 +190,7 @@
 		<br>
 		
 		<div class="btnArea" align="center">
-			<button onclick="location.href='selectAdminPaymentList.do'">확인</button>
+			<button onclick="location.href='paymentList.jsp'">확인</button>
 		</div>
 		<br><br>
 		
@@ -199,38 +199,9 @@
 <%@ include file="/views/common/adminFooter.jsp" %>
 
 <script>
-	//------해당 상품정보(게시물) 조회 펑션
-	$("#selectList td").mouseenter(function(){
-		$(this).parent().css({"background":"rgb(61, 81, 113)", "color":"white", "cursor":"pointer"});
-	}).mouseout(function(){
-		$(this).parent().css({"background":"white", "color":"black"});
-	}).click(function(){
-		var num = $(this).parent().children().eq(0).text();
-		location.href="<%=request.getContextPath()%>/adminProductOne.do?num=" + num;
-	});
-
-	function changeCondition(text, btn) {
-		var poId = '<%= o.getPoId() %>';
-		var condition = text;
-		var changeValue = $(btn).siblings().val();
-		console.log(poId);
-		console.log(condition);
-		console.log(changeValue);
-		
-		$.ajax({
-			url : "changeConditionOne.do",
-			type : "post",
-			data : {poId : poId, condition : condition, changeValue : changeValue},
-			success : function(data) {
-				$(btn).siblings().val(changeValue);
-				console.log(changeValue);
-				location.href='adminPaymentOne.do?num='+poId;
-				alert(data);
-			},
-			error : function(data) {
-				alert("에이젝스 접속실패");
-			}
-		});
+	function changeMemo() {
+		var memo = $("#message").val();
+		console.log("수정클릭");
 	}
 </script>
 </body>

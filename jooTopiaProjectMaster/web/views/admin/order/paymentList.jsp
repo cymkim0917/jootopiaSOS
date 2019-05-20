@@ -89,7 +89,7 @@
 					<th>
 					<div id="memo" class="memo">MEMO
 					</div>
-					<input type="hidden" id="dMsg" value=<%= o.getdMessage() %>>
+					<input type="hidden" id="dMsg" value="<%= o.getdMessage() %>">
 					</th>
 				</tr>
 				<% } %>
@@ -212,7 +212,6 @@
 			type : "post",
 			data : {poId : poId, condition : condition, changeValue : changeValue},
 			success : function(data) {
-				//왜.. 띄어쓰기를 인식하지 못할까?
 				$("#oMemo").val(changeValue);
 				console.log(changeValue);
 				location.href='selectAdminPaymentList.do';
