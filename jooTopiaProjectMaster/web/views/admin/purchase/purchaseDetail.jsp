@@ -115,10 +115,10 @@
 	    				<th>상태</th>
 	    			</tr>
 	    			<tr>
-	    				<%-- <td><%= hmap.get("pBarcode") %></td> --%>
-	    				<td>
+	    				<td><%= hmap.get("pBarcode") %></td>
+	    				<%-- <td>
 	    					<img src="/jootopia/images/barcode/<%= hmap.get("pBarcode") %>.PNG">
-	    				</td>
+	    				</td> --%>
 	    				<td><%= hmap.get("status") %></td>
 	    			</tr>
 	    		</table>
@@ -175,7 +175,11 @@
 					<tr>
 						<td>매입 요청 사항</td>
 						<td>
+						<% if(hmap.get("memo") != null){ %>
 							<%= hmap.get("memo") %>
+						<% }else{ %>
+							없음
+						<% } %>
 						</td>
 					</tr>
 					<tr>	
@@ -200,13 +204,13 @@
 		    	<% } %>
 	      		<div class="moveBtnArea">
 					<ul class="pagination">
-						<li><a href="#">이전</a></li>
+						<!-- <li><a href="#">이전</a></li> -->
 						<li>
 							<a href="<%= request.getContextPath() %>/selectPurchaseAdminList.do">
 								&nbsp;&nbsp;&nbsp;목록으로&nbsp;&nbsp;&nbsp;
 							</a>
 						</li>
-						<li><a href="#">다음</a></li>
+						<!-- <li><a href="#">다음</a></li> -->
 					</ul>
 	      		</div>
 	      	</div>

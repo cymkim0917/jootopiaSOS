@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.kh.jooTopia.board.model.vo.PageInfo;
 import com.kh.jooTopia.purchase.model.dao.PurchaseAdminDao;
 import com.kh.jooTopia.purchase.model.dao.PurchaseDetailDao;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_COLOR_BURNPeer;
@@ -50,4 +51,36 @@ public class PurchaseAdminService {
 		
 		return hmap; 
 	}
+
+	public ArrayList<HashMap<String, Object>> selectPagingList(PageInfo pi) {
+		Connection con = getConnection();
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		
+		list = new PurchaseAdminDao().selectPagingList(con, pi);
+		
+		if(list != null) {
+			for(int i = 0; i < list.size(); i++) {
+				hmap = list.get(i);
+				int pcid = Integer.parseInt(String.valueOf(hmap.get("pcid")));
+				hmap.put("status", 
+						new PurchaseDetailDao().selectPCDstatus(con, pcid));
+				
+				if(hmap.get("status") == "매입신청거절") {
+					hmap.put("denyReason", new PurchaseDetailDao().selectPCDdenyReason(con, pcid));
+				}else if(hmap.get("status") != "신청수락대기"){
+					hmap.put("pBarcode", new PurchaseDetailDao().selectPCDbarcode(con, pcid));
+				}
+				hmap.put("fileList", new PurchaseAdminDao().selectAttachment(con, pcid));
+			}
+		}
+		
+		close(con);
+		
+		return list;
+	}
 }
+
+
+
+

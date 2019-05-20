@@ -189,6 +189,29 @@ public class PurchaseDao {
 		return hmap;
 	}
 
+	public int getListCount(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int listCount = -2;
+		
+		String query = prop.getProperty("getListCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		return listCount;
+	}
+
 }
 
 

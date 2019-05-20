@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.jooTopia.board.model.vo.*"%>
 <%
 	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+	
+	int currentPage = ((PageInfo)request.getAttribute("pi")).getCurrentPage();
+	int startPage = ((PageInfo)request.getAttribute("pi")).getStartPage();
+	int endPage = ((PageInfo)request.getAttribute("pi")).getEndPage();
+	int maxPage = ((PageInfo)request.getAttribute("pi")).getMaxPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -25,7 +30,6 @@
 		font-size: 1.05em;
 		font-weight: bold;
 	}
-	
 	#searchBox td:nth-child(2) *{
 		height : 30px;
 		margin: 2px 5px 0px 5px;
@@ -55,6 +59,16 @@
 		height : 50px;
 		text-align:center;
 	}
+	#searchBtn{
+		height : 50px;
+		width: 100%;
+		background: white;
+	}
+	.dateSearch label{
+		border: 1px solid black;
+		line-height : 30px;
+		vertical-align: middle;
+	}
 </style>
 </head>
 <body>
@@ -65,64 +79,65 @@
 	    	<h3 class="title">매입신청</h3>
 	    	<hr>
 	    	<div class="searchArea">
-	    		<table border="1" align="center" id="searchBox">
-	    			<tr>
-	    				<td colspan="2"></td>
-	    			</tr>
-	    			<tr>
-	    				<td>검색분류</td>
-	    				<td>
-	    					<select id="searchType">
-	    						<option value="memberNo">회원번호</option>
-	    						<option value="memberName">회원이름</option>
-	    						<option value="phone">연락처</option>
-	    						<option value="category">카테고리</option>
-	    					</select>
-	    					<input type="text" id="search" name="search" placeholder="검색어를 입력해주세요">
-	    					<button onclick="search1();"></button>
-	    				</td>
-	    			</tr>
-	    			<script>
-	    				function search1(){
-		    				var searchType = $("#searchType").val();
-		    				var search = $("#search").val();
-		    				console.log("searchType : " + searchType);
-		    				console.log("search : " + search);
-		    				switch(searchType){
-			    				case "memberNo": location.href='<%= request.getContextPath() %>/selectSearchUnoServlet.do?search=' + search; 
-			    								break;
-			    				case "memberName" :
-			    				case "phone":
-			    				case "category":
-			    					return false;
-			    				
-		    				}
-	    				}
-	    			</script>
-	    			<tr>
-	    				<td>글 등록일</td>
-	    				<td>
-	    					<button>오늘</button>
-	    					<button>일주일</button>
-	    					<button>한달</button>
-	    					<button>3개월</button>
-	    					<button>6개월</button>
-	    					<input type="date" name="startDate">
-	    					<input type="date" name="endDate">
-	    				</td>
-	    			</tr>
-	    			<tr>
-	    				<td>매입여부</td>
-	    				<td>
-	    					<input type="radio" hidden="hidden" name="status" value="확인 전" id="waiting" checked>
-	    					<label for="waiting">확인 전</label>
-	    					<input type="radio" name="status" value="수락" id="agree">
-	    					<label for="agree">수락</label>
-	    					<input type="radio" name="status"  value="거절" id="disagree">
-	    					<label for="disagree">거절</label>
-	    				</td>
-	    			</tr>
-	    		</table>
+	    		<form action="" method="">
+		    		<table border="1" align="center" id="searchBox">
+		    			<tr>
+		    				<td colspan="2"></td>
+		    			</tr>
+		    			<tr>
+		    				<td>검색분류</td>
+		    				<td>
+		    					<select id="searchType">
+		    						<option value="memberNo">회원번호</option>
+		    						<option value="memberName">회원이름</option>
+		    						<option value="phone">연락처</option>
+		    						<option value="category">카테고리</option>
+		    					</select>
+		    					<input type="text" id="search" name="search" placeholder="검색어를 입력해주세요">
+		    					<button onclick="search1();"></button>
+		    				</td>
+		    			</tr>
+		    			<tr class="dateSearch">
+		    				<td>글 등록일</td>
+		    				<td>
+	    						<input type="radio" name="bDate" id="today" hidden>
+	    						<label for="today">오늘</label>
+	    						<input type="radio" name="bDate" id="weeks" hidden>
+	    						<label for="weeks">일주일</label>
+	    						<input type="radio" name="bDate" id="month" hidden>
+	    						<label for="month">한달</label>
+	    						<input type="radio" name="bDate" id="3month" hidden>
+	    						<label for="3month">3개월</label>
+	    						<input type="radio" name="bDate" id="6month" hidden>
+	    						<label for="6month">6개월</label>
+
+		    					<input type="date" name="startDate">
+		    					<input type="date" name="endDate">
+		    				</td>
+		    			</tr>
+		    			<script>
+		    				$(".dateSearch label").click(function(){
+		    					
+		    				})
+		    			</script>
+		    			<tr>
+		    				<td>매입여부</td>
+		    				<td>
+		    					<input type="radio" hidden="hidden" name="status" value="확인 전" id="waiting" checked>
+		    					<label for="waiting">확인 전</label>
+		    					<input type="radio" name="status" value="수락" id="agree">
+		    					<label for="agree">수락</label>
+		    					<input type="radio" name="status"  value="거절" id="disagree">
+		    					<label for="disagree">거절</label>
+		    				</td>
+		    			</tr>
+		    			<tr>
+		    				<td colspan="2">
+		    					<button id="searchBtn">검색하기</button>
+		    				</td>
+		    			</tr>
+		    		</table>
+				</form>
 	    	</div><!-- searchArea -->
 	    	<div class="lsitTableArea">
 	    		<table align="center" id="listTable">
@@ -136,7 +151,9 @@
 	    				<th>매입여부</th>
 	    				<th>입고여부</th>
 	    			</tr>
-	    			<% for(HashMap<String, Object> hmap : list){ %>
+	    			<% for(HashMap<String, Object> hmap : list){ 
+	    				String status = String.valueOf(hmap.get("status"));
+	    			%>
 	    			<tr onclick="location.href='<%= request.getContextPath() %>/selectPurchaseDetail.do?no=<%= hmap.get("pcid")%>'">
 	    				<td><%= hmap.get("pcid") %></td>
 	    				<td><%= hmap.get("uno") %></td>
@@ -144,21 +161,45 @@
 	    				<td><%= hmap.get("appPhone") %></td>
 	    				<td><%= hmap.get("category") %></td>
 	    				<td><%= hmap.get("bDate") %></td>
-	    				<td><%= hmap.get("status") %></td>
-	    				<td><%= hmap.get("status") %></td>
+	    				<td>
+	    				<% if(status.equals("매입대기중") || status.equals("매입중") || status.equals("현장거절") || status.equals("매입완료")){ %>
+	    					매입수락
+	    				<% } else {%>
+	    					<%= status %>
+	    				<% } %>
+	    				</td>
+	    				<td>
+	    				<% if(status.equals("신청수락대기") || status.equals("매입신청거절")){ %>
+	    					-
+	    				<% }else if(status.equals("매입수락") || status.equals("매입대기중")){ %>
+	    					매입대기중
+	    				<% }else{ %>
+	    					<%= status %>
+	    				<% } %>
+	    				</td>
 	    			<% } %>
 	    			</tr>
 	    		</table>
 	    	</div><br><br><br>
 	    	<div class="paging" align="center">
 				<ul class="pagination">
-					<li><a href="#">이전</a></li>
-					<li><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-					<li><a href="#">다음</a></li>
+				<% if(currentPage <= 1){ %>
+				<% } else { %>
+				<li><a href="<%= request.getContextPath() %>/selectPurchaseAdminList.do?currentPage=<%= currentPage - 1 %>"><</a></li>
+				<% } %>
+				
+				<% for(int p = startPage; p <= endPage; p++){
+						if(p == currentPage){ %>
+							<li class="active"><a href="<%= request.getContextPath() %>/selectPurchaseAdminList.do?currentPage=<%= p %>"><%= p %></a></li>
+				<%  	} else { %>
+							<li><a href="<%= request.getContextPath() %>/selectPurchaseAdminList.do?currentPage=<%= p %>"><%= p %></a></li>
+				<%		} %>
+				<% } %>
+				
+				<% if(currentPage >= maxPage){ %>
+				<% } else { %>
+				<li><a href="<%= request.getContextPath() %>/selectPurchaseAdminList.do?currentPage=<%= currentPage + 1 %>">></a></li>
+				<% } %>
 				</ul>
 			</div>
 	    </div><!-- col-sm-10 -->
