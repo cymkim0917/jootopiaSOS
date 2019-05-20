@@ -3,9 +3,8 @@
 <%
 	HashMap<String, Object> hmap = (HashMap<String, Object>)request.getAttribute("hmap");
 	String status = (String) hmap.get("status");
-	// System.out.println("status : " + status);
 	ArrayList<Attachment> fileList = (ArrayList<Attachment>) hmap.get("fileList");
-	System.out.println("fileList : " + fileList);
+	System.out.println("hmap : " + hmap);
 %>
 <!DOCTYPE html>
 <html>
@@ -184,7 +183,8 @@
 						<td>
 							<% for(Attachment at : fileList){ %>
 							<div class="detailImgBox">
-								<img src="/jootopia/images/<%= at.getChangeName() %>">
+								<img src="/jootopia/images_upload/<%= at.getChangeName() %>">
+								<% System.out.println("/jootopia/images/" +  at.getChangeName() ); %>
 							</div>
 							<% } %>
 						</td>
