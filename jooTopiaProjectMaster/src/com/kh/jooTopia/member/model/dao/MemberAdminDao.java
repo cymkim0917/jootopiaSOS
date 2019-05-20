@@ -106,12 +106,98 @@ public class MemberAdminDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				member = new Member();
+				member.setUno(rset.getInt("UNO"));
+				member.setUserId(rset.getString("USER_ID"));
+				member.setUserName(rset.getString("USER_NAME"));
+				member.setPhone(rset.getString("PHONE"));
+				member.setEmail(rset.getString("EMAIL"));
+				member.setUserDate(rset.getDate("USER_DATE"));
+				member.setAddress(rset.getString("ADDRESS"));
+				
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
 		}
 		
-		return null;
+		return member;
+	}
+
+	public ArrayList<Member> deleteMemberList(Connection con, PageInfo pageInfo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Member> list = null;
+		
+		String query = prop.getProperty("deleteMemberListPaging");
+		
+		int startRow = (pageInfo.getCurrentPage()-1)*pageInfo.getLimit()+1;
+		int endRow = startRow + pageInfo.getLimit()-1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Member>();
+			
+			while(rset.next()) {
+				Member member = new Member();
+				member.setUno(rset.getInt("UNO"));
+				member.setUserId(rset.getString("USER_ID"));
+				member.setUserName(rset.getString("USER_NAME"));
+				member.setUserDate(rset.getDate("USER_DATE"));
+				member.setPhone(rset.getString("PHONE"));
+				member.setEmail(rset.getString("EMAIL"));
+				member.setAddress(rset.getString("ADDRESS"));
+				
+				list.add(member);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public int getDeleteMemberCount(Connection con) {
+		Statement stmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("deleteMemberCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset =stmt.executeQuery(query);
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return listCount;
 	}
 
 }

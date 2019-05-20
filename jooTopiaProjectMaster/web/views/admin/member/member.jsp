@@ -45,18 +45,20 @@
 				  <tr>
 				    <td width="15%"><label class="titleName">아이디</label></td>
 				    <td><input type="text" width="100%"></td>
-				    <td width="15%"><label class="titleName">전화번호</label></td>
-				    <td><input type="phone"></td>
+				    <td  width="15%"><label class="titleName">이름</label></td>
+				    <td><input type="text" width="100%"></td>
 				  </tr>
 				  <tr>
-				    <td><label class="titleName">이메일</label></td>
-				    <td><input type="email"></td>
-				    <td><label class="titleName">생년월일(ex 991225)</label></td>
+				    <td><label class="titleName">전화번호</label></td>
+				    <td><input type="phone"></td>
+				    <td><label class="titleName">생년월일(ex 1999-12-25)</label></td>
 				    <td><input type="text"></td>
 				  </tr>
 				  <tr>
 				    <td><label class="titleName">주소</label></td>
-				    <td colspan="3"><input type="text"></td>
+				    <td><input type="text"></td>
+				    <td><label class="titleName">이메일</label></td>
+				    <td><input type="email"></td>
 				  </tr>
 			</table>
 			<br>
@@ -94,7 +96,6 @@
 		   	<hr>
 		   	<div id="searchBtnArea" align="right">
 		   		<input type="submit" value="강퇴">
-		   		<input type="button" value="수정" onclick="location.href='/jootopia/views/admin/member/detailMember.jsp'">
 		   	</div>
 		
 		

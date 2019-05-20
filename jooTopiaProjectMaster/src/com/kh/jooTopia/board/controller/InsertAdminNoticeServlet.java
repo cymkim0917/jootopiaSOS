@@ -93,6 +93,7 @@ public class InsertAdminNoticeServlet extends HttpServlet {
 			 }else {
 				 for(int i=0; i<saveFiles.size(); i++) {
 					 File failedFile = new File(filePath + saveFiles.get(i));
+					 failedFile.delete();
 					 
 					 
 				 }

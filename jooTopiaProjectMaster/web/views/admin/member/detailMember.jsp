@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.jooTopia.member.model.vo.*"%>
+<%
+	Member member = (Member)request.getAttribute("member");
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,6 +35,7 @@
 		text-align:center;
 	
 	}
+	
 
 </style>
 <title>JooTopia</title>
@@ -46,31 +51,35 @@
       <br>
       	<div>
 	      <form>
-		      <table id="searchBox" border="1" height="30px;">
+		      <table id="searchBox" border="1">
 				  <tr>
-				    <td><label class="titleName">아이디</label></td>
-				    <td>kyu</td>
-				    <td width="20%"><label class="titleName">전화번호</label></td>
-				    <td><01022223333</td>
+				    <td width="15%"><label class="titleName">아이디</label></td>
+				    <td><%=member.getUserId() %></td>
+				    <td width="15%"><label class="titleName">이름</label></td>
+				    <td><%=member.getUserName()%></td>
 				  </tr>
 				  <tr>
-				    <td><label class="titleName">이메일</label></td>
-				    <td>kyu@co.kr</td>
-				    <td><label class="titleName">생년월일(ex 991225)</label></td>
-				    <td>990302</td>
+				    <td><label class="titleName">전화번호</label></td>
+				    <td><%=member.getPhone()%></td>
+				    <td><label class="titleName">생년월일</label></td>
+				    <td><%=member.getUserDate()%></td>
 				  </tr>
 				  <tr>
 				    <td><label class="titleName">주소</label></td>
-				    <td colspan="3">서울시 서대문구</td>
+				    <td><%=member.getAddress()%></td>
+				    <td><label class="titleName">이메일</label></td>
+				    <td><%=member.getEmail()%></td>
+				  	<td style="display:none"><input type="text" name="uNo" value="<%=member.getUno() %>"></td>
 				  </tr>
 			</table>
 			<br>
-			<div id="searchBtnArea">
-				<input type="submit" value="수정완료">
+			<div id="searchBtnArea" align="right">
+				<input type="submit" value="강퇴">
 			</div>
 		  </form>
 		</div><!--폼 -->
-	   		<hr>
+      		<hr>
+      		<br>
 	      	<div>
 		      	<select id="selectFormBox" onchange="SetSelectBox();" height="30%;">
 		      		<option value="orderList">주문</option>
@@ -79,7 +88,6 @@
 		      		<option value="qnaList">1:1문의글</option>
 		      	</select>
 		      	&nbsp;
-		      	<button>검색</button>
 		      		<a href="#" class="btnDate" period="7"><span>7일</span></a>
 					<a href="#" class="btnDate" period="30"><span>1개월</span></a>
 					<a href="#" class="btnDate" period="90"><span>3개월</span></a>
@@ -87,6 +95,10 @@
 					<a href="#" class="btnDate" period="-1"><span>전체</span></a> &nbsp;&nbsp;
 					<input type="date" id="startDate" name="startDate" class="date" > ~ 
 					<input type="date" id="endDate" name="endDate" class="date" >
+					<br> 
+					<div id="searchBtnArea" style="margin-left:41%; margin-top:1%">
+						<input type="submit" value="검색">
+					</div>
       		</div>
       		<hr>
       		<div id="resultArea">

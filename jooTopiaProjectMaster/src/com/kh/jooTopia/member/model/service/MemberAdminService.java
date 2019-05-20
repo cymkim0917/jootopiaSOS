@@ -41,4 +41,24 @@ public class MemberAdminService {
 		return member;
 	}
 
+	public ArrayList<Member> deleteMemberList(PageInfo pageInfo) {
+		Connection con = getConnection();
+		
+		ArrayList<Member> list = new MemberAdminDao().deleteMemberList(con, pageInfo);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public int getDeleteMemberCount() {
+		Connection con = getConnection();
+		
+		int listCount = new MemberAdminDao().getDeleteMemberCount(con);
+		
+		close(con);
+		
+		return listCount;
+	}
+
 }
