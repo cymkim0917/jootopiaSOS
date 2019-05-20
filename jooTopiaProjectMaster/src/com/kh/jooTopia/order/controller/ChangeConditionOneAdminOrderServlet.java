@@ -33,6 +33,9 @@ public class ChangeConditionOneAdminOrderServlet extends HttpServlet {
 		String msg = "";
 		switch(condition) {
 		case "DMESSAGE" : msg = "배송메시지"; break;
+		case "NAME" : msg = "수령자명"; break;
+		case "PHONE" : msg = "수령자 연락처"; break;
+		case "ADDRESS" : msg = "배송 주소"; break;
 		}
 		if(result > 0) {
 			msg += " 변경 성공";

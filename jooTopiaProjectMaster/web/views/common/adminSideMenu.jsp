@@ -54,9 +54,9 @@
 		<div class="sideMenu" id="sideMenu1">
 		<div class="sideMenuBtn" id="" onclick="location.href='/jootopia/selectAdminPaymentList.do'">입금전 관리</div></div>
 		<div class="sideMenu" id="sideMenu2">
-		<div class="sideMenuBtn" id="" onclick="location.href='views/admin/order/preparingProductList.jsp'">상품준비중 관리</div></div>
+		<div class="sideMenuBtn" id="" onclick="location.href='/jootopia/selectAdminPreList.do'">상품준비중 관리</div></div>
 		<div class="sideMenu" id="sideMenu3">
-		<div class="sideMenuBtn" id="" onclick="location.href='views/admin/order/deliveryList.jsp'">배송중 관리</div></div>
+		<div class="sideMenuBtn" id="" onclick="location.href='/jootopia/selectAdminDeliveryList.do'">배송중 관리</div></div>
 		<div class="sideMenu" id="sideMenu4">
 		<div class="sideMenuBtn" id="" onclick="location.href='views/admin/order/deliveryCompletedList.jsp'">배송완료 관리</div></div>
 		<div class="sideMenu" id="sideMenu5">
