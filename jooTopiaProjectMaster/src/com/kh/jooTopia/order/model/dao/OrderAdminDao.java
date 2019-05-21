@@ -114,6 +114,7 @@ public class OrderAdminDao {
 				hmap.put("o", o);
 				hmap.put("userName", rset.getString("USER_NAME"));
 				hmap.put("pName", rset.getString("PNAME"));
+				hmap.put("totalPrice", rset.getInt("TOTALPRICE"));
 
 				list.add(hmap);
 			}
@@ -346,6 +347,52 @@ public class OrderAdminDao {
 		}
 		
 		return hmap;
+	}
+
+	public void getPOrderCount(Connection con, HashMap<String, Object> hmap) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		POrder o = (POrder) hmap.get("o");
+		
+		String query = prop.getProperty("getPOrderCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, o.getPoId());
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				hmap.put("count", rset.getInt(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+	}
+
+	public int updatePayment(Connection con, int poId) {
+		//입금완료 처리
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updatePayment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, poId);
+			pstmt.setString(2, "결제완료");
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

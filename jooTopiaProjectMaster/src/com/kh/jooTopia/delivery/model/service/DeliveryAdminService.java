@@ -33,4 +33,13 @@ public class DeliveryAdminService {
 		return list;
 	}
 
+	public HashMap<String, Object> selectDeliveryOne(int dId) {
+		Connection con = getConnection();
+		HashMap<String, Object> hmap = new DeliveryAdminDao().selectDeliveryOne(con, dId);
+		
+		close(con);
+		
+		return hmap;
+	}
+
 }

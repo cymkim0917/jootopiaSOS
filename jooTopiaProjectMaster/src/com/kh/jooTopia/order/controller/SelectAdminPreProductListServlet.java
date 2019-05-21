@@ -53,7 +53,7 @@ public class SelectAdminPreProductListServlet extends HttpServlet {
 		PageInfo pageInfo = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
 
 		ArrayList<HashMap<String, Object>> list = new OrderAdminService().selectPreProductList(pageInfo);
-
+		
 		String view = "";
 		if(list != null) {
 			view = "views/admin/order/preparingProductList.jsp";
