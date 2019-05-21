@@ -11,7 +11,7 @@
 .container2{
 	position : relative;
 	top: -20px;
-	width: 85%;	
+	width: 75%;	
 	margin : 0 auto;
 }
 .carousel-indicators.active{
