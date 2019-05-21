@@ -37,7 +37,6 @@ public class SearchDate extends HttpServlet {
 		System.out.println("변경날짜 : " + changeDate);
 		
 		new Gson().toJson(changeDate, response.getWriter());
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
