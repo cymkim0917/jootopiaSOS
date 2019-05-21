@@ -724,6 +724,8 @@ public class BoardDao {
 		
 	}
 
+	
+	//(s) 후기게시판 전체 리스트 
 	public HashMap<String, Object> selectReviewTotalList(Connection con) {
 
 		Statement stmt = null;
@@ -804,6 +806,58 @@ public class BoardDao {
 		}
 		return list;
 		
+	}
+
+	
+
+	//(s) insertThumbnailContent
+	public int reviewInsertForm(Connection con, Board b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("insertThumb");
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, b.getbTitle());
+			pstmt.setString(2, b.getbContent());
+			pstmt.setInt(3, Integer.parseInt(b.getbWriter()));
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+		
+		
+		
+		return 0;
+	}
+
+	public int insertAttachment(Connection con, ArrayList<Attachment> fileList) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int insertReply(Connection con, Board b) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public ArrayList<Board> selectReplyList(Connection con, int getbId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Attachment selectOneAttachment(Connection con, int num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public HashMap<String, Object> reviewReadPage(Connection con, int num) {
+		// TODO Auto-generated method stub
+		
+		return 0;
 	}
 
 }

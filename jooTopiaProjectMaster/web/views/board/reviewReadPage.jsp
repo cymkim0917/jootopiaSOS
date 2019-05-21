@@ -2,11 +2,17 @@
     pageEncoding="UTF-8" import="com.kh.jooTopia.board.model.vo.* , java.util.*"%>
     
 <%
-Board b = (Board) request.getAttribute("b");
-ArrayList<Attachment> fileList = (ArrayList<Attachment>) request.getAttribute("fileList");
-Attachment titleImg = fileList.get(0);
-Attachment titleImg1 = fileList.get(1);
+	HashMap<String,Object> list = (HashMap<String,Object>) request.getAttribute("list");
+	ArrayList<Board> bList = (ArrayList<Board>) list.get("bList");
+	ArrayList<Member> mList = (ArrayList<Member>) list.get("mList");
+	ArrayList<Attachment> aList = (ArrayList<Attachment>) list.get("aList");
+	ArrayList<Attachment> fileList = (ArrayList<Attachment>) request.getAttribute("fileList");
+	Attachment titleImg = fileList.get(0);
+	Attachment detailImg1 = fileList.get(1);
+	 Board b = (Board) request.getAttribute("b");
+	
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +44,7 @@ Attachment titleImg1 = fileList.get(1);
 	} */
 	<!--게시판 형식 -->
 	
-	<style>
+	
 	.outer{
 		width:1000px;
 		height:650px;
@@ -91,15 +97,16 @@ Attachment titleImg1 = fileList.get(1);
 		<table class="detail" align="center">
 			<tr>
 				<td width="50">제목</td>
-				<td colspan="5"><label><%=b.getbTitle() %></label></td>
+				<td colspan="5"><label><%=bList.get(i).getbTitle()%></label></td>
 			</tr>
 			<tr>
+								
 				<td>작성자</td>
-				<td><label><%=b.getuNo() %></label></td>
+				<td><label><%=mList.get(i).getuNo() %></label></td>
 				<td>조회수</td>
-				<td><label><%=b.getbCount() %></label></td>
+				<td><label><%=bList.get(i).getbCount() %></label></td>
 				<td>작성일</td>
-				<td><label><%=b.getbDate() %></label></td>
+				<td><label><%=bList.get(i).getbDate() %></label></td>
 			</tr>
 			<tr>
 				<td>대표사진</td>
@@ -116,7 +123,7 @@ Attachment titleImg1 = fileList.get(1);
 			<tr>
 				<td>사진메모</td>
 				<td colspan="6">
-					<p id="contentArea"><%=b.getbContent() %></p>
+					<p id="contentArea"><%=bList.get(i).getbContent()%></p>
 				</td>
 			</tr>
 		</table>
@@ -129,13 +136,7 @@ Attachment titleImg1 = fileList.get(1);
 						<!-- <button>다운로드</button> -->
 					</div>
 				</td>
-				<td>
-					<div class="detailImgArea">
-						<img id="detailImg2" class="detailImg"
-						src="<%=request.getContextPath()%>/images_upload/<%=detailImg2.getChangeName()%>"/>
-						<!-- <button>다운로드</button> -->
-					</div>
-				</td>
+				
 				
 			</tr>
 		</table>
