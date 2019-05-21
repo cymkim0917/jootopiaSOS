@@ -10,17 +10,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="/jootopia/images/favicon.ico">
-<!-- <link rel="stylesheet" href="/jootopia/js/external/jquery-3.4.0.min.js"> -->
+<link rel="stylesheet" href="/jootopia/js/external/jquery-3.4.0.min.js">
 <link rel="stylesheet" href="/jootopia/css/admin/adminCommon.css">
- 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
-<style>
-
-</style>
 <title>JooTopia</title>
 </head>
-<body>
 <body>
 
 	<%@ include file="/views/common/adminNavigation.jsp" %>
@@ -34,10 +28,6 @@
 		
 		<div id="infoArea">
 		<table id="pInfo1">
-			<tr>
-				<th>상품명</th>
-				<td><%= "상품명 임시" %></td>
-			</tr>
 			<tr>
 				<th>주문코드</th>
 				<td><%= "주문코드 임시" %></td>
@@ -60,10 +50,6 @@
 			<tr>
 				<th>배송예정일</th>
 				<td><%= "배송예정일 임시" %></td>
-			</tr>
-			<tr>
-				<th>배송기사 정보</th>
-				<td><%= "배송기사 정보 임시" %></td>
 			</tr>
 			<tr>
 				<th>배송지 주소</th>

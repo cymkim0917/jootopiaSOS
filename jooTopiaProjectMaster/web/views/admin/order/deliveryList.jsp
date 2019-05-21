@@ -34,7 +34,11 @@
 		<hr>
 		
 		<div id="listArea">
-			전체 <a href="/jootopia/views/admin/order/paymentList.jsp">10</a>건
+		<% if(list != null) { %>
+		전체 <a href="#"><%= list.size() %></a>건	
+		<% }else { %>
+		전체 <a href="#">0</a>건	
+		<% } %>
 		</div>
 		<br>
 		
@@ -56,29 +60,16 @@
 					</td>
 				</tr>
 				<tr>
-					<td>주문일</td>
-					<td id="selectDate" colspan="2">
-						<a href="#" class="btnDate" period="0"><span>오늘</span></a>
-						<a href="#" class="btnDate" period="7"><span>7일</span></a>
-						<a href="#" class="btnDate" period="30"><span>1개월</span></a>
-						<a href="#" class="btnDate" period="90"><span>3개월</span></a>
-						<a href="#" class="btnDate" period="365"><span>1년</span></a>
-						<a href="#" class="btnDate" period="-1"><span>전체</span></a>
-						<input type="date" id="startDate" name="startDate" class="date" value=""> ~ 
-						<input type="date" id="endDate" name="endDate" class="date" value="">
-					</td>
-				</tr>
-				<tr>
 					<td>배송일</td>
-					<td id="selectDate" colspan="2">
+					<td id="selectDate" class="selectDate" colspan="2">
 						<a href="#" class="btnDate" period="0"><span>오늘</span></a>
 						<a href="#" class="btnDate" period="7"><span>7일</span></a>
 						<a href="#" class="btnDate" period="30"><span>1개월</span></a>
 						<a href="#" class="btnDate" period="90"><span>3개월</span></a>
 						<a href="#" class="btnDate" period="365"><span>1년</span></a>
-						<a href="#" class="btnDate" period="-1"><span>전체</span></a>
-						<input type="date" id="startDate" name="startDate" class="date" value=""> ~ 
-						<input type="date" id="endDate" name="endDate" class="date" value="">
+						<a href="#" class="btnDate selected" period="-1"><span>전체</span></a>
+						<input type="date" id="startDate" name="startDate" class="dateBox" value=""> ~ 
+						<input type="date" id="endDate" name="endDate" class="dateBox" value="">
 					</td>
 				</tr>
 			</table>
@@ -90,16 +81,12 @@
 				<input type="reset" value="초기화" onclick="">
 			</div>
 		</div>
-		
 		<br>
-		
 		<div class="selectTopList">
 		<span>주문 목록</span><br>
 		<span>[총 <a><% if(list != null) { %><%= list.size() %><% }else { %>0<% } %></a>개]</span>
 		</div>
-		
 		<br>
-		
 		<div class="selectListArea">
 			<table id="selectList" class="selectList" border="1">
 				<tr>
@@ -117,35 +104,41 @@
 					<th width="150px">배송코드</th>
 					<th width="70px">주문자</th>
 					<th width="250px">상품명</th>
-					<th width="100px">배송메시지</th>
+					<th width="100px">배송정보</th>
 				</tr>
 				<% for(int i = 0; i < list.size(); i++) { 
-				HashMap<String,Object> hmap = list.get(i);
-				POrder o = (POrder)hmap.get("o");
-				int beforePoId = 0;
+					HashMap<String,Object> hmap = list.get(i);
+					POrder o = (POrder)hmap.get("o");
+					Delivery d = (Delivery)hmap.get("d");
+					int beforeDId = 0;
+					System.out.println("list : " + list);
 				%>
 				<% if(i > 0) { 
-				POrder beforeO = (POrder) list.get(i-1).get("o");
-				beforePoId = beforeO.getPoId();
+				Delivery beforeD = (Delivery) list.get(i-1).get("d");
+				beforeDId = beforeD.getdId();
 				} %>
-				<% if(i >= 0 && o.getPoId() != beforePoId) { 
+				<% if(i >= 0 && d.getdId() != beforeDId) { 
 				%>
-				<tr>
-					<th><input type="checkbox" class="check" value="<%= o.getPoId() %>"></th>
-					<td><%= count++ %></td>
-					<td><%= "배송상태" %></td>
-					<td><%= "주문일/주문코드" %></td>
-					<td><%= "배송예정일" %></td>
-					<td><%= "배송코드" %></td>
-					<td><%= "주문자" %></td>
-					<td><%= "상품명" %></td>
-					<th>
-					<div id="memo" class="memo">MEMO
-					</div>
-					<input type="hidden" id="dMsg" value="<%= o.getdMessage() %>">
-					</th>
-				</tr>
-				<% } %>
+					<tr>
+						<th><input type="checkbox" class="check" value="<%= o.getPoId() %>"></th>
+						<td><%= count++ %></td>
+						<td><%= d.getStatus() %></td>
+						<td><%= o.getPoDate() %> / <%= o.getPoId() %></td>
+						<% if(d.getStartDate() != null) { %>
+						<td><%= d.getStartDate() %></td>
+						<% }else { %>
+						<td>미정</td>
+						<% } %>
+						<td><%= d.getdId() %></td>
+						<td><%= o.getName() %></td>
+						<td><%= hmap.get("pName") %></td>
+						<th>
+						<div id="memo" class="memo">MEMO
+						</div>
+						<input type="hidden" id="dMsg" value="<%= o.getdMessage() %>">
+						</th>
+					</tr>
+					<% } %>
 				<% } %>
 			</table>
 		
@@ -154,13 +147,25 @@
 	<br><br><br>
 	<div class="paging" align="center">
 		<ul class="pagination">
-			<li><a href="#">Previous</a></li>
-			<li><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">4</a></li>
-			<li><a href="#">5</a></li>
-			<li><a href="#">Previous</a></li>
+		<% if(currentPage <= 1) { %>
+		<li><a>이전</a></li>
+		<% } else { %>
+		<li><a href="<%=request.getContextPath()%>/adminProductList.do?currentPage=<%= currentPage - 1 %>">이전</a></li>
+		<% } %>
+		
+		<% for(int p = startPage; p <= endPage; p++) { 
+			if(p == currentPage) { %>
+		<li><a><%= p %></a></li>
+		<% 	}else { %>
+		<li><a href="<%=request.getContextPath()%>/adminProductList.do.do?currentPage=<%= p %>"><%= p %></a></li>	
+		<% 	} 
+		} %>
+		
+		<% if(currentPage >= maxPage) { %>
+		<li><a>다음</a></li>
+		<% }else { %>
+		<li><a href="<%=request.getContextPath()%>/adminProductList.do.do?currentPage=<%= currentPage + 1 %>">다음</a></li>
+		<% } %>
 		</ul>
 	</div>
 	
@@ -174,30 +179,49 @@
 	<div class="memoModalContent">
 	<div class="memoModalHeader">
 	<button type="button" class="close" data-dismiss="modal">&times;</button>
-	<h4>구매자 배송메시지</h4>
+	<h4>배송정보 수정</h4>
 	<hr>
 	</div>
-	
-	<!-- Modal content -->
+<!-- Modal content -->
     <div class="memoModalBody">
     	<table class="memoModalTable">
     		<tr>
-    			<th>주문코드 : <%= "주문코드 임시" %><br />
-    			주문일 : <%= "주문일 임시" %></th>
+    			<th>배송코드 : <span id="modalDId">배송코드임시</span><br>
+    			주문코드 : <span id="modalPoId">주문코드임시</span><br>
+    			주문일 : <span id="modalPoDate">주문일임시</span></th>
     		</tr>
     	</table>
     	<br>
         <table class="memoModalTable">
-    		<tr>
-    			<th>배송메시지</th>
+        	<tr>
+        		<th colspan="2">배송지 정보</th>
+        	</tr>
+        	<tr>
+    			<th>수령자명</th>
+    			<td><span id="modalName">수령자명 임시</span></td>
     		</tr>
     		<tr>
-    			<td><input type="text" name="oMemo" value="<%= "배송메시지 임시" %>" readonly></td>
+    			<th>연락처</th>
+    			<td><span id="modalPhone">연락처 임시</span></td>
+    		</tr>
+    		<tr>
+    			<th>배송지 주소</th>
+    			<td><span id="modalAddress">배송지 주소 임시</span></td>
+    		</tr>
+    		<tr>
+    			<th>배송메시지</th>
+    			<td>
+    			<input type="text" id="oMemo" name="oMemo" placeholder="배송메시지를 입력하세요" value="">
+    			</td>
+    		</tr>
+    		<tr>
+    			<th>배송일</th>
+    			<td><input type="date" id="startDate" name="startDate" value=""></td>
     		</tr>
     	</table>
     	<br>
-    	
     	<div class="modalBtnArea" align="center">
+				<input type="submit" value="수정" onclick="changeMemo();">
 				<input type="reset" value="닫기">
 		</div>
     </div>
@@ -205,13 +229,15 @@
 </div>
 
 <script>
-
-	$(document).ready(function() {
-		if(true) {
-			$("#memo").css("background","rgb(52, 152, 219)");
-		}
+	//------검색테이블 날짜 관련 펑션
+	$(function() {
+		var today = new Date().toISOString().substr(0, 10);
+		
+		console.log(today);
+		$("#startDate").attr("disabled", true).val(today);
+		$("#endDate").attr("disabled", true).val(today);
 	});
-
+	
 	$(".btnDate").click(function() {
 		
 		$("#selectDate>a").removeClass();
@@ -220,14 +246,38 @@
 		
 	});
 	
-	function oTypeChange(text) {
-		var answer = window.confirm("선택한 주문을 " + text + " 하시겠습니까?");
+	$(".btnDate").click(function() {
+		var date = $(this).attr("period");
+		console.log( date );
 		
-		if(answer) {
-			alert("해당주문을 " + text + " 처리 하였습니다.");
+		if(date != -1) {
+			$(".dateBox").attr("disabled", false);
+			$.ajax({
+				url : "searchDate.do",
+				data : {date : date},
+				success : function(data) {
+					console.log("에이잭스 성공");
+					console.log(data);
+					
+					var change = new Date(data).toISOString().substr(0, 10);
+					
+					console.log(change);
+					$("#startDate").val(change);
+				},
+				error : function(data) {
+					console.log("전송실패");
+				}
+			});
+		}else {
+			$(".dateBox").attr("disabled", true);
 		}
-	};
+	});
 	
+	$(".dateBox").click(function() {
+		$("#selectDate>a").removeClass();
+		$("#selectDate>a").addClass("btnDate");
+	});
+
 	$("#allCheck").click(function() {
 		
 		if($("#allCheck").prop("checked")) {
@@ -237,7 +287,44 @@
 		}
 	});
 	
+	//배송정보 모달용 펑션
 	$(".memo").click(function() {
+		var dId = $(this).parent().parent().children().eq(5).text();
+		
+		//배송정보 출력용 에이젝스
+		$.ajax({
+			url : "selectDeliveryModal.do",
+			type : "post",
+			data : {dId : dId},
+			success : function(data) {
+				
+				alert("하는중!");
+				
+				//조회 성공 시 모달에 넣어주기
+				/* $(function() {
+					$("#modalDId").text(dId);
+					$("#modalPoDate").text(date);
+					$("#oMemo").val(message);
+				}); */
+			},
+			error : function(data) {
+				alert(data);
+			}
+		});
+		
+		//배송정보 수정용 에이젝스
+		$.ajax({
+			url : "",
+			type : "post",
+			data : {},
+			success : function(data) {
+				
+			},
+			error : function(data) {
+				alert(data);
+			}
+		});
+		
 		$("#memoModal").css("display", "block");
 		
 		$(".close").click(function() {
@@ -247,10 +334,109 @@
 		$(".modalBtnArea>input[type=reset]").click(function() {
 			$("#memoModal").css("display", "none");
 		});
-		
-	})
+	});
 	
-    	
+	//배송메시지 변경
+	function changeMemo() {
+		var poId = $("#modalPoId").text();
+		var condition = 'DMESSAGE';
+		var changeValue = $("#oMemo").val();
+		
+		console.log(poId);
+		console.log(condition);
+		console.log(changeValue);
+		
+		$.ajax({
+			url : "changeConditionOne.do",
+			type : "post",
+			data : {poId : poId, condition : condition, changeValue : changeValue},
+			success : function(data) {
+				$("#oMemo").val(changeValue);
+				console.log(changeValue);
+				location.href='selectAdminPreList.do';
+				alert(data);
+			},
+			error : function(data) {
+				alert("에이젝스 접속실패");
+			}
+		});
+	};
+	
+	//------체크된 주문 상태 변화 관련 펑션
+	$("#allCheck").click(function() {
+		
+		if($("#allCheck").prop("checked")) {
+			$("input[type=checkBox]").prop("checked", true);
+		}else {
+			$("input[type=checkBox]").prop("checked", false);
+		}
+	});
+	
+	function oTypeChange(text) {
+		var answer = window.confirm("선택한 상품을 " + text + " 하시겠습니까?");
+		if(answer) {
+			var numArr = [];
+			$(".check").each(function() {
+				if($(this).is(":checked"))
+					if($(this) !== $("#allCheck")) {
+						numArr += $(this).val() + "|";
+					}
+			});
+			
+			console.log( numArr );
+			
+			$.ajax({
+				url : "adminChangeStatusOrder.do",
+				type : "post",
+				data : {numArr : numArr, text : text},
+				success : function(data) {
+					alert(data);
+					location.href='selectAdminPreList.do';
+				},
+				error : function(data) {
+					alert("해당상품 " + text + " 처리 실패");
+				}
+			});
+		}
+	};
+	
+	function deliveryInsert(text) {
+		var answer = window.confirm("선택한 상품을 " + text + " 처리 하시겠습니까?");
+		if(answer) {
+			var numArr = [];
+			$(".check").each(function() {
+				if($(this).is(":checked"))
+					if($(this) !== $("#allCheck")) {
+						numArr += $(this).val() + "|";
+					}
+			});
+			
+			console.log( numArr );
+			
+			$.ajax({
+				url : "adminInsertDelivery.do",
+				type : "post",
+				data : {numArr : numArr},
+				success : function(data) {
+					alert(data);
+					location.href='selectAdminPreList.do';
+				},
+				error : function(data) {
+					alert("해당상품 " + text + " 처리 실패");
+				}
+			});
+		}
+	};
+	
+	//------해당 배송정보(게시물) 조회 펑션
+	$("#selectList td").mouseenter(function(){
+		$(this).parent().css({"background":"rgb(61, 81, 113)", "color":"white", "cursor":"pointer"});
+	}).mouseout(function(){
+		$(this).parent().css({"background":"white", "color":"black"});
+	}).click(function(){
+		var num = $(this).parent().children().eq(5).text();
+		location.href="<%=request.getContextPath()%>/selectAdminDelOne.do?num=" + num;
+	});
 </script>
 </body>
 </html>

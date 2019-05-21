@@ -70,8 +70,8 @@ private Properties prop = new Properties();
 			rset = pstmt.executeQuery();
 			
 			list = new ArrayList<HashMap<String, Object>>();
-			hmap = new HashMap<String, Object>();
 			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
 				Delivery d = new Delivery();
 				//D.DID, D.STATUS, D.START_DATE
 				d.setdId(rset.getInt("DID"));
@@ -90,6 +90,7 @@ private Properties prop = new Properties();
 				hmap.put("pName", rset.getString("PNAME"));
 				
 				list.add(hmap);
+				System.out.println("hmap : " + hmap);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -99,5 +100,15 @@ private Properties prop = new Properties();
 		}
 		
 		return list;
+	}
+
+	public HashMap<String, Object> selectDeliveryOne(Connection con, int dId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+		
+		String query = prop.getProperty("selectDeliveryOne");
+		
+		return hmap;
 	}
 }
