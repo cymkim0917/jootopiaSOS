@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*,com.kh.jooTopia.board.model.vo.*"%>
+    
+ <%
+	HashMap<String,Object> list = (HashMap<String,Object>) request.getAttribute("list");
+	ArrayList<Board> bList = (ArrayList<Board>) list.get("bList");
+	ArrayList<Member> mList = (ArrayList<Member>) list.get("mList");
+	ArrayList<Attachment> aList = (ArrayList<Attachment>) list.get("aList");
+ %>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,7 +67,7 @@
 	<div class="outer"> 	
 		<br>
 		<h2 align="center">사진게시판 작성</h2>
-		<form action="<%=request.getContextPath() %>/insert.tn" method="post"
+		<form action="<%=request.getContextPath() %>/selectReviewWrite.do" method="post"
 			encType="multipart/form-data">
 			<!-- encType을 설정해야 파일을 폼에서 보낼 수 있다 -->
 			<div class="insertArea">
@@ -86,16 +93,7 @@
 								<img id="contentImg1" width="120" height="100">
 							</div>
 						</td>
-						<td>
-							<div id="contentImgArea2">
-								<img id="contentImg2" width="120" height="100">
-							</div>
-						</td>
-						<td>
-							<div id="contentImgArea3">
-								<img id="contentImg3" width="120" height="100">
-							</div>
-						</td>
+					
 					</tr>
 					<tr>
 						<td>사진 메모</td>
@@ -108,8 +106,8 @@
 			<div id="fileArea">
 				<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this,1);">
 				<input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this,2);">
-				<input type="file" id="thumbnailImg3" name="thumbnailImg3" onchange="loadImg(this,3);">
-				<input type="file" id="thumbnailImg4" name="thumbnailImg4" onchange="loadImg(this,4);">
+				<!-- <input type="file" id="thumbnailImg3" name="thumbnailImg3" onchange="loadImg(this,3);">
+				<input type="file" id="thumbnailImg4" name="thumbnailImg4" onchange="loadImg(this,4);"> -->
 			</div>
 			<br>
 			<div class="btnArea">
@@ -128,12 +126,12 @@
 			$("#contentImgArea1").click(function(){
 				$("#thumbnailImg2").click();
 			});
-			$("#contentImgArea2").click(function(){
+			/* $("#contentImgArea2").click(function(){
 				$("#thumbnailImg3").click();
 			});
 			$("#contentImgArea3").click(function(){
 				$("#thumbnailImg4").click();
-			});
+			}); */
 		});
 		
 		
@@ -148,12 +146,12 @@
 					case 2:
 						$("#contentImg1").attr("src",e.target.result);
 						break;
-					case 3:
+					/* case 3:
 						$("#contentImg2").attr("src",e.target.result);
 						break;
 					case 4:
 						$("#contentImg3").attr("src",e.target.result);
-						break;
+						break; */
 					}
 				}
 				reader.readAsDataURL(value.files[0]);

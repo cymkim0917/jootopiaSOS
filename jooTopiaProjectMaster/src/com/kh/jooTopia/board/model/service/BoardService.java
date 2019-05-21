@@ -272,15 +272,16 @@ public class BoardService {
 		
 		
 	}
+	//(s) selectThumbnailList(전체 상품후기 리스트)
 	public HashMap<String, Object> selectReviewTotalList() {
 		Connection con = getConnection();
 		HashMap<String, Object> list = new BoardDao().selectReviewTotalList(con);
 		close(con);
 		
 		return list;
-		
-		
 	}
+	
+	
 	
 	
 }
