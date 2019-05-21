@@ -67,6 +67,7 @@ public class InsertAdminNoticeServlet extends HttpServlet {
 			}
 			
 			String multiTitle = multiReq.getParameter("title");
+			
 			String multiContent = multiReq.getParameter("content");
 			
 			

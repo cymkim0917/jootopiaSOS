@@ -16,7 +16,7 @@ public class Board implements java.io.Serializable {
 	private Date deleteDate;
 	private int rrating;
 	private String fCategory;
-	private String mtmStatus;
+	private String aStatus;
 	private String aContent;
 	private Date aDate;
 	private String qCategory;
@@ -31,7 +31,7 @@ public class Board implements java.io.Serializable {
 	public Board() {}
 
 	public Board(int bId, int bNo, int bType, String bTitle, String bContent, String status, Date bDate,
-			Date modifyDate, Date deleteDate, int rrating, String fCategory, String mtmStatus, String aContent,
+			Date modifyDate, Date deleteDate, int rrating, String fCategory, String aStatus, String aContent,
 			Date aDate, String qCategory, int bCount, String nType, Date startDate, Date finishDate, String pCno,
 			String address, int uNo) {
 		super();
@@ -46,7 +46,7 @@ public class Board implements java.io.Serializable {
 		this.deleteDate = deleteDate;
 		this.rrating = rrating;
 		this.fCategory = fCategory;
-		this.mtmStatus = mtmStatus;
+		this.aStatus = aStatus;
 		this.aContent = aContent;
 		this.aDate = aDate;
 		this.qCategory = qCategory;
@@ -147,12 +147,12 @@ public class Board implements java.io.Serializable {
 		this.fCategory = fCategory;
 	}
 
-	public String getMtmStatus() {
-		return mtmStatus;
+	public String getaStatus() {
+		return aStatus;
 	}
 
-	public void setMtmStatus(String mtmStatus) {
-		this.mtmStatus = mtmStatus;
+	public void setaStatus(String aStatus) {
+		this.aStatus = aStatus;
 	}
 
 	public String getaContent() {
@@ -239,7 +239,7 @@ public class Board implements java.io.Serializable {
 	public String toString() {
 		return "Board [bId=" + bId + ", bNo=" + bNo + ", bType=" + bType + ", bTitle=" + bTitle + ", bContent="
 				+ bContent + ", status=" + status + ", bDate=" + bDate + ", modifyDate=" + modifyDate + ", deleteDate="
-				+ deleteDate + ", rrating=" + rrating + ", fCategory=" + fCategory + ", mtmStatus=" + mtmStatus
+				+ deleteDate + ", rrating=" + rrating + ", fCategory=" + fCategory + ", aStatus=" + aStatus
 				+ ", aContent=" + aContent + ", aDate=" + aDate + ", qCategory=" + qCategory + ", bCount=" + bCount
 				+ ", nType=" + nType + ", startDate=" + startDate + ", finishDate=" + finishDate + ", pCno=" + pCno
 				+ ", address=" + address + ", uNo=" + uNo + "]";

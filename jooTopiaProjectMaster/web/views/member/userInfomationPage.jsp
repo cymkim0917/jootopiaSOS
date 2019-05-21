@@ -64,13 +64,22 @@
 	#btnArea{
 		text-align:center;
 	}
+	
+	#tempBtnArea{
+		text-align:center;
+		top:120px;
+	}
 </style>
 </head>
 <body>
 <%@ include file="../common/navigation.jsp" %>
 	<section>
 		<div class="row">
-			<div class="col-sm-3"></div>
+			<div class="col-sm-3" id="tempBtnArea">
+				<a href="<%= request.getContextPath() %>/orderList.do" id="orderBtn">임시)주문내역</a><br />
+				<a href="<%= request.getContextPath() %>/selectBoardList.do" id="orderBtn">임시)게시글 조회</a><br />
+				<a href="myRecentProduct.jsp" id="orderBtn">임시)최근 본 상품 조회</a>
+			</div>
 			<div class="col-sm-6">
 			<h1>회원 정보</h1><br />
 			
@@ -102,8 +111,7 @@
 				<div class="btnArea" id="btnArea">
 					<p onclick="checkModify();" id="modifyBtn">수정</p>					
 					<a href="passwordCheckPage2.jsp" id="delBtn">삭제</a><br />
-					<a href="<%= request.getContextPath() %>/orderList.do" id="orderBtn">임시)주문내역</a><br />
-					<a href="<%= request.getContextPath() %>/selectBoardList.do" id="orderBtn">임시)게시글 조회</a>
+				
 				</div>
 				
 			</div>
@@ -120,7 +128,7 @@
 			}else{
 				location.href='passwordCheckPage.jsp'
 			}
-		}
+		}	
 	</script>
 <%@ include file="../common/footer.jsp" %>
 </body>

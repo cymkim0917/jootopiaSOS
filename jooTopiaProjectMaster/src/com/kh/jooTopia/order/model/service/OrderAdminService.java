@@ -34,9 +34,16 @@ public class OrderAdminService {
 	}
 
 	public ArrayList<HashMap<String, Object>> selectPaymentList(PageInfo pageInfo) {
+		//입금전관리 전체 리스트 출력
 		Connection con = getConnection();
 		ArrayList<HashMap<String, Object>> list = new OrderAdminDao().selectPaymentList(con, pageInfo);
-
+		HashMap<String, Object> hmap = null;
+		
+		for(int i = 0; i < list.size(); i++) {
+			hmap = list.get(i);
+			new OrderAdminDao().getPOrderCount(con, hmap);
+		}
+		
 		close(con);
 
 		return list;
@@ -79,7 +86,13 @@ public class OrderAdminService {
 	public ArrayList<HashMap<String, Object>> selectPreProductList(PageInfo pageInfo) {
 		//상품준비중 리스트 출력
 		Connection con = getConnection();
-		ArrayList<HashMap<String, Object>> list= new OrderAdminDao().selectPreProductList(con, pageInfo);
+		ArrayList<HashMap<String, Object>> list = new OrderAdminDao().selectPreProductList(con, pageInfo);
+		HashMap<String, Object> hmap = null;
+		
+		for(int i = 0; i < list.size(); i++) {
+			hmap = list.get(i);
+			new OrderAdminDao().getPOrderCount(con, hmap);
+		}
 		
 		close(con);
 		
@@ -94,6 +107,20 @@ public class OrderAdminService {
 		close(con);
 				
 		return hmap;
+	}
+
+	public int updatePayment(int poId) {
+		//입금전 정보의 입금완료 처리
+		Connection con = getConnection();
+		int result = new OrderAdminDao().updatePayment(con, poId);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		return result;
 	}
 
 }

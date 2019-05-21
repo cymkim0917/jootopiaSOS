@@ -639,6 +639,7 @@ public class ProductAdminDao {
 		return result;
 	}
 
+
 	public int selectCurrval(Connection con) {
 		
 		Statement stmt = null;
@@ -663,6 +664,60 @@ public class ProductAdminDao {
 		}
 		
 		return pId;
+
+	public int updateDetailProduct(Connection con, Product p) {
+		//상품 상세내용 수정
+		PreparedStatement pstmt = null;
+		int result = 0;
+				
+		String query = prop.getProperty("updateDetailProduct");
+
+		try {
+			pstmt = con.prepareStatement(query);
+					
+			pstmt.setString(1, p.getpName());
+			pstmt.setInt(2, p.getpPrice());
+			pstmt.setString(3, p.getpContent());
+			pstmt.setInt(4, p.getcId());
+			pstmt.setInt(5, p.getpId());
+					
+			result = pstmt.executeUpdate();
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+				
+		return result;
+	}
+
+	public int updateDetailAttachment(Connection con, ArrayList<Attachment> fileList) {
+		//상품상세 사진 수정
+		PreparedStatement pstmt = null;
+		int result = 0;
+				
+		String query = prop.getProperty("updateDetailAttachment");
+				
+		try {
+			pstmt = con.prepareStatement(query);
+			for(Attachment a : fileList) {
+				pstmt.setString(1, a.getOriginName());
+				pstmt.setString(2, a.getChangeName());
+				pstmt.setString(3, a.getFilePath());
+				pstmt.setInt(4, a.getfId());
+						
+				result += pstmt.executeUpdate();
+			}
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+				
+		return result;
+
 	}
 
 	

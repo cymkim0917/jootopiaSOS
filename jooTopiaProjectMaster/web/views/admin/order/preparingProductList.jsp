@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.jooTopia.product.model.vo.*, java.util.*, java.lang.*"%>
+    pageEncoding="UTF-8" import="com.kh.jooTopia.product.model.vo.*, java.util.*, java.lang.*, com.kh.jooTopia.board.model.vo.*"%>
 <%
 	int count = 1;
 	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+
+	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
+	int currentPage = pageInfo.getCurrentPage();
+	int maxPage = pageInfo.getMaxPage();
+	int startPage = pageInfo.getStartPage();
+	int endPage = pageInfo.getEndPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -119,7 +125,11 @@
 					<td><%= hmap.get("poDate") %></td>
 					<td><%= hmap.get("poId") %></td>
 					<td><%= hmap.get("userName") %></td>
+					<% if(hmap.get("count") != null && (int) hmap.get("count") > 1) { %>
+					<td><%= hmap.get("pName") %> 외 <%= (int) hmap.get("count") -1 %>건</td>
+					<% }else { %>
 					<td><%= hmap.get("pName") %></td>
+					<% } %>
 					<td><%= hmap.get("totalPrice") %></td>
 					<th>
 					<div id="memo" class="memo">MEMO
@@ -137,13 +147,25 @@
 	<br><br><br>
 	<div class="paging" align="center">
 		<ul class="pagination">
-			<li><a href="#">Previous</a></li>
-			<li><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">4</a></li>
-			<li><a href="#">5</a></li>
-			<li><a href="#">Previous</a></li>
+		<% if(currentPage <= 1) { %>
+		<li><a>이전</a></li>
+		<% } else { %>
+		<li><a href="<%=request.getContextPath()%>/adminProductList.do?currentPage=<%= currentPage - 1 %>">이전</a></li>
+		<% } %>
+		
+		<% for(int p = startPage; p <= endPage; p++) { 
+			if(p == currentPage) { %>
+		<li><a><%= p %></a></li>
+		<% 	}else { %>
+		<li><a href="<%=request.getContextPath()%>/adminProductList.do.do?currentPage=<%= p %>"><%= p %></a></li>	
+		<% 	} 
+		} %>
+		
+		<% if(currentPage >= maxPage) { %>
+		<li><a>다음</a></li>
+		<% }else { %>
+		<li><a href="<%=request.getContextPath()%>/adminProductList.do.do?currentPage=<%= currentPage + 1 %>">다음</a></li>
+		<% } %>
 		</ul>
 	</div>
 	

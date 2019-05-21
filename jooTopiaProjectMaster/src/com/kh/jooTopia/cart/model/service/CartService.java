@@ -34,4 +34,18 @@ public class CartService {//
 		return result;
 	}
 
+	public int insertCart(int uno,int pid) {
+		Connection con = getConnection();
+		
+		int result = new CartDao().insertCart(con,uno,pid);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		return result;
+	}
+
 }

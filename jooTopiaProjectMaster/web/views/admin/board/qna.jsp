@@ -1,5 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.jooTopia.board.model.vo.*, com.kh.jooTopia.member.model.vo.* "%>
+<%
+	HashMap<String, Object> hmap = (HashMap<String, Object>)request.getAttribute("hmap");
+	ArrayList<Board> board = (ArrayList<Board>)hmap.get("board");
+	ArrayList<Member> member = (ArrayList<Member>)hmap.get("member");
+	
+	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
+	int currentPage = pageInfo.getCurrentPage();
+	int maxPage = pageInfo.getMaxPage();
+	int startPage = pageInfo.getStartPage();
+	int endPage = pageInfo.getEndPage();
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,6 +52,7 @@
 		}
 		#replyTb{
 			align:center;
+			margin-left:3%;
 		}
 </style>
 <title>JooTopia</title>
@@ -82,8 +95,23 @@
 		   				<th width="100px;">글제목</th>
 		   				<th width="150px;">작성일</th>
 		   				<th width="100px;">답변여부</th>
-		   				
 		   			</tr>
+		   			<%for(int i =0; i<board.size(); i++){ %>
+		   			<tr>
+		   				<th><input class="checkA" name="checkBid" type="checkbox" value="<%=board.get(i).getbId()%>"></th>
+		   				<td><%=member.get(i).getUserId() %></td>
+		   				<td><%=board.get(i).getbNo() %></td>
+		   				<td><%=board.get(i).getbTitle() %></td>
+		   				<td><%=board.get(i).getbDate() %></td>
+		   				<td><%if(board.get(i).getaStatus().equals("N")){%>
+		   					미답변
+		   					<%}else{ %>
+		   					답변완료
+		   					<%} %>
+		   				</td>
+		   				<td style="display:none"><%=board.get(i).getbId()%></td>
+		   			</tr>
+		   			<%} %>
 		   			
 		   		</table>
 		   	</form>
@@ -101,11 +129,15 @@
 	<div class="memoModalContent">
 	<div class="memoModalHeader">
 	<button type="button" class="close" data-dismiss="modal">&times;</button>
-	<table>
+	<table id="modalHead">
 		<tr>
-			<td width="400px;"><h3>글제목</h3></td>
-			<td width="100px;">아이디</td>
-			<td width="100px;">작성일</td>
+			<td rowspan="3;" width="400px;"><h3>글제목</h3></td>
+		</tr>
+		<tr>
+			<td width="150px;"></td>
+		</tr>
+		<tr>
+			<td width="150px;">작성일</td>
 		</tr>
 	
 	
@@ -114,7 +146,7 @@
 	</div>
 	<!-- Modal content -->
 	    <div class="memoModalBody" align="center">
-	    	<table class="memoModalTable">
+	    	<table class="memoModalTable" id="modalContent">
 	    		<tr>
 	    			<td>
 	    				<textarea cols="90%" rows="20" style="resize:none;"></textarea>
@@ -168,7 +200,25 @@
 		});
   		 
   	 }
-   		
+  	 $(function(){
+ 		$("#qnaList td").mouseenter(function(){
+ 			$(this).parent().css({"background":"darkgray","cursor":"pointer"});
+ 		}).mouseout(function(){
+ 			$(this).parent().css({"background":"white"});
+ 			
+ 		}).click(function(){
+ 			var tr = $(this).parent();
+ 			var td = tr.children();
+ 			var tdArr = new Array();
+ 			var num = td.eq(6).text();
+ 			console.log(num);
+ 			
+ 			location.href="<%= request.getContextPath() %>/selectAdminOneQnA.do?num=" + num;
+ 			
+ 		});
+ 		
+ 	});
+	
    
    
    </script>

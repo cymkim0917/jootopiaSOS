@@ -20,7 +20,7 @@
 			<img src="#" alt="매입신청 안내에 대한 이미지가 들어가는 자리입니다." class="infoImg"><br>
 		</div>
 		<div class="btnArea" align="center">
-			<button onclick="location.href='/jootopia/views/purchase/locationCheck.jsp'" class="jBtn">매입신청</button> &nbsp;
+			<button onclick="location.href='/jootopia/views/purchase/purchaseRequestForm.jsp'" class="jBtn">매입신청</button> &nbsp;
 			<button onclick="location.href='/jootopia'" class="jBtn">돌아가기</button>	
 		</div>
 		

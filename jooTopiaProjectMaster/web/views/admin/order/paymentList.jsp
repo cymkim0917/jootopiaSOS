@@ -66,6 +66,7 @@
 					<th width="70px">주문자</th>
 					<th width="250px">상품명</th>
 					<th width="100px">배송메시지</th>
+					<th width="100px">입금처리</th>
 				</tr>
 				<% for(int i = 0; i < list.size(); i++) { 
 				HashMap<String,Object> hmap = list.get(i);
@@ -85,11 +86,19 @@
 					<td><%= o.getPoDate() %></td>
 					<td><%= o.getPoId() %></td>
 					<td><%= hmap.get("userName") %></td>
+					<% if(hmap.get("count") != null && (int) hmap.get("count") > 1) { %>
+					<td><%= hmap.get("pName") %> 외 <%= (int) hmap.get("count") -1 %>건</td>
+					<% }else { %>
 					<td><%= hmap.get("pName") %></td>
+					<% } %>
 					<th>
 					<div id="memo" class="memo">MEMO
 					</div>
 					<input type="hidden" id="dMsg" value="<%= o.getdMessage() %>">
+					</th>
+					<th>
+					<div id="money" class="memo">MONEY</div>
+					<input type="hidden" id="totalPrice" value="<%= hmap.get("totalPrice") %>">
 					</th>
 				</tr>
 				<% } %>
@@ -162,6 +171,45 @@
     </div>
     </div>
 </div>
+
+
+<!-- The Modal -->
+<div id="paymentModal" class="memoModal">
+	<div class="memoModalContent">
+	<div class="memoModalHeader">
+	<button type="button" class="close" data-dismiss="modal">&times;</button>
+	<h4>입금처리</h4>
+	<hr>
+	</div>
+<!-- Modal content -->
+    <div class="memoModalBody">
+		<table class="memoModalTable">
+    		<tr>
+	        	<th>주문코드 : <span id="modalPYCode">주문코드임시</span><br>
+	    			주문일 : <span id="modalPYDate">주문일임시</span></th>
+	        </tr>
+    	</table>
+    	<br>
+        <table class="memoModalTable">
+    		<tr>
+    			<th>입금예정금액 : <span id="modalTotalPrice">입금예정금액 임시</span></th>
+    		</tr>
+    		<!-- <tr>
+    			<td>
+    			<input type="text" id="depositName" name="depositName" placeholder="입금자명을 입력하세요" value="">
+    			</td>
+    		</tr> -->
+    	</table>
+    	<br>
+    	
+    	<div class="modalBtnArea" align="center">
+				<input type="submit" value="입금처리" onclick="changePayment();">
+				<input type="reset" value="닫기">
+		</div>
+    </div>
+    </div>
+</div>
+
 <script>
 	$("#allCheck").click(function() {
 		
@@ -173,7 +221,7 @@
 	});
 	
 	//배송메시지 모달용 펑션
-	$(".memo").click(function() {
+	$("#memo").click(function() {
 		var code = $(this).parent().parent().children().eq(0).children().eq(0).val();
 		var date = $(this).parent().parent().children().eq(3).text();
 		var message = $(this).parent().children().eq(1).val();
@@ -214,6 +262,56 @@
 			success : function(data) {
 				$("#oMemo").val(changeValue);
 				console.log(changeValue);
+				location.href='selectAdminPaymentList.do';
+				alert(data);
+			},
+			error : function(data) {
+				alert("에이젝스 접속실패");
+			}
+		});
+	};
+	
+	//------입금처리 모달 펑션들
+	$("#money").click(function() {
+		var code = $(this).parent().parent().children().eq(0).children().eq(0).val();
+		var date = $(this).parent().parent().children().eq(3).text();
+		var totalPrice = $(this).parent().children().eq(1).val();
+		
+		console.log(totalPrice);
+		console.log(code);
+		console.log(date);
+		
+		$(function() {
+			$("#modalTotalPrice").text(totalPrice);
+			$("#modalPYCode").text(code);
+			$("#modalPYDate").text(date);
+		});
+		
+		$("#paymentModal").css("display", "block");
+		
+		$(".close").click(function() {
+			$("#paymentModal").css("display", "none");
+		});
+		
+		$(".modalBtnArea>input[type=reset]").click(function() {
+			$("#paymentModal").css("display", "none");
+		});
+	});
+	
+	//입금처리 모달에서 입금처리하기
+	function changePayment() {
+		/* var depositName = $("#depositName").val(); */
+		var poId = $("#modalPYCode").text();
+		
+		console.log(depositName);
+		console.log(poId);
+		
+		$.ajax({
+			url : "updatePayment.do",
+			type : "post",
+			/* data : {poId : poId, depositName : depositName}, */
+			data : {poId : poId, depositName : depositName},
+			success : function(data) {
 				location.href='selectAdminPaymentList.do';
 				alert(data);
 			},
