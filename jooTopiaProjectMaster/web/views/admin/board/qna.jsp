@@ -140,6 +140,19 @@
 			</div>
 	    </div>
 	    </div>
+	    
+	    <div class="paging" align="center">
+		<ul class="pagination">
+			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=<%=currentPage-1%>">이전</a></li>
+			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=1">1</a></li>
+			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=2">2</a></li>
+			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=3">3</a></li>
+			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=4">4</a></li>
+			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=5">5</a></li>
+			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=<%=currentPage+1%>">다음</a></li>
+		</ul>
+		</div>
+	    
 	</div>
    <script>
   	 function showModal(){

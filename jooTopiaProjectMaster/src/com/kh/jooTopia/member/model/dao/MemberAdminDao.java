@@ -160,6 +160,8 @@ public class MemberAdminDao {
 				member.setPhone(rset.getString("PHONE"));
 				member.setEmail(rset.getString("EMAIL"));
 				member.setAddress(rset.getString("ADDRESS"));
+				member.setWidthDrawal_date(rset.getDate("WIDTHDRAWAL_DATE"));
+				member.setWidthDrawal_reason(rset.getString("WIDTHDRAWAL_REASON"));
 				
 				list.add(member);
 			}

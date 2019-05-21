@@ -212,4 +212,23 @@ public class BoardAdminService {
 		return result;
 	}
 
+	public int getQnAListCount() {
+		Connection con = getConnection();
+		
+		int listCount = new BoardAdminDao().getQnAListCount(con);
+		//System.out.println("서비스 카운트" + listCount);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+	public ArrayList<Board> selectQnAList(PageInfo pageInfo) {
+		Connection con = getConnection();
+		
+		ArrayList<Board> list = new BoardAdminDao().selectQnAList(con, pageInfo);
+		
+		return list;
+	}
+
 }

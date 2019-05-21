@@ -61,4 +61,6 @@ public class MemberAdminService {
 		return listCount;
 	}
 
+	
+
 }
