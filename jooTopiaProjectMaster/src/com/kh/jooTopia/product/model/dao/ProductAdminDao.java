@@ -601,40 +601,40 @@ public class ProductAdminDao {
 		
 		return list;
 	}
+	
 
-	public int insertAttachment(Connection con, ArrayList<Attachment> fileList, Product p) {
-		
+	public int insertPAttachment(Connection con, ArrayList<Attachment> fileList) {
+
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
 		String query = prop.getProperty("insertPAttachment");
 		
 		try {
-			pstmt = con.prepareStatement(query);
 			
 			for(int i=0; i < fileList.size(); i++) {
+				pstmt = con.prepareStatement(query);
 				
-				//pstmt.setString(1, fileList.get()));
+				pstmt.setString(1, fileList.get(i).getOriginName());
+				pstmt.setString(2, fileList.get(i).getChangeName());
+				pstmt.setString(3, fileList.get(i).getFilePath());
+				
+				int level = 0;
+				if(i == 0) level = 0;
+				else level = 1;
+				
+				pstmt.setInt(4, level);
+				pstmt.setInt(5, fileList.get(i).getpNo());
+				
+				result += pstmt.executeUpdate();			
 				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		
-		ORIGIN_NAME	VARCHAR2(256 BYTE)	No	?
-				CHANGE_NAME	VARCHAR2(256 BYTE)	No	?
-				FILE_PATH	VARCHAR2(256 BYTE)	No	?
-				FILE_LEVEL	NUMBER	No	            ?
-				STATUS	VARCHAR2(1 BYTE)	No	'Y' DEFAULT
-				UPLOAD_DATE	DATE	No	SYSDATE     DEFAULT
-				DELETE_DATE	DATE	Yes	SYSDATE     DEFAULT
-				BOARD_KIND	NUMBER	No	            1
-				PID	NUMBER	Yes	                    ?
-				BID	NUMBER	Yes	                    NULL
-		
-		
+		}finally {
+			close(pstmt);
+		}	
 		
 		return result;
 	}

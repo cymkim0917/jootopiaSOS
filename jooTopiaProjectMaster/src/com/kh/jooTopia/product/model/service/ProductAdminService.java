@@ -220,12 +220,32 @@ public class ProductAdminService {
 	public int insertPAttachment(Product p, ArrayList<Attachment> fileList) {
 		
 		Connection con = getConnection();
-		int result = 0;
-		//사진 insert
-		int resultA = new ProductAdminDao().insertAttachment(con, fileList, p);
+		int result = 0;		
 		
 		//상품 insert
 		int resultP = new ProductAdminDao().insertAdminProductreg(con, p);
+		
+		if(resultP > 0) {
+			
+			for (int i = 0; i < fileList.size(); i++) {
+				fileList.get(i).setpNo(p.getpId());				
+			}
+		}else {
+			rollback(con);
+			return -1;
+		}		
+		//사진 insert
+		int resultA = new ProductAdminDao().insertPAttachment(con, fileList);
+		
+		if(resultP > 0 && resultA == fileList.size()) {
+			commit(con);
+			result = 1;
+		}else {
+			rollback(con);
+			result = 0;
+		}
+		close(con);
+		
 		
 		return result;
 	}
