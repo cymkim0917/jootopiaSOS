@@ -14,6 +14,8 @@ import java.util.Properties;
 import com.kh.jooTopia.board.model.vo.Attachment;
 import com.kh.jooTopia.board.model.vo.PageInfo;
 
+import sun.font.CreatedFontTracker;
+
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
 public class PurchaseAdminDao {
@@ -150,7 +152,6 @@ public class PurchaseAdminDao {
 		
 		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
 		int endRow = startRow + pi.getLimit() - 1;
-		System.out.println("startRow : " + startRow + " , endRow : " + endRow);
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -178,6 +179,57 @@ public class PurchaseAdminDao {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
+			close(rset);
+		}
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectSearchList(Connection con, PageInfo pi, String searchQuery) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		String query = "SELECT * FROM (SELECT PCID, BNO, UNO, APPLICANT, APPLICANT_PHONE, CATEGORY, BDATE, ROWNUM RNUM "
+					 + "FROM (SELECT PC.PCID, B.BNO, M.UNO, PC.APPLICANT, PC.APPLICANT_PHONE, C.CGROUP || ' / ' || C.NAME AS CATEGORY, "
+					 + "TO_CHAR(B.BDATE, 'YYYY-MM-DD') BDATE "
+					 + " FROM PURCHASE PC "
+					 + " JOIN BOARD B ON(PC.PCID = B.PCID)"
+					 + " JOIN MEMBER M ON(M.UNO = B.UNO)"
+					 + " JOIN CATEGORY C ON(C.CID = PC.CID)"
+					 + " WHERE B.STATUS = 'Y'"
+					 + " AND " + searchQuery
+					 + " ORDER BY PC.PCID DESC))"
+					 + " WHERE RNUM BETWEEN " + startRow + " AND " + endRow;
+		
+		System.out.println("query : " +  query);
+		
+		try {
+			System.out.println("try 시작 : ");
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			while(rset.next()) {
+				HashMap<String, Object> hmap = new HashMap<String, Object>();
+				
+				hmap.put("pcid", rset.getObject("PCID"));
+				hmap.put("bno", rset.getObject("BNO"));
+				hmap.put("uno", rset.getObject("UNO"));
+				hmap.put("applicant", rset.getObject("APPLICANT"));
+				hmap.put("appPhone", rset.getObject("APPLICANT_PHONE"));
+				hmap.put("category", rset.getObject("CATEGORY"));
+				hmap.put("bDate", rset.getObject("BDATE"));
+				
+				list.add(hmap);
+			}
+			System.out.println("list Dao : " + list);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
 			close(rset);
 		}
 		return list;

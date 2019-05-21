@@ -89,45 +89,49 @@
 		    				<td>
 		    					<select id="searchType">
 		    						<option value="memberNo">회원번호</option>
-		    						<option value="memberName">회원이름</option>
+		    						<option value="pcName">신청자명</option>
 		    						<option value="phone">연락처</option>
 		    						<option value="category">카테고리</option>
 		    					</select>
-		    					<input type="text" id="search" name="search" placeholder="검색어를 입력해주세요">
-		    					<button onclick="search1();"></button>
+		    					<input type="text" id="searchVal" name="searchVal" placeholder="검색어를 입력해주세요" value="">
 		    				</td>
 		    			</tr>
 		    			<tr class="dateSearch">
 		    				<td>글 등록일</td>
-		    				<td>
-	    						<input type="radio" name="bDate" id="today" hidden>
+		    				<td> 
+		    					<input type="radio" name="bDate" id="allDate" hidden checked>
+	    						<label for="allDate">전체</label>
+	    						<input type="radio" name="bDate" id="today" value="0" hidden>
 	    						<label for="today">오늘</label>
-	    						<input type="radio" name="bDate" id="weeks" hidden>
+	    						<input type="radio" name="bDate" id="weeks" value="7" hidden>
 	    						<label for="weeks">일주일</label>
-	    						<input type="radio" name="bDate" id="month" hidden>
+	    						<input type="radio" name="bDate" id="month" value="30" hidden >
 	    						<label for="month">한달</label>
-	    						<input type="radio" name="bDate" id="3month" hidden>
+	    						<input type="radio" name="bDate" id="3month" value="90" hidden>
 	    						<label for="3month">3개월</label>
-	    						<input type="radio" name="bDate" id="6month" hidden>
+	    						<input type="radio" name="bDate" id="6month" value="180" hidden>
 	    						<label for="6month">6개월</label>
-
-		    					<input type="date" name="startDate">
-		    					<input type="date" name="endDate">
+	    						<input type="radio" name="bDate" id="year" value="365" hidden>
+	    						<label for="year">1년</label>
+								<Br>
+								<!-- <input type="radio" name="bDate" id="customDate" hidden>
+								<label for="customDate">
+									<input type="date" name="startDate">
+		    						<input type="date" name="endDate">
+								</label> -->
 		    				</td>
 		    			</tr>
-		    			<script>
-		    				$(".dateSearch label").click(function(){
-		    					
-		    				})
-		    			</script>
+		    			
 		    			<tr>
 		    				<td>매입여부</td>
-		    				<td>
-		    					<input type="radio" hidden="hidden" name="status" value="확인 전" id="waiting" checked>
-		    					<label for="waiting">확인 전</label>
-		    					<input type="radio" name="status" value="수락" id="agree">
+		    				<td class="purchaseNY">
+		    					<input type="radio" hidden="hidden" name="status" value="pcAll" id="pcAll" checked>
+		    					<label for="pcAll">전체</label>
+		    					<input type="radio" hidden="hidden" name="status" value="waiting" id="waiting">
+		    					<label for="waiting">처리대기중</label>
+		    					<input type="radio" hidden="hidden" name="status" value="agree" id="agree" >
 		    					<label for="agree">수락</label>
-		    					<input type="radio" name="status"  value="거절" id="disagree">
+		    					<input type="radio" hidden="hidden" name="status"  value="disagree" id="disagree">
 		    					<label for="disagree">거절</label>
 		    				</td>
 		    			</tr>
@@ -139,6 +143,35 @@
 		    		</table>
 				</form>
 	    	</div><!-- searchArea -->
+	    	<script>
+	    		$("#searchBtn").click(function(){
+	    			var searchType = $("#searchType").val();
+	    			var searchVal = $("#searchVal").val();
+	    			dateVal = $(".dateSearch input:checked").val();
+	    			var purchaseStatus = $(".purchaseNY input:checked").val();
+	    			console.log("searchType : " + searchType);
+	    			console.log("searchVal : " + searchVal);
+	    			console.log("dateVal : " + dateVal);
+	    			console.log("purchaseStatus : " + purchaseStatus);
+	    			
+	    			$.ajax({
+	    				url : "searchDate.do",
+	    				data : {date:dateVal},
+	    				success : function(data){
+	    					dateVal = data;
+	    					console.log(dateVal);
+	    				}, error : function(data){
+	    					dateVal = "no";
+	    				}, complete : function(data){
+	    					console.log("complete : " + data);
+	    					location.href="<%= request.getContextPath() %>/selectSearchPCList.do?searchType=" + searchType + "&searchVal=" + searchVal + "&dateVal=" + dateVal + "&purchaseStatus=" + purchaseStatus;
+	    				}
+	    				
+	    			});
+					return false;	  
+	    		})
+	    	</script>
+	    	
 	    	<div class="lsitTableArea">
 	    		<table align="center" id="listTable">
 	    			<tr>
@@ -205,6 +238,44 @@
 	    </div><!-- col-sm-10 -->
 	</section>
 <%@ include file="/views/common/adminFooter.jsp" %>
+<script>
+	var checkDateId = $(".dateSearch input:checked").eq(0).attr("id");
+	for(var i = 0; i < 5; i++){
+		var dateLabel = $(".dateSearch label").eq(i);
+		if(dateLabel.attr("for") == checkDateId){
+			dateLabel.css("background", "black").css("color", "white");	    						
+		}
+	}
+	$(".dateSearch").change(function(){
+		var checkDateId = $(".dateSearch input:checked").eq(0).attr("id");
+		$(".dateSearch label").css("background", "white").css("color", "black");
+		for(var i = 0; i < 7; i++){
+			var dateLabel = $(".dateSearch label").eq(i);
+			if(dateLabel.attr("for") == checkDateId){
+				dateLabel.css("background", "black").css("color", "white");	    						
+			}
+		}
+	})
+	var checkPCId = $(".purchaseNY input:checked").eq(0).attr("id");
+	for(var i = 0; i < 3; i++){
+		var statusLabel = $(".purchaseNY label").eq(i);
+		if(statusLabel.attr("for") == checkPCId){
+			statusLabel.css("color", "red").css("font-weight", "bold");	    						
+		}
+	}
+	$(".purchaseNY").change(function(){
+		var checkPCId = $(".purchaseNY input:checked").eq(0).attr("id");
+		$(".purchaseNY label").css("color", "black").css("font-weight", "none");
+		for(var i = 0; i < 5; i++){
+			var statusLabel = $(".purchaseNY label").eq(i);
+			if(statusLabel.attr("for") == checkPCId){
+				statusLabel.css("color", "red").css("font-weight", "bold");	    						
+			}
+		}
+	})
+	
+	
+</script>
 </body>
 </html>
 
