@@ -223,12 +223,13 @@ public class BoardAdminService {
 		return listCount;
 	}
 
-	public ArrayList<Board> selectQnAList(PageInfo pageInfo) {
+	public HashMap<String, Object> selectQnAList(PageInfo pageInfo) {
 		Connection con = getConnection();
+		HashMap<String, Object> hmap = null;
 		
-		ArrayList<Board> list = new BoardAdminDao().selectQnAList(con, pageInfo);
+		hmap = new BoardAdminDao().selectQnAList(con, pageInfo);
 		
-		return list;
+		return hmap;
 	}
 
 }

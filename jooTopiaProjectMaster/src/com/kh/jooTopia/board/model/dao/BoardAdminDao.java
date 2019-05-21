@@ -14,6 +14,7 @@ import java.util.Properties;
 import com.kh.jooTopia.board.model.vo.Attachment;
 import com.kh.jooTopia.board.model.vo.Board;
 import com.kh.jooTopia.board.model.vo.PageInfo;
+import com.kh.jooTopia.member.model.vo.Member;
 
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
@@ -622,21 +623,59 @@ public class BoardAdminDao {
 		return listCount;
 	}
 
-	public ArrayList<Board> selectQnAList(Connection con, PageInfo pageInfo) {
+	public HashMap<String, Object> selectQnAList(Connection con, PageInfo pageInfo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<Board> list = null;
+		HashMap<String, Object> hmap = null;
+		ArrayList<Board> boardL = null;
+		ArrayList<Member> memberL = null;
+		
+		
+		int startRow = (pageInfo.getCurrentPage()-1)*pageInfo.getLimit()+1;
+		int endRow = startRow + pageInfo.getLimit()-1;
 		
 		String query = prop.getProperty("selectQnAListPaging");
 		
 		try {
 			pstmt=con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset=pstmt.executeQuery();
+			
+			hmap = new HashMap<String, Object>();
+			
+			boardL = new ArrayList<Board>();
+			memberL = new ArrayList<Member>();
+			while(rset.next()) {
+				Board board = new Board();
+				board.setbId(rset.getInt("BID"));
+				board.setbNo(rset.getInt("BNO"));
+				board.setbTitle(rset.getString("BTITLE"));
+				board.setbDate(rset.getDate("BDATE"));
+				board.setbContent(rset.getString("BCONTENT"));
+				board.setaStatus(rset.getString("ASTATUS"));
+				
+				boardL.add(board);
+				
+				Member member = new Member();
+				member.setUserId(rset.getString("USER_ID"));
+				member.setUno(rset.getInt("UNO"));
+				
+				memberL.add(member);
+				
+			}
+			
+			hmap.put("board", boardL);
+			hmap.put("member", memberL);
+			
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return null;
+		return hmap;
 	}
 	
 }
