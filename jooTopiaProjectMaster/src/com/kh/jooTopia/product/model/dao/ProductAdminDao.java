@@ -512,7 +512,7 @@ public class ProductAdminDao {
 		return 0;
 	}
 
-	public int insertAdminProductreg(Connection con, Product p) {
+	public int insertAdminProductReg(Connection con, Product p) {
 		
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -603,7 +603,7 @@ public class ProductAdminDao {
 	}
 	
 
-	public int insertPAttachment(Connection con, ArrayList<Attachment> fileList) {
+	public int insertPAttachment(Connection con, ArrayList<Attachment> fileList, int pNo) {
 
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -624,9 +624,9 @@ public class ProductAdminDao {
 				else level = 1;
 				
 				pstmt.setInt(4, level);
-				pstmt.setInt(5, fileList.get(i).getpNo());
+				pstmt.setInt(5, pNo);
 				
-				result += pstmt.executeUpdate();			
+				result += pstmt.executeUpdate();
 				
 			}
 		} catch (SQLException e) {
@@ -637,6 +637,32 @@ public class ProductAdminDao {
 		}	
 		
 		return result;
+	}
+
+	public int selectCurrval(Connection con) {
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		int pId = 0;
+		
+		String query = prop.getProperty("selectCurrval");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				pId = rset.getInt("CURRVAL");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return pId;
 	}
 
 	

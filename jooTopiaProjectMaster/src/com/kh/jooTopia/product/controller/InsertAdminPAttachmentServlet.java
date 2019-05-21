@@ -45,8 +45,7 @@ public class InsertAdminPAttachmentServlet extends HttpServlet {
 			int maxSize = 1024 * 1024 * 100;
 			
 			String root = request.getSession().getServletContext().getRealPath("/");
-			
-			String filePath = root + "images_upload\\";
+			String filePath = root + "images\\product\\";
 			
 			MultipartRequest multiRequest = new MultipartRequest(request,
 											filePath, maxSize, "utf-8",
@@ -59,14 +58,17 @@ public class InsertAdminPAttachmentServlet extends HttpServlet {
 			while(files.hasMoreElements()) {
 				String name = files.nextElement();
 				
-				System.out.println("name" + name);
-				
 				saveFiles.add(multiRequest.getFilesystemName(name));
 				originFiles.add(multiRequest.getOriginalFileName(name));
+				System.out.println("name : " + name);
 				
-				System.out.println(multiRequest.getFilesystemName(name));
-				System.out.println(multiRequest.getOriginalFileName(name));
-				
+			}
+			
+			for(int i = 0; i < 4; i++) {
+				System.out.println(saveFiles.get(i));;
+				System.out.println(originFiles.get(i));;
+			}
+			
 				int pcdId = Integer.parseInt(multiRequest.getParameter("pcdId"));
 				String cGroup = multiRequest.getParameter("cGroup");
 				String cName = multiRequest.getParameter("cName");
@@ -126,7 +128,8 @@ public class InsertAdminPAttachmentServlet extends HttpServlet {
 				p.setpModelName(pModel);
 				p.setpName(pName);
 				p.setpGrade(pGrade);
-				p.setpContent(pContent);			
+				p.setpContent(pContent);
+				
 				
 				ArrayList<Attachment> fileList = new ArrayList<Attachment>();
 				for (int i = originFiles.size() -1; i >= 0; i--) {
@@ -152,15 +155,6 @@ public class InsertAdminPAttachmentServlet extends HttpServlet {
 					request.getRequestDispatcher("views/common/error500Page.jsp").forward(request, response);
 				}
 				
-				
-				
-				
-				
-				
-				
-				
-			}
-			
 		}
 		
 	}
