@@ -9,6 +9,7 @@ import com.kh.jooTopia.board.model.vo.PageInfo;
 import com.kh.jooTopia.product.model.dao.ProductAdminDao;
 import com.kh.jooTopia.product.model.vo.Product;
 import com.kh.jooTopia.product.model.vo.ProductregAdmin;
+import com.kh.jooTopia.purchase.model.dao.PurchaseDao;
 
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
@@ -214,7 +215,7 @@ public class ProductAdminService {
 	
 		Connection con = getConnection();
 		
-		int result = new ProductAdminDao().insertAdminProductreg(con, p);
+		int result = new ProductAdminDao().insertAdminProductReg(con, p);
 		
 		if(result > 0) {
 			commit(con);
@@ -243,7 +244,7 @@ public class ProductAdminService {
 		int result = 0;		
 		
 		//상품 insert
-		int resultP = new ProductAdminDao().insertAdminProductreg(con, p);
+		int resultP = new ProductAdminDao().insertAdminProductReg(con, p);
 		
 		if(resultP > 0) {
 			
@@ -254,8 +255,14 @@ public class ProductAdminService {
 			rollback(con);
 			return -1;
 		}		
+		
+		// 상품ID 가져오기
+		int pNo = new ProductAdminDao().selectCurrval(con);
+		System.out.println("pNo: " + pNo);
+		
+		
 		//사진 insert
-		int resultA = new ProductAdminDao().insertPAttachment(con, fileList);
+		int resultA = new ProductAdminDao().insertPAttachment(con, fileList, pNo);
 		
 		if(resultP > 0 && resultA == fileList.size()) {
 			commit(con);

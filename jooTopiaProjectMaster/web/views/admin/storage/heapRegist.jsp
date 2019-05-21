@@ -61,6 +61,8 @@
 				</div>
 			</div>
 
+			<br />
+			
 			<div class="listArea1" align="center">
 			<form action="<%=request.getContextPath()%>/insertAdminHeap.do" method="get">
 				<table class="separate" border="1">
@@ -83,12 +85,13 @@
 					</td> 
 					</tr>-->
 					<tr>
-						<td width="120">위치번호</td>
+						<td width="120">위치바코드</td>
 						<td width="500">
 						<input type="text" placeholder="위치번호를 입력하세요" name="lbarcode">
 						</td>
 					</tr>										
 				</table>
+				<br /><br />
 			<div align="center" class="btnArea">
 				<button type="submit">등록</button>
 			</div>

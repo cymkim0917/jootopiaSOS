@@ -25,7 +25,7 @@
       <%@ include file="/views/common/adminSideMenu.jsp" %>
       <div id="adminSection" class="col-sm-10">
       
-      <h3 class="title">재고리스트</h3>
+      <h3 class="title">창고 재고현황</h3>
 	    	<hr>      	
       	
       <div class="searchArea">

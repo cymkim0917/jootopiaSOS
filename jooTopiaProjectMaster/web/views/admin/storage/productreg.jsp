@@ -31,16 +31,16 @@
 	border: 1px solid #ccc;
 }
 
-#mainImg1 {
+/* #mainImg1 {
 	width: 550px;
 	height: 400px;
 	margin-bottom: 20px;
 	border: 2px solid orangered;
 	
 
-}
+} */
 
-#subImg1{
+/* #subImg1{
 	width: 165px;
 	height: 120px;
 	margin-bottom: 20px;
@@ -49,15 +49,16 @@
 	margin-right:1%;
 	margin-left:4%;
 	
-}
+} */
 
-#subImg2, #subImg3 {
-	width: 165px;
-	height: 120px;
+#mImg1, #mImg2, #mImg3, #mImg4 {
+	width: 210px;
+	height: 170px;
 	margin-bottom: 20px;
 	border: 2px solid orangered;
-	float:left;
-	margin-right:1%;
+	/* float:left;
+	margin-right:1%; */
+	margin:10px;
 	
 }
 
@@ -79,32 +80,40 @@
 			<br />
 			
 			<div class="listArea1" align="center">
-				<form action="<%=request.getContextPath()%>/insertAdminProductreg.do" method="post" encType="multipart/form-data">
+				<form action="<%=request.getContextPath()%>/insertAdminPAttachment.do" method="post" encType="multipart/form-data">
 				<table >
-					<tr>
+					<!-- <tr>
 						<td>
 							<div id="mainImg1">
 								<img  id="Img1" width="545px" height="395px">					
 							</div>
 						</td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td>
-						
-							<div id="subImg1">
-								<img  id="Img2" width="160px" height="115px">
+							<div id="mImg1">
+								<img  id="Img1" width="204px" height="165px">					
+							</div>						
+						</td>
+						<td>
+							<div id="mImg2">
+								<img  id="Img2" width="204px" height="165px">
 							</div>
-							<div id="subImg2">
-								<img  id="Img3" width="160px" height="115px">
+						</td>
+						<td>
+							<div id="mImg3">
+								<img  id="Img3" width="204px" height="165px">
 							</div>
-							<div id="subImg3">
-								<img  id="Img4" width="160px" height="115px">
+						</td>
+						<td>
+							<div id="mImg4">
+								<img  id="Img4" width="204px" height="165px">
 							</div>
 						
 						</td>
 					</tr>
 				</table>			
-				
+				<br /><br />
 				
 				<table class="separate" border="1">
 				
@@ -194,16 +203,16 @@
 			$(function(){
 				$("#fileArea").hide();
 				
-				$("#mainImg1").click(function(){
+				$("#mImg1").click(function(){
 					$("#thumbnailImg1").click();
 				});
-				$("#subImg1").click(function(){
+				$("#mImg2").click(function(){
 					$("#thumbnailImg2").click();
 				});
-				$("#subImg2").click(function(){
+				$("#mImg3").click(function(){
 					$("#thumbnailImg3").click();
 				});
-				$("#subImg3").click(function(){
+				$("#mImg4").click(function(){
 					$("#thumbnailImg4").click();
 				});
 			});
