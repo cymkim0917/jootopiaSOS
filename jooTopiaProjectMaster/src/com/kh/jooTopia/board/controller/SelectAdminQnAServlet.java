@@ -1,4 +1,4 @@
-package com.kh.jooTopia.member.controller;
+package com.kh.jooTopia.board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.jooTopia.board.model.service.BoardAdminService;
+import com.kh.jooTopia.board.model.vo.Board;
 import com.kh.jooTopia.board.model.vo.PageInfo;
-import com.kh.jooTopia.member.model.service.MemberAdminService;
-import com.kh.jooTopia.member.model.vo.Member;
 
 /**
- * Servlet implementation class DeleteAdminMemberListServlet
+ * Servlet implementation class SelectAdminQnAServlet
  */
-@WebServlet("/deleteAdminMember.do")
-public class DeleteAdminMemberListServlet extends HttpServlet {
+@WebServlet("/selectAdminQnA.do")
+public class SelectAdminQnAServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteAdminMemberListServlet() {
+    public SelectAdminQnAServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,12 +32,14 @@ public class DeleteAdminMemberListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int currentPage;
-		int limit;
-		int maxPage;
-		int startPage;
-		int endPage;
+		//페이징 추가
+		int currentPage; //현재 페이지를 표시할 변수
+		int limit;		//한 페이지에 게시글이 몇 개 보여질 것인지
+		int maxPage; 	//전체 페이지에서 가장 마지막 페이지
+		int startPage;	//한번에 표지될 페이지가 시작할 페이				int endPage;	//한번에 표시될 페이지가 끝나는 페이지
+		int endPage;	//한번에 표시될 페이지가 끝나는 페이지
 		
+		//페이지 수 처리용 변수
 		currentPage = 1;
 		
 		if(request.getParameter("currentPage") != null) {
@@ -45,34 +47,34 @@ public class DeleteAdminMemberListServlet extends HttpServlet {
 		}
 		
 		limit = 10;
+	
+		int listCount = new BoardAdminService().getQnAListCount();
 		
-		int listCount = new MemberAdminService().getDeleteMemberCount();
-		
-		maxPage = (int)((double)listCount/limit+0.9);
+		maxPage = (int)((double)listCount / limit+0.9);
 		
 		startPage = (((int)((double)currentPage/limit+0.9))-1);
 		
-		endPage = startPage + 10 - 1;
-		
+		endPage = startPage +10 -1;
 		if(maxPage<endPage) {
 			endPage=maxPage;
 		}
-		
+	
 		PageInfo pageInfo = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
 		
-		ArrayList<Member> list = new MemberAdminService().deleteMemberList(pageInfo);
+		ArrayList<Board> list = new BoardAdminService().selectQnAList(pageInfo);
 		
 		String page = "";
 		
 		if(list != null) {
-			page="views/admin/member/deleteMemberList.jsp";
+			page="/views/admin/board/qna.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pageInfo", pageInfo);
 		}else {
-			page = "/views/common/errorPage500.jsp";
+			page="/views/common/errorPage500.jsp";
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);
+		
 	}
 
 	/**

@@ -46,7 +46,6 @@ public class AdminBoardListServlet extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		
 		limit = 10;
 		
 		int listCount = new BoardAdminService().getNoticeListCount();
