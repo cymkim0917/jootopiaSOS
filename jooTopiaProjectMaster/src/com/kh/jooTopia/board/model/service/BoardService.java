@@ -283,6 +283,35 @@ public class BoardService {
 	
 	
 	
+	public int reviewInsertForm(Board b, ArrayList<Attachment> fileList) {
+		Connection con = getConnection();
+		int result = 0;
+		int result1=new BoardDao().reviewInsertForm(con,b);
+		
+		if(result1>0) {
+			int bid=new BoardDao().selectCurrval(con);
+			
+			for(int i =0; i <fileList.size(); i++) {
+				fileList.get(i).setbId(bid);
+			}
+		}
+		
+		int result2 = new BoardDao().insertAttachment(con, fileList);
+		if(result1>0 && result2==fileList.size()) {
+			commit(con);
+			result=1;
+		}else {
+			rollback(con);
+			result=0;
+		}
+		close(con);
+		
+		
+		return result;
+	}
+	
+	
+	
 	
 }
 
