@@ -46,7 +46,7 @@ public class InsertAdminPAttachmentServlet extends HttpServlet {
 			
 			String root = request.getSession().getServletContext().getRealPath("/");
 			
-			String filePath = root + "images/product/";
+			String filePath = root + "images_upload\\";
 			
 			MultipartRequest multiRequest = new MultipartRequest(request,
 											filePath, maxSize, "utf-8",
@@ -155,7 +155,7 @@ public class InsertAdminPAttachmentServlet extends HttpServlet {
 				
 				
 				
-				ProductregAdmin p = new ProductregAdmin();
+				
 				
 				
 				

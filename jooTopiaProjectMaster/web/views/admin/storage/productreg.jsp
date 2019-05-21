@@ -79,7 +79,7 @@
 			<br />
 			
 			<div class="listArea1" align="center">
-				<form action="<%=request.getContextPath()%>/insertAdminProductreg.do" method="post">
+				<form action="<%=request.getContextPath()%>/insertAdminProductreg.do" method="post" encType="multipart/form-data">
 				<table >
 					<tr>
 						<td>
@@ -153,6 +153,7 @@
 						<td width="500"><%= p.getMemo() %>
 						<input type="hidden" name="Memo" value="<%= p.getMemo() %>"></td>
 					</tr>					
+					
 					<tr>
 						<td width="120">상품명</td>
 						<td width="500"><input name="pName" size="50"></td>
@@ -221,6 +222,12 @@
 					reader.readAsDataURL(value.files[0]);
 				}
 			}
+			
+			/*  $(function(){
+				$(".btnArea").click(function(){
+					location.href="/insertAdminPAttachment.do";
+				});
+			}); */ 
 			
 			
 		</script>
