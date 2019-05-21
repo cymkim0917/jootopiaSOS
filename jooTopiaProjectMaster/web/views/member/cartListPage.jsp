@@ -106,7 +106,7 @@
 							<td><label for=""><%= cart.get(i).getPrice() %></label>
 							
 							</td>
-							<td><label for=""> <% if(cart.get(i).getStatus().equals("y")) {%> 재고 있음 <% } else{%> 재고 없음 <% } %>
+							<td><label for=""> <% if(cart.get(i).getStatus().equals("판매중")) {%> 재고 있음 <% } else{%> 재고 없음 <% } %>
 							  </label></td>
 						</tr>
 				

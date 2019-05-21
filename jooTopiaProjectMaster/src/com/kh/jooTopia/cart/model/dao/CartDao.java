@@ -86,4 +86,27 @@ public class CartDao {
 		return result;
 	}
 
+	public int insertCart(Connection con, int uno,int pid) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("insertCart");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, uno);
+			pstmt.setInt(2, pid);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+	}
+
 }
