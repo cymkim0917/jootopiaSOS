@@ -34,14 +34,14 @@ import com.oreilly.servlet.MultipartRequest;
 /**
  * Servlet implementation class SelectReviewWriteServlet
  */
-@WebServlet("/selectReviewWrite.do")
-public class SelectReviewWriteServlet extends HttpServlet {
+@WebServlet("/insertReview.do")
+public class InsertReviewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectReviewWriteServlet() {
+    public InsertReviewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -51,13 +51,13 @@ public class SelectReviewWriteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(ServletFileUpload.isMultipartContent(request)) {
-			int maxSize = 1024 * 1024 * 10;
+			int maxSize = 1024 * 1024 * 100;
 			String root = request.getSession()
 								 .getServletContext()
 								 .getRealPath("/");
 			System.out.println("root : "+root);
 			
-			String filePath = root + "thumbnail_upload/";
+			String filePath = root + "images/review";
 			
 			MultipartRequest multiRequest =
 					new MultipartRequest(request,filePath,maxSize,
@@ -81,7 +81,7 @@ public class SelectReviewWriteServlet extends HttpServlet {
 			Member m = new Member();
 			b.setbTitle(multiTitle);
 			b.setbContent(multiContent);
-			m.setUserId(String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getUno()));
+			//m.setUserId(String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getUno()));
 			
 			ArrayList<Attachment> fileList = new ArrayList<Attachment>();
 			for (int i = 0; i < originFiles.size(); i++) {
@@ -90,13 +90,15 @@ public class SelectReviewWriteServlet extends HttpServlet {
 				at.setOriginName(originFiles.get(i));
 				at.setChangeName(saveFiles.get(i));
 				
+				System.out.println("servlet OriginName:" + at.getOriginName());
+				
 				fileList.add(at);
 			}
 			
 			int result = new BoardService().reviewInsertForm(b,fileList);
 			String page = "";
 			if(result > 0) {
-				response.sendRedirect(request.getContextPath()+"/selectReviewWrite.do");
+				response.sendRedirect(request.getContextPath()+"/insertReview.do");
 			}else {
 				for (int i = 0; i < saveFiles.size(); i++) {
 					File failedFile = new File(filePath + saveFiles.get(i));

@@ -240,7 +240,7 @@ public class BoardDao {
 	}
 
 
-
+	//(s)
 	public int selectCurrval(Connection con) {
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -820,7 +820,7 @@ public class BoardDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, b.getbTitle());
 			pstmt.setString(2, b.getbContent());
-			pstmt.setInt(3, Integer.parseInt(b.getbWriter()));
+			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -829,14 +829,40 @@ public class BoardDao {
 		}
 		return result;
 		
-		
-		
-		return 0;
 	}
 
 	public int insertAttachment(Connection con, ArrayList<Attachment> fileList) {
-		// TODO Auto-generated method stub
-		return 0;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("insertAttachment");
+
+		try {
+			for (int i = 0; i < fileList.size(); i++) {
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, fileList.get(i).getOriginName());
+				pstmt.setString(2, fileList.get(i).getChangeName());
+				pstmt.setString(3, fileList.get(i).getFilePath());
+				int level = 0;
+				if(i == fileList.size()-1) level = 0;
+				else level = 1;
+				
+				pstmt.setInt(4, level);
+				pstmt.setInt(5,fileList.get(i).getbId());
+				
+				
+				
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			
+		}
+
+		return result;
+		
 	}
 
 	public int insertReply(Connection con, Board b) {
@@ -857,7 +883,10 @@ public class BoardDao {
 	public HashMap<String, Object> reviewReadPage(Connection con, int num) {
 		// TODO Auto-generated method stub
 		
-		return 0;
+		return null;
 	}
+
+	
+
 
 }

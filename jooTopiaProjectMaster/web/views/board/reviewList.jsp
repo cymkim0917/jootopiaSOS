@@ -115,9 +115,9 @@
 			</select>
 			<input type="search" />
 			<button type="submit">검색하기</button>
-			<% if(loginUser != null) { %>
+			<%-- <% if(loginUser != null) { %> --%>
 			<button onclick="location.href='<%=request.getContextPath()%>/views/board/reviewInsertForm.jsp'">작성하기</button>
-			<% } %>
+			<%-- <% } %> --%>
 		</div>
 
 	
@@ -147,115 +147,12 @@
 		        <td>2019.4.3</td>
 		        <td>6</td>
 		      </tr>
-		      <tr onclick="location.href='/jootopia/views/notice/reviewWriteSceen.jsp'">
-		        <td>8</td>
-		        <td>Moe</td>
-		        <td>잘 받았습니다.</td>
-		        <td>3.5</td>
-		        <td>2019.4.3</td>
-		        <td>3</td>
-		      </tr>
-		      <tr onclick="location.href='/jootopia/views/notice/reviewWriteSceen.jsp'">
-		        <td>7</td>
-		        <td>Dooley</td>
-		        <td>잘 받았습니다.</td>
-		        <td>4.5</td>
-		        <td>2019.4.3</td>
-		        <td>2</td>
-		      </tr>
-		    </tbody>
-		    
-		    <tbody>
-		      <tr onclick="location.href='/jootopia/views/notice/reviewWriteSceen.jsp'">
-		        <td>6</td>
-		        <td>Doe</td>
-		        <td>잘 받았습니다.</td>
-		        <td>2.5</td>
-		        <td>2019.4.3</td>
-		        <td>5</td>
-		      </tr>
-		      <tr onclick="location.href='/jootopia/views/notice/reviewWriteSceen.jsp'">
-		        <td>5</td>
-		        <td>Moe</td>
-		        <td>잘 받았습니다.</td>
-		        <td>3.0</td>
-		        <td>2019.4.3</td>
-		        <td>4</td>
-		      </tr>
-		      <tr onclick="location.href='/jootopia/views/notice/reviewWriteSceen.jsp'">
-		        <td>4</td>
-		        <td>Dooley</td>
-		        <td>잘 받았습니다.</td>
-		        <td>4.0</td>
-		        <td>2019.4.3</td>
-		        <td>7</td>
-		      </tr>
-		    </tbody>
 		     
-		    <tbody>
-		      <tr onclick="location.href='/jootopia/views/notice/reviewWriteSceen.jsp'">
-		        <td>3</td>
-		        <td>Doe</td>
-		        <td>잘 받았습니다.</td>
-		        <td>4.0</td>
-		        <td>2019.4.3</td>
-		        <td>8</td>
-		      </tr>
-		      <tr onclick="location.href='/jootopia/views/notice/reviewWriteSceen.jsp'">
-		        <td>2</td>
-		        <td>Moe</td>
-		        <td>잘 받았습니다.</td>
-		        <td>4.0</td>
-		        <td>2019.4.3</td>
-		        <td>7</td>
-		      </tr>
-		      <tr onclick="location.href='/jootopia/views/notice/reviewWriteSceen.jsp'">
-		        <td>1</td>
-		        <td>Dooley</td>
-		        <td>잘 받았습니다.</td>
-		        <td>4.0</td>
-		        <td>2019.4.3</td>
-		        <td>5</td>
-		      </tr>
 		    </tbody>
 		  </table>
 		</div> -->
 		<br>
-		<div class="checkboxgroup">
-		<input type="checkbox" name="chk_info" value="name">이름
-		<input type="checkbox" name="chk_info" value="title" checked="checked">제목
-		<input type="checkbox" name="chk_info" value="content">내용
-		<input type="text">&nbsp;
-		<button onclick="location.href='<%=request.getContextPath()%>/views/notice/reviewList.jsp'">검색</button>
 		
-		</div>
-		
-		
-		
-		
-		<div class = "newWriting">
-			
-			
-			<div class="notice">
-			
-			
-			<button onclick="location.href='<%=request.getContextPath()%>/views/notice/reviewList.jsp'">글쓰기</button>
-			
-			</div>
-			
-			
-		</div>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	
 		<div class ="paging button" align="center">
 			<button type="submit"><<</button>&nbsp;
 			<button type="submit"><</button>&nbsp;
@@ -269,13 +166,13 @@
 		</div>
 	
 	<script>
-			$(function(){
+			<%-- $(function(){
 				$(".thumb-list").click(function(){
 					var num = $(this).children().children().eq(0).val();
 					console.log(num);
 					location.href="<%=request.getContextPath()%>/selectOne.tn?num="+num;
 				});
-			});
+			}); --%>
 		</script>
 	
 	
