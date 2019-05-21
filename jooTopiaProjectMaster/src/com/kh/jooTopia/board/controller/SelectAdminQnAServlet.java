@@ -2,6 +2,7 @@ package com.kh.jooTopia.board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -61,13 +62,13 @@ public class SelectAdminQnAServlet extends HttpServlet {
 	
 		PageInfo pageInfo = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
 		
-		ArrayList<Board> list = new BoardAdminService().selectQnAList(pageInfo);
+		HashMap<String, Object> hmap = new BoardAdminService().selectQnAList(pageInfo);
 		
 		String page = "";
 		
-		if(list != null) {
+		if(hmap != null) {
 			page="/views/admin/board/qna.jsp";
-			request.setAttribute("list", list);
+			request.setAttribute("hmap", hmap);
 			request.setAttribute("pageInfo", pageInfo);
 		}else {
 			page="/views/common/errorPage500.jsp";
