@@ -36,7 +36,6 @@
 	.thumbnailArea {
 		width:760px;
 		height:550px;
-		
 		margin:0 auto;
 	}
 	.searchArea {
@@ -57,7 +56,7 @@
 	}
 	
 <!--게시판용 스타일 -->
-	/* .checkboxgroup{
+	 .checkboxgroup{
 		margin-left:350px;
 		margin-rignt:150px;
 	}
@@ -65,7 +64,7 @@
 	.newWriting{
 		margin-left:1400px;
 	}
-	 */
+	 
  <!--게시판용 스타일 -->
  
 </style>
@@ -83,24 +82,25 @@
 		<br>
 		
 		<div class = "thumbnailArea">
-			<%-- <%
+			<%
 			for(int i = 0; i<list.size(); i++){
-				
+			
 			%>
+			
 		<div class="thumb-list" align="center">
 				<div>
 					<input type="hidden" name="bid" value="<%=bList.get(i).getbId()%>">
 					<img src="<%=request.getContextPath() %>/images_upload/<%=aList.get(i).getChangeName()%>"
 						width="200px" height="150px">
 				</div>
+				<p>
+				No. <%=bList.get(i).getbId() %> <%=bList.get(i).getbTitle()%><br>
+				조회수 : <%=bList.get(i).getbCount()%>
+				</p>
 				
 			</div>
-			<% } %> --%>
+			<% } %> 
 		</div>
-		
-		
-		
-		
 		
 	</div>
 	<br><br>
@@ -121,36 +121,6 @@
 		</div>
 
 	
-		
-		
-		
-		
-		
-		<!-- <div class="container">
-		  <table class="table table-hover">
-		    <thead>
-		      <tr>
-		        <th>글번호</th>
-		        <th>작성자</th>
-		        <th>제목</th>
-		        <th>평점</th>
-		        <th>작성일</th>
-		        <th>조회수</th>
-		      </tr>
-		    </thead>
-		    <tbody>
-		      <tr onclick="location.href='/jootopia/views/notice/reviewWriteSceen.jsp'">
-		        <td>9</td>
-		        <td>Doe</td>
-		        <td>잘 받았습니다.</td>
-		        <td>3.0</td>
-		        <td>2019.4.3</td>
-		        <td>6</td>
-		      </tr>
-		     
-		    </tbody>
-		  </table>
-		</div> -->
 		<br>
 		
 		<div class ="paging button" align="center">
@@ -166,13 +136,13 @@
 		</div>
 	
 	<script>
-			<%-- $(function(){
+			$(function(){
 				$(".thumb-list").click(function(){
 					var num = $(this).children().children().eq(0).val();
 					console.log(num);
-					location.href="<%=request.getContextPath()%>/selectOne.tn?num="+num;
+					location.href="<%=request.getContextPath()%>/selectOneReview.do?num="+num;
 				});
-			}); --%>
+			}); 
 		</script>
 	
 	
