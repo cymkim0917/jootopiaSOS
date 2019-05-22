@@ -53,7 +53,7 @@
 			<table id="selectList" class="selectList" border="1">
 				<tr>
 					<th colspan="9" style="height: 45px; text-align: left;">
-						<button class="selectBtn" onclick="oTypeChange('입금완료')">입금 완료</button>
+						<button class="selectBtn" onclick="changePayment()">입금 완료</button>
 						<button class="selectBtn" onclick="oTypeChange('주문취소')">주문 취소</button>
 					</th>
 				</tr>
@@ -115,18 +115,18 @@
 		<li><a href="<%=request.getContextPath()%>/adminProductList.do?currentPage=<%= currentPage - 1 %>">이전</a></li>
 		<% } %>
 		
-		<% for(int p = startPage; p <= endPage; p++) { 
+		<% for(int p = startPage; p < endPage; p++) { 
 			if(p == currentPage) { %>
 		<li><a><%= p %></a></li>
 		<% 	}else { %>
-		<li><a href="<%=request.getContextPath()%>/adminProductList.do.do?currentPage=<%= p %>"><%= p %></a></li>	
+		<li><a href="<%=request.getContextPath()%>/adminProductList.do?currentPage=<%= p %>"><%= p %></a></li>	
 		<% 	} 
 		} %>
 		
 		<% if(currentPage >= maxPage) { %>
 		<li><a>다음</a></li>
 		<% }else { %>
-		<li><a href="<%=request.getContextPath()%>/adminProductList.do.do?currentPage=<%= currentPage + 1 %>">다음</a></li>
+		<li><a href="<%=request.getContextPath()%>/adminProductList.do?currentPage=<%= currentPage + 1 %>">다음</a></li>
 		<% } %>
 		</ul>
 	</div>
@@ -303,14 +303,14 @@
 		/* var depositName = $("#depositName").val(); */
 		var poId = $("#modalPYCode").text();
 		
-		console.log(depositName);
+		/* console.log(depositName); */
 		console.log(poId);
 		
 		$.ajax({
 			url : "updatePayment.do",
 			type : "post",
 			/* data : {poId : poId, depositName : depositName}, */
-			data : {poId : poId, depositName : depositName},
+			data : {poId : poId},
 			success : function(data) {
 				location.href='selectAdminPaymentList.do';
 				alert(data);

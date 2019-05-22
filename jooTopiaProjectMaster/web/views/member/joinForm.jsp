@@ -9,6 +9,42 @@
 <link rel="shortcut icon" href="/jootopia/images/favicon.ico">
 <link rel="stylesheet" href="jquery-3.4.0.min.js">
 <link rel="stylesheet" href="/jootopia/css/common.css">
+
+<style>
+	#modifyBtn{
+		width:100px;
+		background-color: #FFBB00;
+	   border: none;
+	   color:#fff;
+	   padding: 15px 0;
+	   text-align: center;
+	   text-decoration: none;
+	   display: inline-block;
+	   font-size: 15px;
+	   margin: 4px;
+	   cursor: pointer;
+	   border-radius:10px;
+	}
+	
+	#delBtn{
+		width:100px;
+		background-color: #7A7A7A;
+		border: none;
+		color:#fff;
+		padding: 15px 0;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 15px;
+		margin: 4px;
+		cursor: pointer;
+		border-radius:10px;
+	}	
+	
+	#btnArea{
+		text-align:center;
+	}
+</style>
 <title>JooTopia</title>
 </head>
 <body>
@@ -20,9 +56,9 @@
                   <h4 class="modal-title" style="font-weight: bold;" align="center">
                      회원가입</h4>
       </div>
-               <form action="<%= request.getContextPath() %>/insert.do"
-                  method="post" id="joinForm">
+               
                   <div class="modal-body">
+          <form method="post" id="joinForm" action="<%= request.getContextPath() %>/insert.do">
                      <table id="joinArea" align="center">
                         <tr>
                         
@@ -89,20 +125,65 @@
                         </tr>
                      </table>
 
-
-                     <br> <input type="submit" class="btn btn-info"
-                        value="Submit" onclick="checkPassword();"> <input
-                        type="reset" class="btn btn-info" value="Reset">
-
-                  </div>
-               </form>
+               
+                         <div class="modal-footer" id="btnArea">
+             		   <input type="button" class="btn btn-info" id="modifyBtn" value="회원가입" onclick="checkPassword();"> 
+             		   <input type="reset" class="btn btn-info" id = "delBtn" value="Reset"><br />
               
-               <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                </div>
-            </div>
-   
+               </form>
 
+                     <br>
+				
+                  </div>
+            </div>
+
+	<script>
+function checkPassword(){
+	    
+		var userPwd = $("#userPwd").val();
+		var userId = $("#userId").val();
+		var userPwd2 = $("#userPwd2").val(); 
+		var isCheck = 1;
+		
+ 	    if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(userPwd)){            
+ 		   	$("#pwdArea").text('비밀번호 입력 형식에 어긋납니다.');
+	        $('#password').val('').focus();
+	        isCheck = 0;
+	    }   
+	    var checkNumber = userPwd.search(/[0-9]/g);
+	    var checkEnglish = userPwd.search(/[a-z]/ig);
+	    if(checkNumber <0 || checkEnglish <0){
+	    	$("#pwdArea").text('비밀번호 입력 형식에 어긋납니다.');
+	        $('#userPwd').val('').focus();
+	        isCheck = 0;
+	    }
+	    if(/(\w)\1\1\1/.test(userPwd)){
+	     	$("#pwdArea").text('같은 문자를 4번 이상 사용하실 수 없습니다.');
+	        $('#userPwd').val('').focus();
+	        isCheck = 0;
+	    }
+
+	        
+	    if(userPwd.search(userId) > -1){
+	       	$("#pwdArea").text('비밀번호에 아이디가 들어가있습니다.');
+	        $('#userPwd').val('').focus();
+	        isCheck = 0;
+	    }
+	    
+        if(userPwd!=userPwd2){
+        	$("#pwdArea2").text('비밀번호 불일치');
+        	$('#userPwd2').val('').focus();
+        	isCheck=0;
+           }
+	    
+	    if(isCheck == 1){
+	    	$("#joinForm").attr('action','<%= request.getContextPath() %>/insert.do').submit();
+	    }else{
+	    	alert('gg');
+	    }   
+	}
+	</script>
    </section>
 <%@ include file="/views/common/footer.jsp" %>
 </body>

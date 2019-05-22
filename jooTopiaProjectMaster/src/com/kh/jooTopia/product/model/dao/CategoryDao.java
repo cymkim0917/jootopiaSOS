@@ -7,11 +7,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
+
+import com.kh.jooTopia.product.model.vo.Product;
+
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
 public class CategoryDao {
-	Properties prop = new Properties();
+	private Properties prop = new Properties();
 	
 	public CategoryDao() {
 		String fileName = CategoryDao
@@ -76,6 +80,163 @@ public class CategoryDao {
 			close(rset);
 		}
 		return cid;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectProductList(Connection con, int cid) {
+		ArrayList<HashMap<String, Object>> productList = null;
+		HashMap<String, Object> procList = null;
+		PreparedStatement pstmt=  null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("getBedProductList");
+		System.out.println(sql);
+		
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			productList = new ArrayList<HashMap<String,Object>>();
+			while(rs.next()) {
+				procList = new HashMap<String, Object>();
+				procList.put("pid", rs.getInt("pid"));
+				procList.put("cid", rs.getInt("cid"));
+				procList.put("pname", rs.getString("pname"));
+				procList.put("pprice",rs.getInt("pprice"));
+				procList.put("change_name", rs.getString("change_name"));
+				procList.put("pbrand", rs.getString("pbrand"));
+				procList.put("cgroup", rs.getString("cgroup"));
+				
+				productList.add(procList);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return productList;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectProductList2(Connection con, int cid) {
+		ArrayList<HashMap<String, Object>> productList = null;
+		HashMap<String, Object> procList = null;
+		PreparedStatement pstmt=  null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("getStudyProductList");
+		System.out.println(sql);
+		
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			productList = new ArrayList<HashMap<String,Object>>();
+			while(rs.next()) {
+				procList = new HashMap<String, Object>();
+				procList.put("pid", rs.getInt("pid"));
+				procList.put("cid", rs.getInt("cid"));
+				procList.put("pname", rs.getString("pname"));
+				procList.put("pprice",rs.getInt("pprice"));
+				procList.put("change_name", rs.getString("change_name"));
+				procList.put("pbrand", rs.getString("pbrand"));
+				procList.put("cgroup", rs.getString("cgroup"));
+				
+				productList.add(procList);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return productList;
+	}
+	
+	public ArrayList<HashMap<String, Object>> selectProductList3(Connection con, int cid) {
+		ArrayList<HashMap<String, Object>> productList = null;
+		HashMap<String, Object> procList = null;
+		PreparedStatement pstmt=  null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("getKitchenProductList");
+		System.out.println(sql);
+		
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			productList = new ArrayList<HashMap<String,Object>>();
+			while(rs.next()) {
+				procList = new HashMap<String, Object>();
+				procList.put("pid", rs.getInt("pid"));
+				procList.put("cid", rs.getInt("cid"));
+				procList.put("pname", rs.getString("pname"));
+				procList.put("pprice",rs.getInt("pprice"));
+				procList.put("change_name", rs.getString("change_name"));
+				procList.put("pbrand", rs.getString("pbrand"));
+				procList.put("cgroup", rs.getString("cgroup"));
+				
+				productList.add(procList);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return productList;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectOneProductList(Connection con, int cid) {
+		ArrayList<HashMap<String, Object>> productList = null;
+		HashMap<String, Object> procList = null;
+		PreparedStatement pstmt=  null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("getOneProductList");
+		
+		System.out.println(sql);
+		
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cid);
+			rs = pstmt.executeQuery();
+			
+			productList = new ArrayList<HashMap<String,Object>>();
+			while(rs.next()) {
+				procList = new HashMap<String, Object>();
+				procList.put("pid", rs.getInt("pid"));
+				procList.put("cid", rs.getInt("cid"));
+				procList.put("pname", rs.getString("pname"));
+				procList.put("pprice",rs.getInt("pprice"));
+				procList.put("change_name", rs.getString("change_name"));
+				procList.put("pbrand", rs.getString("pbrand"));
+				procList.put("cgroup", rs.getString("cgroup"));
+				
+				productList.add(procList);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return productList;
 	}
 	
 }

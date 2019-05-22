@@ -79,7 +79,7 @@ public class OrderDao {
 			pstmt.setInt(2, poid);
 			rs = pstmt.executeQuery();
 			
-			if(rs.next()) {
+			while(rs.next()) {
 				order = new Order();
 				order.setUno(uno);
 				order.setPid(rs.getInt(1));

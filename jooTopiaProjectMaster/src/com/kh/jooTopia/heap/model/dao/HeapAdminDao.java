@@ -115,6 +115,7 @@ private Properties prop = new Properties();
 				h = new HeapAdmin();
 				
 				h.setpId(rset.getInt("PID"));
+				h.setChangeName(rset.getString("CHANGE_NAME"));
 				
 				
 			}

@@ -252,6 +252,7 @@ public class OrderAdminDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, "상품준비중");
+			pstmt.setString(2, "결제완료");
 			
 			rset = pstmt.executeQuery();
 			
@@ -355,6 +356,8 @@ public class OrderAdminDao {
 		POrder o = (POrder) hmap.get("o");
 		
 		String query = prop.getProperty("getPOrderCount");
+		
+		System.out.println(query);
 		
 		try {
 			pstmt = con.prepareStatement(query);

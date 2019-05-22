@@ -34,6 +34,8 @@ public class UpdatePaymentAdminServlet extends HttpServlet {
 				result = 1;
 			}
 		}
+		
+		System.out.println("업데이트 페이먼트 : " + result);
 
 		String msg = "";
 		if(result > 0) {

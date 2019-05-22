@@ -41,7 +41,7 @@ public class OrderAdminService {
 		
 		for(int i = 0; i < list.size(); i++) {
 			hmap = list.get(i);
-			new OrderAdminDao().getPOrderCount(con, hmap);
+			/*new OrderAdminDao().getPOrderCount(con, hmap);*/
 		}
 		
 		close(con);
@@ -91,7 +91,7 @@ public class OrderAdminService {
 		
 		for(int i = 0; i < list.size(); i++) {
 			hmap = list.get(i);
-			new OrderAdminDao().getPOrderCount(con, hmap);
+			/*new OrderAdminDao().getPOrderCount(con, hmap);*/
 		}
 		
 		close(con);

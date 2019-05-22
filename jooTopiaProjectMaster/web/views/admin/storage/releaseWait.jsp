@@ -83,7 +83,7 @@
 			}).mouseout(function(){
 				$(this).parent();
 			}).click(function(){
-				var num = $(this).parent().children().eq(0).text();				
+				var num = $(this).parent().children().eq(2).text();				
 				console.log(num);
 				<%-- location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num; --%>
 				<%-- location.href="<%=request.getContextPath()%>/insertAdminRelease.do"; --%>
