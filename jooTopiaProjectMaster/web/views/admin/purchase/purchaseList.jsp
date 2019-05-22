@@ -2,7 +2,6 @@
     pageEncoding="UTF-8" import="java.util.*, com.kh.jooTopia.board.model.vo.*"%>
 <%
 	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
-	
 	int currentPage = ((PageInfo)request.getAttribute("pi")).getCurrentPage();
 	int startPage = ((PageInfo)request.getAttribute("pi")).getStartPage();
 	int endPage = ((PageInfo)request.getAttribute("pi")).getEndPage();
