@@ -51,13 +51,11 @@
 <%@ include file="/views/common/navigation.jsp" %>
    <section>
          <div id="wrapper">
-      <div id="joinModal" role="dialog">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title" style="font-weight: bold;" align="center">
+      
+                  <h4  style="font-weight: bold;" align="center">
                      회원가입</h4>
-      </div>
+     		
                
-                  <div class="modal-body">
           <form method="post" id="joinForm" action="<%= request.getContextPath() %>/insert.do">
                      <table id="joinArea" align="center">
                         <tr>
@@ -132,12 +130,9 @@
               
                </div>
                </form>
-
+		 </div>
                      <br>
 				
-                  </div>
-            </div>
-
 	<script>
 function checkPassword(){
 	    
