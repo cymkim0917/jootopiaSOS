@@ -169,6 +169,7 @@ public class ReleaseAdminDao {
 				r.setdId(rset.getInt("DID"));
 				r.sethId(rset.getInt("HID"));
 				r.setlBarcode(rset.getInt("LBARCODE"));
+				r.setChangeName(rset.getString("CHANGE_NAME"));
 			}
 			
 		} catch (SQLException e) {

@@ -157,11 +157,11 @@
 						<td width="500"><%= p.gethCost() %>
 						<input type="hidden" name="hCost" value="<%= p.gethCost() %>"></td>
 					</tr>
-					<tr>
+					<%-- <tr>
 						<td width="120">메모</td>
 						<td width="500"><%= p.getMemo() %>
 						<input type="hidden" name="Memo" value="<%= p.getMemo() %>"></td>
-					</tr>					
+					</tr> --%>					
 					
 					<tr>
 						<td width="120">상품명</td>
