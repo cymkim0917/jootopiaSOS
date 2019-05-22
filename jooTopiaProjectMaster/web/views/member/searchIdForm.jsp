@@ -112,7 +112,7 @@
 						},
 						success : function(data){
 							alert('회원님의 아이디는 ' + data + '입니다.' + "\n 메인 페이지로 이동합니다.");
-							location.href='index.jsp';
+							location.href='../index.jsp';
 						}
 					})
 				}	

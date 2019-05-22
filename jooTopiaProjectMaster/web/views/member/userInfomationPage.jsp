@@ -78,7 +78,8 @@
 			<div class="col-sm-3" id="tempBtnArea">
 				<a href="<%= request.getContextPath() %>/orderList.do" id="orderBtn">임시)주문내역</a><br />
 				<a href="<%= request.getContextPath() %>/selectBoardList.do" id="orderBtn">임시)게시글 조회</a><br />
-				<a href="myRecentProduct.jsp" id="orderBtn">임시)최근 본 상품 조회</a>
+				<a href="myRecentProduct.jsp" id="orderBtn">임시)최근 본 상품 조회</a><br />
+				<a href="insertQaAPage.jsp" id="orderBtn">임시)1:1 문의 작성</a>
 			</div>
 			<div class="col-sm-6">
 			<h1>회원 정보</h1><br />
