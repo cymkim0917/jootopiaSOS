@@ -35,34 +35,23 @@
 		<span class="col-lg-1" onclick="location.href='/jootopia/views/purchase/purchaseInfo.jsp'"> 
 			매입신청
 		</span> 
-		<span class="col-lg-1" onclick="location.href='/jootopia/views/member/userInfomationPage.jsp'"> 
-			마이페이지
-		</span> 
-		<span class="col-lg-1" onclick="location.href='<%= request.getContextPath()%>/selectAllCart.do'"> 
-			장바구니
-		</span> 
-		<span class="col-lg-3 logo"> 
-			<img src="/jootopia/images/logo.png" onclick="location.href='/jootopia'">
-		</span>
-		<span class="col-lg-1" onclick="location.href='/jootopia/views/main/AdminMainPage.jsp'"> 
-			Admin
-		</span>
-		
 		<% if(loginUser == null){ %>
-		<span class="col-lg-1" data-toggle="modal" data-target="#logModal" id="loginBtn"> 
-			Login
-		</span> 
-			
-		<span class="col-lg-1" href="#joinModal" data-toggle="modal" data-target="#joinModal"> 
-			Join us
-		</span> 
-			<% } else{ %>
-			<span class="col-lg-2" id ="userName" onclick="location.href='<%= request.getContextPath() %>/logout.do'"> <%= loginUser.getUserName() %>님 환영! </span>
-			<%} %>
+		<span class="col-lg-6 logo"> <img src="/jootopia/images/logo.png" onclick="location.href='/jootopia'"></span>
+		<span class="col-lg-1" data-toggle="modal" data-target="#logModal" id="loginBtn"> Login</span> 
+		<span class="col-lg-1" href="#joinModal" data-toggle="modal" data-target="#joinModal"> Join us</span> 
+		<% } else if(loginUser.getAdmin_NY().equals("N")){ %>
+		<span class="col-lg-5 logo"> <img src="/jootopia/images/logo.png" onclick="location.href='/jootopia'"></span>
+		<span class="col-lg-1" id ="userName" onclick="location.href='<%= request.getContextPath() %>/logout.do'"> <%= loginUser.getUserName() %>님 환영! </span>
+		<span class="col-lg-1" onclick="location.href='/jootopia/views/member/userInfomationPage.jsp'"> 마이페이지	</span>
+		<span class="col-lg-1" onclick="location.href='<%= request.getContextPath()%>/selectAllCart.do'"> 장바구니</span>
+		<% }else{ %>
+		<span class="col-lg-6 logo"> <img src="/jootopia/images/logo.png" onclick="location.href='/jootopia'"></span>
+		<span class="col-lg-1" id ="userName" onclick="location.href='<%= request.getContextPath() %>/logout.do'"> 관리자님 안녕! </span>
+		<span class="col-lg-1" onclick="location.href='/jootopia/views/main/AdminMainPage.jsp'"> Admin</span>
+		<% } %>
 			
 		<span class="col-lg-1"></span>
 	</header>
-
 	<nav class="navbar navbar-inverse mainNav">
 		<div class="container-fluid">
 			<ul class="nav navbar-nav">
@@ -164,7 +153,7 @@
 						<div id="loginAPIArea" align="center">
 						  <a id="kakao-login-btn"></a> 
 						</div>
-							<% }else { %>
+						<% }else { %>
 						<div id="loginUserForm" align="center">
 							<p style="font-weight:bold; size:30px; font-color:red;"> Welcome To JooTopia</p>
 							<p style="font-weight:bold;" id="nameArea"><%= loginUser.getUserName() %> &nbsp; </p><p>님 환영합니다 ! </p>
