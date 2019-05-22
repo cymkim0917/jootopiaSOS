@@ -137,8 +137,8 @@
 		    			</tr>
 		    			<tr>
 		    				<td colspan="2">
-		    					<!-- <button id="searchBtn">검색하기</button> -->
-		    					<button>검색하기</button> 
+		    					<button id="searchBtn">검색하기</button>
+		    					<!-- <button>검색하기</button> --> 
 		    				</td>
 		    			</tr>
 		    		</table>
