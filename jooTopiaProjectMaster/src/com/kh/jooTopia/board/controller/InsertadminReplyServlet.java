@@ -1,7 +1,7 @@
 package com.kh.jooTopia.board.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.jooTopia.board.model.service.BoardAdminService;
 import com.kh.jooTopia.board.model.vo.Board;
-import com.kh.jooTopia.member.model.vo.Member;
 
 /**
- * Servlet implementation class SelectAdminOneQnAServlet
+ * Servlet implementation class InsertadminReplyServlet
  */
-@WebServlet("/selectAdminOneQnA.do")
-public class SelectAdminOneQnAServlet extends HttpServlet {
+@WebServlet("/insertadminReply.do")
+public class InsertadminReplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectAdminOneQnAServlet() {
+    public InsertadminReplyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,24 +32,20 @@ public class SelectAdminOneQnAServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int num = Integer.parseInt(request.getParameter("num"));
+		System.out.println("리플 서블릿");
+		int uno = Integer.parseInt(request.getParameter("uno"));
+		int bId = Integer.parseInt(request.getParameter("bid"));
+		String aContent =request.getParameter("content");
 		
-		HashMap<String, Object> hmap = new BoardAdminService().selectOneQnA(num);
+		Board board = new Board();
+		board.setbId(bId);
+		board.setuNo(uno);
+		board.setaContent(aContent);
 		
-		Board board = (Board)hmap.get("board");
-		Member member = (Member)hmap.get("member");
+		ArrayList<Board> reply = new BoardAdminService().insertReply(board);
 		
-		String page ="";
-		
-		if(hmap != null) {
-			page="views/admin/board/detailQnA.jsp";
-			request.setAttribute("board", board);
-			request.setAttribute("member", member);
-		}else {
-			page="views/common/errorPage500.jps";
-		}
-		request.getRequestDispatcher(page).forward(request, response);
-	
+		response.setContentType("application/json");
+		new Gson().toJson(reply, response.getWriter());
 	}
 
 	/**

@@ -15,13 +15,12 @@
 <script src="/jootopia/js/external/bootstrap.min.js"></script>
 
 <link rel="stylesheet" href="/jootopia/css/user/header.css" type="text/css" >
-<!-- 모달용  css-->
+<!-- 모달용  css--> 
 <link rel="stylesheet" href="/jootopia/css/user/modal.css" type="text/css" >
 
 
 <!-- 우편 -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-
 <!-- kakao -->
  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
@@ -115,8 +114,6 @@
 				</div>
 				<button type="submit" class="btn btn-default">검색</button>
 			</form>
-
-			<!-- 상품검색 끝 -->
 		</div>
 	</nav>
 	<script>

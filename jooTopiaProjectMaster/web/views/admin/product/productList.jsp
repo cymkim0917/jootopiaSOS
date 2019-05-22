@@ -192,6 +192,7 @@
 	<br><br><br>
 	<div class="paging" align="center">
 		<ul class="pagination">
+		<li><a><<</a></li>
 		<% if(currentPage <= 1) { %>
 		<li><a>이전</a></li>
 		<% } else { %>
