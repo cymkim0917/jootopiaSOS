@@ -57,7 +57,8 @@
 
 			<div class="imgArea" align="center">
 				<div id="ImgArea1">
-					<img src="/jootopia/images/so.jpg" id="Img1">					
+					<!-- <img src="/jootopia/images/so.jpg" id="Img1"> -->
+					<img src="/jootopia/images/product/<%= h.getChangeName() %>">				
 				</div>
 			</div>
 
@@ -87,7 +88,7 @@
 					<tr>
 						<td width="120">위치바코드</td>
 						<td width="500">
-						<input type="text" placeholder="위치번호를 입력하세요" name="lbarcode">
+						<input type="text" placeholder="위치바코드를 입력하세요" name="lbarcode">
 						</td>
 					</tr>										
 				</table>
