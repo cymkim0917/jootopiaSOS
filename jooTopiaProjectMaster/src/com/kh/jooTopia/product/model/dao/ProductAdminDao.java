@@ -664,6 +664,7 @@ public class ProductAdminDao {
 		}
 		
 		return pId;
+	}
 
 	public int updateDetailProduct(Connection con, Product p) {
 		//상품 상세내용 수정

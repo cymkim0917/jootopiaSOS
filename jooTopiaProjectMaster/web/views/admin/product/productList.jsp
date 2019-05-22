@@ -198,18 +198,18 @@
 		<li><a href="<%=request.getContextPath()%>/adminProductList.do?currentPage=<%= currentPage - 1 %>">이전</a></li>
 		<% } %>
 		
-		<% for(int p = startPage; p <= endPage; p++) { 
+		<% for(int p = startPage; p < endPage; p++) { 
 			if(p == currentPage) { %>
-		<li><a><%= p %></a></li>
-		<% 	}else { %>
-		<li><a href="<%=request.getContextPath()%>/adminProductList.do.do?currentPage=<%= p %>"><%= p %></a></li>	
-		<% 	} 
+			<li><a><%= p %></a></li>
+			<% 	}else { %>
+			<li><a href="<%=request.getContextPath()%>/adminProductList.do?currentPage=<%= p %>"><%= p %></a></li>	
+			<% 	} 
 		} %>
 		
 		<% if(currentPage >= maxPage) { %>
 		<li><a>다음</a></li>
 		<% }else { %>
-		<li><a href="<%=request.getContextPath()%>/adminProductList.do.do?currentPage=<%= currentPage + 1 %>">다음</a></li>
+		<li><a href="<%=request.getContextPath()%>/adminProductList.do?currentPage=<%= currentPage + 1 %>">다음</a></li>
 		<% } %>
 		</ul>
 	</div>
