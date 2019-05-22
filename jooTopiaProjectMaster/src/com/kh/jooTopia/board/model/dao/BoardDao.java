@@ -810,7 +810,7 @@ public class BoardDao {
 
 	
 
-	//(s) insertThumbnailContent -------
+	//(s) 후기쓰기
 	public int reviewInsertForm(Connection con, Board b) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -868,16 +868,6 @@ public class BoardDao {
 		
 	}
 
-	public int insertReply(Connection con, Board b) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public ArrayList<Board> selectReplyList(Connection con, int getbId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	
 	
 	//(s)
@@ -915,8 +905,17 @@ public class BoardDao {
 	
 	}
 
-	//(s)
+	//(s) 후기 상세게시
 	public HashMap<String, Object> reviewReadPage(Connection con, int num) {
+		/*Statement stmt = null;
+		ResultSet rset = null;
+		HashMap<String,Object> list = null;
+		ArrayList<Board> bList = null;
+		ArrayList<Member> mList = null;
+		ArrayList<Attachment> aList = null;*/
+		
+		
+		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		HashMap<String,Object> list = null;
@@ -929,6 +928,7 @@ public class BoardDao {
 		
 		try {
 			pstmt=con.prepareStatement(quary);
+			//stmt=con.prepareStatement(quary);
 			rset = pstmt.executeQuery(quary);
 			bList = new ArrayList<Board>();
 			mList = new ArrayList<Member>();
@@ -938,6 +938,32 @@ public class BoardDao {
 			
 			while(rset.next()) {
 				//list=new HashMap<String,Object>();
+				
+			/*	Board b = new Board();
+				Member m = new Member();
+				Attachment a = new Attachment();
+				
+				
+				b.setbId(rset.getInt("BID"));
+				b.setbNo(rset.getInt("BNO"));
+				b.setbTitle(rset.getString("BTITLE"));
+				b.setbContent(rset.getString("BCONTENT"));
+				m.setUserId(rset.getString("USER_ID"));
+				b.setbCount(rset.getInt("BCOUNT"));
+				b.setbDate(rset.getDate("BDATE"));
+				a.setfId(rset.getInt("FID"));
+				a.setOriginName(rset.getString("ORIGIN_NAME"));
+				a.setChangeName(rset.getString("CHANGE_NAME"));
+				a.setFilePath(rset.getString("FILE_PATH"));
+				a.setUploadDate(rset.getDate("UPLOAD_DATE"));
+				
+				aList.add(a);
+				
+				bList.add(b);
+				
+				mList.add(m);*/
+				//---------------------------
+				
 				Board b = new Board();
 				b.setbId(rset.getInt("BID"));
 				b.setbNo(rset.getInt("BNO"));
@@ -979,6 +1005,16 @@ public class BoardDao {
 	}
 
 	
+	public int insertReply(Connection con, Board b) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	public ArrayList<Board> selectReplyList(Connection con, int getbId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 }
+

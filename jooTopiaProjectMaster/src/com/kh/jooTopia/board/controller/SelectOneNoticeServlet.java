@@ -37,6 +37,10 @@ public class SelectOneNoticeServlet extends HttpServlet {
 		Notice n = new BoardService().selectOne(num);
 		//System.out.println("num: " + num);
 		System.out.println("n in servlet :" + n);
+		
+		
+		
+		
 		String page="";
 		
 		if(n != null) {
