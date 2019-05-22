@@ -26,9 +26,8 @@
 					</tr>			
 					<tr>
 						<td><label>주소</label></td>
-						<!--  주소 불러오는자리에 주소 불러오고 border 없애기  -->
 						<td>
-							<input type="text" class="form-control" name="address" value="임시주소지롱 불러올거야" readonly>
+							<input type="text" class="form-control" name="address" placeholder="주소를 입력해주세요.">
 							<input type="hidden" name="appDistance" value="15">
 						</td>
 					</tr>

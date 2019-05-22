@@ -31,6 +31,11 @@ public class PurchaseDetailService {
 			
 		result = new PurchaseDetailDao().insertPCDdeny(con, pcd);
 		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
 		close(con);
 		
 		return result;
