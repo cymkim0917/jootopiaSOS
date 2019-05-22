@@ -19,7 +19,7 @@
 <style>
 	.outer {
 		width:1100px;
-		height:1000px;
+		height:1100px;
 		background:coral;
 		color:black;
 		margin-left:auto;
@@ -101,11 +101,11 @@
 					<tbody>
 						<tr>
 							<th>제목</th>
-							<td><input type="text" placeholder="제목을 입력하세요" name="subject" style="width:700px;"></td>
+							<td><input type="text" placeholder="제목을 입력하세요" name="title" style="width:700px;"></td>
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td><input type="text" placeholder="내용을 입력하세요" name="subject" style="width:700px; height:600px";></td>
+							<td><input type="text" placeholder="내용을 입력하세요" name="content" style="width:700px; height:600px";></td>
 						</tr>
 						<tr>
 							<td>첨부파일</td>
@@ -195,8 +195,8 @@
 				</table>
 			</div> -->
 			<div id="fileArea">
-				<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this,1);">
-				<input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this,2);">
+				<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this,1)">
+				<input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this,2)">
 				
 			</div>
 			<br>

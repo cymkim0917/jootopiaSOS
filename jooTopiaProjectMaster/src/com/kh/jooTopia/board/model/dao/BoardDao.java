@@ -240,7 +240,7 @@ public class BoardDao {
 	}
 
 
-	//(s)
+	//(s)-----
 	public int selectCurrval(Connection con) {
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -810,7 +810,7 @@ public class BoardDao {
 
 	
 
-	//(s) insertThumbnailContent
+	//(s) insertThumbnailContent -------
 	public int reviewInsertForm(Connection con, Board b) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -818,6 +818,8 @@ public class BoardDao {
 
 		try {
 			pstmt = con.prepareStatement(sql);
+			
+			
 			pstmt.setString(1, b.getbTitle());
 			pstmt.setString(2, b.getbContent());
 			
@@ -831,6 +833,7 @@ public class BoardDao {
 		
 	}
 
+	//(s)--------
 	public int insertAttachment(Connection con, ArrayList<Attachment> fileList) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -874,16 +877,105 @@ public class BoardDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	
+	
+	//(s)
 	public Attachment selectOneAttachment(Connection con, int num) {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement pstmt=null;
+		ResultSet rset = null;
+		Attachment at=null;
+		String quary = prop.getProperty("selectOneAttachment");
+		
+		try {
+			pstmt=con.prepareStatement(quary);
+			pstmt.setInt(1, num);
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				at=new Attachment();
+				at.setfId(rset.getInt("FID"));
+				at.setbId(rset.getInt("BID"));
+				at.setOriginName(rset.getString("ORIGIN_NAME"));
+				at.setChangeName(rset.getString("CHANGE_NAME"));
+				at.setFilePath(rset.getString("FILE_PATH"));
+				at.setUploadDate(rset.getDate("UPLOAD_DATE"));
+				at.setFileLevel(rset.getInt("FILE_LEVEL"));
+				at.setStatus(rset.getString("STATUS"));
+				
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return at;
+	
 	}
 
+	//(s)
 	public HashMap<String, Object> reviewReadPage(Connection con, int num) {
-		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String,Object> list = null;
+		ArrayList<Board> bList = null;
+		ArrayList<Member> mList = null;
+		ArrayList<Attachment> aList = null;
+		//ArrayList<HashMap<String,Object>> list = null;
 		
-		return null;
+		String quary = prop.getProperty("selectReviewTotalList");
+		
+		try {
+			pstmt=con.prepareStatement(quary);
+			rset = pstmt.executeQuery(quary);
+			bList = new ArrayList<Board>();
+			mList = new ArrayList<Member>();
+			aList = new ArrayList<Attachment>();
+			list = new HashMap<String,Object>();
+			//list = new ArrayList<HashMap<String,Object>>();
+			
+			while(rset.next()) {
+				//list=new HashMap<String,Object>();
+				Board b = new Board();
+				b.setbId(rset.getInt("BID"));
+				b.setbNo(rset.getInt("BNO"));
+				b.setbTitle(rset.getString("BTITLE"));
+				b.setbContent(rset.getString("BCONTENT"));
+				b.setbCount(rset.getInt("BCOUNT"));
+				b.setbDate(rset.getDate("BDATE"));
+				bList.add(b);
+				
+				Member m = new Member();
+				m.setUserId(rset.getString("USER_ID"));
+				mList.add(m);
+				
+				Attachment a = new Attachment();
+				a.setfId(rset.getInt("FID"));
+				a.setOriginName(rset.getString("ORIGIN_NAME"));
+				a.setChangeName(rset.getString("CHANGE_NAME"));
+				a.setFilePath(rset.getString("FILE_PATH"));
+				a.setUploadDate(rset.getDate("UPLOAD_DATE"));
+				aList.add(a);
+				
+			}
+			list.put("bList", bList);
+			list.put("mList", mList);
+			list.put("aList", aList);
+			System.out.println(list.get("bList"));
+			System.out.println(list.get("mList"));
+			System.out.println(list.get("aList"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+		return list;
+		
 	}
 
 	

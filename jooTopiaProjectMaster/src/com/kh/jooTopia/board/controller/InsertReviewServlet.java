@@ -77,6 +77,8 @@ public class InsertReviewServlet extends HttpServlet {
 			String multiTitle = multiRequest.getParameter("title");
 			String multiContent = multiRequest.getParameter("content");
 			
+			System.out.println("multiTitle : " + multiTitle);
+			
 			Board b = new Board();
 			Member m = new Member();
 			b.setbTitle(multiTitle);
@@ -98,11 +100,12 @@ public class InsertReviewServlet extends HttpServlet {
 			int result = new BoardService().reviewInsertForm(b,fileList);
 			String page = "";
 			if(result > 0) {
-				response.sendRedirect(request.getContextPath()+"/insertReview.do");
+				response.sendRedirect(request.getContextPath()+"/selectReviewTotalList.do"); // 데이터를 받으면 리스트가 출력되는 곳으로 뿌려준다. 고로 insertReview가 아닌 selectReviewTotalList.do
 			}else {
 				for (int i = 0; i < saveFiles.size(); i++) {
 					File failedFile = new File(filePath + saveFiles.get(i));
-					System.out.println(failedFile.delete());
+					failedFile.delete();
+					System.out.println("failedFile.delete() in servlet : " + failedFile.delete());
 				}
 				page="views/common/errorPage.jsp";
 				request.setAttribute("msg", "사진게시판 등록 실패!");

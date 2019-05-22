@@ -309,6 +309,25 @@ public class BoardService {
 		
 		return result;
 	}
+	public HashMap<String, Object> reviewReadPage(int num) {
+		Connection con = getConnection();
+		HashMap<String, Object> hmap = null; 
+		
+		int result = new BoardDao().updateCount(con, num);
+		
+		if(result > 0) {
+			commit(con);
+			hmap = new BoardDao().reviewReadPage(con,num);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return hmap;
+		
+		
+		
+	}
 	
 	
 	
