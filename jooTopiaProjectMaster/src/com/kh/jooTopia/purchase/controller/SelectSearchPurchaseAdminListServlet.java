@@ -34,6 +34,7 @@ public class SelectSearchPurchaseAdminListServlet extends HttpServlet {
 		System.out.println("dateval : " + dateVal);
 		
 		String date = dateVal;
+
 		
 		System.out.println("searchType : " + searchType);
 		System.out.println("searchVal : " + searchVal);

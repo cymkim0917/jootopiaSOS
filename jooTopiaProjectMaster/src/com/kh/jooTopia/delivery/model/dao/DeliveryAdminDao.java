@@ -51,7 +51,6 @@ private Properties prop = new Properties();
 		} finally {
 			close(pstmt);
 		}
-		
 		return result;
 	}
 
@@ -84,6 +83,7 @@ private Properties prop = new Properties();
 				o.setPoId(rset.getInt("POID"));
 				o.setPoDate(rset.getDate("PODATE"));
 				o.setdMessage(rset.getString("DMESSAGE"));
+				o.setName(rset.getString("NAME"));
 				hmap.put("o", o);
 				
 				//P.PNAME
