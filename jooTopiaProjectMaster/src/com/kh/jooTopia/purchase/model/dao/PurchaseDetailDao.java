@@ -116,7 +116,6 @@ public class PurchaseDetailDao {
 			if(rset.next()) {
 				denyReason = rset.getString("APPLY_DENY_REASON");
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -124,7 +123,7 @@ public class PurchaseDetailDao {
 			close(rset);
 		}
 		
-		return null;
+		return denyReason;
 	}
 
 	public int insertPCDaccept(Connection con, PurchaseDetail pcd) {
@@ -161,7 +160,7 @@ public class PurchaseDetailDao {
 			
 			// INSERT INTO PURCHSE_DETAIL(PCDID, PCID, STATUS, DENY_REASON) VALUES (SEQ_PCDID.NEXTVAL, ?, '', ?)
 			pstmt.setInt(1, pcd.getPcid());
-			pstmt.setString(2, pcd.getDenyReason());
+			pstmt.setString(2, pcd.getApplydenyReason());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

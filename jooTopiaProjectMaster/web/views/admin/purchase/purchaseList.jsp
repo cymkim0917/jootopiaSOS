@@ -137,7 +137,8 @@
 		    			</tr>
 		    			<tr>
 		    				<td colspan="2">
-		    					<button id="searchBtn">검색하기</button>
+		    					<!-- <button id="searchBtn">검색하기</button> -->
+		    					<button>검색하기</button> 
 		    				</td>
 		    			</tr>
 		    		</table>
@@ -164,7 +165,7 @@
 	    					dateVal = "no";
 	    				}, complete : function(data){
 	    					console.log("complete : " + data);
-	    					location.href="<%= request.getContextPath() %>/selectSearchPCList.do?searchType=" + searchType + "&searchVal=" + searchVal + "&dateVal=" + dateVal + "&purchaseStatus=" + purchaseStatus;
+	    					location.href="<%= request.getContextPath() %>/selectSearch.do?searchType=" + searchType + "&searchVal=" + searchVal + "&dateVal=" + dateVal + "&purchaseStatus=" + purchaseStatus;
 	    				}
 	    				
 	    			});

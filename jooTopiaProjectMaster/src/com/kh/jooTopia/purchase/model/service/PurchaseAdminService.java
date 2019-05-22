@@ -39,12 +39,8 @@ public class PurchaseAdminService {
 		
 		if(hmap != null) {
 			hmap.put("status", new PurchaseDetailDao().selectPCDstatus(con, pcid));
-			
-			if(hmap.get("status") == "매입신청거절") {
-				hmap.put("denyReason", new PurchaseDetailDao().selectPCDdenyReason(con, pcid));
-			}else if(hmap.get("status") != "신청수락대기"){
-				hmap.put("pBarcode", new PurchaseDetailDao().selectPCDbarcode(con, pcid));
-			}
+			hmap.put("pBarcode", new PurchaseDetailDao().selectPCDbarcode(con, pcid));
+			hmap.put("denyReason", new PurchaseDetailDao().selectPCDdenyReason(con, pcid));
 			hmap.put("fileList", new PurchaseAdminDao().selectAttachment(con, pcid));
 		}
 		close(con);

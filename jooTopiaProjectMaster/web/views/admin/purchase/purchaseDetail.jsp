@@ -215,10 +215,8 @@
 	      		</div>
 	      	</div>
 	    </div><!-- col-sm-10 -->
-	    
 		<div id="denyModal" class="modal fade" role="dialog">
 		  <div class="modal-dialog">
-		
 		    <!-- Modal content-->
 		    <div class="modal-content">
 		      <div class="modal-body"><br>

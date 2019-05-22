@@ -50,11 +50,11 @@
 		</span>
 		
 		<% if(loginUser == null){ %>
-		<span class="col-lg-1"data-toggle="modal" data-target="#logModal"> 
+		<span class="col-lg-1" data-toggle="modal" data-target="#logModal" id="loginBtn"> 
 			Login
 		</span> 
 			
-		<span class="col-lg-1" href="#joinModal" data-toggle="modal"  data-target="#joinModal"> 
+		<span class="col-lg-1" href="#joinModal" data-toggle="modal" data-target="#joinModal"> 
 			Join us
 		</span> 
 			<% } else{ %>
@@ -107,12 +107,7 @@
 						<li><a href="/jootopia/views/notice/productList.jsp">수납장</a></li>
 					</ul>
 				</li>
-				
-				
-				
-				
 			</ul>
-
 			<!-- 상품검색 시작 -->
 			<form class="navbar-form navbar-left" action="/action_page.php">
 				<div class="form-group">
@@ -151,27 +146,24 @@
 					<% if(loginUser == null){ %>
 						<form action="<%= request.getContextPath() %>/loginCheck.do" method="post">
 							<table align="center">
-								<tr><td colspan="2"><p>아이디</p></td></tr>
-								<tr>
-									<td><input type="text" name="userId" placeholder="ID">    </td>
-									<td><input type="submit" value="로그인" colspan="2"></td>
+								<!-- <tr><td colspan="2"><p>아이디</p></td></tr> -->
+								<tr><Br>
+									<td><input type="text" name="userId" placeholder="ID"><br><Br></td>
+									<td><input type="submit" value="로그인" rowspan="2"><br><Br></td>
 								</tr>
-								<tr><td colspan="2"><p>비밀번호</p></td></tr>
 								<tr>
 									<td><input type="password" name="userPwd"
-										placeholder="Password"></td>
+										placeholder="Password"><br><Br>
+									</td>
 								</tr>
-								
-			
-
 							</table>
 						</form>
-						<div id="searchArea">
-							<p id="searchId" onclick="showSearchId()">아이디 찾기</p>
-							<p id="searchPwd" onclick="showSearchPass();">비밀번호 찾기</p> <br />
-								
+						<div id="searchArea" align="center">
+							<span id="searchId" onclick="showSearchId()">아이디 찾기</span> &nbsp;&nbsp;&nbsp;
+							<span id="searchPwd" onclick="showSearchPass();">비밀번호 찾기</span>&nbsp;&nbsp;&nbsp;
+							<!-- <span id="joinUs">회원가입</span> -->
+							<br><Br>	
 						</div>
-						
 						<div id="loginAPIArea" align="center">
 						  <a id="kakao-login-btn"></a> 
 						</div>
@@ -179,9 +171,7 @@
 						<div id="loginUserForm" align="center">
 							<p style="font-weight:bold; size:30px; font-color:red;"> Welcome To JooTopia</p>
 							<p style="font-weight:bold;" id="nameArea"><%= loginUser.getUserName() %> &nbsp; </p><p>님 환영합니다 ! </p>
-						
 						</div>
-						
 						<% } %>
 					</div>
 					<div class="modal-footer">
@@ -191,7 +181,6 @@
 			</div>
 		</div>
 	</div>
-
 
 	   <!-- joinModal -->
    <div id="wrapper">
@@ -223,9 +212,6 @@
                   		</tr>
                   	</table>
 					</div>
-
-                     
-
                   </div>
                </form>
                <form action="<%= request.getContextPath()  %>/getkakao.do" id="kakaoJoinForm" method="post">
@@ -341,7 +327,6 @@
                         extraAddr = ' (' + extraAddr + ')';
                     }
                     // 조합된 참고항목을 해당 필드에 넣는다.
-                
                 } 
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
@@ -354,44 +339,30 @@
     }
     
     $(function(){
-    	
-
-    	
-    Kakao.init('788eca70f34bca3f27e5d166c44ff77f');
-    // 카카오 로그인 버튼을 생성합니다.
-    Kakao.Auth.createLoginButton({
-        container: '#kakao-login-btn',
-        success: function (authObj) {
-        	$("#kakaoToken").val(JSON.stringify(authObj));
-        	$("#kakaoJoinForm").submit();
-            
-        },
-        fail: function (err) {
-            alert(JSON.stringify(err));
-        }
-    });
-    
-    
-
-		Kakao.Auth
-					.createLoginButton({
-						container : '#kakao-jogin-btn',
-						success : function(authObj) {
-							alert(JSON.stringify(authObj));
-							 $("#kakaoToken").val(JSON.stringify(authObj));
-						
-							$("#kakaoJoinForm").submit();
-		},
-				fail : function(err) {
-					alert(JSON.stringify(err));
-				}
-			});
-		})
-
-		//788eca70f34bca3f27e5d166c44ff77f
+	    Kakao.init('788eca70f34bca3f27e5d166c44ff77f');
+	    // 카카오 로그인 버튼을 생성합니다.
+	    Kakao.Auth.createLoginButton({
+	        container: '#kakao-login-btn',
+	        success: function (authObj) {
+	        	$("#kakaoToken").val(JSON.stringify(authObj));
+	        	$("#kakaoJoinForm").submit();
+	        },
+	        fail: function (err) {
+	            alert(JSON.stringify(err));
+	        }
+	    });
+		Kakao.Auth.createLoginButton({
+			container : '#kakao-jogin-btn',
+			success : function(authObj) {
+				alert(JSON.stringify(authObj));
+				 $("#kakaoToken").val(JSON.stringify(authObj));
+				$("#kakaoJoinForm").submit();
+			}, fail : function(err) {
+				alert(JSON.stringify(err));
+			}
+		});
+	})
+	//788eca70f34bca3f27e5d166c44ff77f
 	</script>
-
-	
-	
 </body>
 </html>

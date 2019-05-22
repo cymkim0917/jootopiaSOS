@@ -27,8 +27,9 @@ public class InsertPurchaseDenyAdminServlet extends HttpServlet {
 		int pcid = Integer.parseInt(request.getParameter("no"));
 		
 		PurchaseDetail pcd = new PurchaseDetail();
-		pcd.setDenyReason(denyReason);
+		pcd.setApplydenyReason(denyReason);
 		pcd.setPcid(pcid);
+		System.out.println("서블릿에서 거절 이유 " + pcd.getApplydenyReason());
 		
 		int result = new PurchaseDetailService().insertPCDdeny(pcd);
 		

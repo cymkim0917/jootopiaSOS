@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.jooTopia.member.model.vo.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,10 +20,20 @@
 			<img src="#" alt="매입신청 안내에 대한 이미지가 들어가는 자리입니다." class="infoImg"><br>
 		</div>
 		<div class="btnArea" align="center">
-			<button onclick="location.href='/jootopia/views/purchase/purchaseRequestForm.jsp'" class="jBtn">매입신청</button> &nbsp;
+			<a onclick="location.href='/jootopia/views/purchase/purchaseRequestForm.jsp'" class="jBtn">매입신청</a> &nbsp;
 			<button onclick="location.href='/jootopia'" class="jBtn">돌아가기</button>	
 		</div>
-		
+		<%-- <script>
+			function purchaseApply(){
+				console.log(<%= loginUser %>);
+				<% if( loginUser  == null){ %>
+					alert("로그인을 해주세요");
+					$("#loginBtn").click();
+				<%}else{ %>	
+					location.href='/jootopia/views/purchase/purchaseRequestForm.jsp';
+				<%} %>
+			}
+		</script> --%>
 	</section>
 <%@ include file="/views/common/footer.jsp" %>
 </body>
