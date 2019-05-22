@@ -65,7 +65,7 @@
 			<br />
 			
 			<div class="listArea1" align="center">
-			<form action="<%=request.getContextPath()%>/insertAdminHeap.do" method="get">
+			<form action="<%=request.getContextPath()%>/insertAdminHeap.do" method="post">
 				<table class="separate" border="1">
 					<%-- <tr>
 						<td width="120">매입번호</td>

@@ -17,11 +17,12 @@ public class ReleaseAdmin implements java.io.Serializable{
 	private Date hDate;		//HDATE - 적치일자
 	private String pContent;//PCONTENT - 상품상세정보
 	private String status;	//STATUS - 상태
+	private String changeName;	//CHANGE_NAME - 변경이름
 	
 	public ReleaseAdmin() {}
 
 	public ReleaseAdmin(int pId, int hId, int rlId, int pcdId, String cGroup, String name, int poId, int dId,
-			int lBarcode, Date rlDate, Date hDate, String pContent, String status) {
+			int lBarcode, Date rlDate, Date hDate, String pContent, String status, String changeName) {
 		super();
 		this.pId = pId;
 		this.hId = hId;
@@ -36,6 +37,7 @@ public class ReleaseAdmin implements java.io.Serializable{
 		this.hDate = hDate;
 		this.pContent = pContent;
 		this.status = status;
+		this.changeName = changeName;
 	}
 
 	public int getpId() {
@@ -142,15 +144,22 @@ public class ReleaseAdmin implements java.io.Serializable{
 		this.status = status;
 	}
 
+	public String getChangeName() {
+		return changeName;
+	}
+
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
+	}
+
 	@Override
 	public String toString() {
 		return "ReleaseAdmin [pId=" + pId + ", hId=" + hId + ", rlId=" + rlId + ", pcdId=" + pcdId + ", cGroup="
 				+ cGroup + ", name=" + name + ", poId=" + poId + ", dId=" + dId + ", lBarcode=" + lBarcode + ", rlDate="
-				+ rlDate + ", hDate=" + hDate + ", pContent=" + pContent + ", status=" + status + "]";
+				+ rlDate + ", hDate=" + hDate + ", pContent=" + pContent + ", status=" + status + ", changeName="
+				+ changeName + "]";
 	}
 
 	
-	
-
 
 }

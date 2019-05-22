@@ -41,7 +41,7 @@ public class BuyWaitAdminDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, "매입완료");
+			pstmt.setString(1, "매입대기중");
 			rset = pstmt.executeQuery();
 			list = new ArrayList<BuyWaitAdmin>();
 			System.out.println(list);

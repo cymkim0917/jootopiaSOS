@@ -57,7 +57,7 @@
 
 			<div class="imgArea" align="center">
 				<div id="ImgArea1">
-					<img src="/jootopia/images/so.jpg" id="Img1">					
+					<img src="/jootopia/images/product/<%= r.getChangeName() %>">					
 				</div>
 			</div>
 
