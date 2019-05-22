@@ -13,6 +13,41 @@
 <link rel="stylesheet" href="/jootopia/css/common.css">
 <title>JooTopia</title>
 </head>
+<style>
+	#modifyBtn{
+		width:100px;
+		background-color: #FFBB00;
+	   border: none;
+	   color:#fff;
+	   padding: 15px 0;
+	   text-align: center;
+	   text-decoration: none;
+	   display: inline-block;
+	   font-size: 15px;
+	   margin: 4px;
+	   cursor: pointer;
+	   border-radius:10px;
+	}
+	
+	#delBtn{
+		width:100px;
+		background-color: #7A7A7A;
+		border: none;
+		color:#fff;
+		padding: 15px 0;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 15px;
+		margin: 4px;
+		cursor: pointer;
+		border-radius:10px;
+	}	
+	
+	#btnArea{
+		text-align:center;
+	}
+</style>
 <body>
 <%@ include file="/views/common/navigation.jsp" %>
    <section>
@@ -76,11 +111,14 @@
                         <input type="reset" class="btn btn-info" value="Reset">
 
                   </div>
-               </form>
-              
-               <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                   <div class="modal-footer" id="btnArea">
+             		   <input type="button" class="btn btn-info" id="modifyBtn"
+                        value="Submit" onclick="checkPassword();"> <input
+                        type="reset" class="btn btn-info" id = "delBtn" value="Reset"><br />
+               
                </div>
+               </form>
+       
             </div>
    
 

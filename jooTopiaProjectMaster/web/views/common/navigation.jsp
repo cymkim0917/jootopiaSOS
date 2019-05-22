@@ -70,41 +70,41 @@
 				<li class="active"><a href="#">Home</a></li>
 				<li class="dropdown">
 					<a class="dropdown-toggle"
-					data-toggle="dropdown" href="/jootopia/views/notice/productList.jsp">침실 가구 <span class="caret"></span></a>
+				 href="<%= request.getContextPath() %>/productList.do?cid=6">침실 가구 <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="/jootopia/views/notice/productList.jsp">침대</a></li>
-						<li><a href="/jootopia/views/notice/productList.jsp">옷장</a></li>
-						<li><a href="/jootopia/views/notice/productList.jsp">수납장</a></li>
-						<li><a href="/jootopia/views/notice/productList.jsp">화장대</a></li>
+						<li><a  href="<%= request.getContextPath() %>/productList.do?cid=1">침대</a></li>
+						<li><a href="<%= request.getContextPath() %>/productList.do?cid=2">옷장</a></li>
+						<li><a  href="<%= request.getContextPath() %>/productList.do?cid=3">수납장</a></li>
+						<li><a  href="<%= request.getContextPath() %>/productList.do?cid=4">화장대</a></li>
 					</ul>
 				</li>
 				<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="/jootopia/views/notice/productList.jsp">서재 가구 <span class="caret"></span></a>
+				 href="<%= request.getContextPath() %>/productList.do?cid=16">서재 가구 <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="/jootopia/views/notice/productList.jsp">책상</a></li>
-						<li><a href="/jootopia/views/notice/productList.jsp">책장</a></li>
-						<li><a href="/jootopia/views/notice/productList.jsp">수납장</a></li>
-						<li><a href="/jootopia/views/notice/productList.jsp">사무용의자</a></li>
+						<li><a href="<%= request.getContextPath() %>/productList.do?cid=11">책상</a></li>
+						<li><a href="<%= request.getContextPath() %>/productList.do?cid=12">책장</a></li>
+						<li><a href="<%= request.getContextPath() %>/productList.do?cid=13">수납장</a></li>
+						<li><a href="<%= request.getContextPath() %>/productList.do?cid=14">사무용의자</a></li>
 					</ul>
 				</li>
 
 				<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="/jootopia/views/notice/productList.jsp">주방 가구 <span class="caret"></span></a>
+					 href="<%= request.getContextPath() %>/productList.do?cid=26">주방 가구 <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="/jootopia/views/notice/productList.jsp">식탁</a></li>
-						<li><a href="/jootopia/views/notice/productList.jsp">전자레인지</a></li>
-						<li><a href="/jootopia/views/notice/productList.jsp">수납장</a></li>
-						<li><a href="/jootopia/views/notice/productList.jsp">식탁의자</a></li>
+						<li><a href="<%= request.getContextPath() %>/productList.do?cid=21">식탁</a></li>
+						<li><a href="<%= request.getContextPath() %>/productList.do?cid=22">전자레인지</a></li>
+						<li><a href="<%= request.getContextPath() %>/productList.do?cid=23">수납장</a></li>
+						<li><a href="<%= request.getContextPath() %>/productList.do?cid=24">식탁의자</a></li>
 					</ul>
 				</li>
 				
 				<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="/jootopia/views/notice/productList.jsp">거실 가구 <span class="caret"></span></a>
+					 href="<%= request.getContextPath() %>/productList.do?cid=36">거실 가구 <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="/jootopia/views/notice/productList.jsp">테이블</a></li>
-						<li><a href="/jootopia/views/notice/productList.jsp">거실장</a></li>
-						<li><a href="/jootopia/views/notice/productList.jsp">소파</a></li>
-						<li><a href="/jootopia/views/notice/productList.jsp">수납장</a></li>
+						<li><a href="<%= request.getContextPath() %>/productList.do?cid=31">테이블</a></li>
+						<li><a href="<%= request.getContextPath() %>/productList.do?cid=32">거실장</a></li>
+						<li><a href="<%= request.getContextPath() %>/productList.do?cid=33">소파</a></li>
+						<li><a href="<%= request.getContextPath() %>/productList.do?cid=34">수납장</a></li>
 					</ul>
 				</li>
 				
@@ -205,8 +205,7 @@
                   <h4 class="modal-title" style="font-weight: bold;" align="center">
                      회원가입 유형 선택</h4>
                </div>
-               <form action="<%= request.getContextPath() %>/insert.do"
-                  method="post" id="joinForm">
+
                   <div class="modal-body">
                   	<div id="btnArea" align="center">
                   	<table>
@@ -227,7 +226,7 @@
                      
 
                   </div>
-               </form>
+
                <form action="<%= request.getContextPath()  %>/getkakao.do" id="kakaoJoinForm" method="post">
                   <input type="hidden" name="kakaoToken" id="kakaoToken" />
                </form>
@@ -242,48 +241,7 @@
 
 	<script>
 	
-	function checkPassword(){
-	    
-		var userPwd = $("#userPwd").val();
-		var userId = $("#userId").val();
-		var userPwd2 = $("#userPwd2").val(); 
-		var isCheck = 1;
-		
- 	    if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(userPwd)){            
- 		   	$("#pwdArea").text('비밀번호 입력 형식에 어긋납니다.');
-	        $('#password').val('').focus();
-	        isCheck = 0;
-	    }   
-	    var checkNumber = userPwd.search(/[0-9]/g);
-	    var checkEnglish = userPwd.search(/[a-z]/ig);
-	    if(checkNumber <0 || checkEnglish <0){
-	    	$("#pwdArea").text('비밀번호 입력 형식에 어긋납니다.');
-	        $('#userPwd').val('').focus();
-	        isCheck = 0;
-	    }
-	    if(/(\w)\1\1\1/.test(userPwd)){
-	     	$("#pwdArea").text('같은 문자를 4번 이상 사용하실 수 없습니다.');
-	        $('#userPwd').val('').focus();
-	        isCheck = 0;
-	    }
-
-	        
-	    if(userPwd.search(userId) > -1){
-	       	$("#pwdArea").text('비밀번호에 아이디가 들어가있습니다.');
-	        $('#userPwd').val('').focus();
-	        isCheck = 0;
-	    }
-	    
-        if(userPwd!=userPwd2){
-        	$("#pwdArea2").text('비밀번호 불일치');
-        	$('#userPwd2').val('').focus();
-        	isCheck=0;
-           }
-	    
-	    if(isCheck == 1){
-	    	$("#joinForm").submit();
-	    }	    
-	}
+	
 	
 	function showSearchId(){
 		  cw=450;
@@ -354,7 +312,19 @@
     }
     
     $(function(){
-    	
+        $('.dropdown,.dropdown-menu').hover(function(){
+
+            if($(window).width()>=768){
+              $(this).addClass('open').trigger('shown.bs.dropdown')
+              return false;
+            }
+            
+          },function(){
+            if($(window).width()>=768){
+              $(this).removeClass('open').trigger('hidden.bs.dropdown')
+              return false;
+            }
+          })
 
     	
     Kakao.init('788eca70f34bca3f27e5d166c44ff77f');

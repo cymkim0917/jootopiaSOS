@@ -124,72 +124,7 @@
 			<div class = "photogroup">
 				<table class="photogtoup1" align="center" id="productGroupTable">
 					<tbody>
-				<!-- 	<tr>
-						<td align="center">
-							<a href="/jootopia/views/notice/productListPlus.jsp"><img src="/jootopia/images/bed1.jpg"  width="300px" height="300px"></a>
-							<p>삼성 15인치 세탁기</p>
-							<p>125,000원</p>
-						</td> 
-						<td align="center">
-							<a href="/jootopia/views/notice/productListPlus.jsp"><img src="/jootopia/images/chair1.jpg" width="300px" height="300px"></a>
-							<p>삼성 15인치 세탁기</p>
-							<p>125,000원</p>
-						</td>
-						<td align="center">
-							<a href="/jootopia/views/notice/productListPlus.jsp"><img src="/jootopia/images/desk1.jpg" width="300px" height="300px"></a>
-							<p>삼성 15인치 세탁기</p>
-							<p>125,000원</p>
-						</td>
-						<td align="center">
-							<a href="/jootopia/views/notice/productListPlus.jsp"><img src="/jootopia/images/desk2.jpg" width="300px" height="300px"></a>
-							<p>삼성 15인치 세탁기</p>
-							<p>125,000원</p>
-						</td> 
-					</tr>
-					<tr>
-						<td align="center">
-							<a href="/jootopia/views/notice/productListPlus.jsp"><img src="/jootopia/images/bed1.jpg"  width="300px" height="300px"></a>
-							<p>삼성 15인치 세탁기</p>
-							<p>125,000원</p>
-						</td> 
-						<td align="center">
-							<a href="/jootopia/views/notice/productListPlus.jsp"><img src="/jootopia/images/chair1.jpg" width="300px" height="300px"></a>
-							<p>삼성 15인치 세탁기</p>
-							<p>125,000원</p>
-						</td>
-						<td align="center">
-							<a href="/jootopia/views/notice/productListPlus.jsp"><img src="/jootopia/images/desk1.jpg" width="300px" height="300px"></a>
-							<p>삼성 15인치 세탁기</p>
-							<p>125,000원</p>
-						</td>
-						<td align="center">
-							<a href="/jootopia/views/notice/productListPlus.jsp"><img src="/jootopia/images/desk2.jpg" width="300px" height="300px"></a>
-							<p>삼성 15인치 세탁기</p>
-							<p>125,000원</p>
-						</td> 
-					</tr>
-					<tr>
-						<td align="center">
-							<a href="/jootopia/views/notice/productListPlus.jsp"><img src="/jootopia/images/bed1.jpg"  width="300px" height="300px"></a>
-							<p>삼성 15인치 세탁기</p>
-							<p>125,000원</p>
-						</td> 
-						<td align="center">
-							<a href="/jootopia/views/notice/productListPlus.jsp"><img src="/jootopia/images/chair1.jpg" width="300px" height="300px"></a>
-							<p>삼성 15인치 세탁기</p>
-							<p>125,000원</p>
-						</td>
-						<td align="center">
-							<a href="/jootopia/views/notice/productListPlus.jsp"><img src="/jootopia/images/desk1.jpg" width="300px" height="300px"></a>
-							<p>삼성 15인치 세탁기</p>
-							<p>125,000원</p>
-						</td>
-						<td align="center">
-							<a href="/jootopia/views/notice/productListPlus.jsp"><img src="/jootopia/images/desk2.jpg" width="300px" height="300px"></a>
-							<p>삼성 15인치 세탁기</p>
-							<p>125,000원</p>
-						</td> 
-					</tr> -->
+
 					</tbody>
 				</table>
 			</div>
@@ -209,41 +144,49 @@
 		    		$productGroupTable.html('');
 		    		
 		    		var index = 0;
+		    		var maxindex = 0;
 		    		var $tr = $('<tr>');
 		    		
 		    		for(var key in data){
 		    			console.log(data[key].pid);
-		    		if(index < 4){
-		    			var $td = $('<td>');
 		    			
-		    			var $a = $('<a>');
-		    			
-		    			var $img = $('<img>');
-		    			var $pnamep = $('<p>').text(data[key].pname);	
-		    			var $pricep = $('<p>').text(data[key].pprice);
-		    			
-		    			$a.attr('href','<%= request.getContextPath() %>/detailProduct.do?num='+ data[key].pid);
-		    			
-		    			$img.attr('src','<%= request.getContextPath() %>/images/product/'+ data[key].change_name);
-		    			$img.attr('width','300px');
-		    			$img.attr('height','300px');
-		    			
-		    			$a.append($img);
-		    			$td.append($a);
-		    			$td.append($pnamep);
-		    			$td.append($pricep);
-		    			index++;
-		    			$tr.append($td);
-		    				}else{
-		    			$productGroupTable.append($tr);	
-		    					index=0;
-		    					$tr = $('<tr>');
-		    				}
-		    			}
-		    			
-		    		if(index >= 1){
-		    			$productGroupTable.append($tr);	
+		    		if(maxindex<15){
+			    		if(index < 3){
+			    			var $td = $('<td>');
+			    			
+			    			var $a = $('<a>');
+			    			
+			    			var $img = $('<img>');
+			    			var $pnamep = $('<p>').text(data[key].pname);	
+			    			var $pricep = $('<p>').text(data[key].pprice);
+			    			
+			    			$a.attr('href','<%= request.getContextPath() %>/detailProduct.do?num='+ data[key].pid);
+			    			
+			    			$img.attr('src','<%= request.getContextPath() %>/images/product/'+ data[key].change_name);
+			    			$img.attr('width','300px');
+			    			$img.attr('height','300px');
+			    			
+			    			$a.append($img);
+			    			$td.append($a);
+			    			$td.css('padding','20px');
+			    			$td.append($pnamep);
+			    			$td.append($pricep);
+			    			$tr.append($td);
+			    			
+			    			if(index ==2){
+			    				$productGroupTable.append($tr);
+			    				$tr = $('<tr>');
+			    				index = -1;
+			    				
+			    			}
+			    			index++;
+			    			maxindex++;
+						}
+			    		if(index >= 1){
+			    			$productGroupTable.append($tr);	
+			    		}
 		    		}
+		    	}
 		    	}	    	
 		    })	
 		})
