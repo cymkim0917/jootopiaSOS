@@ -137,39 +137,45 @@
 		    			</tr>
 		    			<tr>
 		    				<td colspan="2">
-		    					<!-- <button id="searchBtn">검색하기</button> -->
-		    					<button>검색하기</button> 
+		    					<button id="searchBtn">검색하기</button>
+		    					<!-- <button>검색하기</button> --> 
 		    				</td>
 		    			</tr>
 		    		</table>
 				</form>
-	    	</div><!-- searchArea -->
+	    	</div>
 	    	<script>
 	    		$("#searchBtn").click(function(){
 	    			var searchType = $("#searchType").val();
 	    			var searchVal = $("#searchVal").val();
 	    			dateVal = $(".dateSearch input:checked").val();
-	    			var purchaseStatus = $(".purchaseNY input:checked").val();
-	    			console.log("searchType : " + searchType);
-	    			console.log("searchVal : " + searchVal);
-	    			console.log("dateVal : " + dateVal);
-	    			console.log("purchaseStatus : " + purchaseStatus);
+	    			console.log(searchType);
+	    			console.log(searchVal);
+	    			
+	    			// 정규 표현식 
+	    			if(searchType === "pcName" || searchType == "category"){
+	    				var regex= /[가-힣]/;
+	    				if(!regex.test(searchVal)) alert("글자를 잘못 입력하셨습니다."); return;
+	    			}else if(searchType == "memberNo"){
+	    				var regex = /[^0-9]/g;
+	    				if(!regex.text(searchVal)) alert("회원번호를 입력해주세요!"); return;
+	    			}
 	    			
 	    			$.ajax({
 	    				url : "searchDate.do",
 	    				data : {date:dateVal},
 	    				success : function(data){
+	    					console.log("성공!");
 	    					dateVal = data;
 	    					console.log(dateVal);
-	    				}, error : function(data){
+	    				}, fail : function(data){
+	    					console.log("실패" + data);
 	    					dateVal = "no";
 	    				}, complete : function(data){
 	    					console.log("complete : " + data);
-	    					location.href="<%= request.getContextPath() %>/selectSearch.do?searchType=" + searchType + "&searchVal=" + searchVal + "&dateVal=" + dateVal + "&purchaseStatus=" + purchaseStatus;
+	    					location.href="<%= request.getContextPath() %>/selectSearchPCList.do?searchType=" + searchType + "&searchVal=" + searchVal + "&dateVal=" + dateVal;
 	    				}
-	    				
 	    			});
-					return false;	  
 	    		})
 	    	</script>
 	    	

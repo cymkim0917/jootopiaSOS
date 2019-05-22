@@ -26,7 +26,13 @@ public class SearchDate extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		/*String date = request.getParameter("date");*/
-		int date = Integer.parseInt(request.getParameter("date"));
+		int date = 0;
+		try {
+			date = Integer.parseInt(request.getParameter("date"));
+		}catch (Exception e) {
+			e = new Exception("숫자타입이 아님");
+			return;
+		}
 		System.out.println("빼려는 날짜 : " + date);
 		
 		Calendar today = Calendar.getInstance();
