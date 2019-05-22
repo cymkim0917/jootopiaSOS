@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.jooTopia.board.model.vo.Attachment;
 import com.kh.jooTopia.board.model.vo.PageInfo;
 import com.kh.jooTopia.order.model.vo.POrder;
 import com.kh.jooTopia.payment.model.vo.Payment;
@@ -172,7 +173,6 @@ public class OrderAdminDao {
 			
 			hmap = new HashMap<String, Object>();
 			orderDetail = new ArrayList<HashMap<String, Object>>();
-			orderDetailMap = new HashMap<String, Object>();
 			while(rset.next()) {
 				POrder o = new POrder();
 				//주문 정보 : O.NAME, O.PHONE, O.ADDRESS, O.DMESSAGE, O.STATUS, O.POID, O.PODATE
@@ -202,13 +202,16 @@ public class OrderAdminDao {
 				hmap.put("userName", rset.getString("USER_NAME"));
 				hmap.put("mPhone", rset.getString("MPHONE"));
 				
-				//상세조회 : P.PNAME, TRUNC(P.PPRICE + (P.PPRICE * G.GRADESALES)), D.ODID, PY.DELIVERY_PRICE
+				
+				orderDetailMap = new HashMap<String, Object>();
+				//상세조회 : P.PNAME, P.PID, TRUNC(P.PPRICE + (P.PPRICE * G.GRADESALES)), D.ODID, PY.DELIVERY_PRICE
 				orderDetailMap.put("pName", rset.getString("PNAME"));
+				orderDetailMap.put("pId", rset.getInt("PID"));
 				orderDetailMap.put("pPrice", rset.getInt("PPRICE"));
 				orderDetailMap.put("odId", rset.getInt("ODID"));
 				orderDetailMap.put("deliveryPrice", rset.getString("DELIVERY_PRICE"));
 				
-				orderDetail.add(0, orderDetailMap);
+				orderDetail.add(orderDetailMap);
 			}
 			hmap.put("orderDetail", orderDetail);
 			
@@ -293,6 +296,8 @@ public class OrderAdminDao {
 		
 		String query = prop.getProperty("selectPreProductOne");
 		
+		System.out.println(query);
+		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, poId);
@@ -301,7 +306,6 @@ public class OrderAdminDao {
 			
 			hmap = new HashMap<String, Object>();
 			orderDetail = new ArrayList<HashMap<String, Object>>();
-			orderDetailMap = new HashMap<String, Object>();
 			while(rset.next()) {
 				POrder o = new POrder();
 				//주문 정보 : O.NAME, O.PHONE, O.ADDRESS, O.DMESSAGE, O.STATUS, O.POID, O.PODATE
@@ -331,8 +335,10 @@ public class OrderAdminDao {
 				hmap.put("userName", rset.getString("USER_NAME"));
 				hmap.put("mPhone", rset.getString("MPHONE"));
 				
-				//상세조회 : P.PNAME, TRUNC(P.PPRICE + (P.PPRICE * G.GRADESALES)), D.ODID, PY.DELIVERY_PRICE
+				orderDetailMap = new HashMap<String, Object>();
+				//상세조회 : P.PNAME, P.PID, TRUNC(P.PPRICE + (P.PPRICE * G.GRADESALES)), D.ODID, PY.DELIVERY_PRICE
 				orderDetailMap.put("pName", rset.getString("PNAME"));
+				orderDetailMap.put("pId", rset.getInt("PID"));
 				orderDetailMap.put("pPrice", rset.getInt("PPRICE"));
 				orderDetailMap.put("odId", rset.getInt("ODID"));
 				orderDetailMap.put("deliveryPrice", rset.getString("DELIVERY_PRICE"));
@@ -412,26 +418,33 @@ public class OrderAdminDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			
+			productList = new ArrayList<HashMap<String, Object>>();
 			for(int i = 0; i < orderPId.length; i++) {
 				pstmt.setInt(1, orderPId[i]);
 				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					detailMap = new HashMap<String, Object>();
+					//P.PID, P.PNAME, P.PPRICE, P.CID, C.CGROUP, C.NAME
+					Product p = new Product();
+					p.setpId(rset.getInt("PID"));
+					p.setpName(rset.getString("PNAME"));
+					p.setpPrice(rset.getInt("PPRICE"));
+					
+					//A.CHANGE_NAME, A.FILE_PATH
+					Attachment a = new Attachment();
+					a.setChangeName(rset.getString("CHANGE_NAME"));
+					a.setFilePath(rset.getString("FILE_PATH"));
+					
+					detailMap.put("p", p);
+					detailMap.put("a", a);
+					detailMap.put("cGroup", rset.getString("CGROUP"));
+					detailMap.put("cName", rset.getString("NAME"));
+					
+					productList.add(detailMap);
+				}
 			}
 			
-			productList = new ArrayList<HashMap<String, Object>>();
-			while(rset.next()) {
-				detailMap = new HashMap<String, Object>();
-				//P.PID, P.PNAME, P.PPRICE, P.CID, C.CGROUP, C.NAME
-				Product p = new Product();
-				p.setpId(rset.getInt("PID"));
-				p.setpName(rset.getString("PNAME"));
-				p.setpPrice(rset.getInt("PPRICE"));
-				
-				detailMap.put("p", p);
-				detailMap.put("cGroup", rset.getString("CGROUP"));
-				detailMap.put("cName", rset.getString("NAME"));
-				
-				productList.add(detailMap);
-			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
