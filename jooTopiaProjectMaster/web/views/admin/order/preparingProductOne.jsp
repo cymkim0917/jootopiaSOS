@@ -190,7 +190,7 @@
 		<br>
 		
 		<div class="btnArea" align="center">
-			<button onclick="location.href='paymentList.jsp'">확인</button>
+			<button onclick="location.href='selectAdminPreList.do'">확인</button>
 		</div>
 		<br><br>
 		
@@ -199,9 +199,28 @@
 <%@ include file="/views/common/adminFooter.jsp" %>
 
 <script>
-	function changeMemo() {
-		var memo = $("#message").val();
-		console.log("수정클릭");
+	function changeCondition(text, btn) {
+		var poId = '<%= o.getPoId() %>';
+		var condition = text;
+		var changeValue = $(btn).siblings().val();
+		console.log(poId);
+		console.log(condition);
+		console.log(changeValue);
+		
+		$.ajax({
+			url : "changeConditionOne.do",
+			type : "post",
+			data : {poId : poId, condition : condition, changeValue : changeValue},
+			success : function(data) {
+				$(btn).siblings().val(changeValue);
+				console.log(changeValue);
+				location.href='adminPaymentOne.do?num='+poId;
+				alert(data);
+			},
+			error : function(data) {
+				alert("에이젝스 접속실패");
+			}
+		});
 	}
 </script>
 </body>

@@ -95,7 +95,7 @@
 					
 					<% for(int i =0; i<cart.size(); i++) { %>
 						<tr>
-							<td><input type="checkBox" name="selectCart" id="selectCart" value="<%=cart.get(i).getCartId() %>" />
+							<td><input type="checkBox" class="check" name="selectCart" id="selectCart" value="<%=cart.get(i).getCartId() %>" />
 						
 							</td>
 							<td>
@@ -150,16 +150,41 @@
 		</div>
 		
 		<div id="btnArea" align="center">
-		<a href="modifyQaAPage.jsp" id="modifyBtn">주문하기</a>
+		<!-- <a href="modifyQaAPage.jsp" id="modifyBtn">주문하기</a> -->
+		<a id="modifyBtn">주문하기</a>
 		<a onclick="deleteCart()" id="delBtn">삭제하기</a>
 		</div>
 	</section>
 	
 	
 	<script>
-
-		function deleteCart(){
+		$("#modifyBtn").click(function() {
 			
+			//체크한 상품 번호 가져오기
+			var pIdArr = "";
+			$(".check").each(function() {
+				if($(this).is(":checked")) {
+					pIdArr += $(this).parent().parent().children().eq(2).children().text() + "|";
+					console.log(pIdArr);
+			}
+			});
+			//체크한 상품번호를 통해 주문페이지로 넘어간다.
+			$.ajax({
+				url : "selectCartOrderOne.do",
+				type : "post",
+				data : {pIdArr : pIdArr},
+				success : function(data) {
+					/* alert(data); */
+					/* location.href='adminProductList.do'; */
+				},
+				error : function(data) {
+					alert("선택된 상품이 없습니다.");
+				}
+			});
+			
+		});
+	
+		function deleteCart(){
 			
 			$("#cartForm").attr("action","<%= request.getContextPath() %>/delCart.do").submit();			
 		}

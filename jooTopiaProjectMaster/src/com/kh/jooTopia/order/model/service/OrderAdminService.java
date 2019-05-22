@@ -123,4 +123,14 @@ public class OrderAdminService {
 		return result;
 	}
 
+	public ArrayList<HashMap<String, Object>> selectOrderProductList(int[] orderPId) {
+		//회원의 주문하려는 예비 상품목록 출력하기
+		Connection con = getConnection();
+		ArrayList<HashMap<String, Object>> productList = new OrderAdminDao().selectOrderProductList(con, orderPId);
+		
+		close(con);
+		
+		return productList;
+	}
+
 }

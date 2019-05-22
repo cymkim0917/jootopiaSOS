@@ -16,6 +16,7 @@ import com.kh.jooTopia.board.model.vo.PageInfo;
 import com.kh.jooTopia.order.model.vo.POrder;
 import com.kh.jooTopia.payment.model.vo.Payment;
 import com.kh.jooTopia.product.model.dao.ProductAdminDao;
+import com.kh.jooTopia.product.model.vo.Product;
 
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
@@ -207,7 +208,7 @@ public class OrderAdminDao {
 				orderDetailMap.put("odId", rset.getInt("ODID"));
 				orderDetailMap.put("deliveryPrice", rset.getString("DELIVERY_PRICE"));
 				
-				orderDetail.add(orderDetailMap);
+				orderDetail.add(0, orderDetailMap);
 			}
 			hmap.put("orderDetail", orderDetail);
 			
@@ -396,6 +397,47 @@ public class OrderAdminDao {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectOrderProductList(Connection con, int[] orderPId) {
+		//회원의 주문하려는 예비 상품목록 출력하기
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> productList = null;
+		HashMap<String, Object> detailMap = null;
+		
+		
+		String query = prop.getProperty("selectOrderProductList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			for(int i = 0; i < orderPId.length; i++) {
+				pstmt.setInt(1, orderPId[i]);
+				rset = pstmt.executeQuery();
+			}
+			
+			productList = new ArrayList<HashMap<String, Object>>();
+			while(rset.next()) {
+				detailMap = new HashMap<String, Object>();
+				//P.PID, P.PNAME, P.PPRICE, P.CID, C.CGROUP, C.NAME
+				Product p = new Product();
+				p.setpId(rset.getInt("PID"));
+				p.setpName(rset.getString("PNAME"));
+				p.setpPrice(rset.getInt("PPRICE"));
+				
+				detailMap.put("p", p);
+				detailMap.put("cGroup", rset.getString("CGROUP"));
+				detailMap.put("cName", rset.getString("NAME"));
+				
+				productList.add(detailMap);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return productList;
 	}
 
 }

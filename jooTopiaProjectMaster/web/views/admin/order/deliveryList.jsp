@@ -198,15 +198,21 @@
         	</tr>
         	<tr>
     			<th>수령자명</th>
-    			<td><span id="modalName">수령자명 임시</span></td>
+    			<td>
+    			<input type="text" id="modalName" name="modalName" value="">
+    			</td>
     		</tr>
     		<tr>
     			<th>연락처</th>
-    			<td><span id="modalPhone">연락처 임시</span></td>
+    			<td>
+    			<input type="text" id="modalPhone" name="modalPhone" value="">
+				</td>
     		</tr>
     		<tr>
     			<th>배송지 주소</th>
-    			<td><span id="modalAddress">배송지 주소 임시</span></td>
+    			<td>
+    			<input type="text" id="modalAddress" name="modalAddress" value="">
+    			</td>
     		</tr>
     		<tr>
     			<th>배송메시지</th>
@@ -216,12 +222,14 @@
     		</tr>
     		<tr>
     			<th>배송일</th>
-    			<td><input type="date" id="startDate" name="startDate" value=""></td>
+    			<td>
+    			<input type="date" id="dStartDate" name="dStartDate" value="">
+    			</td>
     		</tr>
     	</table>
     	<br>
     	<div class="modalBtnArea" align="center">
-				<input type="submit" value="수정" onclick="changeMemo();">
+				<input type="submit" value="수정" onclick="changeDelivery();">
 				<input type="reset" value="닫기">
 		</div>
     </div>
@@ -298,27 +306,32 @@
 			data : {dId : dId},
 			success : function(data) {
 				
-				alert("하는중!");
+				console.log(data);
+				console.log(data["o"]);
+				console.log(data["d"]);
+				
+				var order = data["o"];
+				var delivery = data["d"];
 				
 				//조회 성공 시 모달에 넣어주기
-				/* $(function() {
+				$(function() {
+					$("#modalDid").text(delivery.dId);
+					$("#modalPoId").text(order.poId);
+					$('#modalPoDate').text(order.poDate);
+					
+					$("#modalName").val(order.name);
+					$("#modalPhone").val(order.phone);
+					$("#modalAddress").val(order.address);
+					$("#oMemo").val(order.dMessage);
+					if(delivery.startDate != null) {
+						$("#dStartDate").val(delivery.startDate);
+					}else {
+						var today = new Date().toISOString().substr(0, 10);
+						console.log("오늘날짜 : " + today);
+						$("#dStartDate").val(today);
+					}
 					$("#modalDId").text(dId);
-					$("#modalPoDate").text(date);
-					$("#oMemo").val(message);
-				}); */
-			},
-			error : function(data) {
-				alert(data);
-			}
-		});
-		
-		//배송정보 수정용 에이젝스
-		$.ajax({
-			url : "",
-			type : "post",
-			data : {},
-			success : function(data) {
-				
+				});
 			},
 			error : function(data) {
 				alert(data);
@@ -337,24 +350,33 @@
 	});
 	
 	//배송메시지 변경
-	function changeMemo() {
+	function changeDelivery() {
+	
+		
 		var poId = $("#modalPoId").text();
-		var condition = 'DMESSAGE';
-		var changeValue = $("#oMemo").val();
+		var name = $("#modalName").val();
+		var phone = $("#modalPhone").val();
+		var address = $("#modalAddress").val();
+		var dMessage = $("#oMemo").val();
+		var startDate = $("#dStartDate").val();
 		
 		console.log(poId);
-		console.log(condition);
-		console.log(changeValue);
+		console.log(name);
+		console.log(phone);
+		console.log(address);
+		console.log(dMessage);
+		console.log(startDate);
 		
 		$.ajax({
-			url : "changeConditionOne.do",
+			url : "updateAdminDeliveryModal.do",
 			type : "post",
-			data : {poId : poId, condition : condition, changeValue : changeValue},
+			data : {poId : poId, name : name, phone : phone, address : address, dMessage : dMessage, startDate : startDate},
 			success : function(data) {
-				$("#oMemo").val(changeValue);
+				console.log(data);
+				/* $("#oMemo").val(changeValue);
 				console.log(changeValue);
 				location.href='selectAdminPreList.do';
-				alert(data);
+				alert(data); */
 			},
 			error : function(data) {
 				alert("에이젝스 접속실패");
