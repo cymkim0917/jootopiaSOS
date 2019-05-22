@@ -36,19 +36,39 @@ public class SelectOneReviewServlet extends HttpServlet {
 		int num = Integer.parseInt(request.getParameter("num"));
 		
 		HashMap<String, Object> hmap = new BoardService().reviewReadPage(num);
-		//HashMap<Board, ArrayList<Attachment>> hmap = new BoardService().selectOneThumbnail(num);
 		
-		Board b = (Board) hmap.get("board");
-		ArrayList<Attachment> fileList = (ArrayList<Attachment>) hmap.get("attachment");
+		
+		Board b = (Board) hmap.get("bList"); // board -> bList
+		
+		//블가
+		System.out.println("b in servlet : " + b);
+		
+		ArrayList<Attachment> fileList = (ArrayList<Attachment>)hmap.get("attachment");
+		
+		
+		//가
+		System.out.println("hmap in servlet : " + hmap);
 		
 		String page="";
+		
 		if(hmap != null) {
-			page="views/reviewReadPage.jsp";
+			page="views/board/reviewReadPage.jsp";
+			
+			//가
+			System.out.println("page in servlet : " + page);
+			
 			request.setAttribute("b", b);
+			//가
+			System.out.println("b in servlet : " + b);
+			
 			request.setAttribute("fileList", fileList);
+			//가
+			System.out.println("fileList in servlet : " + fileList);
 		}else {
+			
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg", "사진게시판 상세보기 실패!");
+			System.out.println("조회실패");
 		}
 		request.getRequestDispatcher(page).forward(request, response);
 	

@@ -34,6 +34,8 @@ public class SelectReviewTotalListServlet extends HttpServlet {
 
 		HashMap<String, Object> list = new BoardService().selectReviewTotalList();
 		
+		
+		
 		String page="";
 		if(list != null) {
 			page="views/board/reviewList.jsp";
