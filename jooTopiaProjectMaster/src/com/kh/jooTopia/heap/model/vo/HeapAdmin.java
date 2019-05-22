@@ -17,11 +17,12 @@ public class HeapAdmin implements java.io.Serializable{
 	private Date hDate;		//HDATE - 적치일자
 	private String pContent;//PCONTENT - 상품상세정보
 	private String pName;	//PNAME - 상품명
+	public String changeName;	//CHANGE_NAME - 사진변경이름
 	
 	public HeapAdmin() {}
 
 	public HeapAdmin(int pId, int hId, int rlId, int pcdId, String cGroup, String name, int poId, int dId, int lBarcode,
-			Date rlDate, Date hDate, String pContent, String pName) {
+			Date rlDate, Date hDate, String pContent, String pName, String changeName) {
 		super();
 		this.pId = pId;
 		this.hId = hId;
@@ -36,6 +37,7 @@ public class HeapAdmin implements java.io.Serializable{
 		this.hDate = hDate;
 		this.pContent = pContent;
 		this.pName = pName;
+		this.changeName = changeName;
 	}
 
 	public int getpId() {
@@ -142,12 +144,23 @@ public class HeapAdmin implements java.io.Serializable{
 		this.pName = pName;
 	}
 
+	public String getChangeName() {
+		return changeName;
+	}
+
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
+	}
+
 	@Override
 	public String toString() {
 		return "HeapAdmin [pId=" + pId + ", hId=" + hId + ", rlId=" + rlId + ", pcdId=" + pcdId + ", cGroup=" + cGroup
 				+ ", name=" + name + ", poId=" + poId + ", dId=" + dId + ", lBarcode=" + lBarcode + ", rlDate=" + rlDate
-				+ ", hDate=" + hDate + ", pContent=" + pContent + ", pName=" + pName + "]";
+				+ ", hDate=" + hDate + ", pContent=" + pContent + ", pName=" + pName + ", changeName=" + changeName
+				+ "]";
 	}
+
+	
 
 	
 	
