@@ -9,7 +9,7 @@
 	ArrayList<Attachment> fileList = (ArrayList<Attachment>) request.getAttribute("fileList");
 	Attachment titleImg = fileList.get(0);
 	Attachment detailImg1 = fileList.get(1);
-	 Board b = (Board) request.getAttribute("b");
+	Board b = (Board) request.getAttribute("b");
 	
 %>
 
@@ -94,6 +94,9 @@
 		<h1 align="center">상품 후기</h1>
 		
 		<div class="outer">
+			<%
+			for(int i = 0; i<list.size(); i++){
+			%>
 		<table class="detail" align="center">
 			<tr>
 				<td width="50">제목</td>
@@ -101,12 +104,15 @@
 			</tr>
 			<tr>
 								
+		
 				<td>작성자</td>
-				<td><label><%=mList.get(i).getuNo() %></label></td>
+				<td><label><%=mList.get(i).getUserId() %></label></td>
+				
 				<td>조회수</td>
 				<td><label><%=bList.get(i).getbCount() %></label></td>
 				<td>작성일</td>
 				<td><label><%=bList.get(i).getbDate() %></label></td>
+				
 			</tr>
 			<tr>
 				<td>대표사진</td>
@@ -116,9 +122,7 @@
 							src="<%=request.getContextPath() %>/images_upload/<%=titleImg.getChangeName() %>"/>
 					</div>
 				</td>
-				<%-- <td>
-					<button onclick="location.href='<%=request.getContextPath()%>/download.tn?num=<%=titleImg.getFid()%>'">다운로드</button>
-				</td> --%>
+				
 			</tr>
 			<tr>
 				<td>사진메모</td>
@@ -127,6 +131,9 @@
 				</td>
 			</tr>
 		</table>
+		<%} %>
+		
+		
 		<table class="detail">
 			<tr>
 				<td>

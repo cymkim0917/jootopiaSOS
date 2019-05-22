@@ -32,13 +32,15 @@ public class SelectSearchPurchaseAdminListServlet extends HttpServlet {
 		System.out.println();
 		System.out.println();
 		System.out.println("dateval : " + dateVal);
-		String date = dateVal.substring(1, dateVal.length() - 1);
+		
+		String date = dateVal;
+
 		
 		System.out.println("searchType : " + searchType);
 		System.out.println("searchVal : " + searchVal);
 
 		
-		if(searchVal != null && !searchVal.equals("")) {
+		if(searchType != null && searchVal != null && !searchVal.equals("")) {
 			if(searchType.equals("memberNo")) {
 				searchQuery += "M.UNO LIKE '%" + Integer.parseInt(searchVal) + "%'";
 			}else if(searchType.equals("pcName")) {
@@ -51,6 +53,7 @@ public class SelectSearchPurchaseAdminListServlet extends HttpServlet {
 		}
 		
 		if(date != null && !date.equals("") && !date.equals("no")) {
+			date = date.substring(1, dateVal.length() - 1);
 			if(!searchQuery.equals("")) {
 				searchQuery += " AND ";
 			}

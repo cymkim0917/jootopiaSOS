@@ -64,26 +64,28 @@
       <div class="col-sm-10">
       <h3 class="title">1:1질문 관리</h3>
       		<div class="searchArea">
+      			<form id="searchForm" action="<%=request.getContextPath()%>/searchAdminQnA.do">
       			<table id="searchBox"  border="1" align="center">
 				<tr><th colspan="3" style="background: rgb(224, 224, 224); height: 35px;">　</th></tr>
 				<tr>
 					<td colspan="2">
-						&nbsp;<input type="radio" name="qType" value="all"><label>전체</label>
-						&nbsp;<input type="radio" name="qType" value="yes"><label>답변Yes</label>
-						&nbsp;<input type="radio" name="qType" value="no"><label>답변No</label>
+						&nbsp;<input type="radio" name="answer" value="All"><label>전체</label>
+						&nbsp;<input type="radio" name="answer" value="Y"><label>답변Yes</label>
+						&nbsp;<input type="radio" name="answer" value="N"><label>답변No</label>
 					</td>
 					<td colspan="2">
 						&nbsp;
-						<input type="search" placeholder="아이디를 입력하세요." width="20px">
+						<input type="search" name="searchId" placeholder="아이디를 입력하세요." width="20px">
 					</td>
 				</tr>
 			</table>
       		<br>
-      		</div>
       		<div id="searchBtnArea" align="center">
 				<input type="submit" value="검색" onclick="">
 				<input type="reset" value="초기화" onclick="">
 			</div>
+			</form>
+      		</div>
 	  <hr>
 	  <div id="resultArea">
 			<form>
@@ -122,70 +124,23 @@
 		   		<input type="button" value="답변"   onclick="showModal();">
 		   		<input type="button" value="삭제">
 		   	</div>
-      </div>
-   </section>
-  <!-- The Modal -->
-	<div id="memoModal" class="memoModal">
-	<div class="memoModalContent">
-	<div class="memoModalHeader">
-	<button type="button" class="close" data-dismiss="modal">&times;</button>
-	<table id="modalHead">
-		<tr>
-			<td rowspan="3;" width="400px;"><h3>글제목</h3></td>
-		</tr>
-		<tr>
-			<td width="150px;"></td>
-		</tr>
-		<tr>
-			<td width="150px;">작성일</td>
-		</tr>
-	
-	
-	</table>
-	<hr>
-	</div>
-	<!-- Modal content -->
-	    <div class="memoModalBody" align="center">
-	    	<table class="memoModalTable" id="modalContent">
-	    		<tr>
-	    			<td>
-	    				<textarea cols="90%" rows="20" style="resize:none;"></textarea>
-	    			</td>
-	    		</tr>
-	    	</table>
-	    	<br>
-	        <div id="replyTb">
-	        <table class="replyModalTable">
-	    		<tr>
-	    			<th colspan="3">답변</th>
-	    		</tr>	    		
-	    		<tr>
-	    			<td><textarea cols="90%" rows="5" style="resize:none"></textarea></td>
-	    		</tr>
-	    	</table>
-	    	</div>
-	    	<br>
-	    	<div class="modalBtnArea" align="center">
-					<input type="submit" value="답변" onclick="">
-					<input type="reset" value="닫기">
-					
-			</div>
-	    </div>
-	    </div>
 	    
 	    <div class="paging" align="center">
 		<ul class="pagination">
-			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=<%=currentPage-1%>">이전</a></li>
-			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=1">1</a></li>
-			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=2">2</a></li>
-			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=3">3</a></li>
-			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=4">4</a></li>
-			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=5">5</a></li>
-			<li><a href="<%=request.getContextPath()%>/adminBoardList.do?currentPage=<%=currentPage+1%>">다음</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminQnA.do?currentPage=<%=currentPage-1%>">이전</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminQnA.do?currentPage=1">1</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminQnA.do?currentPage=2">2</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminQnA.do?currentPage=3">3</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminQnA.do?currentPage=4">4</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminQnA.do?currentPage=5">5</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminQnA.do?currentPage=<%=currentPage+1%>">다음</a></li>
 		</ul>
 		</div>
+      </div>
+   </section>
+ 
 	    
-	</div>
+	
    <script>
   	 function showModal(){
   		 

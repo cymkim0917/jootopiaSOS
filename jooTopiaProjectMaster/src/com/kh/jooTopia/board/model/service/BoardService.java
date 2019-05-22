@@ -282,7 +282,7 @@ public class BoardService {
 	}
 	
 	
-	
+	//(s) 후기쓰는 페이지
 	public int reviewInsertForm(Board b, ArrayList<Attachment> fileList) {
 		Connection con = getConnection();
 		int result = 0;
@@ -309,25 +309,33 @@ public class BoardService {
 		
 		return result;
 	}
+	
+	//(s) 후기게시판 읽기
 	public HashMap<String, Object> reviewReadPage(int num) {
 		Connection con = getConnection();
-		HashMap<String, Object> hmap = null; 
+		HashMap<String, Object> list = null; 
 		
 		int result = new BoardDao().updateCount(con, num);
+		System.out.println("result : " + result);
 		
 		if(result > 0) {
 			commit(con);
-			hmap = new BoardDao().reviewReadPage(con,num);
+			list = new BoardDao().reviewReadPage(con,num);
+			System.out.println("hmap in service :" + list);
 		}else {
 			rollback(con);
 		}
 		close(con);
 		
-		return hmap;
 		
+		return list;
 		
 		
 	}
+	
+	
+	
+	
 	
 	
 	

@@ -90,11 +90,14 @@
 		<div class="thumb-list" align="center">
 				<div>
 					<input type="hidden" name="bid" value="<%=bList.get(i).getbId()%>">
+					
 					<img src="<%=request.getContextPath() %>/images_upload/<%=aList.get(i).getChangeName()%>"
 						width="200px" height="150px">
 				</div>
 				<p>
-				No. <%=bList.get(i).getbId() %> <%=bList.get(i).getbTitle()%><br>
+				No. <%=bList.get(i).getbId() %> <br>
+				제목 : <%=bList.get(i).getbTitle()%><br>
+				글쓴이 : <%=mList.get(i).getUserId() %><br>
 				조회수 : <%=bList.get(i).getbCount()%>
 				</p>
 				

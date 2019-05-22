@@ -647,6 +647,7 @@ public class BoardAdminDao {
 			
 			boardL = new ArrayList<Board>();
 			memberL = new ArrayList<Member>();
+			
 			while(rset.next()) {
 				Board board = new Board();
 				board.setbId(rset.getInt("BID"));
@@ -673,9 +674,234 @@ public class BoardAdminDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
 		}
 		
 		return hmap;
+	}
+
+	public HashMap<String, Object> selectOneQnA(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+		Board board = null;
+		Member member = null;
+		String query = prop.getProperty("selectOneQnA");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			rset = pstmt.executeQuery();
+			
+			
+			if(rset.next()) {
+				board = new Board();
+				board.setbId(rset.getInt("BID"));
+				board.setbTitle(rset.getString("BTITLE"));
+				board.setbContent(rset.getString("BCONTENT"));
+				board.setbDate(rset.getDate("BDATE"));
+				board.setaStatus(rset.getString("ASTATUS"));
+				board.setaContent(rset.getString("ACONTENT"));
+				board.setaDate(rset.getDate("ADATE"));
+				
+				member = new Member();
+				member.setUno(rset.getInt("UNO"));
+				member.setUserId(rset.getString("USER_ID"));
+			}
+			
+			hmap = new HashMap<String, Object>();
+			hmap.put("board", board);
+			hmap.put("member", member);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		System.out.println(board.getbDate());
+		System.out.println(member.getUserId());
+		
+		return hmap;
+	}
+
+	public int insertReply(Connection con, Board board) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertReply");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, board.getaContent());
+			pstmt.setInt(2, board.getbId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<Board> selectRelply(Connection con, int bId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = null;
+		
+		String query = prop.getProperty("selectReply");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setInt(1, bId);
+			
+			rset=pstmt.executeQuery();
+			
+			list = new ArrayList<Board>();
+			
+			if(rset.next()) {
+				Board board = new Board();
+				board.setbId(bId);
+				board.setaContent(rset.getString("ACONTENT"));
+				board.setaDate(rset.getDate("ADATE"));
+				
+				list.add(board);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	public HashMap<String, Object> searchQnA(Connection con, PageInfo pageInfo, String answerType, String searchId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+		ArrayList<Board> boardL = null;
+		ArrayList<Member> memberL = null;
+		String all = "All";
+		
+		
+		int startRow = (pageInfo.getCurrentPage()-1)*pageInfo.getLimit()+1;
+		int endRow = startRow + pageInfo.getLimit()-1;
+		
+		
+		if(answerType.equals(all)) {
+			System.out.println("N타입 ALL일때");
+			String query=query = prop.getProperty("searchQnaAll");
+			
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, searchId);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				
+				rset=pstmt.executeQuery();
+				
+				hmap = new HashMap<String, Object>();
+				
+				boardL = new ArrayList<Board>();
+				memberL = new ArrayList<Member>();
+				
+				while(rset.next()) {
+					Board board = new Board();
+					board.setbId(rset.getInt("BID"));
+					board.setbNo(rset.getInt("BNO"));
+					board.setbTitle(rset.getString("BTITLE"));
+					board.setbDate(rset.getDate("BDATE"));
+					board.setbContent(rset.getString("BCONTENT"));
+					board.setaStatus(rset.getString("ASTATUS"));
+					
+					boardL.add(board);
+					
+					Member member = new Member();
+					member.setUserId(rset.getString("USER_ID"));
+					member.setUno(rset.getInt("UNO"));
+					
+					memberL.add(member);
+					
+				}
+				
+				hmap.put("board", boardL);
+				hmap.put("member", memberL);
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return hmap;
+			
+		}else {
+			
+		
+			String query=query = prop.getProperty("searchQna");
+			
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, answerType);
+				pstmt.setString(2, searchId);
+				pstmt.setInt(3, startRow);
+				pstmt.setInt(4, endRow);
+				
+				rset=pstmt.executeQuery();
+				
+				hmap = new HashMap<String, Object>();
+				
+				boardL = new ArrayList<Board>();
+				memberL = new ArrayList<Member>();
+				
+				while(rset.next()) {
+					Board board = new Board();
+					board.setbId(rset.getInt("BID"));
+					board.setbNo(rset.getInt("BNO"));
+					board.setbTitle(rset.getString("BTITLE"));
+					board.setbDate(rset.getDate("BDATE"));
+					board.setbContent(rset.getString("BCONTENT"));
+					board.setaStatus(rset.getString("ASTATUS"));
+					
+					boardL.add(board);
+					
+					Member member = new Member();
+					member.setUserId(rset.getString("USER_ID"));
+					member.setUno(rset.getInt("UNO"));
+					
+					memberL.add(member);
+					
+				}
+				
+				hmap.put("board", boardL);
+				hmap.put("member", memberL);
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				close(rset);
+				close(pstmt);
+			}
+			
+			
+			return hmap;
+			
+		}
+		
 	}
 	
 }

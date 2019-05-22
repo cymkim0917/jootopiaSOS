@@ -232,4 +232,55 @@ public class BoardAdminService {
 		return hmap;
 	}
 
+	public HashMap<String, Object> selectOneQnA(int num) {
+		Connection con = getConnection();
+		HashMap<String, Object> hmap = null;
+		
+		int result = new BoardAdminDao().updateCount(con,num);
+		
+		if(result>0) {
+			commit(con);
+			hmap = new BoardAdminDao().selectOneQnA(con,num);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return hmap;
+	}
+
+	public ArrayList<Board> insertReply(Board board) {
+		Connection con = getConnection();
+		ArrayList<Board> reply = null;
+		
+		int result = new BoardAdminDao().insertReply(con,board);
+		
+		if(result>0) {
+			commit(con);
+			reply = new BoardAdminDao().selectRelply(con, board.getbId());
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return reply;
+	}
+
+	public HashMap<String, Object> searchQnA(PageInfo pageInfo, String answerType, String searchId) {
+		Connection con = getConnection();
+		
+		
+		HashMap<String, Object> hmap = new BoardAdminDao().searchQnA(con, pageInfo, answerType, searchId);
+		
+		close(con);
+		
+		
+		
+		return hmap;
+	}
+
+	
+
 }
