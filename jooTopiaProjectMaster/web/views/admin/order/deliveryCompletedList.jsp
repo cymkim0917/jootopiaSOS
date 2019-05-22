@@ -62,19 +62,6 @@
 					</td>
 				</tr>
 				<tr>
-					<td>주문일</td>
-					<td id="selectDate" colspan="2">
-						<a href="#" class="btnDate" period="0"><span>오늘</span></a>
-						<a href="#" class="btnDate" period="7"><span>7일</span></a>
-						<a href="#" class="btnDate" period="30"><span>1개월</span></a>
-						<a href="#" class="btnDate" period="90"><span>3개월</span></a>
-						<a href="#" class="btnDate" period="365"><span>1년</span></a>
-						<a href="#" class="btnDate" period="-1"><span>전체</span></a>
-						<input type="date" id="startDate" name="startDate" class="date" value=""> ~ 
-						<input type="date" id="endDate" name="endDate" class="date" value="">
-					</td>
-				</tr>
-				<tr>
 					<td>배송일</td>
 					<td id="selectDate" colspan="2">
 						<a href="#" class="btnDate" period="0"><span>오늘</span></a>

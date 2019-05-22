@@ -53,7 +53,6 @@
 			<table id="selectList" class="selectList" border="1">
 				<tr>
 					<th colspan="9" style="height: 45px; text-align: left;">
-						<button class="selectBtn" onclick="changePayment()">입금 완료</button>
 						<button class="selectBtn" onclick="oTypeChange('주문취소')">주문 취소</button>
 					</th>
 				</tr>

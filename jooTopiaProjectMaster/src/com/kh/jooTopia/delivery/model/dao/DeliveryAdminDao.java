@@ -4,10 +4,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -82,6 +84,7 @@ private Properties prop = new Properties();
 				//O.POID, O.PODATE, O.NAME, O.DMESSAGE
 				o.setPoId(rset.getInt("POID"));
 				o.setPoDate(rset.getDate("PODATE"));
+				o.setName(rset.getString("NAME"));
 				o.setdMessage(rset.getString("DMESSAGE"));
 				o.setName(rset.getString("NAME"));
 				hmap.put("o", o);
@@ -111,4 +114,53 @@ private Properties prop = new Properties();
 		
 		return hmap;
 	}
+
+	public HashMap<String, Object> selectDeliveryModal(Connection con, int dId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+		
+		String query = prop.getProperty("selectDeliveryModal");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, dId);
+			
+			rset = pstmt.executeQuery();
+			
+			hmap = new HashMap<String, Object>();
+			if(rset.next()) {
+				//O.POID, O.PODATE, O.NAME, O.PHONE, O.ADDRESS, O.DMESSAGE 
+				POrder o = new POrder();
+				o.setPoId(rset.getInt("POID"));
+				o.setPoDate(rset.getDate("PODATE"));
+				o.setName(rset.getString("NAME"));
+				o.setPhone(rset.getString("PHONE"));
+				o.setAddress(rset.getString("ADDRESS"));
+				o.setdMessage(rset.getString("DMESSAGE"));
+				
+				hmap.put("o", o);
+				
+				//D.DID, D.START_DATE
+				Delivery d = new Delivery();
+				d.setdId(rset.getInt("DID"));
+				d.setStartDate(rset.getDate("START_DATE"));
+				
+				hmap.put("d", d);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return hmap;
+	}
+
+	public int updateAdminDeliveryModal(Connection con, POrder modiOrder, Delivery modiDelivery) {
+		//배송중 배송정보(및 주문) 모달 수정용
+		return 0;
+	}
+
 }
