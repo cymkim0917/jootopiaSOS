@@ -2,25 +2,28 @@ package com.kh.jooTopia.buy.model.vo;
 
 import java.sql.Date;
 
-public class BuyWaitAdmin implements java.io.Serializable{
-	
-	public int pId;		//PID - 상품번호(시퀀스)
-	public int hId;		//HID - 적치번호(시퀀스)
-	public int rlId;	//RLID - 출고번호(시퀀스)
-	public int pcdId;	//PCDID - 매입상세번호
-	public String cGroup;	//CGROUP - 대분류
-	public String name;		//NAME - 중분류
-	public int odId;		//ODID - 주문번호
-	public int dId;			//DID - 배송번호
-	public int lBarcode;	//LBARCODE - 위치바코드
-	public Date rlDate;		//RLDATE - 출고일자
-	public Date hDate;		//HDATE - 적치일자
-	public String status;	//STATUS - 모든 테이블 공통
-	
-	public BuyWaitAdmin() {}
+public class BuyWaitAdmin implements java.io.Serializable {
+	private int pId; 			// PID - 상품번호(시퀀스)
+	private int hId; 			// HID - 적치번호(시퀀스)
+	private int rlId; 			// RLID - 출고번호(시퀀스)
+	private int pcdId; 			// PCDID - 매입상세번호
+	private String cGroup; 		// CGROUP - 대분류
+	private String name; 		// NAME - 중분류
+	private int odId; 			// ODID - 주문번호
+	private int dId; 			// DID - 배송번호
+	private int lBarcode; 		// LBARCODE - 위치바코드
+	private Date rlDate; 		// RLDATE - 출고일자
+	private Date hDate; 		// HDATE - 적치일자
+	private String status; 		// STATUS - 모든 테이블 공통
+	private String applicant; 	// APPLICANT - 신청자명
+	private String appPhone; 	// APPLICANT_PHONE - 신청자연락처
+	private String appAddress;
+	private int pcid;
 
+	public BuyWaitAdmin() {}
+	
 	public BuyWaitAdmin(int pId, int hId, int rlId, int pcdId, String cGroup, String name, int odId, int dId,
-			int lBarcode, Date rlDate, Date hDate, String status) {
+			int lBarcode, Date rlDate, Date hDate, String status, String applicant, String appPhone, int pcid, String appAddress) {
 		super();
 		this.pId = pId;
 		this.hId = hId;
@@ -34,6 +37,18 @@ public class BuyWaitAdmin implements java.io.Serializable{
 		this.rlDate = rlDate;
 		this.hDate = hDate;
 		this.status = status;
+		this.applicant = applicant;
+		this.appPhone = appPhone;
+		this.pcid = pcid;
+		this.appAddress = appAddress;
+	}
+
+	public String getAppAddress() {
+		return appAddress;
+	}
+
+	public void setAppAddress(String appAddress) {
+		this.appAddress = appAddress;
 	}
 
 	public int getpId() {
@@ -132,16 +147,35 @@ public class BuyWaitAdmin implements java.io.Serializable{
 		this.status = status;
 	}
 
+	public String getApplicant() {
+		return applicant;
+	}
+
+	public void setApplicant(String applicant) {
+		this.applicant = applicant;
+	}
+
+	public String getAppPhone() {
+		return appPhone;
+	}
+
+	public void setAppPhone(String appPhone) {
+		this.appPhone = appPhone;
+	}
+
+	public int getPcid() {
+		return pcid;
+	}
+
+	public void setPcid(int pcid) {
+		this.pcid = pcid;
+	}
+
 	@Override
 	public String toString() {
 		return "BuyWaitAdmin [pId=" + pId + ", hId=" + hId + ", rlId=" + rlId + ", pcdId=" + pcdId + ", cGroup="
 				+ cGroup + ", name=" + name + ", odId=" + odId + ", dId=" + dId + ", lBarcode=" + lBarcode + ", rlDate="
-				+ rlDate + ", hDate=" + hDate + ", status=" + status + "]";
+				+ rlDate + ", hDate=" + hDate + ", status=" + status + ", applicant=" + applicant + ", appPhone="
+				+ appPhone + ", pcid=" + pcid + "]";
 	}
-
-	
-	
-	
-	
-
 }

@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -169,5 +170,27 @@ public class PurchaseDetailDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public int selectPCDCurrval(Connection con) {
+		Statement stmt  = null;
+		ResultSet rset = null;
+		int currval = 0;
+		
+		String query = prop.getProperty("selectPCDCurrval");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				currval = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+		}
+		return currval;
 	}
 }

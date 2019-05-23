@@ -14,6 +14,8 @@ import java.util.Properties;
 import com.kh.jooTopia.board.model.vo.Attachment;
 import com.kh.jooTopia.board.model.vo.Board;
 import com.kh.jooTopia.purchase.model.vo.Purchase;
+import com.kh.jooTopia.purchase.model.vo.PurchaseDetail;
+
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
 public class PurchaseDao {

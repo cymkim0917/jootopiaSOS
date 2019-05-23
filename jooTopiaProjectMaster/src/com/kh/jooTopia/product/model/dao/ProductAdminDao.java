@@ -508,7 +508,6 @@ public class ProductAdminDao {
 	}
 
 	public int updateCount(Connection con, int pcdId) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

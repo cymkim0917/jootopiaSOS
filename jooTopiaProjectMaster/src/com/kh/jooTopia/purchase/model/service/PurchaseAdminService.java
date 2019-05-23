@@ -5,8 +5,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.jooTopia.board.model.vo.PageInfo;
+import com.kh.jooTopia.product.model.dao.ProductAdminDao;
+import com.kh.jooTopia.product.model.vo.ProductregAdmin;
 import com.kh.jooTopia.purchase.model.dao.PurchaseAdminDao;
+import com.kh.jooTopia.purchase.model.dao.PurchaseDao;
 import com.kh.jooTopia.purchase.model.dao.PurchaseDetailDao;
+import com.kh.jooTopia.purchase.model.vo.PurchaseDetail;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_COLOR_BURNPeer;
 
 import static com.kh.jooTopia.common.JDBCTemplate.*;
@@ -39,6 +43,7 @@ public class PurchaseAdminService {
 		hmap = new PurchaseAdminDao().selectPurchaseOne(con, pcid);
 		
 		if(hmap != null) {
+			System.out.println("상태와 데이터 불러오기");
 			hmap.put("status", new PurchaseDetailDao().selectPCDstatus(con, pcid));
 			hmap.put("pBarcode", new PurchaseDetailDao().selectPCDbarcode(con, pcid));
 			hmap.put("denyReason", new PurchaseDetailDao().selectPCDdenyReason(con, pcid));
@@ -104,8 +109,30 @@ public class PurchaseAdminService {
 		
 		return list;
 	}
+
+	public ProductregAdmin insertPersonAccept(PurchaseDetail pcd) {
+		Connection con = getConnection();
+		ProductregAdmin p = null;
+		int result = 0;		
+		int pcdid = 0;
+		
+		result = new PurchaseAdminDao().insertPersonAccept(con, pcd);
+		
+		if(result > 0) {
+			commit(con);
+			pcdid = new PurchaseDetailDao().selectPCDCurrval(con);
+		}else {
+			rollback(con);
+		}
+		
+		if(pcdid != 0) {
+			p = new ProductAdminDao().selectOneAdminProductreg(con, pcdid);
+		}
+		
+		close(con);
+		
+		return p;
+	}
 }
-
-
 
 

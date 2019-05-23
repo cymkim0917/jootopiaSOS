@@ -23,9 +23,7 @@ public class SelectAdminBuyWaitServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		ArrayList<BuyWaitAdmin> list = new BuyWaitAdminService().selectAdminList();
-		System.out.println(list);
 		String page = "";
 		if(list != null) {
 			page = "views/admin/storage/buyWait.jsp";
@@ -40,12 +38,7 @@ public class SelectAdminBuyWaitServlet extends HttpServlet {
 		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }
