@@ -1,6 +1,7 @@
 package com.kh.jooTopia.delivery.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 
 import javax.servlet.ServletException;
@@ -48,7 +49,19 @@ public class UpdateAdminDeliveryModalServlet extends HttpServlet {
 		modiDelivery.setStartDate(startDate);
 		modiDelivery.setStatus("배송중");
 		
-		new DeliveryAdminService().updateAdminDeliveryModal(modiOrder, modiDelivery);
+		int result = new DeliveryAdminService().updateAdminDeliveryModal(modiOrder, modiDelivery);
+		
+		String msg = "";
+		if(result > 1) {
+			msg += "배송정보 변경 성공";
+		}else {
+			msg += "배송정보 변경 실패";
+		}
+		
+		PrintWriter out = response.getWriter();
+		out.println(msg);
+		out.flush();
+		out.close();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

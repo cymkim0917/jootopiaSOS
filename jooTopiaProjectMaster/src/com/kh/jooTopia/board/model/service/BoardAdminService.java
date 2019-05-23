@@ -280,6 +280,27 @@ public class BoardAdminService {
 		return hmap;
 	}
 
+	public int getReviewCount() {
+		Connection con = getConnection();
+		
+		int listCount = new BoardAdminDao().getReviewListCount(con);
+		
+		close(con);
+		
+		return listCount;
+		
+	}
+
+	public HashMap<String, Object> selectReviewList(PageInfo pageInfo) {
+		Connection con = getConnection();
+		HashMap<String, Object> hmap = null;
+		
+		hmap = new BoardAdminDao().selectReviewList(con, pageInfo);
+		
+		return hmap;
+	}
+
+	
 	
 
 }

@@ -55,7 +55,7 @@
 						<th colspan="6">주문내역</th>
 					</tr>
 					<tr>
-						<th width="50px">품목별 주문번호</th>
+						<th width="50px">상세 주문번호</th>
 						<th width="50px">상품번호</th>
 						<th width="150px">상품명</th>
 						<th width="100px">판매가(원)</th>
@@ -116,22 +116,35 @@
 		<div class="pInfo2Area">
 		<table id="pInfo2">
 			<tr><th colspan="2" height="40px">결제수단</th></tr>
+			<% if(pym.getPaymentOption().equals("카드")) { %>
+			<tr>
+				<th>결제수단</th>
+				<td><%= pym.getPaymentOption() %></td>
+			</tr>
+			<tr>
+				<th>TID</th>
+				<td><%= pym.gettId() %></td>
+			</tr>
+			<tr>
+				<th>카드정보</th>
+				<td><%= pym.getCardCompany() %> / <%= pym.getCardKind() %></td>
+			</tr>
+			<tr>
+				<th>결제정보</th>
+				<td>결제일 : <%= pym.getPymDate() %> / <%= pym.getInstallment() %>개월 할부</td>
+			</tr>
+			<% }else { %>
+			<tr>
+				<th>결제수단</th>
+				<td><%= pym.getPaymentOption() %></td>
+			</tr>
 			<tr>
 				<th>입금자명</th>
 				<td><%= pym.getDepositName() %></td>
 			</tr>
 			<tr>
-				<th>결제수단</th>
-				<td><%= pym.getPaymentOption() %></td>
-			</tr>
-			<% if(pym.getPaymentOption().equals("카드")) { %>
-			<tr>
-				<th>결제정보</th>
-				<td><%= pym.getCardCompany() %> / <%= pym.getCardKind() %> / 할부 : <%= pym.getInstallment() %></td>
-			</tr>
-			<tr>
-				<th>TID</th>
-				<td><%= pym.gettId() %></td>
+				<th>입금일</th>
+				<td><%= pym.getDepositDate() %></td>
 			</tr>
 			<% } %>
 		</table>
@@ -161,15 +174,15 @@
 			<tr>
 				<th>수령자명</th>
 				<td>
-				<input id="name" type="text" value='<%= o.getName() %>' size="50%">
-				<button class="memo" onclick="changeCondition('NAME', this)">수정</button>
+					<input id="name" type="text" value='<%= o.getName() %>' size="50%">
+					<button class="memo" onclick="changeCondition('NAME', this)">수정</button>
 				</td>
 			</tr>
 			<tr>
 				<th>연락처</th>
 				<td>
-				<input id="phone" type="text" value='<%= o.getPhone() %>' size="50%">
-				<button class="memo" onclick="changeCondition('PHONE', this)">수정</button>
+					<input id="phone" type="text" value='<%= o.getPhone() %>' size="50%">
+					<button class="memo" onclick="changeCondition('PHONE', this)">수정</button>
 				</td>
 			</tr>
 			<tr>
@@ -182,8 +195,8 @@
 			<tr>
 				<th>배송메시지</th>
 				<td>
-				<input id="message" type="text" value='<%= o.getdMessage() %>' size="50%">
-				<button class="memo" onclick="changeCondition('DMESSAGE', this)">수정</button>
+					<input id="message" type="text" value='<%= o.getdMessage() %>' size="50%">
+					<button class="memo" onclick="changeCondition('DMESSAGE', this)">수정</button>
 				</td>
 			</tr>
 		</table>

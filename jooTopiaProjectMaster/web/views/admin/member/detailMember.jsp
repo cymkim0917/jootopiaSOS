@@ -81,24 +81,20 @@
       		<hr>
       		<br>
 	      	<div>
-		      	<select id="selectFormBox" onchange="SetSelectBox();" height="30%;">
-		      		<option value="orderList">주문</option>
+	      		<form action="">
+		      	<select id="selectFormBox" name="btype"  height="30%;">
+		      		<option value="orderList" selected>주문</option>
 		      		<option value="reviewList">후기</option>
 		      		<option value="sellingList">매입</option>
 		      		<option value="qnaList">1:1문의글</option>
 		      	</select>
 		      	&nbsp;
-		      		<a href="#" class="btnDate" period="7"><span>7일</span></a>
-					<a href="#" class="btnDate" period="30"><span>1개월</span></a>
-					<a href="#" class="btnDate" period="90"><span>3개월</span></a>
-					<a href="#" class="btnDate" period="365"><span>1년</span></a>
-					<a href="#" class="btnDate" period="-1"><span>전체</span></a> &nbsp;&nbsp;
-					<input type="date" id="startDate" name="startDate" class="date" > ~ 
-					<input type="date" id="endDate" name="endDate" class="date" >
+					<input type="hidden" id="uNo" value="<%=member.getUno()%>">
 					<br> 
 					<div id="searchBtnArea" style="margin-left:41%; margin-top:1%">
-						<input type="submit" value="검색">
+						<input type="button" onclick="searchBoard();" value="검색">
 					</div>
+				  </form>
       		</div>
       		<hr>
       		<div id="resultArea">
@@ -107,12 +103,12 @@
       					<tr>
       						<th width="300px;" height="30px">주문번호</th>
       						<th width="300px;" height="30px">상품명</th>
-      						<th width="300px;" height="30px">상품 카테고리</th>
       						<th width="300px;" height="30px">주문일자</th>
       						<th width="300px;" height="30px">상태</th>
+      						<th width="300px;" height="30px">비고</th>
       					</tr>
       				</table>
-      			</form>
+      			
       				<table id="sellingListTb" border="1px;" style="display:none">
       					<tr>
       						<th width="300px;" height="30px">카테고리</th>
@@ -149,30 +145,85 @@
       
       
       </div><!-- "col-sm-10" -->
-			
-			
-			
       	
       	<script>
-      		function SetSelectBox(){
-      			var schField = $("#selectFormBox option:selected").val();
+      		function searchBoard(){
+      			var type = $("#selectFormBox option:selected").val();
+      			var uno = $("#uNo").val();
       			
-      			console.log(schField);
+      			console.log(type);
+      			console.log(uno);
       			
-      			if(schField=="orderList"){
+      			
+      			if(type=="orderList"){
       				document.getElementById('orderListTb').style.display  = 'block';
       				document.getElementById('reviewListTb').style.display  = 'none';
       				document.getElementById('sellingListTb').style.display  = 'none';
       				document.getElementById('qnaListTb').style.display  = 'none';
       				
-      			}else if(schField == "reviewList"){
+      				$.ajax({
+      					url:"selectAdminMOrderList.do",
+      					data:{
+      						type:type,
+      						uno:uno
+      					},
+      					type:"post",
+      					success:function(data){
+      						$tableBody=$("#orderListTb");
+      						
+      						$th = $tableBody("<th>");
+      						
+      						console.log($th);
+      						
+      						
+      						for(var key in data){
+      							var hmap = data[key];
+      							
+      							var order = hmap["order"];
+      							
+      							var poid = order.poId;
+      							var podate = order.poDate;
+      							var status = order.status;
+      							var productName = hmap["pName"];
+      							
+      							console.log(poid);
+      							
+      							var $tr = $("<tr>");
+      							var $poidTd = $("<td>").text(poid);
+      							var $pNameTd = $("<td>").text(productName);
+      							var $poDateTd = $("<td>").text(podate);
+      							var $statusTd = $("<td>").text(status);
+      							var $nullTd = $("<td>").text("");
+      							
+      							$tr.append($poidTd);
+      							$tr.append($pNameTd);
+      							$tr.append($poDateTd);
+      							$tr.append($statusTd);
+      							$tr.append($nullTd);
+      							
+      							$tableBody.append($tr);
+      						}
+      						
+      						
+      					},
+      					error:function(){
+      						console.log(data);
+      					}
+      					
+      				});
+      				
+      				
+      			}else if(type == "reviewList"){
       				document.getElementById('orderListTb').style.display  = 'none';
       				document.getElementById('reviewListTb').style.display  = 'block';
       				document.getElementById('sellingListTb').style.display  = 'none';
       				document.getElementById('qnaListTb').style.display  = 'none';
       				
       				
-      			}else if(schField == "sellingList"){
+      				
+      				
+      				
+      			}else if(type == "sellingList"){
       				document.getElementById('orderListTb').style.display  = 'none';
       				document.getElementById('reviewListTb').style.display  = 'none';
       				document.getElementById('sellingListTb').style.display  = 'block';
@@ -184,22 +235,11 @@
       				document.getElementById('sellingListTb').style.display  = 'none';
       				document.getElementById('qnaListTb').style.display  = 'block';
       				
-      			}
+      			} 
       			
       		}	
       	
       		
-      		/* $(function(){
-      			$("#selectBox").change(function(){
-      				var tableSelect = $("#selectBox option:seleted").val();
-      				if( tableSelect == 'qnaListTb'){
-      				document.getElementById('reviewListTb').style.display  = 'none';
-      					
-      				}
-      			});
-      		});
-      	 */
-      	
       	
       	</script>
    </section>

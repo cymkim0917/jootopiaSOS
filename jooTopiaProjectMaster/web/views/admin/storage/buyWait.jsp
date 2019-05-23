@@ -15,7 +15,6 @@
 <script src="/jootopia/js/external/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/jootopia/css/admin/adminCommon.css">
 <title>JooTopia</title>
-
 <style>
 .listArea{
 	padding-left: 5%;

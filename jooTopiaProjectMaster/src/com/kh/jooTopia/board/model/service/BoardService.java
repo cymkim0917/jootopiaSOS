@@ -23,25 +23,24 @@ public class BoardService {
       close(con);
       
       return hmap;
-      
    }
+   
    //상세
    public Notice selectOne(int num) {
       Connection con = getConnection();
       Notice n = new BoardDao().selectOne(con,num);
-      System.out.println("n in service :" + n);
-      System.out.println("num :" + num);
-      System.out.println("getbId :" + n.getbId());
-      
-      if(n !=null) {
-         int result=new BoardDao().updateCount(con,n.getbId());
-         
-         if(result > 0) {
-            commit(con);
-         }else {
-            rollback(con);
-         }
+      int result = 0;
+     
+      if(n != null) {
+         result = new BoardDao().updateCount(con, n.getbNo());
+         System.out.println("n is not null");
+         System.out.println("result : " + result);
       }
+      if(result > 0) {
+          commit(con);
+       }else {
+          rollback(con);
+       }
       close(con);
       
       return n;
@@ -59,6 +58,8 @@ public class BoardService {
       
       return listCount;
    }
+   
+   
 
    public int insertPhote(Board board, ArrayList<Attachment> fileList) {
       Connection con = getConnection();
@@ -273,14 +274,23 @@ public class BoardService {
       
    }
    //(s) selectThumbnailList(전체 상품후기 리스트)
-   public HashMap<String, Object> selectReviewTotalList() {
+  /* public ArrayList<HashMap<String, Object>> selectReviewTotalList() {
       Connection con = getConnection();
       HashMap<String, Object> hmap = new BoardDao().selectReviewTotalList(con);
      
       close(con);
       
-      return hmap;
+      return hmap;*/
+   
+   public ArrayList<HashMap<String, Object>> selectReviewTotalList() {
+	      Connection con = getConnection();
+	      ArrayList<HashMap<String, Object>> list = new BoardDao().selectReviewTotalList(con);
+	     
+	      close(con);
+	      
+	      return list;
    }
+   
    
    
    //(s) 후기쓰는 페이지
@@ -311,26 +321,23 @@ public class BoardService {
       return result;
    }
    
-   //(s) 후기게시판 읽기
-   public ArrayList<HashMap<String, Object>> reviewReadPage(int num) {
+   //(s) 후기게시판 읽기----------------------------------------------------
+   public HashMap<String, Object> reviewReadPage(int num) {
       Connection con = getConnection();
-      ArrayList<HashMap<String,Object>> list = null; 
+      HashMap<String,Object> hmap = new BoardDao().reviewReadPage(con,num);
       
-      int result = new BoardDao().updateCount(con, num);
-      System.out.println("result : " + result);
-      
-      if(result > 0) {
-         commit(con);
-         list = new BoardDao().reviewReadPage(con,num);
-         System.out.println("hmap in service :" + list);
-      }else {
-         rollback(con);
+      if(hmap !=null) {
+    	  int result = new BoardDao().updateCount(con, num);
+    	  
+    	  if(result > 0) {
+    		  commit(con);
+    	  }else {
+    		  rollback(con);
+    	  }
       }
-      close(con);
       
-      
-      return list;
-      
+      return hmap;
+ 
       
    }
    

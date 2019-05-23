@@ -8,10 +8,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.jooTopia.board.model.vo.PageInfo;
 import com.kh.jooTopia.member.model.vo.Member;
+import com.kh.jooTopia.order.model.vo.POrder;
 
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
@@ -200,6 +202,101 @@ public class MemberAdminDao {
 		}
 		
 		return listCount;
+	}
+
+	public ArrayList<Member> searchMember(Connection con, PageInfo pageInfo, Member sMember) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Member> list = null;
+		
+		String query = prop.getProperty("searchMember");
+		
+		int startRow = (pageInfo.getCurrentPage()-1)*pageInfo.getLimit()+1;
+		int endRow = startRow + pageInfo.getLimit()-1;
+		
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, sMember.getUserId());
+			pstmt.setString(2, sMember.getUserName());
+			pstmt.setString(3, sMember.getPhone());
+			pstmt.setString(4, sMember.getEmail());
+			pstmt.setDate(5, sMember.getUserDate());
+			pstmt.setString(6, sMember.getAddress());
+			pstmt.setInt(7, startRow);
+			pstmt.setInt(8, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Member>();
+			
+			while(rset.next()) {
+				Member member = new Member();
+				member.setUno(rset.getInt("UNO"));
+				member.setUserId(rset.getString("USER_ID"));
+				member.setUserName(rset.getString("USER_NAME"));
+				member.setUserDate(rset.getDate("USER_DATE"));
+				member.setPhone(rset.getString("PHONE"));
+				member.setEmail(rset.getString("EMAIL"));
+				member.setAddress(rset.getString("ADDRESS"));
+				
+				list.add(member);
+				
+			}
+			
+		
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
+
+	public ArrayList selectOrderList(Connection con, int uNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList list = null;
+		
+		
+		String query = prop.getProperty("selectOder");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, 1);
+			
+			rset=pstmt.executeQuery();
+			
+			list = new ArrayList();
+			
+			while(rset.next()) {
+				POrder order = new POrder();
+				order.setPoId(rset.getInt("POID"));
+				order.setPoDate(rset.getDate("PODATE"));
+				order.setStatus(rset.getString("STATUS"));
+				
+				HashMap<String, Object> hmap = new HashMap<String, Object>();
+				hmap.put("order", order);
+				hmap.put("pName", rset.getString("PNAME"));
+				
+				list.add(hmap);
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
 	}
 
 }

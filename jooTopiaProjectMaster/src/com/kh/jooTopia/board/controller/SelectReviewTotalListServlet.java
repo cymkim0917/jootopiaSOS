@@ -22,14 +22,28 @@ public class SelectReviewTotalListServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HashMap<String, Object> hmap = new BoardService().selectReviewTotalList();
+		/*HashMap<String, Object> hmap = new BoardService().selectReviewTotalList();
 		// ArrayList<Attachment> fileList = (ArrayList<Attachment>) list.get("attachement");
 		
 		System.out.println("servlet list : " + hmap);
 		String page="";
 		if(hmap != null) {
 			page="views/board/reviewList.jsp";
-			request.setAttribute("list", hmap);
+			request.setAttribute("hmap", hmap);
+		}else {
+			page="views/common/errorPage.jsp";
+			request.setAttribute("msg", "리스트 조회 실패!");
+		}
+		request.getRequestDispatcher(page).forward(request, response);*/
+		
+		ArrayList<HashMap<String, Object>> list = new BoardService().selectReviewTotalList();
+		// ArrayList<Attachment> fileList = (ArrayList<Attachment>) list.get("attachement");
+		
+		System.out.println("servlet list : " + list);
+		String page="";
+		if(list != null) {
+			page="views/board/reviewList.jsp";
+			request.setAttribute("list", list);
 		}else {
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg", "리스트 조회 실패!");
