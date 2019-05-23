@@ -53,6 +53,8 @@ public class BuyWaitAdminDao {
 				b.setPcdId(rset.getInt("PCDID"));
 				b.setcGroup(rset.getString("CGROUP"));
 				b.setName(rset.getString("NAME"));
+				b.setApplicant(rset.getString("APPLICANT"));
+				b.setApplicantPhone(rset.getString("APPLICANT_PHONE"));
 				b.setStatus(rset.getString("STATUS"));				
 				
 				list.add(b);

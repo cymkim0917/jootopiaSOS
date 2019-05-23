@@ -5,14 +5,14 @@ import static com.kh.jooTopia.common.JDBCTemplate.close;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-
-
+import com.kh.jooTopia.heap.model.vo.PageInfo;
 import com.kh.jooTopia.stock.model.vo.StockAdmin;
  
 public class StockAdminDao {
@@ -67,6 +67,82 @@ public class StockAdminDao {
 		}
 		
 		
+		
+		return list;
+	}
+
+	public int getListCount(Connection con) {
+		
+		Statement stmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("listCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<StockAdmin> selectAdminList(Connection con, PageInfo pi) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<StockAdmin> list = null;
+		
+		String query = prop.getProperty("selectListAfterPaging");
+		
+		int startRow = (pi.getCurrentPage() -1) * pi.getLimit() +1;
+		int endRow = startRow + pi.getLimit() -1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<StockAdmin>();
+			
+			while(rset.next()) {
+				StockAdmin s = new StockAdmin();
+				
+				s.setpId(rset.getInt("PID"));
+				s.sethId(rset.getInt("HID"));
+				s.setRlId(rset.getInt("RLID"));
+				s.setPcdId(rset.getInt("PCDID"));
+				s.setcGroup(rset.getString("CGROUP"));
+				s.setName(rset.getString("NAME"));
+				s.setPoId(rset.getInt("POID"));
+				s.setdId(rset.getInt("DID"));
+				s.setlBarcode(rset.getInt("LBARCODE"));
+				s.setpContent(rset.getString("PCONTENT"));
+				
+				list.add(s);
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
 		
 		return list;
 	}

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import static com.kh.jooTopia.common.JDBCTemplate.*;
+
+import com.kh.jooTopia.heap.model.vo.PageInfo;
 import com.kh.jooTopia.release.model.dao.ReleaseAdminDao;
 import com.kh.jooTopia.release.model.vo.ReleaseAdmin;
 
@@ -57,6 +59,28 @@ public class ReleaseAdminService {
 		close(con);
 		
 		return result;
+	}
+
+	public ArrayList<ReleaseAdmin> selectAdminReleaseList(PageInfo pi) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<ReleaseAdmin> list = new ReleaseAdminDao().selectAdminList(con, pi);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public int getListCount() {
+		
+		Connection con = getConnection();
+		
+		int listCount = new ReleaseAdminDao().getListCount(con);
+		
+		close(con);
+		
+		return listCount;
 	}
 
 	
