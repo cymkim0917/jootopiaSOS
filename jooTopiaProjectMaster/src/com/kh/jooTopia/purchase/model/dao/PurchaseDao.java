@@ -42,7 +42,7 @@ public class PurchaseDao {
 			
 			pstmt.setString(1, p.getApplicant());
 			pstmt.setString(2, p.getAppAddress());
-			pstmt.setInt(3, p.getAppDistance());
+			pstmt.setDouble(3, p.getAppDistance());
 			pstmt.setString(4, p.getAppPhone());
 			pstmt.setString(5, p.getBrand());
 			pstmt.setString(6, p.getModel());
@@ -51,6 +51,7 @@ public class PurchaseDao {
 			pstmt.setInt(9, p.getHopeCost());
 			pstmt.setString(10, p.getMemo());
 			pstmt.setInt(11, cid);
+			pstmt.setInt(12, p.getDelivaryPrice());
 			
 			result = pstmt.executeUpdate();
 			
@@ -98,6 +99,7 @@ public class PurchaseDao {
 			pstmt.setString(1, b.getbContent());
 			pstmt.setInt(2, pcid);
 			pstmt.setInt(3, b.getuNo());
+			System.out.println("b.getuNO : " + b.getuNo());
 			
 			result = pstmt.executeUpdate();
 			
@@ -178,6 +180,7 @@ public class PurchaseDao {
 				hmap.put("bDate", rset.getObject("BDATE"));
 				hmap.put("uno", rset.getObject("UNO"));
 				hmap.put("memo", rset.getObject("MEMO"));
+				hmap.put("dPrice", rset.getObject("DELIVARY_PRICE"));
 			}
 			System.out.println("dao에서 hmap : " + hmap);
 		} catch (SQLException e) {

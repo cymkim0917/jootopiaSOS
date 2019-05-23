@@ -79,7 +79,9 @@ public class InsertPurchaseServlet extends HttpServlet {
 				fileList.add(at);
 			}
 			String appName = mRequest.getParameter("name");
+			String post = mRequest.getParameter("post");
 			String address = mRequest.getParameter("address");
+			address = post + "||" + address;
 			String appDistance = mRequest.getParameter("appDistance");
 			String phone = mRequest.getParameter("phone");
 			String cName = mRequest.getParameter("cName");
@@ -89,9 +91,10 @@ public class InsertPurchaseServlet extends HttpServlet {
 			String primePrice = mRequest.getParameter("primePrice");
 			String hopePrice = mRequest.getParameter("hopePrice");
 			String content = mRequest.getParameter("content");
-			String memo = mRequest.getParameter("memo");
+			String memo = mRequest.getParameter("pcRequset");
+			String dPrice = mRequest.getParameter("dPrice");
 			
-			Member loginUser = (Member) request.getSession().getAttribute("loginUser");;
+			Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 
 			Board b = new Board();
 			b.setbContent(content);
@@ -100,7 +103,7 @@ public class InsertPurchaseServlet extends HttpServlet {
 			Purchase p = new Purchase();
 			p.setApplicant(appName);
 			p.setAppAddress(address);
-			p.setAppDistance(Integer.parseInt(appDistance));
+			p.setAppDistance(Double.parseDouble(appDistance));
 			p.setAppPhone(phone);
 			p.setcName(cName);
 			p.setBrand(brand);
@@ -109,7 +112,8 @@ public class InsertPurchaseServlet extends HttpServlet {
 			p.setPrimeCost(Integer.parseInt(primePrice));
 			p.setHopeCost(Integer.parseInt(hopePrice));
 			p.setMemo(memo);
-			
+			p.setDelivaryPrice(Integer.parseInt(dPrice));
+		
 			int result = new PurchaseService().insertPurchase(b, p, fileList);
 			
 			HashMap<String, Object> hmap = null;

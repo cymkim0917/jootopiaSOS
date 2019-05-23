@@ -4,7 +4,7 @@ public class Purchase implements java.io.Serializable{
 	private int pcid;
 	private String applicant;
 	private String appAddress;
-	private int appDistance;
+	private double appDistance;
 	private String appPhone;
 	private String brand;
 	private String model;
@@ -15,12 +15,13 @@ public class Purchase implements java.io.Serializable{
 	private String status;
 	private int userYear;
 	private String cName;
+	private int delivaryPrice;
 	
 	public Purchase() {}
 
-	public Purchase(int pcid, String applicant, String appAddress, int appDistance, String appPhone, String brand,
+	public Purchase(int pcid, String applicant, String appAddress, double appDistance, String appPhone, String brand,
 			String model, String usePeriod, int primeCost, int hopeCost, String memo, String status, int userYear,
-			String cName) {
+			String cName, int delivaryPrice) {
 		super();
 		this.pcid = pcid;
 		this.applicant = applicant;
@@ -36,6 +37,7 @@ public class Purchase implements java.io.Serializable{
 		this.status = status;
 		this.userYear = userYear;
 		this.cName = cName;
+		this.delivaryPrice = delivaryPrice;
 	}
 
 	public int getPcid() {
@@ -62,11 +64,11 @@ public class Purchase implements java.io.Serializable{
 		this.appAddress = appAddress;
 	}
 
-	public int getAppDistance() {
+	public double getAppDistance() {
 		return appDistance;
 	}
 
-	public void setAppDistance(int appDistance) {
+	public void setAppDistance(double appDistance) {
 		this.appDistance = appDistance;
 	}
 
@@ -150,12 +152,20 @@ public class Purchase implements java.io.Serializable{
 		this.cName = cName;
 	}
 
+	public int getDelivaryPrice() {
+		return delivaryPrice;
+	}
+
+	public void setDelivaryPrice(int delivaryPrice) {
+		this.delivaryPrice = delivaryPrice;
+	}
+
 	@Override
 	public String toString() {
 		return "Purchase [pcid=" + pcid + ", applicant=" + applicant + ", appAddress=" + appAddress + ", appDistance="
 				+ appDistance + ", appPhone=" + appPhone + ", brand=" + brand + ", model=" + model + ", usePeriod="
 				+ usePeriod + ", primeCost=" + primeCost + ", hopeCost=" + hopeCost + ", memo=" + memo + ", status="
-				+ status + ", userYear=" + userYear + ", cName=" + cName + "]";
+				+ status + ", userYear=" + userYear + ", cName=" + cName + ", delivaryPrice=" + delivaryPrice + "]";
 	}
 
 }

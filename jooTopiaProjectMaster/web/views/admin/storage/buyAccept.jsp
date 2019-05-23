@@ -1,18 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, com.kh.jooTopia.board.model.vo.*"%>
+	pageEncoding="UTF-8" import="com.kh.jooTopia.board.model.vo.*, java.util.*"%>
 <%
 	HashMap<String, Object> hmap = (HashMap<String, Object>)request.getAttribute("hmap");
 	String status = (String) hmap.get("status");
 	ArrayList<Attachment> fileList = (ArrayList<Attachment>) hmap.get("fileList");
 	System.out.println("hmap : " + hmap);
-%>
+%>	
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="/jootopia/images/favicon.ico">
 <link rel="stylesheet" href="/jootopia/css/external/bootstrap.min.css">
-<link rel="stylesheet" href="/jootopia/js/external/jquery-3.4.0.min.js">
+<script src="/jootopia/js/external/jquery-3.4.0.min.js"></script>
 <script src="/jootopia/js/external/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/jootopia/css/admin/adminCommon.css">
 <title>JooTopia</title>
@@ -87,44 +87,48 @@
 	display: block;
 	margin: 0 auto;
 }
+#modalTable tr{
+	height : 35px;
+}
+#modalTable textarea{
+	height : 50px;
+}
+#modalTable td:nth-child(1){
+	width: 40%;
+	text-align:center;
+}
+#modalTable td:nth-child(2){
+	padding-left:5%; 
+	text-align:center;
+}
+#modalTable td:nth-child(2) input{
+	text-align:center;
+}
+#modalTable img{
+	display: block;
+	width: 250px;
+	height : 100px;
+	margin-left:10%;
+}
+.modalBtn{
+	padding: 0 !important;
+	width: 80% !important;
+	margin : 0 !important;
+	margin-left : 20px !important;		
+}
+#barCodeModal {
+	padding-top: 200px;
+}
 </style>
 </head>
 <body>
-<%@ include file="/views/common/adminNavigation.jsp" %>
+<%@ include file="/views/common/adminNavigation.jsp"%>
 	<section class="row">
-	<%@ include file="/views/common/adminSideMenu.jsp" %>
-		<div class="col-sm-10">
-	    	<h3 class="title">매입신청 상세</h3>
-	    	<hr>
-	    	<% if(status.equals("매입신청거절")){ %>
-	    		<div class="statusArea">	
-	    		<table align="center">
-	    			<tr>
-	    				<th>매입 거절 사유</th>
-	    			</tr>
-	    			<tr>
-	    				<td><%= hmap.get("denyReason") %></td>
-	    			</tr>
-	    		</table>
-	    	</div>
-	    	<% }else if(!status.equals("신청수락대기")){ %>
-	    	<div class="statusArea">	
-	    		<table align="center">
-	    			<tr>
-	    				<th>상품바코드</th>
-	    				<th>상태</th>
-	    			</tr>
-	    			<tr>
-	    				<%-- <td><%= hmap.get("pBarcode") %></td> --%>
-	    				<td>
-	    					<img src="/jootopia/images/barcode/<%= hmap.get("pBarcode") %>.PNG">
-	    				</td>
-	    				<td><%= hmap.get("status") %></td>
-	    			</tr>
-	    		</table>
-	    	</div>
-	    	<% } %>
-	      	<div class="tableArea" align="center">
+		<%@ include file="/views/common/adminSideMenu.jsp"%>
+		<div id="adminSection" class="col-sm-10">
+			<h3 class="title">상품매입</h3>
+			<hr>
+			<div class="tableArea" align="center">
 	      		<table>
 	      			<tr>
 	      				<th>항목</th>
@@ -196,26 +200,110 @@
 	      		</table>
 	      	</div>
 	      	<div class="btnArea" align="center"> 
-		      	<% if(status.equals("신청수락대기")){ %>
+		      	<% if(status.equals("매입대기중")){ %>
+		      	<form>
+		      	</form>
 	    		<div class="submitBtnArea">
-	      			<button class="jBtn" onclick="location.href='<%= request.getContextPath() %>/insertPCAdminAccept.do?no=<%= hmap.get("pcid")%>'">매입하기</button>
+	      			<button class="jBtn" data-toggle="modal" data-target="#buyModal">매입하기</button>
 	      			<button class="jBtn" data-toggle="modal" data-target="#denyModal">매입거절</button>
 	      		</div>
 		    	<% } %>
 	      		<div class="moveBtnArea">
 					<ul class="pagination">
-						<!-- <li><a href="#">이전</a></li> -->
 						<li>
-							<a href="<%= request.getContextPath() %>/selectPurchaseAdminList.do">
+							<a href="<%= request.getContextPath() %>/selectAdminBuy.do">
 								&nbsp;&nbsp;&nbsp;목록으로&nbsp;&nbsp;&nbsp;
 							</a>
 						</li>
-						<!-- <li><a href="#">다음</a></li> -->
 					</ul>
 	      		</div>
 	      	</div>
 	    </div><!-- col-sm-10 -->
-		<div id="denyModal" class="modal fade" role="dialog">
+	    <div id="buyModal" class="modal fade" role="dialog" data-backdrop="static">
+		  <div class="modal-dialog">
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-body"><br>
+			      <form>
+			      	<h3 align="center">매입수락</h3>
+			      	<br>
+					<table align="center" width="60%" id="modalTable">
+						<tr>
+							<td><label>구매정가</label></td>
+							<td><%= hmap.get("hopeCost") %></td>
+						</tr>
+						<tr>
+							<td><label>거리 / 용달비용</label></td>
+							<td><%= hmap.get("appDistance") %> / <%= hmap.get("dPrice") %></td>
+						</tr>
+						<tr>
+							<td><label>매입금액</label></td>
+							<td><input type="number" name="buyPrice" value="" width="100%"></td>
+						</tr>
+						<tr>
+							<td colspan="2" style="text-align:center; font-weight:bold"><br>매입전달사항<br></td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<br><textarea name="message" style="width: 100%; height: 100px; resize:none;"></textarea>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" style="text-align:center; font-weight:bold"><br>바코드</td>
+						</tr>
+						<tr>
+							<td>
+								<img src="/jootopia/images/barcode/<%= hmap.get("pBarcode") %>.PNG">
+								<span><%= hmap.get("pBarcode") %></span>
+							</td>
+							<td>
+								<button style="height:100px;" class="jBtn modalBtn" id="barBtn" data-toggle="modal" data-target="#barCodeModal" onclick="return false;">상품확인</button>
+							</td>
+						</tr>
+					</table>			      
+			      </form>
+			       <div class="modal fade" id="barCodeModal" role="dialog">
+				    <div class="modal-dialog modal-sm">
+				      <div class="modal-content">
+				        <div class="modal-header">
+				          <button type="button" class="close" data-dismiss="modal">&times;</button>
+				          <h4 class="modal-title" align="center">바코드 확인</h4>
+				        </div>
+				        <div class="modal-body" align="center">
+				          <input type="text" id="checkBcode" placeholder="바코드를 스캔해주세요">
+				        </div>
+				        <div class="modal-footer">
+				          <button type="button" class="btn btn-default" id="barBtnCloese" data-dismiss="modal">Close</button>
+				        </div>
+				      </div>
+				    </div>
+				    </div>
+		      </div><br><br>
+		      <script>
+		      	$("#checkBcode").change(function(){
+		      		console.log("체인지 완료");
+		      		var inputCode = $(this).val();
+		      		console.log("inputCode : " + inputCode);
+		      		console.log(<%= hmap.get("pBarcode")%> == inputCode);
+		      		if(<%= hmap.get("pBarcode")%> == inputCode ){
+		      			// $('#barCodeModal').modal("hide"); //닫기
+		      			$("#barBtn").html("바코드 일치!");
+		      			$("#barBtn").attr("disabled", true);
+		      			$("#barBtn").css("background", "gray").css("color", "white");
+		      			$("#barBtnCloese").click(true);
+		      		}else{
+		      			alert("바코드가 일치하지 않습니다.");
+		      		}
+		      	})
+		      </script>
+		      <div class="modal-footer">
+		      	<button class="btn btn-danger" onclick="#">매입완료</button>
+		        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	    <div id="denyModal" class="modal fade" role="dialog">
 		  <div class="modal-dialog">
 		    <!-- Modal content-->
 		    <div class="modal-content">
@@ -230,13 +318,9 @@
 		    </div>
 		  </div>
 		</div>
-		<script>
-			function purchaseDeny(){
-				var denyReason = $("#denyReason").val();
-				location.href="<%= request.getContextPath() %>/insertDeny.do?no=<%= hmap.get("pcid") %>&denyReason=" + denyReason;
-			}
-		</script>
 	</section>
+	
+
 <%@ include file="/views/common/adminFooter.jsp" %>
 </body>
 </html>

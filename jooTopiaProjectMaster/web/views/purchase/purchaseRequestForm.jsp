@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String post = (String) request.getAttribute("post");
+	String address = (String) request.getAttribute("address");
+	int dPrice = (int) request.getAttribute("dPrice");
+	double distance = (double) request.getAttribute("distance");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,13 +33,15 @@
 					<tr>
 						<td><label>주소</label></td>
 						<td>
-							<input type="text" class="form-control" name="address" placeholder="주소를 입력해주세요.">
-							<input type="hidden" name="appDistance" value="15">
+							<input type="text" class="form-control" name="address" placeholder="주소를 입력해주세요." value="<%= address %>">
+							<input type="hidden" name="appDistance" value="<%= distance %>">
+							<input type="hidden" name="post" value="<%= post %>">
+							<input type="hidden" name="dPrice" value="<%= dPrice %>">
 						</td>
 					</tr>
 					<tr>
 						<td><label>연락처</label></td>
-						<td><input type="tel" class="form-control" name="phone" placeholder="-를 뼤고 입력해주세요" value="01012345678"></td>
+						<td><input type="tel" class="form-control" name="phone" placeholder="-를 뼤고 입력해주세요" value="010-1234-5678"></td>
 					</tr>
 					<tr>
 						<td><label>신청품목</label></td>

@@ -28,11 +28,18 @@ public class InsertPurchaseAcceptAdminServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int pcid = Integer.parseInt(request.getParameter("no"));
-		String pBarcode = "barcode-" + (int)(Math.random() * 10000000);
+		//String pBarcode = "barcode-" + (int)(Math.random() * 10000000);
+		// 상품바코드 UPC-A : 12자리 숫자로 이루어져야 한다. 
+		String pBarcode = "100" + (int)(Math.random() * 100000000);
 		
-		// 바코드 생성 상품바코드는 Code128 방식을 이용
+		// 바코드 생성 상품바코드는 Code128 방식을 이용 -> 바꿈 code128방식은 문자를 포함할 수 있음
 		try {
-			Barcode barcode = BarcodeFactory.createCode128(pBarcode);
+			// 얘도 숫자로 이루어져야 한다. 
+			/*BarcodeFactory.create2of7(arg0);*/
+			Barcode barcode = BarcodeFactory.createUPCA(pBarcode);
+			// 얘도 숫자로 이루어져야 한다. 
+			// 적치하는 렉에 많이 사용되는 바코드 
+//			Barcode barcode = BarcodeFactory.createInt2of5(pBarcode);
 			barcode.setDrawingText(true);
 			barcode.setBarHeight(80);
 			
@@ -45,8 +52,6 @@ public class InsertPurchaseAcceptAdminServlet extends HttpServlet {
 			
 			String path = root + "images\\barcode\\" + pBarcode + ".PNG";
 			File file = new File(path);
-			
-			System.out.println("file : " + file);
 			
 			// 경로에 바코드 이미지로 저장
 			BarcodeImageHandler.savePNG(barcode, file);
