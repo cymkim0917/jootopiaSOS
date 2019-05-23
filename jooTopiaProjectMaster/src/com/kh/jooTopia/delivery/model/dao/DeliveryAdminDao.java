@@ -160,7 +160,31 @@ private Properties prop = new Properties();
 
 	public int updateAdminDeliveryModal(Connection con, POrder modiOrder, Delivery modiDelivery) {
 		//배송중 배송정보(및 주문) 모달 수정용
-		return 0;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		//쿼리 어캐함...?
+		String query = prop.getProperty("updateAdminDeliveryModal");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			//POID NAME PHONE ADDRESS DMESSAGE START_DATE
+			pstmt.setInt(1, modiOrder.getPoId());
+			pstmt.setString(2, modiOrder.getName());
+			pstmt.setString(3, modiOrder.getPhone());
+			pstmt.setString(4, modiOrder.getAddress());
+			pstmt.setString(5, modiOrder.getdMessage());
+			pstmt.setDate(6, modiDelivery.getStartDate());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

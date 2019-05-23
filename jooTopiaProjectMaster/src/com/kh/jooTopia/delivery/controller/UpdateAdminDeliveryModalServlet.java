@@ -49,10 +49,6 @@ public class UpdateAdminDeliveryModalServlet extends HttpServlet {
 		modiDelivery.setStatus("배송중");
 		
 		new DeliveryAdminService().updateAdminDeliveryModal(modiOrder, modiDelivery);
-		
-		
-		
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

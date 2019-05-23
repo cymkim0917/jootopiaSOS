@@ -161,26 +161,29 @@
 		$("#modifyBtn").click(function() {
 			
 			//체크한 상품 번호 가져오기
-			var pIdArr = "";
+			var pIdArr = new Array();
 			$(".check").each(function() {
 				if($(this).is(":checked")) {
-					pIdArr += $(this).parent().parent().children().eq(2).children().text() + "|";
-					console.log(pIdArr);
+					pIdArr.push( $(this).parent().parent().children().eq(2).children().text() );
 			}
 			});
-			//체크한 상품번호를 통해 주문페이지로 넘어간다.
-			$.ajax({
-				url : "selectCartOrderOne.do",
-				type : "post",
-				data : {pIdArr : pIdArr},
-				success : function(data) {
-					/* alert(data); */
-					/* location.href='adminProductList.do'; */
-				},
-				error : function(data) {
-					alert("선택된 상품이 없습니다.");
+			
+			console.log(pIdArr[0]);
+			
+			if(pIdArr != null) {
+				var queryString = "";
+				for(var i = 0; i < pIdArr.length; i++) {
+					if(i != pIdArr.length-1) {
+						queryString += pIdArr[i] + "+";
+					}else {
+						queryString += pIdArr[i];
+					}
 				}
-			});
+				
+				console.log(queryString);
+				
+				location.href="<%=request.getContextPath()%>/selectCartOrderOne.do?pId="+queryString;
+			}
 			
 		});
 	

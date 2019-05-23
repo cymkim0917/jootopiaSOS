@@ -52,10 +52,11 @@
 		<div class="selectListArea">
 				<table id="selectList" class="selectList" border="1">
 					<tr>
-						<th colspan="5">주문내역</th>
+						<th colspan="6">주문내역</th>
 					</tr>
 					<tr>
-						<th width="200px">품목별 주문번호</th>
+						<th width="50px">품목별 주문번호</th>
+						<th width="50px">상품번호</th>
 						<th width="150px">상품명</th>
 						<th width="100px">판매가(원)</th>
 						<th width="100px">배송비(원)</th>
@@ -66,6 +67,7 @@
 					%>
 					<tr>
 						<td><%= orderDetail.get(i).get("odId") %></td>
+						<td><%= orderDetail.get(i).get("pId") %></td>
 						<td><%= orderDetail.get(i).get("pName") %></td>
 						<td><%= orderDetail.get(i).get("pPrice") %></td>
 						<% if(i == 0) { %>
@@ -77,7 +79,7 @@
 					</tr>
 					<% } %>
 					<tr>
-						<th colspan="2">계</th>
+						<th colspan="3">계</th>
 						<th><%= totalPPrice %></th>
 						<th><%= orderDetail.get(0).get("deliveryPrice") %></th>
 						<th></th>
@@ -205,7 +207,7 @@
 	}).mouseout(function(){
 		$(this).parent().css({"background":"white", "color":"black"});
 	}).click(function(){
-		var num = $(this).parent().children().eq(0).text();
+		var num = $(this).parent().children().eq(1).text();
 		location.href="<%=request.getContextPath()%>/adminProductOne.do?num=" + num;
 	});
 
