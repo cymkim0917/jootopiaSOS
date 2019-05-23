@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.kh.jooTopia.buy.model.vo.*, java.util.*"%>
-	 
-	<% ArrayList<BuyWaitAdmin> list = (ArrayList<BuyWaitAdmin>) request.getAttribute("list"); %>
+<% 
+	ArrayList<BuyWaitAdmin> list = (ArrayList<BuyWaitAdmin>) request.getAttribute("list");
+	System.out.println("jsp list : " + list);
+%>
 	
 <!DOCTYPE html>
 <html>
@@ -47,14 +49,14 @@
 							<th>상태</th>						
 						</tr>
 					</thead>
-					<% for(BuyWaitAdmin b : list){ %>
 					<tbody>
+						<% for(BuyWaitAdmin b : list){ %>
 						<tr>
-							<td><%= b.getPcdId() %></td>
+							<td><%= b.getPcid() %></td>
 							<td><%= b.getcGroup() %></td>
 							<td><%= b.getName() %></td>
-							<td></td>
-							<td></td>
+							<td><%= b.getApplicant() %></td>
+							<td><%= b.getAppPhone() %></td>
 							<td><%= b.getStatus() %></td>						
 						</tr>
 						<% } %>						
@@ -79,12 +81,8 @@
 
 	<script>
 		$(function(){
-			$("#tableArea td").mouseenter(function(){
-				$(this).parent();
-			}).mouseout(function(){
-				$(this).parent();
-			}).click(function(){
-				var num = $(this).parent().children().eq(0).text();
+			$("#tableArea tr").click(function(){
+				var num = $(this).children().eq(0).text();
 				console.log(num);				
 				<%-- location.href="<%=request.getContextPath()%>/selectOneAdminProductr.do?num=" + num; --%>
 				location.href="<%= request.getContextPath() %>/selectBuyDetail.do?num=" + num;

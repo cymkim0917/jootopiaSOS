@@ -192,7 +192,6 @@ public class ProductAdminService {
 	}
 
 	public ProductregAdmin selectOneAdminProductreg(int num) {
-		
 		Connection con = getConnection();
 		
 		ProductregAdmin p = new ProductAdminDao().selectOneAdminProductreg(con, num);

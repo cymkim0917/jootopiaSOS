@@ -21,7 +21,7 @@ public class SelectBuyDetailAdminServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int pcid = Integer.parseInt(request.getParameter("num"));
-		
+		System.out.println("num : " + pcid);
 		HashMap<String, Object> hmap = new PurchaseAdminService().selectPurchaseOne(pcid);
 		
 		if(hmap != null) {
