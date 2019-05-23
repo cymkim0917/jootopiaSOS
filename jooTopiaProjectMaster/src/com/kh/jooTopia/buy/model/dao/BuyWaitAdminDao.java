@@ -1,3 +1,4 @@
+
 package com.kh.jooTopia.buy.model.dao;
 
 import java.io.FileReader;
@@ -78,3 +79,4 @@ public class BuyWaitAdminDao {
 	}
 
 }
+

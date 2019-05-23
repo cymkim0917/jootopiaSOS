@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.jooTopia.stock.model.vo.*, java.util.*"%>
+    pageEncoding="UTF-8" import="com.kh.jooTopia.stock.model.vo.*, com.kh.jooTopia.heap.model.vo.*, java.util.*"%>
     
-    <% ArrayList<StockAdmin> list = (ArrayList<StockAdmin>) request.getAttribute("list"); %>
+    <% ArrayList<StockAdmin> list = (ArrayList<StockAdmin>) request.getAttribute("list"); 
+    PageInfo pi = (PageInfo)request.getAttribute("pi");
+  	int currentPage = pi.getCurrentPage();
+  	int maxPage = pi.getMaxPage();
+  	int startPage = pi.getStartPage();
+  	int endPage = pi.getEndPage();
+    %>
     
 <!DOCTYPE html>
 <html>
@@ -105,35 +111,45 @@
 					<% } %>
 				</tbody>
 			</table>		
+			</div>
+				
+				<div class="pagingArea" align="center">
+         <button
+            onclick="location.href='<%= request.getContextPath() %>/selectAdminStock.do?currentPage=1'"><<
+            </button>
+         <% if(currentPage <= 1) { %>
+         <button disabled><</button>
+         <% }else { %>
+         <button
+            onclick="location.href='<%= request.getContextPath() %>/selectAdminStock.do?currentPage=<%= currentPage - 1 %>'"><
+            </button>
+         <% } %>
+         
+         <% for(int p = startPage; p <= endPage; p++){
+            if(p == currentPage){%>
+         <button disabled><%=p %></button>
 
-			<!-- db 생기면 적용 -->
-			<%-- <script>
-				$(function(){
-					<% for(Product p : list){ %>
-					
-					var $tableBody = $("table tbody");
-					
-					var $tr = $("<tr>");
-					var $idTd = $("<td>").text('<%= p.get상품코드()%>');
-					var $phoneTd = $("<td>").text('<%= p.get대분류() %>');
-					var $addressTd = $("<td>").text('<%= p.get중분류() %>');			
-					var $nameTd = $("<td>").text('<%= p.get아이디()%>');				
-					var $emailTd = $("<td>").text('<%= p.get주문자명() %>');					
-					
-					$tr.append($상품코드Td);
-					$tr.append($대분류Td);
-					$tr.append($중분류Td);
-					$tr.append($아이디Td);
-					$tr.append($주문자명Td);					
-					
-					$tableBody.append($tr);					
-					
-					<% } %>
-				});
-			</script> --%>	
+         <%}else{%>
+         <button
+            onclick="location.href='<%=request.getContextPath()%>/selectAdminStock.do?currentPage=<%=p%>'"><%=p %></button>
+         <% }%>
+         <% } %>
+
+
+         <% if(currentPage >= maxPage) { %>
+         <button disabled>></button>
+         <% }else { %>
+         <button
+            onclick="location.href='<%= request.getContextPath() %>/selectAdminStock.do?currentPage=<%= currentPage + 1 %>'">
+            ></button>
+         <% } %>
+         <button
+            onclick="location.href='<%= request.getContextPath() %>/selectAdminStock.do?currentPage=<%= maxPage %>'">
+            >></button>
+      </div>
 	
-	<hr>
-	<div align="center">
+	
+	<!-- <div align="center">
 		<ul class="pagination">
 			<li><a href="#">1</a></li>
 			<li><a href="#">2</a></li>
@@ -141,9 +157,9 @@
 			<li><a href="#">4</a></li>
 			<li><a href="#">5</a></li>
 		</ul>
+	</div> -->
 	</div>
-	</div>
-	</div>
+	
    
    </section>
 <%@ include file="/views/common/adminFooter.jsp" %>

@@ -85,6 +85,7 @@
 				console.log(num);				
 				<%-- location.href="<%=request.getContextPath()%>/selectOneAdminProductr.do?num=" + num; --%>
 				location.href="<%= request.getContextPath() %>/selectBuyDetail.do?num=" + num;
+				
 			})
 		})
 	</script>

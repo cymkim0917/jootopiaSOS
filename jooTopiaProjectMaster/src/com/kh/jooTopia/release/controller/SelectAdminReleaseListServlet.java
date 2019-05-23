@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.jooTopia.heap.model.vo.PageInfo;
 import com.kh.jooTopia.release.model.service.ReleaseAdminService;
 import com.kh.jooTopia.release.model.vo.ReleaseAdmin;
+import com.kh.jooTopia.stock.model.service.StockAdminService;
 
  
 /**
@@ -34,13 +36,48 @@ public class SelectAdminReleaseListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<ReleaseAdmin> rlist = new ReleaseAdminService().selectAdminReleaseList();
+		//--페이징 시작
+		int currentPage;
+		int limit;
+		int maxPage;
+		int startPage;
+		int endPage;
+		
+		currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		limit = 10;
+		
+		int listCount = new ReleaseAdminService().getListCount();
+		
+		System.out.println(listCount);
+		
+		maxPage = (int)((double)listCount / limit + 0.9);
+		
+		startPage = (((int)((double)currentPage / limit + 0.9)) -1) *10 +1;
+		
+		endPage = startPage +10 -1;
+		
+		if(maxPage < endPage) {
+			endPage = maxPage;
+		}
+		
+		PageInfo pi = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
+		//페이징처리
+		
+		//ArrayList<ReleaseAdmin> rlist = new ReleaseAdminService().selectAdminReleaseList();
+		ArrayList<ReleaseAdmin> rlist = new ReleaseAdminService().selectAdminReleaseList(pi);
 		System.out.println(rlist);
+		System.out.println(pi);
+		
 		String page = "";
 		if(rlist != null) {
 			page = "views/admin/storage/releaseList.jsp";
 			request.setAttribute("rlist", rlist);
-			
+			request.setAttribute("pi", pi);
 		}else {
 			page = "views/common/errorPage500.jsp";
 			request.setAttribute("msg","실패");

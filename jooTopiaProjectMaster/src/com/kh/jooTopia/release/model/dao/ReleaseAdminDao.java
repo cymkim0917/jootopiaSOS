@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
+import com.kh.jooTopia.heap.model.vo.PageInfo;
 import com.kh.jooTopia.release.model.vo.ReleaseAdmin;
 
 
@@ -207,6 +208,81 @@ public class ReleaseAdminDao {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<ReleaseAdmin> selectAdminList(Connection con, PageInfo pi) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<ReleaseAdmin> list = null;
+		
+		String query = prop.getProperty("selectListAfterPaging");
+		
+		int startRow = (pi.getCurrentPage() -1) * pi.getLimit() +1;
+		int endRow = startRow + pi.getLimit() -1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<ReleaseAdmin>();
+			
+			while(rset.next()) {
+				ReleaseAdmin r = new ReleaseAdmin();
+				
+				r.setpId(rset.getInt("PID"));
+				r.sethId(rset.getInt("HID"));
+				r.setRlId(rset.getInt("RLID"));
+				r.setPcdId(rset.getInt("PCDID"));
+				r.setcGroup(rset.getString("CGROUP"));
+				r.setName(rset.getString("NAME"));
+				r.setPoId(rset.getInt("POID"));
+				r.setdId(rset.getInt("DID"));
+				r.setlBarcode(rset.getInt("LBARCODE"));
+				r.setRlDate(rset.getDate("RLDATE"));
+				r.setpContent(rset.getString("PCONTENT"));
+				
+				list.add(r);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int getListCount(Connection con) {
+		
+		Statement stmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("listCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return listCount;
 	}
 
 	
