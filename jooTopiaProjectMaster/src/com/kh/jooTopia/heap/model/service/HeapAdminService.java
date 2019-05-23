@@ -3,6 +3,7 @@ package com.kh.jooTopia.heap.model.service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.jooTopia.heap.model.vo.PageInfo;
 import com.kh.jooTopia.heap.model.dao.HeapAdminDao;
 import com.kh.jooTopia.heap.model.vo.HeapAdmin;
 
@@ -49,6 +50,28 @@ public class HeapAdminService {
 		close(con);
 		
 		return h;
+	}
+
+	public int getListCount() {
+		
+		Connection con = getConnection();
+		
+		int listCount = new HeapAdminDao().getListCount(con);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+	public ArrayList<HeapAdmin> selectAdminList(PageInfo pi) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<HeapAdmin> list = new HeapAdminDao().selectAdminList(con, pi);
+		
+		close(con);
+		
+		return list;
 	}
 
 	

@@ -3,6 +3,7 @@ package com.kh.jooTopia.heap.model.dao;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +13,7 @@ import java.util.Properties;
 
 import static com.kh.jooTopia.common.JDBCTemplate.close;
 
+import com.kh.jooTopia.heap.model.vo.PageInfo;
 import com.kh.jooTopia.heap.model.vo.HeapAdmin;
  
 
@@ -131,6 +133,85 @@ private Properties prop = new Properties();
 		
 		
 		return h;
+	}
+
+	//게시물 수 조회
+	public int getListCount(Connection con) {
+		
+		Statement stmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("listCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+
+	//게시물 목록 조회용 메소드
+	public ArrayList<HeapAdmin> selectAdminList(Connection con, PageInfo pi) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HeapAdmin> list = null;
+		
+		String query = prop.getProperty("selectListAfterPaging");
+		
+		int startRow = (pi.getCurrentPage() -1) * pi.getLimit() +1;
+		int endRow = startRow + pi.getLimit() -1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HeapAdmin>();
+			
+			while(rset.next()) {
+				HeapAdmin h = new HeapAdmin();
+				
+				h.setpId(rset.getInt("PID"));
+				h.sethId(rset.getInt("HID"));
+				h.setRlId(rset.getInt("RLID"));
+				h.setPcdId(rset.getInt("PCDID"));
+				h.setcGroup(rset.getString("CGROUP"));
+				h.setName(rset.getString("NAME"));
+				h.setPoId(rset.getInt("POID"));
+				h.setdId(rset.getInt("DID"));
+				h.setlBarcode(rset.getInt("LBARCODE"));
+				h.setpContent(rset.getString("PCONTENT"));
+				h.setpName(rset.getString("PNAME"));
+				h.setChangeName(rset.getString("CHANGE_NAME"));
+				
+				list.add(h);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 
 }

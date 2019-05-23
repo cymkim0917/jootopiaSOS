@@ -1,7 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.jooTopia.heap.model.vo.*, java.util.*"%>
-	
-	<% ArrayList<HeapAdmin> list = (ArrayList<HeapAdmin>) request.getAttribute("list"); %>
+	pageEncoding="UTF-8" import="com.kh.jooTopia.heap.model.vo.* , java.util.*"%>	
+	 
+<% ArrayList<HeapAdmin> list = (ArrayList<HeapAdmin>) request.getAttribute("list");   
+   
+  	PageInfo pi = (PageInfo)request.getAttribute("pi");
+  	int currentPage = pi.getCurrentPage();
+  	int maxPage = pi.getMaxPage();
+  	int startPage = pi.getStartPage();
+  	int endPage = pi.getEndPage();
+%>
+	 
 	 
 <!DOCTYPE html>
 <html>
@@ -55,9 +63,48 @@
 					</tbody>
 				</table>
 			</div>		
+			
+			
+			
+			
+			
+		<div class="pagingArea" align="center">
+         <button
+            onclick="location.href='<%= request.getContextPath() %>/selectAdminHeap.do?currentPage=1'"><<
+            </button>
+         <% if(currentPage <= 1) { %>
+         <button disabled><</button>
+         <% }else { %>
+         <button
+            onclick="location.href='<%= request.getContextPath() %>/selectAdminHeap.do?currentPage=<%= currentPage - 1 %>'"><
+            </button>
+         <% } %>
+         
+         <% for(int p = startPage; p <= endPage; p++){
+            if(p == currentPage){%>
+         <button disabled><%=p %></button>
+
+         <%}else{%>
+         <button
+            onclick="location.href='<%=request.getContextPath()%>/selectAdminHeap.do?currentPage=<%=p%>'"><%=p %></button>
+         <% }%>
+         <% } %>
+
+
+         <% if(currentPage >= maxPage) { %>
+         <button disabled>></button>
+         <% }else { %>
+         <button
+            onclick="location.href='<%= request.getContextPath() %>/selectAdminHeap.do?currentPage=<%= currentPage + 1 %>'">
+            ></button>
+         <% } %>
+         <button
+            onclick="location.href='<%= request.getContextPath() %>/selectAdminHeap.do?currentPage=<%= maxPage %>'">
+            >></button>
+      </div>
 
 			<hr>
-			<div align="center">
+			<!-- <div align="center">
 				<ul class="pagination">
 					<li><a href="#">1</a></li>
 					<li><a href="#">2</a></li>
@@ -65,7 +112,7 @@
 					<li><a href="#">4</a></li>
 					<li><a href="#">5</a></li>
 				</ul>
-			</div>
+			</div> -->
 		</div>
 		
 	</section>
