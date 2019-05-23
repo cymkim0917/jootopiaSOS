@@ -10,13 +10,11 @@ import static com.kh.jooTopia.common.JDBCTemplate.*;
 public class BuyWaitAdminService {
 
 	public ArrayList<BuyWaitAdmin> selectAdminList() {
-		
 		Connection con = getConnection();
 		
 		ArrayList<BuyWaitAdmin> list = new BuyWaitAdminDao().selectAdminList(con);
 		
 		close(con);
-		
 		return list;
 	}
 

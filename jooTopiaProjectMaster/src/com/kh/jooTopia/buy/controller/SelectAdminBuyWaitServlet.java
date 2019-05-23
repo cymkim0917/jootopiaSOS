@@ -14,28 +14,16 @@ import com.kh.jooTopia.buy.model.service.BuyWaitAdminService;
 import com.kh.jooTopia.buy.model.vo.BuyWaitAdmin;
  
 
-/**
- * Servlet implementation class SelectAdminBuyServlet
- */
 @WebServlet("/selectAdminBuy.do")
 public class SelectAdminBuyWaitServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public SelectAdminBuyWaitServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		ArrayList<BuyWaitAdmin> list = new BuyWaitAdminService().selectAdminList();
-		System.out.println(list);
 		String page = "";
 		if(list != null) {
 			page = "views/admin/storage/buyWait.jsp";
@@ -50,12 +38,7 @@ public class SelectAdminBuyWaitServlet extends HttpServlet {
 		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }

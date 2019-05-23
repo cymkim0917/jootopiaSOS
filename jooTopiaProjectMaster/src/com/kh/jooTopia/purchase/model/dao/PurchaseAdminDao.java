@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import com.kh.jooTopia.board.model.vo.Attachment;
 import com.kh.jooTopia.board.model.vo.PageInfo;
+import com.kh.jooTopia.purchase.model.vo.PurchaseDetail;
 
 import sun.font.CreatedFontTracker;
 
@@ -72,6 +73,7 @@ public class PurchaseAdminDao {
 	}
 
 	public HashMap<String, Object> selectPurchaseOne(Connection con, int pcid) {
+		System.out.println("selectPurchaseOne Dao");
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		HashMap<String, Object> hmap = null;
@@ -100,6 +102,7 @@ public class PurchaseAdminDao {
 				hmap.put("bContent", rset.getObject("BCONTENT"));
 				hmap.put("memo", rset.getObject("MEMO"));
 				hmap.put("pcid", rset.getObject("PCID"));
+				System.out.println("hmap dao : " + hmap);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -233,6 +236,27 @@ public class PurchaseAdminDao {
 			close(rset);
 		}
 		return list;
+	}
+
+	public int insertPersonAccept(Connection con, PurchaseDetail pcd) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("selectPersonAccept");
+		//  (PCDID, STATUS, PCPRICE, MESSAGE, PCID, PCDATE)
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pcd.getPcPrice());
+			pstmt.setString(2, pcd.getMessage());
+			pstmt.setInt(3, pcd.getPcid());
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 }
 

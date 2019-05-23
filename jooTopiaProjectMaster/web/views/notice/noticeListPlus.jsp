@@ -47,10 +47,6 @@
 		<br>
 		<div class="containaer" align="center">
 			<table class="listArea">
-				<thead>
-					
-				</thead>
-				
 				<tbody>
 					<tr>
 						<th>제목</th>
@@ -58,7 +54,6 @@
 						<td><%=n.getModifyDate() %></td>
 						<!-- <td><input type="text" placeholder="제목을 입력하세요" name="subject" style="width:900px;"></td> -->
 					</tr>
-					
 					<tr>
 						<th>내용</th>
 						<ht><%=n.getbContent() %></ht>
@@ -67,14 +62,10 @@
 						<td></td>
 					</tr>
 				</tbody>
-			
 			</table>
 			</div>
-					 	
 		<div class ="newWriting" align="center">
-			
 			<%-- <button onclick="location.href='<%=request.getContextPath()%>/views/notice/noticeList.jsp'">목록</button> --%>
-			
 		</div>	
 		
 		 <%-- <script>

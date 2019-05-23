@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.jooTopia.board.model.vo.* , java.util.*"%>
 <%	
-	HashMap<String,Object> list = (HashMap<String,Object>) request.getAttribute("list");
+	HashMap<String,Object> hmap = (HashMap<String,Object>) request.getAttribute("list");
 	//Board b = (Board) request.getAttribute("b");
-    ArrayList<Member> mList = (ArrayList<Member>) list.get("mList");
-    ArrayList<Board> bList = (ArrayList<Board>) list.get("bList");
+    ArrayList<Member> mList = (ArrayList<Member>) hmap.get("mList");
+    ArrayList<Board> bList = (ArrayList<Board>) hmap.get("bList");
     // ArrayList<Attachment> aList = (ArrayList<Attachment>) list.get("aList");
    // ArrayList<Attachment> fileList = (ArrayList<Attachment>) request.getAttribute("fileList");
    // Attachment titleImg = fileList.get(0);
@@ -92,8 +92,36 @@
    <section>
       <h1 align="center">상품 후기</h1>
       
+       <div class="outer">
+      <table class="detail" align="center">
+         <tr>
+            <td width="50">제목</td>
+            <td colspan="5"><label><%=hmap.put("btitle","btitle") %></label></td>
+         </tr>
+         <tr>
+            <td>작성자</td>
+            <td><label><%= hmap.put("user_id","user_id") %></label></td>
+            <td>조회수</td>
+            <td><label><%= hmap.put("bcount","bcount") %></label></td>
+            <td>작성일</td>
+            <td><label><%= hmap.put("bdate","bdate") %></label></td>
+         </tr>
+         <tr>
+            <td>대표사진</td>
+            <td colspan="4">
+               <div id="titleImg" align="center">
+                  <img id="titleImg"
+                     src="<%=request.getContextPath() %>/images_upload/=titleImg.getChangeName()"/>
+               </div>
+            </td>
+         </tr>
       
-      <div class="outer">
+      
+      
+      
+      
+     <!--  ////////////////////////////////// -->
+     <%--  <div class="outer">
       <table class="detail" align="center">
          <tr>
             <td width="50">제목</td>
@@ -115,11 +143,15 @@
                      src="<%=request.getContextPath() %>/images_upload/=titleImg.getChangeName()"/>
                </div>
             </td>
-         </tr>
+         </tr> --%>
+         
+         
+         <!-- ////////////////////////////// -->
          <tr>
             <td>사진메모</td>
             <td colspan="6">
-               <p id="contentArea"><%= b.getbContent()%></p>
+              
+               <p id="contentArea"><%=hmap.put("bcontent","bcontent")%></p>
             </td>
          </tr>
       </table>
