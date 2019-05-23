@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*,com.kh.jooTopia.board.model.vo.*"%>
 <%
-
+	ArrayList<HashMap<String, Object>> list = 
+			(ArrayList<HashMap<String,Object>>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -69,25 +70,44 @@
 		<div class = "thumbnailArea">
 			<%
 			for(int i = 0; i<list.size(); i++){
+				HashMap<String,Object> hmap = list.get(i);
+				
+				
 			
 			%>
 			
 		<div class="thumb-list" align="center">
 				<div>
-					<input type="hidden" name="bid" value="<%=getbId()%>">
+					<%-- <input type="hidden" name="bid" value="<%=hmap.get("bId") %>">
 					
-					<img src="<%=request.getContextPath() %>/images_upload/<%=getChangeName()%>"
+					<img src="<%=request.getContextPath() %>/images_upload/<%=hmap.get("changeName") %>"
 						width="200px" height="150px">
 				</div>
 				<p>
-				No. <%=list. %> <br>
-				제목 : <%=getbTitle()%><br>
-				글쓴이 : <%=getUserId() %><br>
-				조회수 : <%=getbCount()%>
+				No. <%=hmap.get("bId") %> <br>
+				제목 : <%=hmap.get("bTitle")%><br>
+				글쓴이 : <%=hmap.get("userId") %><br>
+				조회수 : <%=hmap.get("bCount") %>
+				</p>
+				
+			</div>
+			<% } %>  --%>
+			
+			<input type="hidden" name="bid" value="<%=hmap.get("bno")%>">
+					
+					<img src="<%=request.getContextPath() %>/images_upload/<%=hmap.get("changeName")%>"
+						width="200px" height="150px">
+				</div>
+				<p>
+				No. <%=hmap.get("bno") %> <br>
+				제목 : <%=hmap.get("btitle")%><br>
+				글쓴이 : <%=hmap.get("user_id") %><br>
+				조회수 : <%=hmap.get("bcount")%>
 				</p>
 				
 			</div>
 			<% } %> 
+			
 		</div>
 		
 	</div>
@@ -128,7 +148,7 @@
 				$(".thumb-list").click(function(){
 					var num = $(this).children().children().eq(0).val();
 					console.log(num);
-					location.href="<%=request.getContextPath()%>/selectOneReview.do?num="+num; 
+					location.href="<%=request.getContextPath()%>/selectOneReview.do?num="+num;  
 					
 				});
 			}); 
