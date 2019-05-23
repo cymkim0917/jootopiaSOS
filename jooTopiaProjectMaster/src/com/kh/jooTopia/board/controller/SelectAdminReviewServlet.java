@@ -60,12 +60,12 @@ public class SelectAdminReviewServlet extends HttpServlet {
 			
 				PageInfo pageInfo = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
 				
-				HashMap<String, Object> hmap = new BoardAdminService().selectQnAList(pageInfo);
+				HashMap<String, Object> hmap = new BoardAdminService().selectReviewList(pageInfo);
 				
 				String page = "";
 				
 				if(hmap != null) {
-					page="/views/admin/board/qna.jsp";
+					page="/views/admin/board/review.jsp";
 					request.setAttribute("hmap", hmap);
 					request.setAttribute("pageInfo", pageInfo);
 				}else {

@@ -40,25 +40,25 @@
     <h3 class="title">회원관리</h3>
 	<hr>
 		<div>
-			<form>
+			<form id="searchForm" action="<%=request.getContextPath() %>/searchAdminMember.do" method="post">
 			<table id="searchBox" border="1">
 				  <tr>
 				    <td width="15%"><label class="titleName">아이디</label></td>
-				    <td><input type="text" width="100%"></td>
+				    <td><input type="text" width="100%" name="sUserId"></td>
 				    <td  width="15%"><label class="titleName">이름</label></td>
-				    <td><input type="text" width="100%"></td>
+				    <td><input type="text" width="100%" name="sName"></td>
 				  </tr>
 				  <tr>
 				    <td><label class="titleName">전화번호</label></td>
-				    <td><input type="phone"></td>
-				    <td><label class="titleName">생년월일(ex 1999-12-25)</label></td>
-				    <td><input type="text"></td>
+				    <td><input type="phone" name="sPhone"></td>
+				    <td><label class="titleName">생년월일(ex 19/05/23)</label></td>
+				    <td><input type="text" name="sDate"></td>
 				  </tr>
 				  <tr>
 				    <td><label class="titleName">주소</label></td>
-				    <td><input type="text"></td>
+				    <td><input type="text" name="sAddress"></td>
 				    <td><label class="titleName">이메일</label></td>
-				    <td><input type="email"></td>
+				    <td><input type="email" name="sEmail"></td>
 				  </tr>
 			</table>
 			<br>
