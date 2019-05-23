@@ -56,13 +56,13 @@ public class DeliveryAdminService {
 		return hmap;
 	}
 
-	public void updateAdminDeliveryModal(POrder modiOrder, Delivery modiDelivery) {
+	public int updateAdminDeliveryModal(POrder modiOrder, Delivery modiDelivery) {
 		//배송중 배송정보(및 주문) 모달 수정용
 		Connection con = getConnection();
 		
 		int result = new DeliveryAdminDao().updateAdminDeliveryModal(con, modiOrder, modiDelivery);
 		
-		if(result > 0) {
+		if(result > 1) {
 			commit(con);
 			System.out.println("모달 수정완료!!");
 		}else {
@@ -70,6 +70,58 @@ public class DeliveryAdminService {
 			System.out.println("모달 수정실패!!");
 		}
 		
+		return result;
+	}
+
+	public int changeStatusDelivery(String status, int[] dId) {
+		//배송상태 변경 - 배송중, 배송완료
+		Connection con = getConnection();
+		int result = 0;
+		
+		result += new DeliveryAdminDao().changeStatusDelivery(con, status, dId);
+		
+		if(result > 0 && result == dId.length) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		return result;
+	}
+
+	public int changeStatusProduct(String pStatus, int[] dId) {
+		//배송완료된 상품상태 변경 - 판매완료
+		Connection con = getConnection();
+		int result = 0;
+		
+		result += new DeliveryAdminDao().changeStatusProduct(con, pStatus, dId);
+		
+		if(result > 0 && result == dId.length) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectDelCompletedList(PageInfo pageInfo) {
+		//배송완료 전체 리스트 조회
+		Connection con = getConnection();
+		ArrayList<HashMap<String, Object>> list = new DeliveryAdminDao().selectDelCompletedList(con, pageInfo);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public HashMap<String, Object> selectDelCompletedOne(int dId) {
+		Connection con = getConnection();
+		HashMap<String, Object> hmap = new DeliveryAdminDao().selectDelCompletedOne(con, dId);
+		
+		close(con);
+		
+		return hmap;
 	}
 
 }

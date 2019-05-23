@@ -297,7 +297,7 @@
 		      	})
 		      </script>
 		      <div class="modal-footer">
-		      	<button class="btn btn-danger" onclick="#">매입완료</button>
+	0	      	<button class="btn btn-danger" onclick="location.href='jootopia/views/admin/storage/buyWait.jsp'">매입완료</button>
 		        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 		      </div>
 		    </div>

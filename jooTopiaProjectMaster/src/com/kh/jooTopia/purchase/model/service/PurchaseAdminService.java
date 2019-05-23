@@ -31,6 +31,7 @@ public class PurchaseAdminService {
 	}
 
 	public HashMap<String, Object> selectPurchaseOne(int pcid) {
+		System.out.println("selectPurchaseOne service");
 		Connection con = getConnection();
 		HashMap<String, Object> hmap = null;
 		

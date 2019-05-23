@@ -124,8 +124,8 @@
 						<td><%= count++ %></td>
 						<td><%= d.getStatus() %></td>
 						<td><%= o.getPoDate() %> / <%= o.getPoId() %></td>
-						<% if(d.getStartDate() != null) { %>
-						<td><%= d.getStartDate() %></td>
+						<% if(hmap.get("startDate") != null) { %>
+						<td><%= hmap.get("startDate") %></td>
 						<% }else { %>
 						<td>미정</td>
 						<% } %>
@@ -153,7 +153,7 @@
 		<li><a href="<%=request.getContextPath()%>/adminProductList.do?currentPage=<%= currentPage - 1 %>">이전</a></li>
 		<% } %>
 		
-		<% for(int p = startPage; p <= endPage; p++) { 
+		<% for(int p = startPage; p < endPage; p++) { 
 			if(p == currentPage) { %>
 		<li><a><%= p %></a></li>
 		<% 	}else { %>
@@ -312,6 +312,7 @@
 				
 				var order = data["o"];
 				var delivery = data["d"];
+				var startDate = data["startDate"];
 				
 				//조회 성공 시 모달에 넣어주기
 				$(function() {
@@ -323,8 +324,8 @@
 					$("#modalPhone").val(order.phone);
 					$("#modalAddress").val(order.address);
 					$("#oMemo").val(order.dMessage);
-					if(delivery.startDate != null) {
-						$("#dStartDate").val(delivery.startDate);
+					if(startDate != null) {
+						$("#dStartDate").val(startDate);
 					}else {
 						var today = new Date().toISOString().substr(0, 10);
 						console.log("오늘날짜 : " + today);
@@ -349,9 +350,8 @@
 		});
 	});
 	
-	//배송메시지 변경
+	//배송정보 변경
 	function changeDelivery() {
-	
 		
 		var poId = $("#modalPoId").text();
 		var name = $("#modalName").val();
@@ -372,11 +372,8 @@
 			type : "post",
 			data : {poId : poId, name : name, phone : phone, address : address, dMessage : dMessage, startDate : startDate},
 			success : function(data) {
-				console.log(data);
-				/* $("#oMemo").val(changeValue);
-				console.log(changeValue);
-				location.href='selectAdminPreList.do';
-				alert(data); */
+				location.href='selectAdminDeliveryList.do';
+				alert(data);
 			},
 			error : function(data) {
 				alert("에이젝스 접속실패");
@@ -394,7 +391,7 @@
 		}
 	});
 	
-	function oTypeChange(text) {
+	function dTypeChange(text) {
 		var answer = window.confirm("선택한 상품을 " + text + " 하시겠습니까?");
 		if(answer) {
 			var numArr = [];
@@ -408,40 +405,12 @@
 			console.log( numArr );
 			
 			$.ajax({
-				url : "adminChangeStatusOrder.do",
+				url : "changeDeliveryStatus.do",
 				type : "post",
 				data : {numArr : numArr, text : text},
 				success : function(data) {
 					alert(data);
-					location.href='selectAdminPreList.do';
-				},
-				error : function(data) {
-					alert("해당상품 " + text + " 처리 실패");
-				}
-			});
-		}
-	};
-	
-	function deliveryInsert(text) {
-		var answer = window.confirm("선택한 상품을 " + text + " 처리 하시겠습니까?");
-		if(answer) {
-			var numArr = [];
-			$(".check").each(function() {
-				if($(this).is(":checked"))
-					if($(this) !== $("#allCheck")) {
-						numArr += $(this).val() + "|";
-					}
-			});
-			
-			console.log( numArr );
-			
-			$.ajax({
-				url : "adminInsertDelivery.do",
-				type : "post",
-				data : {numArr : numArr},
-				success : function(data) {
-					alert(data);
-					location.href='selectAdminPreList.do';
+					location.href='selectAdminDeliveryList.do';
 				},
 				error : function(data) {
 					alert("해당상품 " + text + " 처리 실패");
