@@ -29,7 +29,7 @@
 		<%@ include file="/views/common/adminSideMenu.jsp" %>
 		
 		<div class="col-sm-10">
-		<h3 class="title">배송중 주문상세</h3>
+		<h3 class="title">배송완료 주문상세</h3>
 		<hr>
 		
 		<div id="infoArea">
@@ -58,12 +58,8 @@
 				<td><%= d.getStatus() %></td>
 			</tr>
 			<tr>
-				<th>배송예정일</th>
-				<% if(hmap.get("startDate") != null) { %>
-				<td><%= hmap.get("startDate") %></td>
-				<% }else { %>
-				<td>미정</td>
-				<% } %>
+				<th>배송완료일</th>
+				<td><%= d.getArriveDate() %></td>
 			</tr>
 			<tr>
 				<th>배송지 주소</th>
@@ -193,31 +189,19 @@
 			<tr><th colspan="2" height="40px">수령자 정보</th></tr>
 			<tr>
 				<th>수령자명</th>
-				<td>
-				<input id="name" type="text" value='<%= o.getName() %>' size="50%">
-				<button class="memo" onclick="changeCondition('NAME', this)">수정</button>
-				</td>
+				<td><%= o.getName() %></td>
 			</tr>
 			<tr>
 				<th>연락처</th>
-				<td>
-				<input id="phone" type="text" value='<%= o.getPhone() %>' size="50%">
-				<button class="memo" onclick="changeCondition('PHONE', this)">수정</button>
-				</td>
+				<td><%= o.getPhone() %></td>
 			</tr>
 			<tr>
 				<th>배송주소</th>
-				<td>
-					<input id="address" type="text" value='<%= o.getAddress() %>' size="50%">
-					<button class="memo" onclick="changeCondition('ADDRESS', this)">수정</button>
-				</td>
+				<td><%= o.getAddress() %></td>
 			</tr>
 			<tr>
 				<th>배송메시지</th>
-				<td>
-					<input id="message" type="text" value='<%= o.getdMessage() %>' size="50%">
-					<button class="memo" onclick="changeCondition('DMESSAGE', this)">수정</button>
-				</td>
+				<td><%= o.getdMessage() %></td>
 			</tr>
 		</table>
 		</div>
@@ -225,7 +209,7 @@
 		<br>
 		
 		<div class="btnArea" align="center">
-			<button onclick="location.href='selectAdminDeliveryList.do'">확인</button>
+			<button onclick="location.href='selectAdminDelCompletedList.do'">확인</button>
 		</div>
 		<br><br>
 		
@@ -233,41 +217,5 @@
 	</section>
 <%@ include file="/views/common/adminFooter.jsp" %>
 
-<script>
-	//------해당 상품정보(게시물) 조회 펑션
-	$("#selectList td").mouseenter(function(){
-		$(this).parent().css({"background":"rgb(61, 81, 113)", "color":"white", "cursor":"pointer"});
-	}).mouseout(function(){
-		$(this).parent().css({"background":"white", "color":"black"});
-	}).click(function(){
-		var num = $(this).parent().children().eq(1).text();
-		location.href="<%=request.getContextPath()%>/adminProductOne.do?num=" + num;
-	});
-
-	function changeCondition(text, btn) {
-		var poId = '<%= o.getPoId() %>';
-		var condition = text;
-		var changeValue = $(btn).siblings().val();
-		console.log(poId);
-		console.log(condition);
-		console.log(changeValue);
-		
-		var dId = '<%= d.getdId() %>'
-		$.ajax({
-			url : "changeConditionOne.do",
-			type : "post",
-			data : {poId : poId, condition : condition, changeValue : changeValue},
-			success : function(data) {
-				$(btn).siblings().val(changeValue);
-				console.log(changeValue);
-				location.href='selectAdminDelOne.do?num='+dId;
-				alert(data);
-			},
-			error : function(data) {
-				alert("에이젝스 접속실패");
-			}
-		});
-	}
-</script>
 </body>
 </html>

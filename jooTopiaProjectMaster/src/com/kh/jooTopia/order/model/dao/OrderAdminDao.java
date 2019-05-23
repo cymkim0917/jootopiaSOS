@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import com.kh.jooTopia.board.model.vo.Attachment;
 import com.kh.jooTopia.board.model.vo.PageInfo;
+import com.kh.jooTopia.delivery.model.vo.Delivery;
 import com.kh.jooTopia.order.model.vo.POrder;
 import com.kh.jooTopia.payment.model.vo.Payment;
 import com.kh.jooTopia.product.model.dao.ProductAdminDao;
@@ -95,10 +96,14 @@ public class OrderAdminDao {
 		ResultSet rset = null;
 
 		String query = prop.getProperty("selectPaymentList");
+		int startRow = (pageInfo.getCurrentPage()-1)*pageInfo.getLimit()+1;
+		int endRow = startRow + pageInfo.getLimit()-1;
 
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, "주문완료");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 
 			rset = pstmt.executeQuery();
 
@@ -252,11 +257,15 @@ public class OrderAdminDao {
 		HashMap<String, Object> hmap = null;
 		
 		String query = prop.getProperty("selectPreProductList");
+		int startRow = (pageInfo.getCurrentPage()-1)*pageInfo.getLimit()+1;
+		int endRow = startRow + pageInfo.getLimit()-1;
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, "상품준비중");
 			pstmt.setString(2, "결제완료");
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
 			
 			rset = pstmt.executeQuery();
 			

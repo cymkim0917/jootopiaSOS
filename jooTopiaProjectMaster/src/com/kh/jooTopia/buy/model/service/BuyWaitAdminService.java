@@ -11,7 +11,7 @@ public class BuyWaitAdminService {
 
 	public ArrayList<BuyWaitAdmin> selectAdminList() {
 		
-		Connection con = getConnection();
+		Connection con = getConnection();	
 		
 		ArrayList<BuyWaitAdmin> list = new BuyWaitAdminDao().selectAdminList(con);
 		

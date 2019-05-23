@@ -72,6 +72,7 @@ public class PurchaseAdminDao {
 	}
 
 	public HashMap<String, Object> selectPurchaseOne(Connection con, int pcid) {
+		System.out.println("selectPurchaseOne Dao");
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		HashMap<String, Object> hmap = null;
@@ -100,6 +101,7 @@ public class PurchaseAdminDao {
 				hmap.put("bContent", rset.getObject("BCONTENT"));
 				hmap.put("memo", rset.getObject("MEMO"));
 				hmap.put("pcid", rset.getObject("PCID"));
+				System.out.println("hmap dao : " + hmap);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

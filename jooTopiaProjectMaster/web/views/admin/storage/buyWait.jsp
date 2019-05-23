@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.kh.jooTopia.buy.model.vo.*, java.util.*"%>
 	 
-	<% ArrayList<BuyWaitAdmin> list = (ArrayList<BuyWaitAdmin>) request.getAttribute("list"); %>
+	<% ArrayList<BuyWaitAdmin> list = (ArrayList<BuyWaitAdmin>) request.getAttribute("list"); 
+	
+		System.out.println("list : " + list);
+	%>
 	
 <!DOCTYPE html>
 <html>
@@ -13,7 +16,6 @@
 <script src="/jootopia/js/external/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/jootopia/css/admin/adminCommon.css">
 <title>JooTopia</title>
-
 <style>
 .listArea{
 	padding-left: 5%;

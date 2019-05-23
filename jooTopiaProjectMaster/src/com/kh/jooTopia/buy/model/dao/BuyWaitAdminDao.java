@@ -49,7 +49,6 @@ public class BuyWaitAdminDao {
 			while(rset.next()) {
 				BuyWaitAdmin b = new BuyWaitAdmin();
 				
-				
 				b.setPcdId(rset.getInt("PCDID"));
 				b.setcGroup(rset.getString("CGROUP"));
 				b.setName(rset.getString("NAME"));
