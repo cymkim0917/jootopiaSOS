@@ -38,7 +38,6 @@ public class BoardDao {
    
    //전체출력
    public HashMap<String, Object> selectList(Connection con) {
-      
       Statement stmt = null;
       ResultSet rset = null;
       HashMap<String, Object> hmap = null;
@@ -64,6 +63,7 @@ public class BoardDao {
          while(rset.next()) {
             Notice n = new Notice();
             n.setbId(rset.getInt("BID"));
+            n.setbNo(rset.getInt("BNO"));
             n.setbType(rset.getInt("BTYPE"));
             n.setbTitle(rset.getString("BTITLE"));
             n.setbCount(rset.getInt("BCOUNT"));
@@ -97,26 +97,20 @@ public class BoardDao {
       
    //상세보기
    public Notice selectOne(Connection con, int num) {
-      
       PreparedStatement pstmt = null;
       ResultSet rset = null;
       Notice n = null;
       
-      System.out.println("n : " + n);
-      
       String query = prop.getProperty("selectOne");
-      
-      
       try {
-         
          pstmt=con.prepareStatement(query);
          pstmt.setInt(1, num);
          rset=pstmt.executeQuery();
          System.out.println("selectOne : " + query);
+         System.out.println("num in dao : " + num);
          
          if(rset.next()) {
             n=new Notice();
-            
             n.setbId(rset.getInt("BID"));
             n.setbNo(rset.getInt("BNO"));
             n.setbType(rset.getInt("BTYPE"));
@@ -127,6 +121,8 @@ public class BoardDao {
             n.setModifyDate(rset.getDate("MODIFY_DATE"));
             n.setbCount(rset.getInt("BCOUNT"));
             n.setuNo(rset.getInt("UNO"));
+            
+            
          }
          
       } catch (SQLException e) {
@@ -136,7 +132,7 @@ public class BoardDao {
          close(pstmt);
          close(rset);
       }
-      System.out.println("n : " + n);
+      System.out.println("last num in dao : " + num);
       return n;
       
    }
@@ -145,8 +141,8 @@ public class BoardDao {
    public int getNoticeListCount(Connection con) {
       
       Statement stmt = null;
-      int listCount = 0;
       ResultSet rset = null;
+      int listCount = 0;
       
       String query = prop.getProperty("noticeListCount");
       
@@ -173,16 +169,19 @@ public class BoardDao {
    
    public int updateCount(Connection con, int getbId) {
       PreparedStatement pstmt = null;
-      int result=0;
+      int result = 0;
       String query = prop.getProperty("updateCount");
       
       try {
-         pstmt=con.prepareStatement(query);
+         pstmt = con.prepareStatement(query);
          pstmt.setInt(1, getbId);
          pstmt.setInt(2, getbId);
          
-         result=pstmt.executeUpdate();
+         System.out.println("result : " + pstmt.executeUpdate());
+         result = pstmt.executeUpdate();
          
+         System.out.println();
+         System.out.println("result : " + result);
       } catch (SQLException e) {
          e.printStackTrace();
       }finally {
@@ -800,81 +799,62 @@ public class BoardDao {
 
    //////////////////////////////////////////////////////////////////////////
    //(s) 후기게시판 전체 리스트 
-   public HashMap<String, Object> selectReviewTotalList(Connection con) {
+   public ArrayList<HashMap<String, Object>> selectReviewTotalList(Connection con) {
 	   
 	   Statement stmt = null;
 	   ResultSet rset = null;
-	   HashMap<String,Object> hmap = null;
-	   ArrayList<Board> bList = null;
-	   ArrayList<Member> mList = null;
-	   ArrayList<Attachment> aList = null;
-	   //ArrayList<HashMap<String,Object>> list = null;
+	   //HashMap<String,Object> hmap = null;
+	   //ArrayList<Board> bList = null;
+	   //ArrayList<Member> mList = null;
+	   //ArrayList<Attachment> aList = null;
+	   ArrayList<HashMap<String,Object>> list = null;
 	   
 	   String quary = prop.getProperty("selectReviewTotalList");
 	   
 	   try {
 		   stmt=con.createStatement();
 		   rset = stmt.executeQuery(quary);
-		   bList = new ArrayList<Board>();
+		   list = new ArrayList<HashMap<String,Object>>();
+		   
+		   /*bList = new ArrayList<Board>();
 		   mList = new ArrayList<Member>();
 		   aList = new ArrayList<Attachment>();
-		   hmap = new HashMap<String,Object>();
+		   hmap = new HashMap<String,Object>();*/
 		   //list = new ArrayList<HashMap<String,Object>>();
 		   
 		   while(rset.next()) {
-			   //list=new HashMap<String,Object>();
-			   Board b = new Board();
-			   b.setbId(rset.getInt("BID"));
-			   b.setbNo(rset.getInt("BNO"));
-			   b.setbTitle(rset.getString("BTITLE"));
-			   b.setbContent(rset.getString("BCONTENT"));
-			   b.setbCount(rset.getInt("BCOUNT"));
-			   b.setbDate(rset.getDate("BDATE"));
-			   bList.add(b);
-			   
-			   Member m = new Member();
-			   m.setUserId(rset.getString("USER_ID"));
-			   mList.add(m);
-			   
-			   Attachment a = new Attachment();
-			   a.setfId(rset.getInt("FID"));
-			   a.setOriginName(rset.getString("ORIGIN_NAME"));
-			   a.setChangeName(rset.getString("CHANGE_NAME"));
-			   a.setFilePath(rset.getString("FILE_PATH"));
-			   a.setUploadDate(rset.getDate("UPLOAD_DATE"));
-			   aList.add(a);
-			   
-			   
-			   /*list.put("bid", rset.getInt("BID"));
-            list.put("bno", rset.getInt("BNO"));
-            list.put("btitle", rset.getString("BTITLE"));
-            list.put("bcontent", rset.getString("BCONTENT"));
-            list.put("userId", rset.getString("USERID"));
-            //list.put("bwriter", rset.getString("NICK_NAME"));
-            list.put("bcount", rset.getInt("BCOUNT"));
-            list.put("bdate", rset.getDate("BDATE"));
-            list.put("fid", rset.getInt("FID"));
-            list.put("originName", rset.getString("ORIGIN_NAME"));
-            list.put("changeName", rset.getString("CHANGE_NAME"));
-            list.put("filePath", rset.getString("FILE_PATH"));
-            list.put("uploadDate", rset.getDate("UPLOAD_DATE"));
-            
-            list.add(list);
-			    */
+			  
+			   HashMap<String,Object> hmap = new HashMap<String,Object>();
+	           
+	           hmap.put("bid",rset.getObject("BID"));
+	           hmap.put("bno",rset.getObject("BNO"));
+	           hmap.put("btitle",rset.getObject("BTITLE"));
+	           
+	           hmap.put("bcontent",rset.getObject("BCONTENT"));
+	           hmap.put("user_id", rset.getObject("USER_ID"));
+	           hmap.put("bcount", rset.getObject("BCOUNT"));
+	           hmap.put("bdate",rset.getObject("BDATE"));
+	           
+	           hmap.put("fid", rset.getObject("FID"));
+	         
+	           hmap.put("origin_name",rset.getObject("ORIGIN_NAME"));
+	           hmap.put("change_name",rset.getObject("CHANGE_NAME"));
+	           hmap.put("file_path",rset.getObject("FILE_PATH"));
+	           hmap.put("upload_date",rset.getObject("UPLOAD_DATE"));
+	           hmap.put("file_level",rset.getObject("FILE_LEVEL"));
+	           hmap.put("status",rset.getObject("STATUS"));
+	           
+	           list.add(hmap);
+
 		   }
-		   hmap.put("bList", bList);
-		   hmap.put("mList", mList);
-		   hmap.put("aList", aList);
-		   System.out.println(hmap.get("bList"));
-		   System.out.println(hmap.get("mList"));
-		   System.out.println(hmap.get("aList"));
+		  
 	   } catch (SQLException e) {
 		   e.printStackTrace();
 	   }finally {
 		   close(rset);
 		   close(stmt);
 	   }
-	   return hmap;
+	   return list;
 	   
    }
    

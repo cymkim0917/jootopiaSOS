@@ -26,18 +26,16 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 <style>
-	.checkboxgroup{
-		margin-left:10%;
-		
-	}
-	
-	.container {
-		border:1px solid black;
-		text-align:center;
-	}
-	table th{
-		text-align: center;
-	}
+.checkboxgroup{
+	margin-left:10%;
+}
+.container {
+	border:1px solid black;
+	text-align:center;
+}
+table th{
+	text-align: center;
+}
 </style>
 
 <title>JooTopia</title>
@@ -45,79 +43,54 @@
 <body>
 <%@ include file="/views/common/navigation.jsp" %>
 	<section>
-	<br>
-		    <br>
-		      <h1 align="center">공지사항/이벤트</h1>
-		      <br>
-		      
-		      
-		       <div class="container">
-		        <table class="table table-hover">
-		         
-		            <tr>
-		              <th>글번호</th>
-		              <th>유형</th>
-		              <th>제목</th>
-		              <th>작성자</th>
-		              <th>작성일</th>
-		              <th>조회수</th>
-		            </tr>
-		             
-		      		<% for(int i = 0; i < nList.size(); i++){ %>
-			            <tr>
-			              <td><%= nList.get(i).getbId() %></td>
-			              <td><%if(nList.get(i).getbType()==1){ %>
-			              	공지사항
-			              	<%}else{ %>
-			              	이벤트
-			              	<%} %>
-			              </td>
-			              <td><%=nList.get(i).getbTitle() %></td>
-			              <td><%=mList.get(i).getUserId() %></td>
-			              <td><%=nList.get(i).getModifyDate() %></td>
-			              <td><%=nList.get(i).getbCount() %></td>
-			            </tr>
-		            <%} %>   
-		         
-		        </table>
-		      </div>  
+	<br><br>
+      <h1 align="center">공지사항/이벤트</h1>
+      <br>
+       <div class="container">
+        <table class="table table-hover">
+            <tr>
+              <th>글번호</th>
+              <th>유형</th>
+              <th>제목</th>
+              <th>작성자</th>
+              <th>작성일</th>
+              <th>조회수</th>
+            </tr>
+      		<% for(int i = 0; i < nList.size(); i++){ %>
+	            <tr>
+	              <td><%= nList.get(i).getbNo() %></td>
+	              <td><%if(nList.get(i).getbType()==1){ %>
+	              	공지사항
+	              	<%}else{ %>
+	              	이벤트
+	              	<%} %>
+	              </td>
+	              <td><%=nList.get(i).getbTitle() %></td>
+	              <td><%=mList.get(i).getUserId() %></td>
+	              <td><%=nList.get(i).getModifyDate() %></td>
+	              <td><%=nList.get(i).getbCount() %></td>
+	            </tr>
+            <%} %>   
+        </table>
+      </div>  
 		<br>
-		
 		<br>
-		
 		<div class="checkboxgroup">
-		
-		<input type="checkbox" name="chk_info" value="title" checked="checked">제목
-		<input type="checkbox" name="chk_info" value="content">내용
-		<input type="text">&nbsp;
-		<button onclick="location.href='<%=request.getContextPath()%>/views/notice/noticeList.jsp'">검색</button>
+			<input type="checkbox" name="chk_info" value="title" checked="checked">제목
+			<input type="checkbox" name="chk_info" value="content">내용
+			<input type="text">&nbsp;
+			<button onclick="location.href='<%=request.getContextPath()%>/views/notice/noticeList.jsp'">검색</button>
 		</div>
-		
-			 <script>
+		 <script>
+		 $(".table td").click(function() {
+			 console.log("ddddd");
+			 var num = $(this).parent().children().eq(0).text();
+			 console.log(num);
+			 location.href="<%=request.getContextPath()%>/selectNoticeOne.do?num="+num;
 			 
-			 
-			 $(".table td").click(function() {
-				 
-				 console.log("ddddd");
-				 var num = $(this).parent().children().eq(0).text();
-				 console.log(num);
-				 location.href="<%=request.getContextPath()%>/selectOne.do?num="+num;
-				 
-				/*  $('',this).triger('click'); */
-				 
-			 });
-			
-			
-				
-				
-				
-				
-			</script> 
-		
-		
-		
-	
-		
+			/*  $('',this).triger('click'); */
+		 });
+		</script> 
 	</section>
 	
 	<br><br>

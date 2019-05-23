@@ -66,43 +66,6 @@ public class SelectNoticeListServlet extends HttpServlet {
 		System.out.println("response : "  + response);
 	
 	}
-	
-	/*		int currentPage;
-		int limit;		
-		int maxPage; 	
-		int startPage;	
-		int endPage;
-		
-		currentPage = 1;
-		
-		if(request.getParameter("currentPage") != null) {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		}
-		
-		
-		limit = 10;
-		
-		int listCount = new NoticeService().getNoticeListCount();
-		
-		maxPage = (int)((double)listCount / limit+0.9);
-		
-		startPage = (((int)((double)currentPage/limit+0.9))-1);
-		
-		endPage = startPage +10 -1;
-		if(maxPage<endPage) {
-			endPage=maxPage;
-		}
-		
-		PageInfo pageInfo = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
-		
-		
-		
-		
-		
-		System.out.println("pageInfo : " + pageInfo);
-		
-		System.out.println("request : " + request);
-	 */
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

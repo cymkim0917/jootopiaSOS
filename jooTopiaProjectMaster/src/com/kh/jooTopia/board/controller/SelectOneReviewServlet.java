@@ -25,17 +25,17 @@ public class SelectOneReviewServlet extends HttpServlet {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       int num = Integer.parseInt(request.getParameter("num"));
       
-      ArrayList<HashMap<String,Object>> list = new BoardService().reviewReadPage(num);
+      HashMap<String,Object> hmap = new BoardService().reviewReadPage(num);
       
       
       //가
-      System.out.println("list in servlet : " + list);
+      System.out.println("list in servlet : " + hmap);
       
       String page="";
       
-      if(list != null) {
+      if(hmap != null) {
          page="views/board/reviewReadPage.jsp";
-         request.setAttribute("list", list);
+         request.setAttribute("list", hmap);
          
       }else {
          page="views/common/errorPage.jsp";
