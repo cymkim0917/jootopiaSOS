@@ -61,6 +61,24 @@ public class MemberAdminService {
 		return listCount;
 	}
 
+	public ArrayList<Member> searchMember(PageInfo pageInfo,Member sMember) {
+		Connection con = getConnection();
+		
+		ArrayList<Member> list = new MemberAdminDao().searchMember(con, pageInfo, sMember);
+		
+		
+		return list;
+	}
+
+	public ArrayList selectOrderList(int uNo) {
+		Connection con = getConnection();
+		
+		ArrayList list = new MemberAdminDao().selectOrderList(con, uNo);
+		
+		
+		return list;
+	}
+
 	
 
 }

@@ -903,6 +903,90 @@ public class BoardAdminDao {
 		}
 		
 	}
+
+	public int getReviewListCount(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String query = prop.getProperty("selectReviewCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		return listCount;
+	}
+
+	public HashMap<String, Object> selectReviewList(Connection con, PageInfo pageInfo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+		ArrayList<Board> boardL = null;
+		ArrayList<Member> memberL = null;
+		
+		
+		int startRow = (pageInfo.getCurrentPage()-1)*pageInfo.getLimit()+1;
+		int endRow = startRow + pageInfo.getLimit()-1;
+		
+		String query = prop.getProperty("selectReviewListPaging");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset=pstmt.executeQuery();
+			
+			hmap = new HashMap<String, Object>();
+			
+			boardL = new ArrayList<Board>();
+			memberL = new ArrayList<Member>();
+			
+			while(rset.next()) {
+				Board board = new Board();
+				board.setbId(rset.getInt("BID"));
+				board.setbNo(rset.getInt("BNO"));
+				board.setbTitle(rset.getString("BTITLE"));
+				board.setbDate(rset.getDate("BDATE"));
+				board.setbContent(rset.getString("BCONTENT"));
+				board.setaStatus(rset.getString("ASTATUS"));
+				
+				boardL.add(board);
+				
+				Member member = new Member();
+				member.setUserId(rset.getString("USER_ID"));
+				member.setUno(rset.getInt("UNO"));
+				
+				memberL.add(member);
+				
+			}
+			
+			hmap.put("board", boardL);
+			hmap.put("member", memberL);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return hmap;
+	}
 	
 }
 
