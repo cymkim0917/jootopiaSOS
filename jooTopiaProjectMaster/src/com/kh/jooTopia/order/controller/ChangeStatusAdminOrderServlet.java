@@ -2,6 +2,7 @@ package com.kh.jooTopia.order.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,16 +25,16 @@ public class ChangeStatusAdminOrderServlet extends HttpServlet {
 
 		String numArr = request.getParameter("numArr");
 		String[] num = numArr.split("\\|");
-		int poId[] = new int[num.length];
+		
+		ArrayList<Integer> poId = new ArrayList<Integer>();
 
 		for(int i = 0; i < num.length; i++) {
-			poId[i] = Integer.parseInt(num[i]);
+			poId.add(Integer.parseInt(num[i]));
 		}
 		int result = 0;
 		String status = "";
 		String text = request.getParameter("text");
 		switch (text) {
-		case "주문취소" : status = "주문취소"; break;
 		case "입금완료" : status = "상품준비중"; break;
 		}
 

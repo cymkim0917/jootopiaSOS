@@ -91,8 +91,7 @@
 			<table id="selectList" class="selectList" border="1">
 				<tr>
 					<th colspan="9" style="height: 45px; text-align: left;">
-						<button class="selectBtn" onclick="dTypeChange('배송중')">배송중</button>
-						<button class="selectBtn" onclick="dTypeChange('배송완료')">배송완료</button>
+						<button class="selectBtn" onclick="deliveryCompleted()">배송완료</button>
 					</th>
 				</tr>
 				<tr>
@@ -104,7 +103,7 @@
 					<th width="150px">배송코드</th>
 					<th width="70px">주문자</th>
 					<th width="250px">상품명</th>
-					<th width="100px">배송정보</th>
+					<th width="100px">배송중 변경</th>
 				</tr>
 				<% for(int i = 0; i < list.size(); i++) { 
 					HashMap<String,Object> hmap = list.get(i);
@@ -120,7 +119,7 @@
 				<% if(i >= 0 && d.getdId() != beforeDId) { 
 				%>
 					<tr>
-						<th><input type="checkbox" class="check" value="<%= o.getPoId() %>"></th>
+						<th><input type="checkbox" class="check" value="<%= d.getdId() %>"></th>
 						<td><%= count++ %></td>
 						<td><%= d.getStatus() %></td>
 						<td><%= o.getPoDate() %> / <%= o.getPoId() %></td>
@@ -350,7 +349,7 @@
 		});
 	});
 	
-	//배송정보 변경
+	//배송정보 변경 및 배송중 처리
 	function changeDelivery() {
 		
 		var poId = $("#modalPoId").text();
@@ -391,8 +390,8 @@
 		}
 	});
 	
-	function dTypeChange(text) {
-		var answer = window.confirm("선택한 상품을 " + text + " 하시겠습니까?");
+	function deliveryCompleted() {
+		var answer = window.confirm("선택한 상품을 배송완료 처리 하시겠습니까?");
 		if(answer) {
 			var numArr = [];
 			$(".check").each(function() {
@@ -407,13 +406,13 @@
 			$.ajax({
 				url : "changeDeliveryStatus.do",
 				type : "post",
-				data : {numArr : numArr, text : text},
+				data : {numArr : numArr},
 				success : function(data) {
 					alert(data);
 					location.href='selectAdminDeliveryList.do';
 				},
 				error : function(data) {
-					alert("해당상품 " + text + " 처리 실패");
+					alert("해당상품 배송완료 처리 실패");
 				}
 			});
 		}

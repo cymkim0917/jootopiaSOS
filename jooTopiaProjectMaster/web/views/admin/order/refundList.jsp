@@ -1,36 +1,30 @@
+<%@page import="com.kh.jooTopia.delivery.model.vo.Delivery"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!-- import="com.kh.jooTopia.product.model.vo.*, java.util.*, java.lang.*" -->    
+    pageEncoding="UTF-8" import="com.kh.jooTopia.board.model.vo.*, com.kh.jooTopia.order.model.vo.*, com.kh.jooTopia.payment.model.vo.*, java.util.*, java.lang.*"%>
 <%
 	int count = 1;
-	String memo = "배송메시지 임시";
+	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
 	
-	/* Product productList = (Product) session.getAttribute("productList");
-	java.util.Date date = new java.util.Date();
-	java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
-	String startDay = dateFormat.format(date);
-	String endDay = dateFormat.format(date);
+	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
+	int currentPage = pageInfo.getCurrentPage();
+	int maxPage = pageInfo.getMaxPage();
+	int startPage = pageInfo.getStartPage();
+	int endPage = pageInfo.getEndPage();
 	
-	ArrayList<Product> list = new ArrayList<Product>();
-	list.add(new Product()); */
+	int refundIng = 0;
+	int refundCompleted = 0;
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="/jootopia/images/favicon.ico">
-<!-- <link rel="stylesheet" href="/jootopia/js/external/jquery-3.4.0.min.js"> -->
+<link rel="stylesheet" href="/jootopia/js/external/jquery-3.4.0.min.js">
 <link rel="stylesheet" href="/jootopia/css/admin/adminCommon.css">
- 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
 <title>JooTopia</title>
-<style>
-br 
-{mso-data-placement:same-cell;} 
-</style>
 </head>
-<body>
 <body>
 
 	<%@ include file="/views/common/adminNavigation.jsp" %>
@@ -43,9 +37,25 @@ br
 		<hr>
 		
 		<div id="listArea">
-			전체 <a href="/jootopia/views/admin/order/paymentList.jsp">10</a>건  |  
-			환불중 <a href="#">2</a>건  |  
-			환불완료 <a href="#">2</a>건
+				<% if(list != null) { 
+				for(int i = 0; i < list.size(); i++) {
+					HashMap<String, Object> hmap = (HashMap<String, Object>) list.get(i);
+					Refund r = (Refund) hmap.get("r");
+					if(r.getRfDate() == null) {
+						refundIng += 1;
+					}else {
+						refundCompleted += 1;
+					}
+				}
+			%>
+				전체 <a href="#"><%= list.size() %></a>건  |  
+				환불중 <a href="#"><%= refundIng %></a>건  |
+				환불완료 <a href="#"><%= refundCompleted %></a>건
+			<% }else { %>
+				전체 <a href="#">0</a>건  |  
+				환불중 <a href="#">0</a>건  |
+				환불완료 <a href="#">0</a>건
+			<% } %>
 		</div>
 		<br>
 		
@@ -114,7 +124,7 @@ br
 		
 		<div class="selectTopList">
 		<span>주문 목록</span><br>
-		<span>[총 <a><%= 1 %></a>개]</span>
+		<span>[총 <a><% if(list != null) { %><%= list.size() %><% }else { %>0<% } %></a>개]</span>
 		</div>
 		
 		<br>
@@ -122,46 +132,52 @@ br
 		<div class="selectListArea">
 			<table id="selectList" class="selectList" border="1">
 				<tr>
-					<th colspan="9" style="height: 45px; text-align: left;">
-						<button class="selectBtn" onclick="oTypeChange('환불완료')">환불완료</button>
-						<button class="selectBtn" onclick="oTypeChange('환불거절')">환불거절</button>
+					<th colspan="11" style="height: 45px; text-align: left;">
+						<button class="selectBtn" onclick="refund()">환불완료</button>
+						<button class="selectBtn" onclick="refuse()">환불거절</button>
 					</th>
 				</tr>
 				<tr>
 					<th width="25px"><input type="checkbox" id="allCheck"></th>
 					<th width="25px">No</th>
-					<th width="100px">주문상태</th>
-					<th width="150px">주문일/주문코드</th>
-					<th width="150px">결제일/결제코드</th>
-					<th width="70px">주문자</th>
-					<th width="250px">상품명</th>
-					<th width="100px">환불금액</th>
-					<th width="100px">취소사유</th>
+					<th width="50px">결제취소번호</th>
+					<th width="150px">결제취소일</th>
+					<th width="50px">결제번호</th>
+					<th width="100px">결제방법</th>
+					<th width="250px">환불금액</th>
+					<th width="100px">환불여부</th>
+					<th width="50px">환불번호</th>
+					<th width="100px">환불날짜</th>
+					<th width="100px">환불사유</th>
 				</tr>
+				<% for(int i = 0; i < list.size(); i++) { 
+					Payment pym = (Payment) list.get(i).get("pym");
+					PaymentCancle cancle = (PaymentCancle) list.get(i).get("cancle"); 
+					Refund r = (Refund) list.get(i).get("r"); 
+					%>
 				<tr>
-					<td><input type="checkbox"></td>
-					<td>1</td>
-					<td>환불중</td>
-					<td>2019-05-10 /<br>O20190510_01</td>
-					<td>2019-05-10 /<br>P20190510_01</td>
-					<td>주문자</td>
-					<td>상품명</td>
-					<td><a id="cancelPrice">환불금액</a></td>
-					<td><div id="memo" class="memo">MEMO</div></td>
-				</tr>
-				<%-- <% for(Product p : list) { %>
-				<tr>
-					<td ><input type="checkbox"></td>
+					<th><input type="checkbox" class="check" value="<%= cancle.getPymCId() %>"></th>
 					<td><%= count++ %></td>
-					<td >주문상태</td>
-					<td>주문일<br>/주문코드</td>
-					<td>결제일<br>/결제코드</td>
-					<td>주문자</td>
-					<td>상품명</td>
-					<td><a id="cancelPrice">취소금액</a></td>
-					<td><div id="memo" class="memo">MEMO</div></td>
-				</tr>
-				<% } %> --%>
+					<td><%= cancle.getPymCId() %></td>
+					<td><%= cancle.getPymCDate() %></td>
+					<td><%= pym.getPymId() %></td>
+					<td><%= pym.getPaymentOption() %></td>
+					<td><span class="price"><%= pym.getProductPrice() + pym.getDeliveryPrice() %></span></td>
+					<td><%= cancle.getRefundNY() %></td>
+					<% if(r.getRfId() > 0) { %>
+					<td><%= r.getRfId() %></td>
+					<td><%= r.getRfDate() %></td>
+					<% }else { %>
+					<td>-</td>
+					<td>-</td>
+					<% } %>
+					<th>
+					<div id="memo" class="memo">MEMO
+					</div>
+					<input type="hidden" id="dMsg" value="<%= cancle.getReason() %>">
+					</th>
+				</tr>	
+				<% } %>
 			</table>
 	</div> <!-- selectListArea -->
 	
@@ -196,15 +212,8 @@ br
     <div class="memoModalBody">
     	<table class="memoModalTable">
     		<tr>
-    			<th>주문코드 : <%= "주문코드 임시" %><br />
-    			주문일 : <%= "주문일 임시" %></th>
-    		</tr>
-    	</table>
-    	<br>
-    	<table class="memoModalTable">
-    		<tr>
-    			<th>결제코드 : <%= "결제코드 임시" %><br />
-    			결제일 : <%= "결제일 임시" %></th>
+    			<th>결제취소코드 : <span id="modalPymCId">결제취소코드임시</span><br>
+    			결제취소일 : <span id="modalPymCDate">결제취소일임시</span></th>
     		</tr>
     	</table>
     	<br>
@@ -213,7 +222,7 @@ br
     			<th>취소사유</th>
     		</tr>
     		<tr>
-    			<td><input type="text" name="oMemo" value="<%= "취소사유 임시" %>" readonly></td>
+    			<td><input type="text" id="reason" name="reason" value="" readonly></td>
     		</tr>
     	</table>
     	<br>
@@ -238,8 +247,8 @@ br
     <div class="memoModalBody">
     	<table class="memoModalTable">
     		<tr>
-    			<th>주문코드 : <%= "주문코드 임시" %><br />
-    			주문일 : <%= "주문일 임시" %></th>
+    			<th>주문코드 : <span id="modalPoId">주문코드임시</span><br>
+    			주문일 : <span id="modalPoDate">주문일임시</span></th>
     		</tr>
     	</table>
     	<br>
@@ -299,13 +308,33 @@ br
 </div>
 
 <script>
-
-	$(document).ready(function() {
-		if(true) {
-			$(".memo").css("background","rgb(52, 152, 219)");
+//환불사유 모달 펑션
+	$(".memo").click(function() {
+		var modalPymCId = $(this).parent().parent().children().eq(0).children().eq(0).val();
+		var modalPymCDate = $(this).parent().parent().children().eq(3).text();
+		var reason = $(this).parent().children().eq(1).val();
+		
+		if(reason == null) {
+			reason = "-";
 		}
+		
+		$(function() {
+			$("#modalPymCId").text(modalPymCId);
+			$("#modalPymCDate").text(modalPymCDate);
+			$("#reason").val(reason);
+		});
+		
+		$("#memoModal").css("display", "block");
+		
+		$(".close").click(function() {
+			$("#memoModal").css("display", "none");
+		});
+		
+		$(".modalBtnArea>input[type=reset]").click(function() {
+			$("#memoModal").css("display", "none");
+		});
 	});
-
+	
 	$(".btnDate").click(function() {
 		
 		$("#selectDate>a").removeClass();
@@ -314,13 +343,47 @@ br
 		
 	});
 	
-	function oTypeChange(text) {
-		var answer = window.confirm("선택한 주문을 " + text + " 하시겠습니까?");
+	//-----환불처리용 펑션
+	function refund() {
+		var answer = window.confirm("선택한 주문을 환불처리 하시겠습니까?");
 		
 		if(answer) {
-			alert("해당주문을 " + text + " 처리 하였습니다.");
+			var numArr = [];
+			var price = [];
+			$(".check").each(function() {
+				if($(this).is(":checked"))
+					if($(this) !== $("#allCheck")) {
+						numArr += $(this).val() + "|";
+						price += $(this).parent().parent().children().eq(6).text() + "|";
+					}
+			});
+			
+			console.log( numArr );
+			console.log( price );
+			
+			$.ajax({
+				url : "insertAdminRefund.do",
+				type : "post",
+				data : {numArr : numArr, price : price},
+				success : function(data) {
+					alert(data);
+					location.href='refundAdminList.do';
+				},
+				error : function(data) {
+					alert("해당상품 환불 처리 실패");
+				}
+			});
 		}
 	};
+	
+	//-----환불거절용 펑션
+	function refuse() {
+		var answer = window.confirm("선택한 주문을 환불거절 하시겠습니까?");
+		
+		if(answer) {
+			alert("해당주문을 환불거절 처리 하였습니다.");
+		}
+	}
 	
 	$("#allCheck").click(function() {
 		
@@ -342,22 +405,7 @@ br
 			$("#memoModal").css("display", "none");
 		});
 		
-	})
-	
-	$("#cancelPrice").click(function() {
-		
-		$("#refundModal").css("display", "block");
-		
-		$(".close").click(function() {
-			$("#refundModal").css("display", "none");
-		});
-		
-		$(".modalBtnArea>input[type=reset]").click(function() {
-			$("#refundModal").css("display", "none");
-		});
 	});
-	
-    	
 </script>
 </body>
 </html>

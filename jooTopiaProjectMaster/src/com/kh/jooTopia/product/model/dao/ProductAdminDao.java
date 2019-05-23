@@ -409,7 +409,7 @@ public class ProductAdminDao {
 		return listCount;
 	}
 
-	public int changeStatusProduct(Connection con, String status, int[] pId) {
+	public int changeStatusProduct(Connection con, String status, ArrayList<Integer> poIdList) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -418,9 +418,9 @@ public class ProductAdminDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			
-			for(int i = 0; i < pId.length; i++) {
+			for(int i = 0; i < poIdList.size(); i++) {
 				pstmt.setString(1, status);
-				pstmt.setInt(2, pId[i]);
+				pstmt.setInt(2, poIdList.get(i));
 				
 				result += pstmt.executeUpdate();
 			}
@@ -430,7 +430,7 @@ public class ProductAdminDao {
 		} finally {
 			close(pstmt);
 		}
-		
+		System.out.println(result);
 		return result;
 	}
 
@@ -718,6 +718,60 @@ public class ProductAdminDao {
 				
 		return result;
 
+	}
+
+	public ArrayList<Integer> selectThisOrderPid(Connection con, int poId) {
+		//취소된 주문의 상품코드 SELECT
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Integer> poIdList = null;
+		
+		String query = prop.getProperty("selectThisOrderPid");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, poId);
+			
+			rset = pstmt.executeQuery();
+			
+			poIdList = new ArrayList<Integer>();
+			while(rset.next()) {
+				poIdList.add(rset.getInt("PID"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("dao poIdList : " + poIdList.size());
+		for(int i = 0; i < poIdList.size(); i++) {
+			System.out.println("list i : " + poIdList.get(i));
+		}
+		
+		return poIdList;
+	}
+
+	public int updateRefundProductStatus(Connection con, ArrayList<Integer> pymCId) {
+		//환불완료된 상품의 상태를 '환불완료'로 수정
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateRefundProductStatus");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			/*UPDATE PRODUCT SET (SELECT P.STATUS AS STATUS
+					FROM PAYMENT_CANCLE PC
+					JOIN PAYMENT PY ON (PY.PYMID = PC.PYMID)
+					JOIN PORDER O ON (PY.PYMID = O.PYMID)
+					JOIN ORDER_DETAIL OD ON (OD.POID = O.POID)
+					JOIN PRODUCT P ON (P.PID = OD.PID)
+					WHERE PYMCID = 4) = '환불완료';*/
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 	

@@ -7,6 +7,7 @@ import com.kh.jooTopia.payment.model.vo.Payment;
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 public class PaymentService {
 
@@ -45,16 +46,16 @@ public class PaymentService {
 		return poId;
 	}
 
-	public int insertOrderDetail(int poId, int[] pId) {
+	public int insertOrderDetail(int poId, ArrayList<Integer> pId) {
 		//ORDER_DETAIL INSERT
 		Connection con = getConnection();
 		int result = 0;
 		
-		for(int i = 0; i < pId.length; i++) {
-			result += new PaymentDao().insertOrderDetail(con, poId, pId[i]);
+		for(int i = 0; i < pId.size(); i++) {
+			result += new PaymentDao().insertOrderDetail(con, poId, pId.get(i));
 		}
 		
-		if(result > 0 && result == pId.length) {
+		if(result > 0 && result == pId.size()) {
 			commit(con);
 		}else {
 			rollback(con);

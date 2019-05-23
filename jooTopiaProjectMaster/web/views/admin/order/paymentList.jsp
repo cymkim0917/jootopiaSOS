@@ -21,6 +21,25 @@
 <link rel="stylesheet" href="/jootopia/css/admin/adminCommon.css">
  
 <title>JooTopia</title>
+<style>
+.memo-money, .memo-cancle {
+	width: 60px;
+	height: 30px;
+	background: rgb(61, 81, 113);
+	color: white;
+	border-radius: 5px;
+	border: 0;
+	outline: none;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 4px;
+	cursor: pointer;
+}
+.memo-money:hover, .memo-cancle:hover {
+	background: rgb(114, 164, 208);
+}	
+</style>
 </head>
 <body>
 
@@ -52,11 +71,6 @@
 		<div class="selectListArea">
 			<table id="selectList" class="selectList" border="1">
 				<tr>
-					<th colspan="9" style="height: 45px; text-align: left;">
-						<button class="selectBtn" onclick="oTypeChange('주문취소')">주문 취소</button>
-					</th>
-				</tr>
-				<tr>
 					<th width="25px"><input type="checkbox" id="allCheck"></th>
 					<th width="25px">No</th>
 					<th width="100px">주문상태</th>
@@ -66,6 +80,7 @@
 					<th width="250px">상품명</th>
 					<th width="100px">배송메시지</th>
 					<th width="100px">입금처리</th>
+					<th width="100px">주문취소처리</th>
 				</tr>
 				<% for(int i = 0; i < list.size(); i++) { 
 				HashMap<String,Object> hmap = list.get(i);
@@ -93,11 +108,14 @@
 					<th>
 					<div id="memo" class="memo">MEMO
 					</div>
-					<input type="hidden" id="dMsg" value="<%= o.getdMessage() %>">
+					<input type="hidden" value="<%= o.getdMessage() %>">
 					</th>
 					<th>
-					<div id="money" class="memo">MONEY</div>
+					<div id="money" class="memo-money">MONEY</div>
 					<input type="hidden" id="totalPrice" value="<%= hmap.get("totalPrice") %>">
+					</th>
+					<th>
+					<div id="cancle" class="memo-cancle">CANCLE</div>
 					</th>
 				</tr>
 				<% } %>
@@ -171,7 +189,6 @@
     </div>
 </div>
 
-
 <!-- The Modal -->
 <div id="paymentModal" class="memoModal">
 	<div class="memoModalContent">
@@ -193,16 +210,48 @@
     		<tr>
     			<th>입금예정금액 : <span id="modalTotalPrice">입금예정금액 임시</span></th>
     		</tr>
-    		<!-- <tr>
-    			<td>
-    			<input type="text" id="depositName" name="depositName" placeholder="입금자명을 입력하세요" value="">
-    			</td>
-    		</tr> -->
     	</table>
     	<br>
     	
     	<div class="modalBtnArea" align="center">
 				<input type="submit" value="입금처리" onclick="changePayment();">
+				<input type="reset" value="닫기">
+		</div>
+    </div>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div id="cancleModal" class="memoModal">
+	<div class="memoModalContent">
+	<div class="memoModalHeader">
+	<button type="button" class="close" data-dismiss="modal">&times;</button>
+	<h4>주문취소 처리</h4>
+	<hr>
+	</div>
+<!-- Modal content -->
+    <div class="memoModalBody">
+    	<table class="memoModalTable">
+    		<tr>
+    			<th>주문코드 : <span id="canclePoId">주문코드임시</span><br>
+    			주문일 : <span id="canclePoDate">주문일임시</span></th>
+    		</tr>
+    	</table>
+    	<br>
+        <table class="memoModalTable">
+    		<tr>
+    			<th>주문취소 사유</th>
+    		</tr>
+    		<tr>
+    			<td>
+    			<input type="text" id="reason" name="reason" placeholder="주문취소 사유를 입력하세요" value="">
+    			</td>
+    		</tr>
+    	</table>
+    	<br>
+    	
+    	<div class="modalBtnArea" align="center">
+				<input type="submit" value="주문취소" onclick="orderCancle();">
 				<input type="reset" value="닫기">
 		</div>
     </div>
@@ -220,7 +269,7 @@
 	});
 	
 	//배송메시지 모달용 펑션
-	$("#memo").click(function() {
+	$(".memo").click(function() {
 		var code = $(this).parent().parent().children().eq(0).children().eq(0).val();
 		var date = $(this).parent().parent().children().eq(3).text();
 		var message = $(this).parent().children().eq(1).val();
@@ -271,7 +320,7 @@
 	};
 	
 	//------입금처리 모달 펑션들
-	$("#money").click(function() {
+	$(".memo-money").click(function() {
 		var code = $(this).parent().parent().children().eq(0).children().eq(0).val();
 		var date = $(this).parent().parent().children().eq(3).text();
 		var totalPrice = $(this).parent().children().eq(1).val();
@@ -320,6 +369,30 @@
 		});
 	};
 	
+	//-------주문취소 처리 모달 펑션
+	$(".memo-cancle").click(function() {
+		var poId = $(this).parent().parent().children().eq(0).children().eq(0).val();
+		var poDate = $(this).parent().parent().children().eq(3).text();
+		 
+		console.log(poId);
+		console.log(poDate);
+		
+		$(function() {
+			$("#canclePoId").text(poId);
+			$("#canclePoDate").text(poDate);
+		});
+		
+		$("#cancleModal").css("display", "block");
+		
+		$(".close").click(function() {
+			$("#cancleModal").css("display", "none");
+		});
+		
+		$(".modalBtnArea>input[type=reset]").click(function() {
+			$("#cancleModal").css("display", "none");
+		});
+	});
+	
 	//------체크된 주문 상태 변화 관련 펑션
 	$("#allCheck").click(function() {
 		
@@ -330,32 +403,28 @@
 		}
 	});
 	
-	function oTypeChange(text) {
-		var answer = window.confirm("선택한 상품을 " + text + " 하시겠습니까?");
-		if(answer) {
-			var numArr = [];
-			$(".check").each(function() {
-				if($(this).is(":checked"))
-					if($(this) !== $("#allCheck")) {
-						numArr += $(this).val() + "|";
-					}
-			});
-			
-			console.log( numArr );
-			
-			$.ajax({
-				url : "adminChangeStatusOrder.do",
-				type : "post",
-				data : {numArr : numArr, text : text},
-				success : function(data) {
-					alert(data);
-					location.href='selectAdminPaymentList.do';
-				},
-				error : function(data) {
-					alert("해당상품 " + text + " 처리 실패");
-				}
-			});
+	function orderCancle() {
+		var poId = $("#canclePoId").text();
+		var reason = $("#reason").val();
+		
+		if(reason == null) {
+			reason = "";
 		}
+		console.log(poId);
+		console.log(reason);
+			
+		$.ajax({
+			url : "insertAdminOrderCancle.do",
+			type : "post",
+			data : {poId : poId, reason : reason},
+			success : function(data) {
+				alert(data);
+				location.href='selectAdminPaymentList.do';
+			},
+			error : function(data) {
+				alert("해당상품 주문취소 처리 실패");
+			}
+		});
 	};
 	
 	//------해당 상품정보(게시물) 조회 펑션

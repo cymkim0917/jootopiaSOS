@@ -94,11 +94,6 @@
 		<div class="selectListArea">
 			<table id="selectList" class="selectList" border="1">
 				<tr>
-					<th colspan="9" style="height: 45px; text-align: left;">
-						<button class="selectBtn" onclick="orderCancle()">주문취소</button>
-					</th>
-				</tr>
-				<tr>
 					<th width="25px"><input type="checkbox" id="allCheck"></th>
 					<th width="25px">No</th>
 					<th width="100px">배송상태</th>
@@ -223,8 +218,8 @@
 	});
 	
 	//------주문취소 펑션
-	function orderCancle() {
-		var answer = window.confirm("선택한 주문을 주문취소 하시겠습니까?");
+	function paymentCancle() {
+		var answer = window.confirm("선택한 주문을 결제취소 하시겠습니까?");
 		if(answer) {
 			var numArr = [];
 			$(".check").each(function() {
