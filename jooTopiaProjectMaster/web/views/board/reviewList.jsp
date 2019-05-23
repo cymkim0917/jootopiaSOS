@@ -1,13 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*,com.kh.jooTopia.board.model.vo.*"%>
-    
 <%
-
-	HashMap<String,Object> list = (HashMap<String,Object>) request.getAttribute("list");
-	ArrayList<Board> bList = (ArrayList<Board>) list.get("bList");
-	ArrayList<Member> mList = (ArrayList<Member>) list.get("mList");
-	ArrayList<Attachment> aList = (ArrayList<Attachment>) list.get("aList");
-	
 
 %>
 <!DOCTYPE html>
@@ -21,9 +14,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
 <style>
-
 .outer {
 		width:1200px;
 		height:900px;
@@ -52,28 +43,22 @@
 	.thumb-list:hover{
 		opacity:0.8;
 		cursor:pointer;
-
 	}
-	
 <!--게시판용 스타일 -->
 	 .checkboxgroup{
 		margin-left:350px;
 		margin-rignt:150px;
 	}
-	
 	.newWriting{
 		margin-left:1400px;
 	}
-	 
  <!--게시판용 스타일 -->
- 
 </style>
 
 <title>JooTopia</title>
 </head>
 <body>
 <%@ include file="/views/common/navigation.jsp" %>
-	
 	<section>
 	<div class="outer">
 	<br>
@@ -89,16 +74,16 @@
 			
 		<div class="thumb-list" align="center">
 				<div>
-					<input type="hidden" name="bid" value="<%=bList.get(i).getbId()%>">
+					<input type="hidden" name="bid" value="<%=getbId()%>">
 					
-					<img src="<%=request.getContextPath() %>/images_upload/<%=aList.get(i).getChangeName()%>"
+					<img src="<%=request.getContextPath() %>/images_upload/<%=getChangeName()%>"
 						width="200px" height="150px">
 				</div>
 				<p>
-				No. <%=bList.get(i).getbId() %> <br>
-				제목 : <%=bList.get(i).getbTitle()%><br>
-				글쓴이 : <%=mList.get(i).getUserId() %><br>
-				조회수 : <%=bList.get(i).getbCount()%>
+				No. <%=list. %> <br>
+				제목 : <%=getbTitle()%><br>
+				글쓴이 : <%=getUserId() %><br>
+				조회수 : <%=getbCount()%>
 				</p>
 				
 			</div>
@@ -143,7 +128,8 @@
 				$(".thumb-list").click(function(){
 					var num = $(this).children().children().eq(0).val();
 					console.log(num);
-					location.href="<%=request.getContextPath()%>/selectOneReview.do?num="+num;
+					location.href="<%=request.getContextPath()%>/selectOneReview.do?num="+num; 
+					
 				});
 			}); 
 		</script>

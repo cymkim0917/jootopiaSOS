@@ -11,50 +11,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.jooTopia.board.model.service.BoardService;
+import com.kh.jooTopia.board.model.vo.Attachment;
 
-/**
- * Servlet implementation class SelectReviewTotalListServlet
- */
 @WebServlet("/selectReviewTotalList.do")
 public class SelectReviewTotalListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public SelectReviewTotalListServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		HashMap<String, Object> list = new BoardService().selectReviewTotalList();
+		HashMap<String, Object> hmap = new BoardService().selectReviewTotalList();
+		// ArrayList<Attachment> fileList = (ArrayList<Attachment>) list.get("attachement");
 		
-		
-		
+		System.out.println("servlet list : " + hmap);
 		String page="";
-		if(list != null) {
+		if(hmap != null) {
 			page="views/board/reviewList.jsp";
-			request.setAttribute("list", list);
+			request.setAttribute("list", hmap);
 		}else {
 			page="views/common/errorPage.jsp";
-			request.setAttribute("msg", "썸네일 로드 실패!");
+			request.setAttribute("msg", "리스트 조회 실패!");
 		}
 		request.getRequestDispatcher(page).forward(request, response);
-	
-	
-	
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
