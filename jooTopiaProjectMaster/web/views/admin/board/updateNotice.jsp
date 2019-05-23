@@ -59,18 +59,18 @@
       	 				<td><br></td>
       	 			</tr>
       	 			<tr>
-      	 				<td><h3>내용</h3></td>
-      	 				<td colspan="">
-      	 					<textarea id="contentArea" name="content" cols="92%" rows="30" style="resize:none"><%=board.getbContent() %></textarea>
-      	 				</td>
-      	 			</tr>
-      	 			<tr>
       	 				<td><h3>사진</h3></td>
       	 				<td>
       	 					<div>
       	 						<img width="60%" id = "detailImg1" class="detailImg" src="<%=request.getContextPath() %>/images/notice/<%=img1.getChangeName() %>">
       	 						<img width="60%" id = "detailImg2" class="detailImg" src="<%=request.getContextPath() %>/images/notice/<%=img2.getChangeName() %>">
       	 					</div>
+      	 				</td>
+      	 			</tr>
+      	 			<tr>
+      	 				<td><h3>내용</h3></td>
+      	 				<td colspan="">
+      	 					<textarea id="contentArea" name="content" cols="92%" rows="30" style="resize:none"><%=board.getbContent() %></textarea>
       	 				</td>
       	 			</tr>
       	 			<tr>

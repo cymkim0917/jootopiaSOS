@@ -88,7 +88,7 @@
       		</div>
 	  <hr>
 	  <div id="resultArea">
-			<form>
+			<form action="<%=request.getContextPath() %>/deleteAdminQnA.do"  method="post">
 		   		<table id="qnaList" border="1"> 
 		   			<tr>
 		   				<th width="50px;">선택</th>
@@ -114,16 +114,14 @@
 		   				<td style="display:none"><%=board.get(i).getbId()%></td>
 		   			</tr>
 		   			<%} %>
-		   			
 		   		</table>
+			   	<br>
+			   	<hr>
+			   	<div id="updateBtnArea" align="right">
+			   		<input type="submit" value="삭제">
+			   	</div>
 		   	</form>
 		</div>	
-		   	<br>
-		   	<hr>
-		   	<div id="updateBtnArea" align="right">
-		   		<input type="button" value="답변"   onclick="showModal();">
-		   		<input type="button" value="삭제">
-		   	</div>
 	    
 	    <div class="paging" align="center">
 		<ul class="pagination">

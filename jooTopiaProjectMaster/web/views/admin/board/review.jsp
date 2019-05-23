@@ -119,25 +119,25 @@
 		   			<tr>
 		   				<th width="50px;">선택</th>
 		   				<th width="100px;">글쓴이</th>
-		   				<th width="100px;">제목</th>
-		   				<th width="100px;">게시일</th>
+		   				<th width="200px;">제목</th>
 		   				<th width="150px;">상품카테고리</th>
-		   				<th width="200px;">평점</th>
+		   				<th width="100px;">작성일</th>
+		   				<th width="100px;">평점</th>
 		   			</tr>
 		   			<tr id="detailreviews">
 		   				<td width="50px;"><input type="checkbox"></td>
 		   				<td width="100px;">kyukyu</td>
-		   				<td width="100px;">좋네요</td>
-		   				<td width="100px;">2019-05-09</td>
+		   				<td width="200px;"></td>
 		   				<td width="150px;">침실>침대</td>
-		   				<td width="200px;">4.5</td>
+		   				<td width="100px;">2019-05-09</td>
+		   				<td width="100px;">4.5</td>
 		   			</tr>
 		   			
 		   		</table>
 		   	</form>
 		   	<br>
 		   	<div id="updateBtnArea" align="center">
-		   		<input type="button" value="삭제">
+		   		<input type="button" onclick="location.href='<%= request.getContextPath()%>/views/admin/board/detailReview.jsp'" value="삭제">
 		   	</div>
 		</div>	
       </div>

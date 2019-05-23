@@ -216,7 +216,6 @@ public class BoardAdminService {
 		Connection con = getConnection();
 		
 		int listCount = new BoardAdminDao().getQnAListCount(con);
-		//System.out.println("서비스 카운트" + listCount);
 		
 		close(con);
 		
