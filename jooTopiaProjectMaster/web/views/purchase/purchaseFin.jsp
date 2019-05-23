@@ -38,7 +38,7 @@
 				<tr>
 				<tr>
 					<td>거리 / 배송비</td>
-					<td><%= hmap.get("appDistance") %> / </td>
+					<td><%= hmap.get("appDistance") %> / <%= hmap.get("dPrice") %></td>
 				<tr>
 				<tr>
 					<td>연락처</td>
@@ -74,7 +74,7 @@
 				<tr>
 				<tr>
 					<td>매입 요청 사항</td>
-					<td><%--= hmap.get("memo") --%></td>
+					<td><%= hmap.get("memo")  %></td>
 				<tr>
 			</table>
 		</div>

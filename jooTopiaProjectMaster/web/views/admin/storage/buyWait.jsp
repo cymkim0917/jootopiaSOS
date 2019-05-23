@@ -14,79 +14,47 @@
 <link rel="stylesheet" href="/jootopia/css/admin/adminCommon.css">
 <title>JooTopia</title>
 
+<style>
+.listArea{
+	padding-left: 5%;
+	width: 100%;
+}
+#tableArea th{
+	width: 14%;
+}
+#tableArea td{
+	text-align: center;
+}
+</style>
 </head>
 <body>
 	<%@ include file="/views/common/adminNavigation.jsp"%>
 	<section class="row">
 		<%@ include file="/views/common/adminSideMenu.jsp"%>
 		<div id="adminSection" class="col-sm-10">
-
 			<h3 class="title">매입리스트</h3>
 			<hr>
-
-			<!-- <div class="searchArea">
-				<table id="searchBox" border="1" align="center">
-					<tr>
-						<th colspan="3"
-							style="background: rgb(224, 224, 224); height: 35px;"></th>
-					</tr>
-					
-					<tr>
-						<td>상품 카테고리</td>
-						<td colspan="2">&nbsp;<select id="searchCategory"
-							onchange="smallCategoty(this.value)">
-								<option value="">- 대분류 -
-								<option value="bedRoom">침실
-								<option value="livingRoom">거실
-								<option value="kitchen">주방
-								<option value="study">서재
-						</select> <select id="small">
-								<option value="">- 중분류 -
-								<option value="">침대
-								<option value="">책상
-								<option value="">의자
-								<option value="">서랍장
-						</select>
-						</td>
-					</tr>
-				</table>
-
-				<br>
-
-				<div id="searchBtnArea" align="center">
-					<input type="submit" value="검색" onclick=""> <input
-						type="reset" value="초기화" onclick="">
-				</div>
-			</div> -->
-
-			<!-- <br>
 			<br>
-			
-			<br>
-			<br>
-			<br>
-			<br> -->
-			<br>
-
-			<div class="container">
-
-				<table class="table table-hover" id="listArea">
+			<div class="listArea">
+				<table class="table table-hover" id="tableArea">
 					<thead>
 						<tr>
-							<!-- <th>No.</th> -->
 							<th>매입번호</th>
 							<th>대분류</th>
 							<th>중분류</th>
+							<th>신청자명</th>
+							<th>연락처</th>
 							<th>상태</th>						
 						</tr>
 					</thead>
-					<% /* int i = 0;  */for(BuyWaitAdmin b : list){ /* i++; */%>
+					<% for(BuyWaitAdmin b : list){ %>
 					<tbody>
 						<tr>
-							<%-- <td><%= i %></td> --%>
 							<td><%= b.getPcdId() %></td>
 							<td><%= b.getcGroup() %></td>
 							<td><%= b.getName() %></td>
+							<td></td>
+							<td></td>
 							<td><%= b.getStatus() %></td>						
 						</tr>
 						<% } %>						
@@ -111,14 +79,15 @@
 
 	<script>
 		$(function(){
-			$("#listArea td").mouseenter(function(){
+			$("#tableArea td").mouseenter(function(){
 				$(this).parent();
 			}).mouseout(function(){
 				$(this).parent();
 			}).click(function(){
 				var num = $(this).parent().children().eq(0).text();
 				console.log(num);				
-				location.href="<%=request.getContextPath()%>/selectOneAdminProductr.do?num=" + num;
+				<%-- location.href="<%=request.getContextPath()%>/selectOneAdminProductr.do?num=" + num; --%>
+				location.href="<%= request.getContextPath() %>/selectBuyDetail.do?num=" + num;
 			})
 		})
 	</script>
