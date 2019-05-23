@@ -162,45 +162,13 @@
 		});
 		
 	});
-		
-  	 	/* $("#noticeList th").click(function(){
-			var numArr;
-			var chk;
-			
-			
-				
-			
-  	 		$("input:checkbox[name=checkBid]").each(function(){
-				if($(this).is(":checked"))
-					numArr += $(this).val()+",";
-			});
-					console.log(numArr);
-  	 	});
-  	 	 */
-  	 	/* $("#noticeList th").click(function() {
- 				var numArr = [];
- 				
- 				$(".checkA").each(function() {
- 					if($(this).is(":checked"))
- 						
- 							numArr += $(this).val() + ",";
- 						
- 			
- 				console.log( numArr );
- 				
- 			});
-  	 	});
-  	 	  */
   	 	 function deleteBoard(){
   	 		 var values = document.getElementsByName("checkBid");
   	 		 for(var i = 0; i<values.length; i++){
   	 			 if(values[i].checked){
   	 				 console.log(values[i].value);
   	 			 }
-  	 			 
   	 		 }
- 				
-  	 		 
   	 	 }
 
    
