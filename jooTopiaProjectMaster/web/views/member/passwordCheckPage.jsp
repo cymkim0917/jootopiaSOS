@@ -56,21 +56,42 @@
 					</tr>
 					<tr>
 						<td><label for="">비밀번호</label></td>
-						<td><input type="password" name="userPwd"/></td>
+						<td><input type="password" name="userPwd" id="userPwd"/></td>
+						
 					</tr>
 					<tr>
-					<td> </td>
+					<td> <input type="hidden" value=<%= loginUser.getUserPwd() %> id="checkPwd"/> </td>
 					<td> </td>
 					</tr>
 				</table>
 			<div class="btnArea">
-			<a onclick="location.href='modifyUserInfoPage.jsp'" id="modifyBtn">확인</a>
+			<a onclick="userCheck()" id="modifyBtn">확인</a>
 			</div>
 			
 			</div>
 			<div class="col-sm-3"></div>
 		</div>
 	</section>
+            
+          <script>
+         	function userCheck(){
+         		var userPwd = $("#userPwd").val();
+         		
+         		.ajax({
+         			url:"<%= request.getContextPath() %>/pwdCheck.do",
+         			type:"post",
+         			data:{userPwd:userPwd},
+         			success:function(data){
+         				
+         			},
+         			error:function(data){
+         				alert('서버에 접속이 되지 않았습니다.')
+         			}
+         			
+         		})
+         	}
+         </script>
+	
 <%@ include file="/views/common/footer.jsp" %>
 </body>
 </html>

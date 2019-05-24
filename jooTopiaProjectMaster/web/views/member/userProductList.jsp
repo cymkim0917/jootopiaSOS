@@ -16,6 +16,13 @@
 <link rel="shortcut icon" href="/jootopia/images/favicon.ico">
 <link rel="stylesheet" href="jquery-3.4.0.min.js">
 <link rel="stylesheet" href="/jootopia/css/common.css">
+
+<style>
+	#orderProductArea{
+		left:860px;
+		position:relative;
+	}
+</style>
 <title>JooTopia</title>
 </head>
 <body>
@@ -25,20 +32,28 @@
 			<div class="col-sm-2">
 			</div>
 			<div class="col-sm-6">
-			
+				<br />
 				<% if(procList.get(0).get("cgroup") != null) {%>
 			
 				<h1 style="font-wieght:bold;"><%=  procList.get(0).get("cgroup")%></h1>
 				<% }  %>				
-			
+				
 				<br /><br />
+				<div id="orderProductArea">
+				<select name="orderProduct" id="orderProduct">
+					<option value="">정렬방식</option>
+					<option value="1">이름순 정렬</option>
+					<option value="2">가격순 정렬</option>
+					<option value="3">인기순 정렬</option>
+				</select>
+				</div>
 				<br /><br />
 				<table id="productArea">
 					<tbody>
 					
 					</tbody>				
 				</table>
-				<div clas="pagingArea" align="center">
+				<div class="pagingArea" align="center" id ="pagingArea">
 			<button
 				onclick="location.href='<%= request.getContextPath() %>/productList.do?currentPage=1&cid=<%= cid %>'"><<</button>
 
@@ -127,7 +142,171 @@
 					$table.append($tr);
 				}
 			})
-		
+			
+			
+		<%-- 	$("#orderProduct").change(function(){
+				var orderType = $("#orderProduct").val();
+				var cid = <%= cid %>
+				var currentPage = <%= currentPage %>
+				$.ajax({
+					url:"<%= request.getContextPath() %>/orderByProduct.do",
+					type:"post",
+					data:{orderType:orderType,cid:cid,currentPage:currentPage},
+					success:function(data){
+						console.log('성공!');
+						
+						
+						//procList
+						var procList = data["procList"];
+						var pi = data["pi"];
+						
+						$table = $("#productArea > tbody");
+						$table.html('');
+						
+						var index = 0;
+						var $tr = $('<tr>');
+						
+						$.each(procList,function(index2,value){
+							var pid = value.pid;
+							var $div = $('<div>');
+							var $td = $('<td>');		    			
+			    			var $img = $('<img>');
+			    			var $pnamep = $('<p>').text(value.pname);//pname
+			    			var $pprice = $('<p>').text(value.pprice);//pprice
+			    			var $pbrand = $('<p>').text(value.pbrand);//pbrand
+			    			console.log(value);
+			    			if(index < 3){		    		
+				    			$img.attr('src','<%= request.getContextPath() %>/images/product/'+value.change_name);//change_name
+				    			$img.attr('width','300px');
+				    			$img.attr('height','300px');
+				    			
+				    			$div.append($img);
+				    			$div.append($pnamep);
+				    			$div.append($pprice);
+				    			$div.append($pbrand);
+				    			$div.css('marginLeft','20px');
+				    			$div.attr('onclick','location.href="<%= request.getContextPath() %>/detailProduct.do?num='+value.pid+'"');
+				    			$td.append($div);
+				    			$tr.append($td);
+				    			
+				    			if(index ==2){
+				    				$table.append($tr);
+				    				$tr = $('<tr>');
+				    				index = -1;
+				    				
+				    			}
+				    			index++;
+							}
+						})
+						
+						if(index >= 1){
+							$table.append($tr);
+						}
+	
+						
+						
+					}
+					
+					//pagingArea
+					
+					$pagingArea = $("pagingArea");
+					$pagingArea.html('');
+					
+					var $firstTd = $('<li><a onclick="sortProduct(1);" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>');
+		            $paging.append($firstTd);
+		            for (var i = 0; i < pi.maxPage; i++) {
+		               $paging.append('<li><a onclick="sortProduct('+(i+1)+');">'+(i+1)+'</a></li>');
+		            }
+		            var $endTd = $('<li><a onclick="sortProduct('+pi.maxPage+');" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>');
+		            $paging.append($endTd);
+		        	 }
+
+					
+				})//ajax끝
+				
+			})
+				function sortProduct(page){
+				var orderType = $("#orderProduct").val();
+				var cid = <%= cid %>
+				var currentPage = page;
+				$.ajax({
+					url:"<%= request.getContextPath() %>/orderByProduct.do",
+					type:"post",
+					data:{orderType:orderType,cid:cid,currentPage:currentPage},
+					success:function(data){
+						console.log('성공!');
+						
+						
+						//procList
+						var procList = data["procList"];
+						var pi = data["pi"];
+						
+						$table = $("#productArea > tbody");
+						$table.html('');
+						
+						var index = 0;
+						var $tr = $('<tr>');
+						
+						$.each(procList,function(index2,value){
+							var pid = value.pid;
+							var $div = $('<div>');
+							var $td = $('<td>');		    			
+			    			var $img = $('<img>');
+			    			var $pnamep = $('<p>').text(value.pname);//pname
+			    			var $pprice = $('<p>').text(value.pprice);//pprice
+			    			var $pbrand = $('<p>').text(value.pbrand);//pbrand
+			    			console.log(value);
+			    			if(index < 3){		    		
+				    			$img.attr('src','<%= request.getContextPath() %>/images/product/'+value.change_name);//change_name
+				    			$img.attr('width','300px');
+				    			$img.attr('height','300px');
+				    			
+				    			$div.append($img);
+				    			$div.append($pnamep);
+				    			$div.append($pprice);
+				    			$div.append($pbrand);
+				    			$div.css('marginLeft','20px');
+				    			$div.attr('onclick','location.href="<%= request.getContextPath() %>/detailProduct.do?num='+value.pid+'"');
+				    			$td.append($div);
+				    			$tr.append($td);
+				    			
+				    			if(index ==2){
+				    				$table.append($tr);
+				    				$tr = $('<tr>');
+				    				index = -1;
+				    				
+				    			}
+				    			index++;
+							}
+						})
+						
+						if(index >= 1){
+							$table.append($tr);
+						}
+	
+						
+						
+					}
+					
+					//pagingArea
+					
+					$pagingArea = $("#pagingArea");
+					$pagingArea.html('');
+					
+					var $firstTd = $('<li><a onclick="sortProduct(1);" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>');
+		            $paging.append($firstTd);
+		            for (var i = 0; i < pi.maxPage; i++) {
+		               $paging.append('<li><a onclick="sortProduct('+(i+1)+');">'+(i+1)+'</a></li>');
+		            }
+		            var $endTd = $('<li><a onclick="sortProduct('+pi.maxPage+');" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>');
+		            $paging.append($endTd);
+		        	 }
+
+					
+				})//ajax끝
+				}
+				 --%>
+			
 		</script>
 	</section>
 <%@ include file="/views/common/footer.jsp" %>

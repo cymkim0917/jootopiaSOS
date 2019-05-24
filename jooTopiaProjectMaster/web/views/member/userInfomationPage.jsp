@@ -69,26 +69,51 @@
 		text-align:center;
 		top:120px;
 	}
+	
+	#tempBtnArea{
+		width:250px;
+		top:0;
+		left:0;
+		background:rgb(53, 15, 15); 
+		 margin: 0 auto;
+		height:100vh;
+		z-index:9999;
+		
+	}
+	
+	
+	#myTable{
+		text-align:center;
+		align:center;
+		position:relative;
+		left:120px;
+		
+	}
 </style>
 </head>
 <body>
 <%@ include file="../common/navigation.jsp" %>
-	<section>
-		<div class="row">
 			<div class="col-sm-3" id="tempBtnArea">
 				<a href="<%= request.getContextPath() %>/orderList.do" id="orderBtn">임시)주문내역</a><br />
 				<a href="<%= request.getContextPath() %>/selectBoardList.do" id="orderBtn">임시)게시글 조회</a><br />
 				<a href="myRecentProduct.jsp" id="orderBtn">임시)최근 본 상품 조회</a><br />
 				<a href="insertQaAPage.jsp" id="orderBtn">임시)1:1 문의 작성</a>
 			</div>
-			<div class="col-sm-6">
+	<section>
+		<div class="row">
+			<div class="col-sm-7" id="myTable">
+			<br /><br />
 			<h1>회원 정보</h1><br />
-			
+			<br />
 			<% if(loginUser != null) { %>
 				<table class="table">
 					<tr>
 						<td><label for="">아이디</label></td>
 						<td><label for=""><%= loginUser.getUserId() %></label></td>
+					</tr>
+					<tr>
+						<td><label for="">이름</label></td>
+						<td><label for=""><%= loginUser.getUserName() %></label></td>
 					</tr>
 					<tr>
 						<td><label for="">생년월일</label></td>
@@ -100,12 +125,16 @@
 					</tr>
 					<tr>
 						<td><label for="">주소</label></td>
-						<td>서울시 성동구 금호로</td>
+						<td><label for="">서울시 성동구</label></td>
 						
 					</tr>
 					<tr>
 						<td><label for="">이메일</label></td>
 						<td><label for=""><%= loginUser.getEmail() %></label></td>
+					</tr>
+					<tr>
+						<td> </td>
+						<td> </td>
 					</tr>					
 				</table>			
 				<% } %>
@@ -116,7 +145,7 @@
 				</div>
 				
 			</div>
-			<div class="col-sm-3"></div>
+			<div class="col-sm-2"></div>
 		</div>
 	</section>
 	

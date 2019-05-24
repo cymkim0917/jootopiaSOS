@@ -77,10 +77,10 @@
 		</tr>
 		
 		<% if(attList.size() >1){ %>
-			<% for(int i=1; i<attList.size();i++) { %>
+			<% for(int i=0; i<attList.size();i++) { %>
 			
 			<tr>
-				<td><img src="<%= request.getContextPath() %>/images/product/<%= attList.get(i).getChangeName() %>" alt="" /></td>
+				<td><img src="<%= request.getContextPath() %>/images/product/<%= attList.get(i).getChangeName() %>" width="770" height="660" alt="" /></td>
 			</tr>
 			<% } 
 			
