@@ -24,6 +24,18 @@
 .table th {
 	text-align: left;
 } 
+.listArea{
+	padding-left: 5%;
+	width: 100%;
+}
+#tableArea th{
+	width: 10%;
+	text-align: center;
+}
+#tableArea td{
+	width: 10%;
+	text-align: center;
+}
 </style>
 </head>
 <body>
@@ -35,10 +47,8 @@
 			<h3 class="title">출고대기</h3>
 			<hr>
 			<br><br>
-
-			<div class="container">
-
-				<table class="table table-hover" id="test1">
+			<div class="listArea">
+				<table class="table table-hover" id="tableArea">
 					<thead>
 					<tr>
 						<!-- <th>No.</th> -->

@@ -3,7 +3,6 @@ package com.kh.jooTopia.product.model.vo;
 import java.sql.Date;
 
 public class ProductregAdmin implements java.io.Serializable{
-	
 	private int pId;		//PID - 상품번호(시퀀스)
 	private int hId;		//HID - 적치번호(시퀀스)
 	private int rlId;		//RLID - 출고번호(시퀀스)
@@ -12,7 +11,7 @@ public class ProductregAdmin implements java.io.Serializable{
 	private String name;	//NAME - 중분류
 	private int poId;		//POID - 주문번호
 	private int dId;		//DID - 배송번호
-	private int lBarcode;	//LBARCODE - 위치바코드
+	private String lBarcode;	//LBARCODE - 위치바코드
 	private Date rlDate;	//RLDATE - 출고일자
 	private Date hDate;		//HDATE - 적치일자
 	private String pContent;//PCONTENT - 상품상세정보
@@ -22,7 +21,29 @@ public class ProductregAdmin implements java.io.Serializable{
 	private int pCost;		//PRIME_COST - 구매원가
 	private int hCost;		//HOPE_COST - 판매희망가
 	private String memo;	//MEMO - 메모
+	private int pcid; 
+	private String pBarcode;
 	
+	public String getpBarcode() {
+		return pBarcode;
+	}
+
+	public void setpBarcode(String pBarcode) {
+		this.pBarcode = pBarcode;
+	}
+
+	public void setlBarcode(String lBarcode) {
+		this.lBarcode = lBarcode;
+	}
+
+	public int getPcid() {
+		return pcid;
+	}
+
+	public void setPcid(int pcid) {
+		this.pcid = pcid;
+	}
+
 	public ProductregAdmin() {}
 
 	public ProductregAdmin(int pId, int hId, int rlId, int pcdId, String cGroup, String name, int poId, int dId,
@@ -37,7 +58,6 @@ public class ProductregAdmin implements java.io.Serializable{
 		this.name = name;
 		this.poId = poId;
 		this.dId = dId;
-		this.lBarcode = lBarcode;
 		this.rlDate = rlDate;
 		this.hDate = hDate;
 		this.pContent = pContent;
@@ -111,14 +131,6 @@ public class ProductregAdmin implements java.io.Serializable{
 
 	public void setdId(int dId) {
 		this.dId = dId;
-	}
-
-	public int getlBarcode() {
-		return lBarcode;
-	}
-
-	public void setlBarcode(int lBarcode) {
-		this.lBarcode = lBarcode;
 	}
 
 	public Date getRlDate() {
@@ -198,11 +210,9 @@ public class ProductregAdmin implements java.io.Serializable{
 		return "ProductregAdmin [pId=" + pId + ", hId=" + hId + ", rlId=" + rlId + ", pcdId=" + pcdId + ", cGroup="
 				+ cGroup + ", name=" + name + ", poId=" + poId + ", dId=" + dId + ", lBarcode=" + lBarcode + ", rlDate="
 				+ rlDate + ", hDate=" + hDate + ", pContent=" + pContent + ", brand=" + brand + ", model=" + model
-				+ ", uPeriod=" + uPeriod + ", pCost=" + pCost + ", hCost=" + hCost + ", memo=" + memo + "]";
+				+ ", uPeriod=" + uPeriod + ", pCost=" + pCost + ", hCost=" + hCost + ", memo=" + memo + ", pcid=" + pcid
+				+ ", pBarcode=" + pBarcode + "]";
 	}
-
-	
-	
 
 
 }

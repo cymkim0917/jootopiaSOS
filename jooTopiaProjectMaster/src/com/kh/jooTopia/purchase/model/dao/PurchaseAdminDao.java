@@ -243,11 +243,7 @@ public class PurchaseAdminDao {
 		int result = 0;
 		
 		String query = prop.getProperty("selectPersonAccept");
-		//  (PCDID, STATUS, PCPRICE, MESSAGE, PCID, PCDATE)
-		System.out.println("query : " + query);
 		try {
-			System.out.println("pstmt : " + pstmt);
-			System.out.println("con : " + con);
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, pcd.getPcPrice());
 			pstmt.setString(2, pcd.getMessage());

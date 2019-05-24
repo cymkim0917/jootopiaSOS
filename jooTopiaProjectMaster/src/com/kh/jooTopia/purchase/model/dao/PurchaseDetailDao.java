@@ -159,7 +159,6 @@ public class PurchaseDetailDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			
-			// INSERT INTO PURCHSE_DETAIL(PCDID, PCID, STATUS, DENY_REASON) VALUES (SEQ_PCDID.NEXTVAL, ?, '', ?)
 			pstmt.setInt(1, pcd.getPcid());
 			pstmt.setString(2, pcd.getApplydenyReason());
 			
@@ -237,5 +236,24 @@ public class PurchaseDetailDao {
 			close(rset);
 		}
 		return denyReason;
+	}
+
+	public int insertPCDEnd(Connection con, int pcid) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("insertPCDEnd");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, pcid);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 }
