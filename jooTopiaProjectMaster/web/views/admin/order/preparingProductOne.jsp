@@ -214,11 +214,7 @@
 		
 		<div class="btnArea" align="center">
 			<button onclick="location.href='selectAdminPreList.do'">확인</button>
-			<% if(pym.getPaymentOption().equals("계좌이체")) { %>
-			<button onclick="location.href='insertPaymentCancleAcc.do?num='+<%= pym.getPymId() %>">결제취소</button>
-			<% }else { %>
-			<button onclick="location.href=''">결제취소</button>
-			<% } %>
+			<button onclick="paymentAccCancle('<%= pym.getPymId() %>')">결제취소</button>
 		</div>
 		<br><br>
 		
@@ -227,6 +223,14 @@
 <%@ include file="/views/common/adminFooter.jsp" %>
 
 <script>
+	//------계좌이체 건 결제 취소 펑션
+	function paymentAccCancle(num) {
+		var answer = window.confirm("해당 주문을 결제취소 하시겠습니까?");
+		
+		if(answer) {
+			location.href='insertPaymentCancleAcc.do?num='+num;
+		}
+	}
 	//------해당 상품정보(게시물) 조회 펑션
 	$("#selectList td").mouseenter(function(){
 		$(this).parent().css({"background":"rgb(61, 81, 113)", "color":"white", "cursor":"pointer"});

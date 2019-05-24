@@ -18,7 +18,7 @@ import com.kh.jooTopia.heap.model.vo.PageInfo;
 
 @WebServlet("/selectAdminBuy.do")
 public class SelectAdminBuyWaitServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
        
     public SelectAdminBuyWaitServlet() {
         super();
@@ -74,7 +74,7 @@ public class SelectAdminBuyWaitServlet extends HttpServlet {
 		
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      doGet(request, response);
+   }
 }

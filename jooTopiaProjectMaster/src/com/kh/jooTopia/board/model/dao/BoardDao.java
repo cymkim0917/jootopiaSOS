@@ -856,6 +856,7 @@ public class BoardDao {
 	          
 	           
 	           System.out.println("hmap in dao: " + hmap);
+	           System.out.println("change_name : " + hmap.get(rset.getString("change_name")));
 
 		   }
 		  

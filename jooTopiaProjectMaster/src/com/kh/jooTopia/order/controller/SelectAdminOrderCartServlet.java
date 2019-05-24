@@ -23,7 +23,6 @@ public class SelectAdminOrderCartServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("실행!!");
 		String pIdArr = request.getParameter("pId");
 		String[] pId = pIdArr.split(" ");
 		ArrayList<Integer> orderPId = new ArrayList<Integer>();
@@ -40,7 +39,7 @@ public class SelectAdminOrderCartServlet extends HttpServlet {
 		
 		String view = "";
 		if(productList != null) {
-			view = "views/member/orderInsertPage.jsp";
+			view = "orderList.do";
 			request.setAttribute("productList", productList);
 		}else {
 			view = "views/common/errorPage500.jsp";

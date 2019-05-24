@@ -30,7 +30,7 @@
 		<span class="col-lg-1" onclick="location.href='/jootopia/adminProductList.do'">
 			상품관리
 		</span>
-		<span class="col-lg-1" onclick="location.href='/jootopia/views/admin/order/orderMain.jsp'">
+		<span class="col-lg-1" onclick="location.href='/jootopia/selectAdminPaymentList.do'">
 			주문관리
 		</span>
 		<span class="col-lg-1" onclick="location.href='<%=request.getContextPath()%>/selectAdminBuy.do'">
@@ -70,7 +70,7 @@
 </html>
 
 
-<%--
+<%-- 
 a:link { color: red; text-decoration: none;}
  a:visited { color: black; text-decoration: none;}
  a:hover { color: blue; text-decoration: underline;}

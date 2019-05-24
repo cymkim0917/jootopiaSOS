@@ -1,4 +1,4 @@
-package com.kh.jooTopia.release.controller;
+package com.kh.jooTopia.board.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,20 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.jooTopia.release.model.service.ReleaseAdminService;
-import com.kh.jooTopia.release.model.vo.ReleaseAdmin;
-
 /**
- * Servlet implementation class SelectOneAdminReleaseServlet
+ * Servlet implementation class DeleteReviewServlet
  */
-@WebServlet("/selectRLOne.do")
-public class SelectOneAdminReleaseServlet extends HttpServlet {
+@WebServlet("/deleteReview.do")
+public class DeleteReviewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectOneAdminReleaseServlet() {
+    public DeleteReviewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,20 +27,22 @@ public class SelectOneAdminReleaseServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int num = Integer.parseInt(request.getParameter("num")); 
+	String [] deleteId = request.getParameterValues("deleteId");
+	
+	int[] bId = new int[deleteId.length];
+	
+	for(int i = 0; i < deleteId.length; i++) {
+		bId[i] = Integer.parseInt(deleteId[i]);
+	}
+	
+	int result = 0;
+	
+	/*for(int i = 0; i < bId.length; i++) {
+		result += new BoardService().
 		
-		ReleaseAdmin r = new ReleaseAdminService().selectOneAdminRelease(num);
-		String page = "";
-		if(r != null) {
-			page = "/views/admin/storage/releaseRegist.jsp";
-			request.setAttribute("r", r);
-			request.getRequestDispatcher(page).forward(request, response);
-		}else {
-			
-			page = "/views/common/errorPage500.jsp";
-			request.setAttribute("msg", "실패");
-			request.getRequestDispatcher(page).forward(request, response);
-		}
+	}*/
+	
+	
 	}
 
 	/**

@@ -18,19 +18,37 @@ public class PaymentAdminService {
 		//계좌이체 주문취소건 : 상태를 주문취소로 변경
 		Connection con = getConnection();
 		int result = 0;
+		
+		//결제를 결제취소 상태로 변경
 		int result1 = new PaymentAdminDao().updatePaymentStatus(con, pymId);
-		int result2 = 0;
-		if(result1 > 0) {
-			//주문상태를 주문취소로 변경 시 주문취소 테이블 INSERT
-			result2 = new PaymentAdminDao().insertPaymentCancle(con, pymId);
-			if(result2 > 0) {
-				commit(con);
-				result = 1;
-			}else {
-				rollback(con);
-			}
-		}else {
+		if(result <= 0) {
 			rollback(con);
+			return result;
+		}
+		
+		//주문상태를 주문취소로 변경 시 주문취소 테이블 INSERT
+		int result2 = new PaymentAdminDao().insertPaymentCancle(con, pymId);
+		if(result2 <= 0) {
+			rollback(con);
+			return result;
+		}
+		
+		//결제번호를 통해 주문번호 조회
+		int poId = new PaymentAdminDao().selectCanclePoId(con, pymId);
+		if(poId <= 0) {
+			rollback(con);
+			return result;
+		}
+		
+		//주문취소 테이블 추가
+		int result3 = new PaymentAdminDao().insertOrderCancle(con, poId);
+		if(result3 <= 0) {
+			rollback(con);
+			return result;
+		}
+		
+		if(result1 > 0 && result2 > 0 && result3 > 0) {
+			result = 1;
 		}
 		
 		return result;

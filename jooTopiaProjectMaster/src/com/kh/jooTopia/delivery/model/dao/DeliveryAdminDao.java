@@ -507,7 +507,7 @@ private Properties prop = new Properties();
 		return result;
 	}
 
-	public int insertRealase(Connection con, ArrayList<Integer> pIdList, int poId) {
+	public int insertRealase(Connection con, ArrayList<Integer> pIdList, int poId, Date startDate) {
 		//출고 인서트
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -517,17 +517,18 @@ private Properties prop = new Properties();
 		try {
 			pstmt = con.prepareStatement(query);
 			for(int i = 0; i < pIdList.size(); i++) {
+				pstmt.setDate(1, startDate);
+				pstmt.setInt(2, poId);
+				pstmt.setInt(3, pIdList.get(i));
 				
+				result += pstmt.executeUpdate();
 			}
-			/*RLID
-			REQUSET_DATE
-			RLDATE
-			POID
-			PID*/
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
-		
 		
 		return result;
 	}
