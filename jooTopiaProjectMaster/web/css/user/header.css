@@ -49,7 +49,7 @@ header > span:nth-child(4) > *:hover{
 }
 .navbar, .navbar *{
    background: white;   
-   z-index: 99999;
+   z-index: 998;
 }
 .navbar{
    height : 52px;
@@ -133,4 +133,7 @@ header > span:nth-child(4) > *:hover{
    right:20px;
    width:130px;
    height:300px;
+}
+.navbar{
+	margin-bottom: 0 !important;
 }

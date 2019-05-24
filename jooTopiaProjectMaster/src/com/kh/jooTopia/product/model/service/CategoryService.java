@@ -38,10 +38,7 @@ public class CategoryService {
 				list = new CategoryDao().selectProductList4(con,cid,pi);break;
 			default:
 				list = new CategoryDao().selectOneProductList(con,cid,pi); break;
-		}
-		
-		
-		
+		}		
 		close(con);
 		
 		return list;
@@ -53,6 +50,16 @@ public class CategoryService {
 	
 		close(con);
 		return listCount;
+	}
+
+	public ArrayList<HashMap<String, Object>> sortProductList(int cid, PageInfo pi,int orderType) {
+		Connection con = getConnection();
+		ArrayList<HashMap<String, Object>> list = new CategoryDao().sortProductList(con,cid,pi,orderType);
+				
+		
+		close(con);
+		
+		return list;
 	}
 
 }
