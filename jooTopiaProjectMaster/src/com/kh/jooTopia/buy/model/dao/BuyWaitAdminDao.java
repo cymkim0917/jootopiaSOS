@@ -16,11 +16,9 @@ import static com.kh.jooTopia.common.JDBCTemplate.*;
 import com.kh.jooTopia.buy.model.vo.BuyWaitAdmin;
  
 public class BuyWaitAdminDao {
-	
 	private Properties prop = new Properties();
 	
 	public BuyWaitAdminDao() {
-		
 		String fileName = BuyWaitAdminDao.class.getResource("/sql/buywait/buywaitAdmin-query.properties").getPath();
 		
 		try {

@@ -5,7 +5,8 @@
 	String status = (String) hmap.get("status");
 	ArrayList<Attachment> fileList = (ArrayList<Attachment>) hmap.get("fileList");
 	System.out.println("hmap : " + hmap);
-%>	
+	System.out.println("status : " + status);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -128,6 +129,19 @@
 		<div id="adminSection" class="col-sm-10">
 			<h3 class="title">상품매입</h3>
 			<hr>
+			<% if(status.equals("현장거절")){ %>
+			<div class="statusArea">	
+	    		<table align="center">
+	    			<tr>
+	    				<th>매입 거절 사유</th>
+	    			</tr>
+	    			<tr>
+	    				<td><%= hmap.get("denyPersonReason") %></td>
+	    			</tr>
+	    		</table>
+	    	</div>
+			<% } %>
+			
 			<div class="tableArea" align="center">
 	      		<table>
 	      			<tr>
@@ -167,7 +181,7 @@
 						<td><%= hmap.get("usePeriod") %></td>
 					</tr>		
 					<tr>
-						<td>희망가격 / 구매정가</td>
+						<td>구매정가  / 희망가격</td>
 						<td> 
 							<span><%= hmap.get("primeCost") %></span> / <span><%= hmap.get("hopeCost") %></span>
 						</td>
@@ -219,20 +233,19 @@
 	      		</div>
 	      	</div>
 	    </div><!-- col-sm-10 -->
-		<div id="buyModal" class="modal fade" role="dialog"
-			data-backdrop="static">
+		<div id="buyModal" class="modal fade" role="dialog" data-backdrop="static">
 			<div class="modal-dialog">
 				<!-- Modal content-->
 				<div class="modal-content">
 					<div class="modal-body">
 						<br>
-						<form action="/insertPCDAccept.do?no=<%= hmap.get("pcid") %>" id="purchaseAccept" method="post">
+						<form action="<%= request.getContextPath() %>/insertPCDAccept.do?no=<%= hmap.get("pcid") %>" id="purchaseAccept" method="post">
 							<h3 align="center">매입수락</h3>
 							<br>
 							<table align="center" width="60%" id="modalTable">
 								<tr>
 									<td><label>구매정가</label></td>
-									<td><%=hmap.get("hopeCost")%></td>
+									<td><%=hmap.get("primeCost")%></td>
 								</tr>
 								<tr>
 									<td><label>거리 / 용달비용</label></td>
@@ -292,15 +305,14 @@
 				</div>
 			</div>
 		</div>
-		<div id="denyModal" class="modal fade" role="dialog">
+		<div id="denyModal" class="modal fade" role="dialog" data-backdrop="static">
 			<div class="modal-dialog">
 				<!-- Modal content-->
 				<div class="modal-content">
 					<div class="modal-body">
 						<br>
 						<h3 align="center">매입 거절 이유를 작성해주세요</h3><br><br>
-						<textarea cols="60%" rows="10" name="denyReason" id="denyReason"
-							style="resize: none;">매입거절 사유를 작성해주세요.</textarea>
+						<textarea cols="60%" rows="10" name="denyReason" id="denyReason" style="resize: none;">매입거절 사유를 작성해주세요.</textarea>
 					</div><br><br>
 					<div class="modal-footer" align="center">
 						<button class="btn btn-danger" onclick="purchaseDeny();">매입거절</button>
@@ -324,22 +336,25 @@
 	      			alert("바코드가 일치하지 않습니다.");
 	      		}
 	      	})
+	      	$("#denyReason").focus(function(){
+	      		$(this).html("");
+	      	});
 	      	function applyCheck(){
 	      		if($("#bCodeCheck").val() == "Y"){
 	      			$("#purchaseAccept").submit();
 	      		}else{
-	      			alert("바코드가 확인이 되지 않았습니다.");
+	      			alert("바코드를 확인해주세요.");
 	      		}
 	      	}
-	      </script>
+			function purchaseDeny(){
+				var denyReason = $("#denyReason").val();
+				location.href="<%= request.getContextPath() %>/insertPersonDeny.do?no=<%= hmap.get("pcid") %>&denyReason=" + denyReason;
+			}
+		</script>
 	</section>
 <%@ include file="/views/common/adminFooter.jsp" %>
 </body>
 </html>
-
-
-
-
 
 
 

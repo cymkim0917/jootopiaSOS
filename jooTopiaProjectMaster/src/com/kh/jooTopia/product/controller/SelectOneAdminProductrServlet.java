@@ -10,27 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.jooTopia.product.model.service.ProductAdminService;
 import com.kh.jooTopia.product.model.vo.ProductregAdmin;
 
-/**
- * Servlet implementation class SelectOneAdminProductrServlet
- */
 @WebServlet("/selectOneAdminProductr.do")
 public class SelectOneAdminProductrServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public SelectOneAdminProductrServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-int num = Integer.parseInt(request.getParameter("num"));
+		int num = Integer.parseInt(request.getParameter("num"));
 		
 		ProductregAdmin p = new ProductAdminService().selectOneAdminProductreg(num);
 		
@@ -45,9 +35,6 @@ int num = Integer.parseInt(request.getParameter("num"));
 		request.getRequestDispatcher(page).forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

@@ -26,7 +26,11 @@ public class SelectBuyDetailAdminServlet extends HttpServlet {
 		
 		if(hmap != null) {
 			request.setAttribute("hmap", hmap);
-			request.getRequestDispatcher("views/admin/storage/buyAccept.jsp").forward(request, response);
+			if(hmap.get("status").equals("매입중")) {
+				request.getRequestDispatcher("selectOneAdminProductr.do?num=" + hmap.get("pcid")).forward(request, response);
+			}else {
+				request.getRequestDispatcher("views/admin/storage/buyAccept.jsp").forward(request, response);
+			}
 		}else {
 			request.setAttribute("msg", "상품매입 페이지 조회 실패!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
