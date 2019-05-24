@@ -274,7 +274,7 @@
 		var date = $(this).parent().parent().children().eq(3).text();
 		var message = $(this).parent().children().eq(1).val();
 		
-		if(message == null) {
+		if(message == "null") {
 			message = "";
 		}
 		
@@ -348,10 +348,8 @@
 	
 	//입금처리 모달에서 입금처리하기
 	function changePayment() {
-		/* var depositName = $("#depositName").val(); */
 		var poId = $("#modalPYCode").text();
 		
-		/* console.log(depositName); */
 		console.log(poId);
 		
 		$.ajax({

@@ -14,14 +14,14 @@ public class Payment implements Serializable {
 	private String cardKind;
 	private int installment;
 	private int uno;
-	private int tId;
+	private String tId;
 	private String depositName;
 	private Date depositDate;
 	
 	public Payment() {}
-	
+
 	public Payment(int pymId, int productPrice, int deliveryPrice, Date pymDate, String paymentOption, String status,
-			String cardCompany, String cardKind, int installment, int uno, int tId, String depositName,
+			String cardCompany, String cardKind, int installment, int uno, String tId, String depositName,
 			Date depositDate) {
 		super();
 		this.pymId = pymId;
@@ -119,11 +119,11 @@ public class Payment implements Serializable {
 		this.uno = uno;
 	}
 
-	public int gettId() {
+	public String gettId() {
 		return tId;
 	}
 
-	public void settId(int tId) {
+	public void settId(String tId) {
 		this.tId = tId;
 	}
 

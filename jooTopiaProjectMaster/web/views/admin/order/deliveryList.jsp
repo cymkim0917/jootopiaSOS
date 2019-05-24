@@ -359,13 +359,6 @@
 		var dMessage = $("#oMemo").val();
 		var startDate = $("#dStartDate").val();
 		
-		console.log(poId);
-		console.log(name);
-		console.log(phone);
-		console.log(address);
-		console.log(dMessage);
-		console.log(startDate);
-		
 		$.ajax({
 			url : "updateAdminDeliveryModal.do",
 			type : "post",

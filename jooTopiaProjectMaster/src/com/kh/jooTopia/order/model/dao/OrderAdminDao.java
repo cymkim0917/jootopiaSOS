@@ -199,7 +199,7 @@ public class OrderAdminDao {
 				pym.setCardCompany(rset.getString("CARD_COMPANY"));
 				pym.setCardKind(rset.getString("CARD_KIND"));
 				pym.setInstallment(rset.getInt("INSTALLMENT"));
-				pym.settId(rset.getInt("TID"));
+				pym.settId(rset.getString("TID"));
 				pym.setProductPrice(rset.getInt("PRODUCT_PRICE"));
 				pym.setDeliveryPrice(rset.getInt("DELIVERY_PRICE"));
 				hmap.put("pym", pym);
@@ -306,8 +306,6 @@ public class OrderAdminDao {
 		
 		String query = prop.getProperty("selectPreProductOne");
 		
-		System.out.println(query);
-		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, poId);
@@ -329,15 +327,16 @@ public class OrderAdminDao {
 				hmap.put("o", o);
 				
 				//결제 정보 : PY.PYMID, PY.DEPOSIT_NAME, PY.PAYMENT_OPTION, PY.CARD_COMPANY, PY.CARD_KIND,
-				//PY.INSTALLMENT, PY.TID
+				//PY.INSTALLMENT, PY.TID, PY.PYMDATE
 				Payment pym = new Payment();
 				pym.setPymId(rset.getInt("PYMID"));
+				pym.setPymDate(rset.getDate("PYMDATE"));
 				pym.setDepositName(rset.getString("DEPOSIT_NAME"));
 				pym.setPaymentOption(rset.getString("PAYMENT_OPTION"));
 				pym.setCardCompany(rset.getString("CARD_COMPANY"));
 				pym.setCardKind(rset.getString("CARD_KIND"));
 				pym.setInstallment(rset.getInt("INSTALLMENT"));
-				pym.settId(rset.getInt("TID"));
+				pym.settId(rset.getString("TID"));
 				pym.setProductPrice(rset.getInt("PRODUCT_PRICE"));
 				pym.setDeliveryPrice(rset.getInt("DELIVERY_PRICE"));
 				hmap.put("pym", pym);
@@ -416,7 +415,7 @@ public class OrderAdminDao {
 		return result;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectOrderProductList(Connection con, int[] orderPId) {
+	public ArrayList<HashMap<String, Object>> selectOrderProductList(Connection con, ArrayList<Integer> orderPId) {
 		//회원의 주문하려는 예비 상품목록 출력하기
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -430,8 +429,8 @@ public class OrderAdminDao {
 			pstmt = con.prepareStatement(query);
 			
 			productList = new ArrayList<HashMap<String, Object>>();
-			for(int i = 0; i < orderPId.length; i++) {
-				pstmt.setInt(1, orderPId[i]);
+			for(int i = 0; i < orderPId.size(); i++) {
+				pstmt.setInt(1, orderPId.get(i));
 				rset = pstmt.executeQuery();
 				
 				while(rset.next()) {

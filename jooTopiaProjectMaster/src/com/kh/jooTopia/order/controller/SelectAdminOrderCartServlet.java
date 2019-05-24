@@ -26,12 +26,12 @@ public class SelectAdminOrderCartServlet extends HttpServlet {
 		System.out.println("실행!!");
 		String pIdArr = request.getParameter("pId");
 		String[] pId = pIdArr.split(" ");
-		int orderPId[] = new int[pId.length];
+		ArrayList<Integer> orderPId = new ArrayList<Integer>();
 		System.out.println("pIdArr : " + pIdArr);
 		
 		for(int i = 0; i < pId.length; i++) {
-			orderPId[i] = Integer.parseInt(pId[i]);
-			System.out.println("주문할 PID : " + i + " dd " + orderPId[i]);
+			orderPId.add(Integer.parseInt(pId[i]));
+			System.out.println("주문할 PID : " + i + " dd " + orderPId.get(i));
 		}
 		
 		ArrayList<HashMap<String, Object>> productList = new OrderAdminService().selectOrderProductList(orderPId);

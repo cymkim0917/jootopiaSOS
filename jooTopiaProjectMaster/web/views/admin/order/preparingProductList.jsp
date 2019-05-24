@@ -197,7 +197,7 @@
     		</tr>
     		<tr>
     			<td>
-    			<input type="text" id="oMemo" name="oMemo" placeholder="배송메시지를 입력하세요" value="">
+    			<input type="text" id="oMemo" name="oMemo" placeholder="배송메시지를 입력하세요" value=" ">
     			</td>
     		</tr>
     	</table>
@@ -227,7 +227,9 @@
 		var date = $(this).parent().parent().children().eq(3).text();
 		var message = $(this).parent().children().eq(1).val();
 		
-		if(message == null) {
+		console.log(message);
+		
+		if(message == "null") {
 			message = "";
 		}
 		

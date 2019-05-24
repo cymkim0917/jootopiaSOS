@@ -314,7 +314,7 @@
 		var modalPymCDate = $(this).parent().parent().children().eq(3).text();
 		var reason = $(this).parent().children().eq(1).val();
 		
-		if(reason == null) {
+		if(reason == "null") {
 			reason = "-";
 		}
 		

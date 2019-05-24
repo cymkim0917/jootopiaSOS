@@ -114,21 +114,41 @@
 		<table id="pInfo2">
 			<tr><th colspan="2" height="40px">결제수단</th>
 			<tr>
-				<th>입금자명</th>
-				<td><%= pym.getDepositName() %></td>
-			</tr>
-			<tr>
 				<th>결제수단</th>
 				<td><%= pym.getPaymentOption() %></td>
 			</tr>
 			<% if(pym.getPaymentOption().equals("카드")) { %>
 			<tr>
-				<th>결제정보</th>
-				<td><%= pym.getCardCompany() %> / <%= pym.getCardKind() %> / 할부 : <%= pym.getInstallment() %></td>
-			</tr>
-			<tr>
 				<th>TID</th>
 				<td><%= pym.gettId() %></td>
+			</tr>
+			<tr>
+				<th>카드정보</th>
+				<td><%= pym.getCardCompany() %></td>
+			</tr>
+			<% if(pym.getInstallment() > 0) { %>
+			<tr>
+				<th>결제정보</th>
+				<td>결제일 : <%= pym.getPymDate() %> / <%= pym.getInstallment() %>개월 할부</td>
+			</tr>
+			<% }else { %>
+			<tr>
+				<th>결제정보</th>
+				<td>결제일 : <%= pym.getPymDate() %> / (할부없음)</td>
+			</tr>
+			<% } %>
+			<% }else { %>
+			<tr>
+				<th>결제수단</th>
+				<td><%= pym.getPaymentOption() %></td>
+			</tr>
+			<tr>
+				<th>입금자명</th>
+				<td><%= pym.getDepositName() %></td>
+			</tr>
+			<tr>
+				<th>입금일</th>
+				<td><%= pym.getDepositDate() %></td>
 			</tr>
 			<% } %>
 		</table>
@@ -179,7 +199,11 @@
 			<tr>
 				<th>배송메시지</th>
 				<td>
+				<% if(o.getdMessage() == null) { %>
+				<input id="message" type="text" value='' size="50%">
+				<% }else { %>
 				<input id="message" type="text" value='<%= o.getdMessage() %>' size="50%">
+				<% } %>
 				<button class="memo" onclick="changeCondition('DMESSAGE', this)">수정</button>
 				</td>
 			</tr>
