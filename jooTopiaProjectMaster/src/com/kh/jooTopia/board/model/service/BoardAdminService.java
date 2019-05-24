@@ -58,7 +58,6 @@ public class BoardAdminService {
 		Connection con = getConnection();
 	
 		int listCount = new BoardAdminDao().getNoticeListCount(con);
-		//System.out.println("서비스 카운트" + listCount);
 		
 		close(con);
 		
@@ -295,12 +294,41 @@ public class BoardAdminService {
 
 	public HashMap<String, Object> selectReviewList(PageInfo pageInfo) {
 		Connection con = getConnection();
-		HashMap<String, Object> hmap = null;
 		
-		hmap = new BoardAdminDao().selectReviewList(con, pageInfo);
+		HashMap<String, Object> hmap = new BoardAdminDao().selectReviewList(con, pageInfo);
+		
+		System.out.println("서비스" + hmap.get("board"));
 		
 		return hmap;
 	}
+
+	public HashMap<String, Object> selectOneReview(int num) {
+		Connection con = getConnection();
+		HashMap<String, Object> hmap = null;
+		
+		int result = new BoardAdminDao().updateCount(con,num);
+		
+		if(result>0) {
+			commit(con);
+			hmap = new BoardAdminDao().selectOneReview(con,num);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return hmap;
+	}
+
+	public HashMap<String, Object> searchReview(PageInfo pageInfo, String userId, String title) {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> hmap = new BoardAdminDao().searchReview(con, pageInfo, userId, title);
+		
+		return hmap;
+	}
+
+	
 
 	
 	

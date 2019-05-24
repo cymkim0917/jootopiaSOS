@@ -13,16 +13,16 @@ import com.kh.jooTopia.board.model.service.BoardAdminService;
 import com.kh.jooTopia.board.model.vo.PageInfo;
 
 /**
- * Servlet implementation class SelectAdminReviewServlet
+ * Servlet implementation class SearchAdminRReviewServlet
  */
-@WebServlet("/selectAdminReview.do")
-public class SelectAdminReviewServlet extends HttpServlet {
+@WebServlet("/searchAdminRRe.do")
+public class SearchAdminRReviewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectAdminReviewServlet() {
+    public SearchAdminRReviewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,7 +35,7 @@ public class SelectAdminReviewServlet extends HttpServlet {
 				int currentPage; //현재 페이지를 표시할 변수
 				int limit;		//한 페이지에 게시글이 몇 개 보여질 것인지
 				int maxPage; 	//전체 페이지에서 가장 마지막 페이지
-				int startPage;	//한번에 표지될 페이지가 시작할 페이				int endPage;	//한번에 표시될 페이지가 끝나는 페이지
+				int startPage;	//한번에 표지될 페이지가 시작할 페이지
 				int endPage;	//한번에 표시될 페이지가 끝나는 페이지
 				
 				//페이지 수 처리용 변수
@@ -45,8 +45,9 @@ public class SelectAdminReviewServlet extends HttpServlet {
 					currentPage = Integer.parseInt(request.getParameter("currentPage"));
 				}
 				
+				
 				limit = 10;
-			
+				
 				int listCount = new BoardAdminService().getReviewCount();
 				
 				maxPage = (int)((double)listCount / limit+0.9);
@@ -57,11 +58,13 @@ public class SelectAdminReviewServlet extends HttpServlet {
 				if(maxPage<endPage) {
 					endPage=maxPage;
 				}
-			
-				PageInfo pageInfo = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
 				
-				HashMap<String, Object> hmap = new BoardAdminService().selectReviewList(pageInfo);
-				System.out.println("서블릿" + hmap.get("board"));
+				PageInfo pageInfo = new PageInfo(currentPage, limit, maxPage, startPage, endPage);	
+				
+				String userId = request.getParameter("userId");
+				String title = request.getParameter("title");
+				
+				HashMap<String, Object> hmap = new BoardAdminService().searchReview(pageInfo, userId, title);
 				
 				String page = "";
 				
@@ -74,8 +77,6 @@ public class SelectAdminReviewServlet extends HttpServlet {
 				}
 				
 				request.getRequestDispatcher(page).forward(request, response);	
-	
-	
 	
 	}
 
