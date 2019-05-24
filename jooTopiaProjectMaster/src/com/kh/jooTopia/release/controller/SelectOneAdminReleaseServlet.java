@@ -30,7 +30,7 @@ public class SelectOneAdminReleaseServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int num = Integer.parseInt(request.getParameter("num"));
+		int num = Integer.parseInt(request.getParameter("num")); 
 		
 		ReleaseAdmin r = new ReleaseAdminService().selectOneAdminRelease(num);
 		

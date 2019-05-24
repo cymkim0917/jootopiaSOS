@@ -153,7 +153,7 @@ public class ReleaseAdminDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ReleaseAdmin r = null;
-		
+		 
 		String query = prop.getProperty("selectOneReleaseAdmin");
 		
 		try {

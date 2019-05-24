@@ -34,7 +34,7 @@ public class ReleaseAdminService {
 		return rlist;
 	}
 
-	public ReleaseAdmin selectOneAdminRelease(int num) {
+	public ReleaseAdmin selectOneAdminRelease(int num) { 
 		
 		Connection con = getConnection();
 		
