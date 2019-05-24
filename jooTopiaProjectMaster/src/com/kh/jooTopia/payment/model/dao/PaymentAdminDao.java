@@ -7,11 +7,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.jooTopia.board.model.vo.PageInfo;
+import com.kh.jooTopia.order.model.vo.POrder;
 import com.kh.jooTopia.payment.model.vo.Payment;
 import com.kh.jooTopia.payment.model.vo.PaymentCancle;
 import com.kh.jooTopia.payment.model.vo.Refund;
@@ -157,5 +159,167 @@ public class PaymentAdminDao {
 		}
 		
 		return result;
+	}
+
+	public int insertCardPayment(Connection con, Payment pym) {
+		//카드결제 PAYMENT INSERT
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertCardPayment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			//PRODUCT_PRICE, DELIVERY_PRIVE, PAYMENT_OPTION, STATUS, 
+			//CARD_COMPANY, CARD_KIND, INSTALLMENT, UNO, TID
+			pstmt.setInt(1, pym.getProductPrice());
+			pstmt.setInt(2, pym.getDeliveryPrice());
+			pstmt.setString(3, pym.getPaymentOption());
+			pstmt.setString(4, pym.getStatus());
+			pstmt.setString(5, pym.getCardCompany());
+			pstmt.setString(6, pym.getCardKind());
+			pstmt.setInt(7, pym.getInstallment());
+			pstmt.setInt(8, pym.getUno());
+			pstmt.setString(9, pym.gettId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int selectPymIdCurrval(Connection con) {
+		//PAYMENT PYMID 조회
+		Statement stmt = null;
+		ResultSet rset = null;
+		int pymId = 0;
+		
+		String query = prop.getProperty("selectPymIdCurrval");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				pymId = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return pymId;
+	}
+
+	public int insertCardOrder(Connection con, POrder o) {
+		//카드결제 PORDER INSERT
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertCardOrder");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			//STATUS, UNO, PYMID, NAME, PHONE, ADDRESS, DMESSAGE
+			pstmt.setString(1, "상품준비중");
+			pstmt.setInt(2, o.getuNo());
+			pstmt.setInt(3, o.getPymId());
+			pstmt.setString(4, o.getName());
+			pstmt.setString(5, o.getPhone());
+			pstmt.setString(6, o.getAddress());
+			pstmt.setString(7, o.getdMessage());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updatePymProductStatus(Connection con, ArrayList<Integer> pIdList) {
+		//주문건의 상품상태 판매중지로 변경
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updatePymProductStatus");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			for(int i = 0; i < pIdList.size(); i++) {
+				pstmt.setString(1, "판매중지");
+				pstmt.setInt(2, pIdList.get(i));
+				
+				result += pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertOrderDetail(Connection con, int poId, ArrayList<Integer> pIdList) {
+		//ORDER_DETAIL INSERT
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertOrderDetail");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			for(int i = 0; i < pIdList.size(); i++) {
+				pstmt.setInt(1, poId);
+				pstmt.setInt(2, pIdList.get(i));
+				
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int selectPoIdCurrval(Connection con) {
+		//POID의 CURRVAL 조회
+		Statement stmt = null;
+		ResultSet rset = null;
+		int poId = 0;
+		
+		String query = prop.getProperty("selectPoIdCurrval");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				poId = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return poId;
 	}
 }

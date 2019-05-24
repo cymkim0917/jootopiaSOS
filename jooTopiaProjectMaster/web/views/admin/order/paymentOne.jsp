@@ -112,25 +112,6 @@
 		
 		<div class="pInfo2Area">
 		<table id="pInfo2">
-			<tr><th colspan="2" height="40px">결제수단</th></tr>
-			<% if(pym.getPaymentOption().equals("카드")) { %>
-			<tr>
-				<th>결제수단</th>
-				<td><%= pym.getPaymentOption() %></td>
-			</tr>
-			<tr>
-				<th>TID</th>
-				<td><%= pym.gettId() %></td>
-			</tr>
-			<tr>
-				<th>카드정보</th>
-				<td><%= pym.getCardCompany() %> / <%= pym.getCardKind() %></td>
-			</tr>
-			<tr>
-				<th>결제정보</th>
-				<td>결제일 : <%= pym.getPymDate() %> / <%= pym.getInstallment() %>개월 할부</td>
-			</tr>
-			<% }else { %>
 			<tr>
 				<th>결제수단</th>
 				<td><%= pym.getPaymentOption() %></td>
@@ -139,11 +120,6 @@
 				<th>입금자명</th>
 				<td><%= pym.getDepositName() %></td>
 			</tr>
-			<tr>
-				<th>입금일</th>
-				<td><%= pym.getDepositDate() %></td>
-			</tr>
-			<% } %>
 		</table>
 		</div>
 		

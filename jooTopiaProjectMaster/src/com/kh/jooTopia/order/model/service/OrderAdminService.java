@@ -100,7 +100,7 @@ public class OrderAdminService {
 		//상품준비중 주문 상세보기
 		Connection con = getConnection();
 		HashMap<String, Object> hmap = new OrderAdminDao().selectPreProductOne(con, poId);
-				
+		
 		close(con);
 				
 		return hmap;
@@ -120,7 +120,7 @@ public class OrderAdminService {
 		return result;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectOrderProductList(int[] orderPId) {
+	public ArrayList<HashMap<String, Object>> selectOrderProductList(ArrayList<Integer> orderPId) {
 		//회원의 주문하려는 예비 상품목록 출력하기
 		Connection con = getConnection();
 		ArrayList<HashMap<String, Object>> productList = new OrderAdminDao().selectOrderProductList(con, orderPId);

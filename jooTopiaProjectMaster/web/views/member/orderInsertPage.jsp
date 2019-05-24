@@ -7,6 +7,7 @@
 	int deliveryPrice = 30000; //배송비 임시
 	String pIdArr = "";
 	String account = "(주)주토피아 / 신한 / 000-11111-22222";
+	String orderName = "주토피아 : ";
 %>
 <!DOCTYPE html>
 <html>
@@ -17,7 +18,6 @@
 <link rel="stylesheet" href="/jootopia/css/common.css">
 <link rel="stylesheet" href="/jootopia/css/user/semantic.css">
 
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-x.y.z.js"></script>
 <title>JooTopia</title>
 <style>
 	div>h1{
@@ -150,6 +150,12 @@
 					
 					totalPrice += Integer.parseInt(String.valueOf(p.getpPrice()));
 					pIdArr += p.getpId() + "|";
+					
+					if(i == 0) {
+						orderName += p.getpName();
+					}else if(productList.size() > 1 && i == productList.size() - 1){
+						orderName += " 외 " + (i) + "건";
+					}
 					%>
 					<tr>
 						<td><img src="/jootopia/images/product/<%= a.getChangeName() %>" width="60px" height="60px"></td>
@@ -189,7 +195,8 @@
 					</tr>
 					<tr>
 						<td colspan="1"></td>
-						<td colspan="2"><div class="btn" id="account" name="account">계좌이체</div><div class="btn" id="card" name="card">카드결제</div></td>
+						<td colspan="2"><div class="btn" id="account" name="account">계좌이체</div>
+						<div class="btn" id="card" name="card" onclick="cardOrder()">카드결제</div></td>
 						<td colspan="1"></td>
 					</tr>
 				</table>
@@ -201,7 +208,8 @@
 			<div class="col-sm-3"></div>		
 		</div>
 	</section>
-	
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
 		//수령자 정보가 회원정보와 같다고 체크했을 때
 		$("#checkInfo").click(function() {
@@ -216,7 +224,7 @@
 			}
 		});
 		
-		$(".btn").click(function() {
+		$("#account").click(function() {
 			var account = '<%= account %>'
 			var type = $(this).text();
 			var $t = $("#payment tbody");
@@ -227,11 +235,6 @@
 				$t.append('<tr> <td colspan="4"> 입금계좌 : ' + account + ' </td></tr>');
 				$t.append('<tr> <td colspan="2">입금자명 : </td> <td colspan="2"><input type="text" id="depositName" name="depositName" placeholder="입금자명을 입력하세요" style="width:100%" value=""></td> </tr>');
 				$t.append('<tr> <td colspan="4"><div class="btn" id="accountOrder" onclick="accountOrder()">주문하기</div></td></tr>');
-			}else {
-				$t.children().remove();
-				$t.append('<tr> <td colspan="4"><h4>카드결제</h4></td> </tr>');
-				$t.append('<tr><td>API연결해야함~~~</td><tr>');
-				$t.append('<tr> <td colspan="4"><div class="btn" id="cardOrder">주문하기</div></td></tr>');
 			}
 		});
 		
@@ -239,6 +242,61 @@
 			$("#order").attr("action","<%=request.getContextPath()%>/insertAccountPayment.do").submit();		
 		};
 		
+		function cardOrder() {
+			var IMP = window.IMP; // 생략가능
+			IMP.init('imp10998160');
+			IMP.request_pay({
+			    pg : 'inicis', // version 1.1.0부터 지원.
+			    pay_method : 'card',
+			    merchant_uid : 'merchant_' + new Date().getTime(),
+			    name : '주문명:결제테스트',
+			    amount : 10,
+			    buyer_email : '',
+			    buyer_name : '<%= loginUser.getUserName() %>',
+			    buyer_tel : '010-1234-5678',
+			    buyer_addr : '서울특별시 강남구 삼성동',
+			    buyer_postcode : '123-456',
+			    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+			}, function(rsp) {
+			    if ( rsp.success ) {
+			    	console.log("결제성공");
+			    	$.ajax({
+			        	url : "cardPayment.do",
+			        	data : {
+			        		productPrice : '<%= totalPrice %>',
+			        		deliveryPrice : '<%= deliveryPrice %>',
+			        		paymentOption : rsp.pay_method,
+			        		status : rsp.status,
+			        		cardCompany : rsp.card_name,
+			        		cardKind : rsp.card_name,
+			        		installment : rsp.card_quota,
+			        		uno : '<%= loginUser.getUno() %>',
+			        		tId : rsp.pg_tid,
+			        		//----
+			        		name : $("#name").val(),
+			        		phone : $("#phone").val(),
+			        		address : $("#address").val(),
+			        		dMessage : $("#dmessage").val(),
+			        		//----
+			        		pIdArr : '<%= pIdArr %>'
+			        	},
+			        	success : function(data) {
+			        		alert("주문성공!");
+			        		location.href="orderList.do";
+			        	}
+			        });
+			        var msg = '결제가 완료되었습니다.';
+			        msg += '고유ID : ' + rsp.imp_uid;
+			        msg += '상점 거래ID : ' + rsp.merchant_uid;
+			        msg += '결제 금액 : ' + rsp.paid_amount;
+			        msg += '카드 승인번호 : ' + rsp.apply_num;
+			    } else {
+			        var msg = '결제에 실패하였습니다.';
+			        msg += '에러내용 : ' + rsp.error_msg;
+			    }
+			    alert(msg);
+			});
+		}
 </script>
 
 <%@ include file="/views/common/footer.jsp" %>
