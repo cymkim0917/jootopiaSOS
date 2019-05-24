@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.jooTopia.buy.model.service.BuyWaitAdminService;
 import com.kh.jooTopia.buy.model.vo.BuyWaitAdmin;
+
+import com.kh.jooTopia.heap.model.vo.PageInfo;
  
 
 @WebServlet("/selectAdminBuy.do")
@@ -23,11 +25,46 @@ public class SelectAdminBuyWaitServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<BuyWaitAdmin> list = new BuyWaitAdminService().selectAdminList();
+		
+		//--페이징 시작
+				int currentPage;
+				int limit;
+				int maxPage;
+				int startPage;
+				int endPage;
+				
+				currentPage = 1;
+				
+				if(request.getParameter("currentPage") != null) {
+					currentPage = Integer.parseInt(request.getParameter("currentPage"));
+				}
+				
+				limit = 10;
+				
+				int listCount = new BuyWaitAdminService().getBuyWaitListCount();
+				
+				System.out.println(listCount);
+				
+				maxPage = (int)((double)listCount / limit + 0.9);
+				
+				startPage = (((int)((double)currentPage / limit + 0.9)) -1) *10 +1;
+				
+				endPage = startPage +10 -1;
+				
+				if(maxPage < endPage) {
+					endPage = maxPage;
+				}
+				
+				PageInfo pi = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
+				//--여기까지 페이징 처리
+		
+		//ArrayList<BuyWaitAdmin> list = new BuyWaitAdminService().selectAdminList();
+		ArrayList<BuyWaitAdmin> list = new BuyWaitAdminService().selectBuyWaitAdminList(pi);
 		String page = "";
 		if(list != null) {
 			page = "views/admin/storage/buyWait.jsp";
 			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
 			
 		}else {
 			page = "views/common/errorPage500.jsp";
