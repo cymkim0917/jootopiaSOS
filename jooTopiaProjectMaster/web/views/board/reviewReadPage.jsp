@@ -133,12 +133,26 @@
    <br><br><br>
        <div class="notice" align="center">
 	         <button onclick="location.href='<%=request.getContextPath()%>/selectReviewTotalList.do'">목록</button>
-	         <button onclick="location.href='<%=request.getContextPath()%>/views/notice/reviewWrite.jsp'">수정</button>
-	         <button onclick="review_delete();">삭제</button>
+	         <%-- <button onclick="location.href='<%=request.getContextPath()%>/views/notice/reviewWrite.jsp'">수정</button> --%>
+	         <button onclick="delconfirm();">삭제</button>
 			      <script>
-			      function review_delete(){
-			         alert("게시물을 삭제하시겠습니까?");
+			    
+			      
+			      function delconfirm(){
+			    	  var message = confirm("정말 삭제하시겠습니까?");
+			    	  if(message == true){
+			    		  alert("삭제되었습니다.");
+			    		  location.href=<%= hmap.%>
+			    		  
+			    		  
+			    	  }else{
+			    		  
+			    	  }
+			    	  return false;			    	  
 			      }
+			      
+			     
+			      
 			      </script>
          </div>
         

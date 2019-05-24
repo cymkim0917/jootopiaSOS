@@ -78,7 +78,8 @@
 			
 					<input type="hidden" name="bid" value="<%=hmap.get("bid")%>">
 		
-				<img src="<%=request.getContextPath()%>/<%= hmap.get("file_path") %>/<%=hmap.get("change_name")%>"
+				<img src="<%=request.getContextPath()%>/images/review/<%=hmap.get("change_name")%>"
+				
 						width="200px" height="150px"> 
 						
 						
@@ -88,7 +89,10 @@
 				제목 : <%=hmap.get("btitle")%><br>
 				글쓴이 : <%=hmap.get("user_id") %><br>
 				조회수 : <%=hmap.get("bcount")%>
-				</p>
+				</p> 
+				
+				getContextPath() : <%=request.getContextPath() %><br>
+				
 				
 				
 				
@@ -134,7 +138,8 @@
 			$(function(){
 				$(".thumb-list").click(function(){
 					var num = $(this).children().children().eq(0).val();
-					console.log(num);
+					console.log("num : " + num);
+					
 					location.href="<%=request.getContextPath()%>/selectOneReview.do?num="+num;  
 					
 				});
