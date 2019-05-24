@@ -44,7 +44,7 @@ public class BoardDao {
       ArrayList<Notice> nList = null;
       ArrayList<Member> mList = null;
       
-      String query = prop.getProperty("selectList");
+      String query = prop.getProperty("selectNoticeTotalList");
       
       /*int startRow = (pageInfo.getCurrentPage()-1)*pageInfo.getLimit()+1;
       int endRow = startRow + pageInfo.getLimit()-1;
@@ -68,6 +68,7 @@ public class BoardDao {
             n.setbTitle(rset.getString("BTITLE"));
             n.setbCount(rset.getInt("BCOUNT"));
             n.setModifyDate(rset.getDate("MODIFY_DATE"));
+            n.setnType(rset.getString("NTYPE"));
             
             nList.add(n);
             
@@ -101,7 +102,7 @@ public class BoardDao {
       ResultSet rset = null;
       Notice n = null;
       
-      String query = prop.getProperty("selectOne");
+      String query = prop.getProperty("selectOneNoticeList");
       try {
          pstmt=con.prepareStatement(query);
          pstmt.setInt(1, num);
@@ -454,8 +455,9 @@ public class BoardDao {
       System.out.println("Dao 페이징 : " + list);
       return list;
    }
-
-   public ArrayList<Board> selectFaqMembershipList(Connection con) {
+   
+//지우지마세요!!!!!!!!
+   /*public ArrayList<Board> selectFaqMembershipList(Connection con) {
       PreparedStatement pstmt = null;
       ResultSet rset = null;
       ArrayList<Board> list = null;
@@ -491,7 +493,7 @@ public class BoardDao {
          close(pstmt);
       }
       return list;
-   }
+   }*/
 
    public ArrayList<Board> titleSearchList(Connection con, Board board, String searchText) {
       ArrayList<Board> list = null;
@@ -649,7 +651,7 @@ public class BoardDao {
       ResultSet rset = null;
       Board b = null;
       
-      String query = prop.getProperty("selectOne");
+      String query = prop.getProperty("selectOneFaqTotalList");
       
       try {
          pstmt=con.prepareStatement(query);
@@ -665,6 +667,7 @@ public class BoardDao {
             b.setbTitle(rset.getString("BTITLE"));
             b.setbContent(rset.getString("BCONTENT"));
             b.setStatus(rset.getString("STATUS"));
+            b.setbDate(rset.getDate("BDATE"));
             /*n.setEnrollDate(rset.getDate("ENROLL_DATE"));*/
             b.setModifyDate(rset.getDate("MODIFY_DATE"));
             b.setbCount(rset.getInt("BCOUNT"));
@@ -690,7 +693,7 @@ public class BoardDao {
       ResultSet rset = null;
       Board b = null;
       
-      String query = prop.getProperty("selectOne");
+      String query = prop.getProperty("selectOneFaqCategoryList");
       
       try {
          pstmt=con.prepareStatement(query);
@@ -706,6 +709,7 @@ public class BoardDao {
             b.setbTitle(rset.getString("BTITLE"));
             b.setbContent(rset.getString("BCONTENT"));
             b.setStatus(rset.getString("STATUS"));
+            b.setbDate(rset.getDate("BDATE"));
             /*n.setEnrollDate(rset.getDate("ENROLL_DATE"));*/
             b.setModifyDate(rset.getDate("MODIFY_DATE"));
             b.setbCount(rset.getInt("BCOUNT"));
@@ -864,7 +868,7 @@ public class BoardDao {
    public int reviewInsertForm(Connection con, Board b) {
 	   PreparedStatement pstmt = null;
 	   int result = 0;
-	   String sql = prop.getProperty("insertThumb");
+	   String sql = prop.getProperty("reviewInsertForm");
 	   
 	   try {
 		   pstmt = con.prepareStatement(sql);
@@ -901,7 +905,7 @@ public class BoardDao {
       ArrayList<Attachment> aList = null;
       //ArrayList<HashMap<String,Object>> list = null;
       
-      String quary = prop.getProperty("reviewReadPage");
+      String quary = prop.getProperty("selectOneReviewList");
       
       try {
          pstmt=con.prepareStatement(quary);
@@ -980,7 +984,7 @@ public class BoardDao {
       return list;
       
    }
-
+   
    
    public int insertReply(Connection con, Board b) {
       // TODO Auto-generated method stub

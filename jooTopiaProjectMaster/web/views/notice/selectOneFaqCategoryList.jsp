@@ -63,7 +63,13 @@
 				</tbody>
 			
 			</table>
+			
+			
 			</div>
+			
+			<div class ="newWriting" align="center">
+			<button onclick="location.href='<%=request.getContextPath()%>/selectList.do'">목록</button> 
+		</div>	
 		
 		
 		
