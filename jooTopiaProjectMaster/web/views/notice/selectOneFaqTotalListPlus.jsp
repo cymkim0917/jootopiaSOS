@@ -31,6 +31,7 @@
 }
 </style>
 
+
 </head>
 <body>
 <%@ include file="/views/common/navigation.jsp" %>

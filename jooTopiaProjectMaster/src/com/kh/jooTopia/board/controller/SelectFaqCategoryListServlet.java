@@ -33,6 +33,7 @@ public class SelectFaqCategoryListServlet extends HttpServlet {
         super();
     }
     
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String fCategory = request.getParameter("fCategory");
 		System.out.println("fCategory in servlet : " + fCategory);

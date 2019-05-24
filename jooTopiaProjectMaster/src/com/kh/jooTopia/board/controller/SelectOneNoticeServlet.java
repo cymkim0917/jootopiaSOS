@@ -36,6 +36,7 @@ public class SelectOneNoticeServlet extends HttpServlet {
 			request.setAttribute("msg", "게시글 상세 보기 실패");
 		}
 		
+		
 		request.getRequestDispatcher(page).forward(request, response);
 	
 	}

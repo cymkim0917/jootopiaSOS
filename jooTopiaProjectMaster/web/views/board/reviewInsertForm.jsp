@@ -27,6 +27,7 @@
 		margin-top:50px;
 	}
 	
+	
 	.containaer{
 	margin-left:15%;
 	margin-right:150px;

@@ -26,6 +26,7 @@
 
 <title>JooTopia</title>
 
+
 <style>
    <!--게시판 형식 -->
    /* .containaer{

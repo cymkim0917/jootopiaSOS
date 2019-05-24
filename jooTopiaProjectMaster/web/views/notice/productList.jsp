@@ -26,6 +26,7 @@
 <title>JooTopia</title>
 </head>
 
+
 <body>
 <%@ include file="/views/common/navigation.jsp" %>
 	<section>

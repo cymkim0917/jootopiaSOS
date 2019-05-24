@@ -33,6 +33,7 @@ public class SelectBoardListServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		String view = "";
 		
+		
 		if(list != null) {
 			request.setAttribute("list", list);
 			view = "views/member/boardListPage.jsp";

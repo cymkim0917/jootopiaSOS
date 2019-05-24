@@ -28,6 +28,7 @@ public class SelectReviewTotalListServlet extends HttpServlet {
 		System.out.println("servlet list : " + hmap);
 		String page="";
 		if(hmap != null) {
+		
 			page="views/board/reviewList.jsp";
 			request.setAttribute("hmap", hmap);
 		}else {
@@ -38,6 +39,8 @@ public class SelectReviewTotalListServlet extends HttpServlet {
 		
 		ArrayList<HashMap<String, Object>> list = new BoardService().selectReviewTotalList();
 		// ArrayList<Attachment> fileList = (ArrayList<Attachment>) list.get("attachement");
+		
+	
 		
 		
 		
