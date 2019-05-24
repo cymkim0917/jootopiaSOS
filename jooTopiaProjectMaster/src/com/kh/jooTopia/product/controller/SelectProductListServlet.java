@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.kh.jooTopia.product.model.service.ProductService;
+import com.kh.jooTopia.board.model.vo.*;
 
 @WebServlet("/selectProduct.do")
 public class SelectProductListServlet extends HttpServlet {
@@ -22,6 +23,7 @@ public class SelectProductListServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		ArrayList<HashMap<String,Object>> productMap = new ProductService().productList();
 		
 	

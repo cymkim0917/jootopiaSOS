@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
+import com.kh.jooTopia.board.model.vo.PageInfo;
 import com.kh.jooTopia.product.model.dao.ProductDao;
 
 public class ProductService {
@@ -30,6 +31,7 @@ public class ProductService {
 		
 		return detailProc;
 	}
+
 
 	
 

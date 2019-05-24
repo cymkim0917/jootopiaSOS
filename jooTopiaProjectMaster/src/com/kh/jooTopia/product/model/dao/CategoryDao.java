@@ -6,10 +6,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.jooTopia.board.model.vo.PageInfo;
 import com.kh.jooTopia.product.model.vo.Product;
 
 import static com.kh.jooTopia.common.JDBCTemplate.*;
@@ -82,7 +84,7 @@ public class CategoryDao {
 		return cid;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectProductList(Connection con, int cid) {
+	public ArrayList<HashMap<String, Object>> selectProductList(Connection con, int cid,PageInfo pi) {
 		ArrayList<HashMap<String, Object>> productList = null;
 		HashMap<String, Object> procList = null;
 		PreparedStatement pstmt=  null;
@@ -93,7 +95,8 @@ public class CategoryDao {
 		
 		try {
 			pstmt = con.prepareStatement(sql);
-			
+			pstmt.setInt(1, pi.getStartPage());
+			pstmt.setInt(2, pi.getEndPage());
 			rs = pstmt.executeQuery();
 			
 			productList = new ArrayList<HashMap<String,Object>>();
@@ -121,7 +124,7 @@ public class CategoryDao {
 		return productList;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectProductList2(Connection con, int cid) {
+	public ArrayList<HashMap<String, Object>> selectProductList2(Connection con, int cid,PageInfo pi) {
 		ArrayList<HashMap<String, Object>> productList = null;
 		HashMap<String, Object> procList = null;
 		PreparedStatement pstmt=  null;
@@ -160,7 +163,7 @@ public class CategoryDao {
 		return productList;
 	}
 	
-	public ArrayList<HashMap<String, Object>> selectProductList3(Connection con, int cid) {
+	public ArrayList<HashMap<String, Object>> selectProductList3(Connection con, int cid,PageInfo pi) {
 		ArrayList<HashMap<String, Object>> productList = null;
 		HashMap<String, Object> procList = null;
 		PreparedStatement pstmt=  null;
@@ -199,7 +202,7 @@ public class CategoryDao {
 		return productList;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectOneProductList(Connection con, int cid) {
+	public ArrayList<HashMap<String, Object>> selectOneProductList(Connection con, int cid,PageInfo pi) {
 		ArrayList<HashMap<String, Object>> productList = null;
 		HashMap<String, Object> procList = null;
 		PreparedStatement pstmt=  null;
@@ -237,6 +240,83 @@ public class CategoryDao {
 		}
 		
 		return productList;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectProductList4(Connection con, int cid,PageInfo pi) {
+		ArrayList<HashMap<String, Object>> productList = null;
+		HashMap<String, Object> procList = null;
+		PreparedStatement pstmt=  null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("getLivingProductList");
+		
+		System.out.println(sql);
+		
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			productList = new ArrayList<HashMap<String,Object>>();
+			while(rs.next()) {
+				procList = new HashMap<String, Object>();
+				procList.put("pid", rs.getInt("pid"));
+				procList.put("cid", rs.getInt("cid"));
+				procList.put("pname", rs.getString("pname"));
+				procList.put("pprice",rs.getInt("pprice"));
+				procList.put("change_name", rs.getString("change_name"));
+				procList.put("pbrand", rs.getString("pbrand"));
+				procList.put("cgroup", rs.getString("cgroup"));
+				
+				productList.add(procList);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return productList;
+	}
+
+	public int getListCount(Connection con,int cid) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rs = null;
+		
+		String sql= "";
+		switch(cid){
+			case 6:  sql = prop.getProperty("category1ProductCount"); break;
+			case 16: sql = prop.getProperty("category2ProductCount");break;
+			case 26: sql = prop.getProperty("category3ProductCount");break;
+			case 36: sql = prop.getProperty("category4ProductCount");break;
+			default: sql = prop.getProperty("categoryAllProductCount");break;
+		}
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			if(sql.equals(prop.getProperty("categoryAllProductCount"))) {
+				pstmt.setInt(1, cid);
+			}
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return listCount;
 	}
 	
 }
