@@ -11,9 +11,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.jooTopia.board.model.vo.Board;
 import com.kh.jooTopia.board.model.vo.PageInfo;
 import com.kh.jooTopia.member.model.vo.Member;
 import com.kh.jooTopia.order.model.vo.POrder;
+import com.kh.jooTopia.purchase.model.vo.Purchase;
 
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
@@ -295,6 +297,128 @@ public class MemberAdminDao {
 			close(pstmt);
 			close(rset);
 		}
+		
+		return list;
+	}
+
+	public ArrayList selectReviewList(Connection con,int uNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList list = null;
+		
+		String query = prop.getProperty("selectReviewList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, 1);
+			
+			rset=pstmt.executeQuery();
+			
+			list = new ArrayList();
+			
+			while(rset.next()) {
+				 Board board = new Board();
+				 board.setbNo(rset.getInt("BNO"));
+				 board.setbTitle(rset.getString("BTITLE"));
+				 board.setRrating(rset.getInt("RRATING"));
+				 board.setbDate(rset.getDate("BDATE"));
+				 
+				 HashMap<String,Object> hmap = new HashMap<String, Object>();
+				 hmap.put("board", board);
+				 hmap.put("pname", rset.getString("PNAME"));
+				 
+				 list.add(hmap);
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
+
+	public ArrayList selectSellingList(Connection con, int uNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList list = null;
+		
+		String query = prop.getProperty("selectSellingList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, 1);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList();
+			
+			while(rset.next()) {
+				Purchase purchase = new Purchase();
+				purchase.setModel(rset.getString("MODEL"));
+				purchase.setAppAddress(rset.getString("APPLICANT_ADDRESS"));
+				purchase.setHopeCost(rset.getInt("HOPE_COST"));
+				
+				HashMap<String, Object> hmap = new HashMap<String, Object>();
+				
+				hmap.put("purchase", purchase);
+				hmap.put("status", rset.getString("STATUS"));
+				
+				list.add(hmap);
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Board> selectQnAList(Connection con, int uNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = null;
+		
+		String query = prop.getProperty("selectQnAList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, 1);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Board>();
+			
+			while(rset.next()) {
+				Board board = new Board();
+				board.setbDate(rset.getDate("BDATE"));
+				board.setbTitle(rset.getString("BTITLE"));
+				board.setqCategory(rset.getString("QCATEGORY"));
+				board.setaStatus(rset.getString("ASTATUS"));
+				
+				list.add(board);
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
 		
 		return list;
 	}

@@ -5,6 +5,7 @@ import static com.kh.jooTopia.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.jooTopia.board.model.vo.Board;
 import com.kh.jooTopia.board.model.vo.PageInfo;
 import com.kh.jooTopia.member.model.dao.MemberAdminDao;
 import com.kh.jooTopia.member.model.vo.Member;
@@ -66,6 +67,7 @@ public class MemberAdminService {
 		
 		ArrayList<Member> list = new MemberAdminDao().searchMember(con, pageInfo, sMember);
 		
+		close(con);
 		
 		return list;
 	}
@@ -75,6 +77,35 @@ public class MemberAdminService {
 		
 		ArrayList list = new MemberAdminDao().selectOrderList(con, uNo);
 		
+		close(con);
+		
+		return list;
+	}
+
+	public ArrayList selectReviewList(int uNo) {
+		Connection con = getConnection();
+		
+		ArrayList list = new MemberAdminDao().selectReviewList(con,uNo);
+		
+		return list;
+	}
+
+	public ArrayList selectSellingList(int uNo) {
+		Connection con = getConnection();
+		
+		ArrayList list = new MemberAdminDao().selectSellingList(con,uNo);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public ArrayList<Board> selectQnAList(int uNo) {
+		Connection con = getConnection();
+		
+		ArrayList<Board> list = new MemberAdminDao().selectQnAList(con, uNo);
+		
+		close(con);
 		
 		return list;
 	}
