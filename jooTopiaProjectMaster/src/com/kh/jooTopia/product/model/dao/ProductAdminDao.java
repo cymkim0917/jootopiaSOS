@@ -165,6 +165,7 @@ public class ProductAdminDao {
 				hmap.put("pName", rset.getString("PNAME"));
 				hmap.put("pId", rset.getInt("PID"));
 				hmap.put("pcPrice", rset.getInt("PCPRICE"));
+				System.out.println(hmap.get("pcPrice"));
 				hmap.put("pGrade", rset.getString("PGRADE"));
 				hmap.put("pPrice", rset.getInt("PPRICE"));
 				hmap.put("pContent", rset.getString("PCONTENT"));

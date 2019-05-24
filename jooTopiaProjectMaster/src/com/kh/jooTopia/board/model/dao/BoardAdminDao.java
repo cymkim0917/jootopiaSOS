@@ -15,6 +15,7 @@ import com.kh.jooTopia.board.model.vo.Attachment;
 import com.kh.jooTopia.board.model.vo.Board;
 import com.kh.jooTopia.board.model.vo.PageInfo;
 import com.kh.jooTopia.member.model.vo.Member;
+import com.kh.jooTopia.product.model.vo.Product;
 
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
@@ -936,6 +937,7 @@ public class BoardAdminDao {
 		HashMap<String, Object> hmap = null;
 		ArrayList<Board> boardL = null;
 		ArrayList<Member> memberL = null;
+		ArrayList<Product> productL = null;
 		
 		
 		int startRow = (pageInfo.getCurrentPage()-1)*pageInfo.getLimit()+1;
@@ -954,6 +956,7 @@ public class BoardAdminDao {
 			
 			boardL = new ArrayList<Board>();
 			memberL = new ArrayList<Member>();
+			productL = new ArrayList<Product>();
 			
 			while(rset.next()) {
 				Board board = new Board();
@@ -961,25 +964,150 @@ public class BoardAdminDao {
 				board.setbNo(rset.getInt("BNO"));
 				board.setbTitle(rset.getString("BTITLE"));
 				board.setbDate(rset.getDate("BDATE"));
-				board.setbContent(rset.getString("BCONTENT"));
-				board.setaStatus(rset.getString("ASTATUS"));
-				
+				board.setRrating(rset.getInt("RRATING"));
 				boardL.add(board);
 				
 				Member member = new Member();
 				member.setUserId(rset.getString("USER_ID"));
-				member.setUno(rset.getInt("UNO"));
-				
 				memberL.add(member);
+				
+				Product product = new Product();
+				product.setpName(rset.getString("PNAME"));
+				productL.add(product);
+				
 				
 			}
 			
 			hmap.put("board", boardL);
 			hmap.put("member", memberL);
+			hmap.put("product", productL);
 			
+			System.out.println("Dao" + hmap.get("board"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return hmap;
+	}
+
+	public HashMap<String, Object> selectOneReview(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+		Board board = null;
+		Product product = null;
+		Member member = null;
+		ArrayList<Attachment> list = null;
+		
+		String query = prop.getProperty("selectOneReview");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			hmap = new HashMap<String, Object>();
+			list = new ArrayList<Attachment>();
+			
+			while(rset.next()) {
+				board = new Board();
+				board.setbId(rset.getInt("BID"));
+				board.setbNo(rset.getInt("BNO"));
+				board.setbTitle(rset.getString("BTITLE"));
+				board.setbContent(rset.getString("BCONTENT"));
+				board.setRrating(rset.getInt("RRATING"));
+				
+				product = new Product();
+				product.setpName(rset.getString("PNAME"));
+				
+				member = new Member();
+				member.setUserId(rset.getString("USER_ID"));
+				
+				Attachment attach = new Attachment();
+				attach.setfId(rset.getInt("FID"));
+				attach.setOriginName(rset.getString("ORIGIN_NAME"));
+				attach.setChangeName(rset.getString("CHANGE_NAME"));
+				attach.setFilePath(rset.getString("FILE_PATH"));
+				
+				list.add(attach);
+				
+			}
+			hmap.put("board", board);
+			hmap.put("product", product);
+			hmap.put("member", member);
+			hmap.put("attach", list);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		return hmap;
+	}
+
+	public HashMap<String, Object> searchReview(Connection con, PageInfo pageInfo, String userId, String title) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+		ArrayList<Board> boardL = null;
+		ArrayList<Member> memberL = null;
+		ArrayList<Product> productL = null;
+		
+		
+		int startRow = (pageInfo.getCurrentPage()-1)*pageInfo.getLimit()+1;
+		int endRow = startRow + pageInfo.getLimit()-1;
+		
+		String query = prop.getProperty("searchReview");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setString(1, title);
+			pstmt.setString(2, userId);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset=pstmt.executeQuery();
+			
+			hmap = new HashMap<String, Object>();
+			
+			boardL = new ArrayList<Board>();
+			memberL = new ArrayList<Member>();
+			productL = new ArrayList<Product>();
+			
+			while(rset.next()) {
+				Board board = new Board();
+				board.setbId(rset.getInt("BID"));
+				board.setbNo(rset.getInt("BNO"));
+				board.setbTitle(rset.getString("BTITLE"));
+				board.setbDate(rset.getDate("BDATE"));
+				board.setRrating(rset.getInt("RRATING"));
+				boardL.add(board);
+				
+				Member member = new Member();
+				member.setUserId(rset.getString("USER_ID"));
+				memberL.add(member);
+				
+				Product product = new Product();
+				product.setpName(rset.getString("PNAME"));
+				productL.add(product);
+				
+				
+			}
+			
+			hmap.put("board", boardL);
+			hmap.put("member", memberL);
+			hmap.put("product", productL);
+			
+			System.out.println("Dao" + hmap.get("board"));
+			
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);

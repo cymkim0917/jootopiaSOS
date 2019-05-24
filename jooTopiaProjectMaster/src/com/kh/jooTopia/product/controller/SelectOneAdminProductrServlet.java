@@ -19,7 +19,7 @@ public class SelectOneAdminProductrServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// pcid
+
 		int num = Integer.parseInt(request.getParameter("num"));
 		
 		ProductregAdmin p = new ProductAdminService().selectOneAdminProductreg(num);

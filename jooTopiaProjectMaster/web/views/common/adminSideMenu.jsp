@@ -31,7 +31,7 @@
 			<div class="sideMenuBtn" id="boardSide1" onclick="location.href='/jootopia/adminBoardList.do'">공지사항</div>
 		</div>
 		<div class="sideMenu" id="sideMenu2">
-			<div class="sideMenuBtn" id="boardSide1" onclick="location.href='/jootopia/views/admin/board/review.jsp'">후기게시판</div>
+			<div class="sideMenuBtn" id="boardSide1" onclick="location.href='/jootopia/selectAdminReview.do'">후기게시판</div>
 		</div>
 		<div class="sideMenu" id="sideMenu3">
 			<div class="sideMenuBtn" id="boardSide1" onclick="location.href='/jootopia/selectAdminQnA.do'">1:1게시판</div>
