@@ -670,6 +670,7 @@ public class BoardAdminDao {
 			hmap.put("board", boardL);
 			hmap.put("member", memberL);
 			
+			System.out.println("DAo hmap" + hmap);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

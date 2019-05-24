@@ -66,62 +66,45 @@
       <h3 class="title">탈퇴회원관리</h3>
 	  <hr>
        <div class="searchArea">
+       		<form action="<%=request.getContextPath() %>/searchAdminDeleteM.do" method="post" >
 			<table id="searchBox"  border="1" align="center">
-				<tr><th colspan="3" style="background: rgb(224, 224, 224); height: 35px;">　</th></tr>
+				<tr><th colspan="4" style="background: rgb(224, 224, 224); height: 35px;">　</th></tr>
 				<tr>
-					<td>탈퇴사유</td>
-					<td colspan="2">
-						&nbsp;<select id="searchCondition" >
-							<option value="">이용빈도 낮음
-							<option value="">배송지연
-							<option value="">신뢰도 하락
-							<option value="">제품 품질 불만
-							<option value="">혜택부족
-							<option value="">군입대
-							<option value="">강퇴
-						</select>
+					<td>아이디</td>
+					<td colspan="3">
+						<input type="text" placeholder="아이디를 입력하세요." name="userId" width="30px">
 					</td>
 				</tr>
 				<tr>
+					<td>탈퇴사유</td>
+					<td colspan="3">
+						<input type="text" placeholder="검색할 사유를 입력하세요." name="nreason" width="30px">
+					</td>
+				</tr>
+				
+				<tr>
 					<td>탈퇴 유형</td>
-					<td colspan="2">
-						&nbsp;<select id="searchCategory" onchange="smallCategoty(this.value)">
+					<td colspan="3">
+						&nbsp;<select id="searchCategory" name="wType">
+							<option value=""> 
 							<option value="자진">자진
 							<option value="강퇴">강퇴
 						</select>
 					</td>
 				</tr>
-				<tr>
-					<td>탈퇴일자</td>
-					<td id="selectDate" colspan="2">
-						&nbsp;<a href="#" class="btnDate" period="0"><span>오늘</span></a>
-						<a href="#" class="btnDate" period="7"><span>7일</span></a>
-						<a href="#" class="btnDate" period="30"><span>1개월</span></a>
-						<a href="#" class="btnDate" period="90"><span>3개월</span></a>
-						<a href="#" class="btnDate" period="365"><span>1년</span></a>
-						<a href="#" class="btnDate" period="-1"><span>전체</span></a> &nbsp;&nbsp;
-						<input type="date" id="startDate" name="startDate" class="date" value=""> ~ 
-						<input type="date" id="endDate" name="endDate" class="date" value="">
-					</td>
-				</tr>
-				<tr>
-					<td>아이디</td>
-					<td colspan="2">
-						<input type="search" placeholder="아이디를 입력하세요." name="userId" width="20px">
-					</td>
-				</tr>
 			</table>
-			
 			<br>
-			
 			<div id="searchBtnArea" align="center">
 				<input type="submit" value="검색" >
 				<input type="reset" value="초기화" >
 			</div>
+			</form>
+			
 		</div>
 		<hr>
 		<div id="resultArea">
-			<form>
+			<form action="<%=request.getContextPath() %>/returnAdminMember.do"  method="post">
+			
 		   		<table id="memberList" border="1" align="center" width="100%"> 
 		   			<tr>
 		   				<th width="50px;">선택</th>
@@ -132,24 +115,39 @@
 		   			</tr>
 		   			<%for(Member member:list){ %>
 		   			<tr>
-		   				<td><input type="checkbox" value="<%=member.getUno()%>"></td>
+		   				<td><input id="uNova" type="checkbox" name="checkUno" value="<%=member.getUno()%>"></td>
 		   				<td><%=member.getUserId() %></td>
 		   				<td><%=member.getUserName() %></td>
 		   				<td><%=member.getWidthDrawal_date() %></td>
-		   				<td><%=member.getWidthDrawal_reason() %></td>
+		   				<td><%if(member.getWidthDrawal_reason()==null){ %>
+		   				  
+		   				<%}else{ %>
+		   				<%=member.getWidthDrawal_reason() %>
+		   				<%} %>
+		   				</td>
 		   			</tr>
 		   			<%} %>
 		   		</table>
-		   	</form>
 		   	<br>
 		   	<div id="updateBtnArea" align="right">
 		   		<input type="submit" value="복구">
 		   	</div>
+		   	</form>
 		</div>	
 		<hr>
       </div>
+      <div class="paging" align="center">
+		<ul class="pagination">
+			<li><a href="<%=request.getContextPath()%>/deleteAdminMember.do?currentPage=<%=currentPage-1%>">이전</a></li>
+			<li><a href="<%=request.getContextPath()%>/deleteAdminMember.do?currentPage=1">1</a></li>
+			<li><a href="<%=request.getContextPath()%>/deleteAdminMember.do?currentPage=2">2</a></li>
+			<li><a href="<%=request.getContextPath()%>/deleteAdminMember.do?currentPage=3">3</a></li>
+			<li><a href="<%=request.getContextPath()%>/deleteAdminMember.do?currentPage=4">4</a></li>
+			<li><a href="<%=request.getContextPath()%>/deleteAdminMember.do?currentPage=5">5</a></li>
+			<li><a href="<%=request.getContextPath()%>/deleteAdminMember.do?currentPage=<%=currentPage+1%>">다음</a></li>
+		</ul>
+		</div>
    </section>
-   
    
 <%@ include file="/views/common/adminFooter.jsp" %>
 </body>

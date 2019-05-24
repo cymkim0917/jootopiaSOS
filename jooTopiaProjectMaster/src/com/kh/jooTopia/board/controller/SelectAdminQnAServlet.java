@@ -64,6 +64,8 @@ public class SelectAdminQnAServlet extends HttpServlet {
 		
 		HashMap<String, Object> hmap = new BoardAdminService().selectQnAList(pageInfo);
 		
+		System.out.println("서블릿 hmap" + hmap);
+		
 		String page = "";
 		
 		if(hmap != null) {

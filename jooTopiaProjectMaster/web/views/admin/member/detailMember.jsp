@@ -34,8 +34,11 @@
 	#orderListTb, #reviewListTb, #sellingListTb, #qnaListTb{
 		text-align:center;
 	}
-	
-
+	#withdrawalModal .modal-body textarea{
+		display: block;
+		margin-left:5%;
+		margin: 0 auto;
+}
 </style>
 <title>JooTopia</title>
 </head>
@@ -49,7 +52,7 @@
       <br>
       <br>
       	<div>
-	      <form>
+	      <form >
 		      <table id="searchBox" border="1">
 				  <tr>
 				    <td width="15%"><label class="titleName">아이디</label></td>
@@ -68,12 +71,12 @@
 				    <td><%=member.getAddress()%></td>
 				    <td><label class="titleName">이메일</label></td>
 				    <td><%=member.getEmail()%></td>
-				  	<td style="display:none"><input type="text" name="uNo" value="<%=member.getUno() %>"></td>
+				  	<td style="display:none"><input type="text" name="checkuNo" value="<%=member.getUno() %>"></td>
 				  </tr>
 			</table>
 			<br>
 			<div id="searchBtnArea" align="right">
-				<input type="submit" value="강퇴">
+				<input id="showBtn" type="button" data-toggle="modal" data-target="#withdrawalModal"  value="강퇴">
 			</div>
 		  </form>
 		</div><!--폼 -->
@@ -91,7 +94,7 @@
 					<input type="hidden" id="uNo" value="<%=member.getUno()%>">
 					<br> 
 					<div id="searchBtnArea" style="margin-left:41%; margin-top:1%">
-						<input type="button" onclick="searchBoard();" value="검색">
+						<input type="button" onclick="searchBoard();"  value="검색">
 					</div>
 				  </form>
       		</div>
@@ -145,13 +148,23 @@
       				</table>
       			</form>
       		</div>
-     
-			
-      	 
-      
-      
-      
+      	<div id="withdrawalModal" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-body"><br>
+			      <h3 align="center">강퇴 이유를 작성해주세요</h3><br><br>
+			      <textarea cols="60%" rows="10" name="withdrawal" id="withdrawal" style="resize:none;">강퇴 사유를 작성해주세요.</textarea>
+		      </div><br><br>
+		      <div class="modal-footer">
+		      	<button class="btn btn-danger" onclick="withdrawalMember();">강퇴</button>
+		        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
       </div><!-- "col-sm-10" -->
+      	
       	
       	<script>
       		function searchBoard(){
@@ -377,7 +390,12 @@
       			} 
       			
       		}	
-      	
+      		
+      		function withdrawalMember(){
+				var withdrawal = $("#withdrawal").val();
+				location.href="<%= request.getContextPath() %>/deleteAdminMemberR.do?no=<%=member.getUno() %>&withdrawal=" + withdrawal;
+			}
+      		
       		
       	
       	</script>

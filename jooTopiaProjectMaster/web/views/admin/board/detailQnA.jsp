@@ -87,7 +87,7 @@
       	 		
       	 			<div id="searchBtnArea" align="center">
       	 				<input id="addReply" type="button" value="수정">
-		   				<input type="reset" value="취소" >
+		   				<input type="button" onclick="gotoQnA();" value="취소" >
       	 		  </div>
       	 		  
       	 		  <%} %>
@@ -135,6 +135,11 @@
    			});
    		  });
    	   });
+   	   
+   	   function gotoQnA(){
+   		location.href="<%= request.getContextPath() %>/selectAdminQnA.do";
+   	   }
+   	   
    
    </script>
    
