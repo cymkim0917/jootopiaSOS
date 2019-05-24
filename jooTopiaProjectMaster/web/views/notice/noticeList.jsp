@@ -47,7 +47,7 @@ table th{
       <h1 align="center">공지사항/이벤트</h1>
       <br>
        <div class="container">
-        <table class="table table-hover">
+       <table class="table table-hover">
             <tr>
               <th>글번호</th>
               <th>유형</th>
@@ -56,22 +56,25 @@ table th{
               <th>작성일</th>
               <th>조회수</th>
             </tr>
-      		<% for(int i = 0; i < nList.size(); i++){ %>
-	            <tr>
-	              <td><%= nList.get(i).getbNo() %></td>
-	              <td><%if(nList.get(i).getbType()==1){ %>
-	              	공지사항
-	              	<%}else{ %>
-	              	이벤트
-	              	<%} %>
-	              </td>
-	              <td><%=nList.get(i).getbTitle() %></td>
-	              <td><%=mList.get(i).getUserId() %></td>
-	              <td><%=nList.get(i).getModifyDate() %></td>
-	              <td><%=nList.get(i).getbCount() %></td>
-	            </tr>
+            <% for(int i = 0; i < nList.size(); i++){ %>
+               <tr>
+                 <td><%= nList.get(i).getbNo() %></td>
+                 <td><%if(nList.get(i).getnType()=="공지사항"){ %>
+                    공지사항
+                    <%}else{ %>
+                    이벤트
+                    <%} %>
+                 </td>
+                 <td><%=nList.get(i).getbTitle() %></td>
+                 <td><%=mList.get(i).getUserId() %></td>
+                 <td><%=nList.get(i).getModifyDate() %></td>
+                 <td><%=nList.get(i).getbCount() %></td>
+               </tr>
             <%} %>   
         </table>
+      
+      
+     
       </div>  
 		<br>
 		<br>

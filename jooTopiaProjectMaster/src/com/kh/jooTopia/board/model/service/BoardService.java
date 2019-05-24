@@ -152,7 +152,7 @@ public class BoardService {
    }
 
 
-   public ArrayList<Board> selectFaqMembershipList() {
+  /* public ArrayList<Board> selectFaqMembershipList() {
       
       Connection con = getConnection();
       ArrayList<Board> list = new BoardDao().selectFaqMembershipList(con);
@@ -160,7 +160,7 @@ public class BoardService {
       close(con);
       
       return list;
-   }
+   }*/
 
    public int updateQaAContent(Board board) {
       Connection con= getConnection();
