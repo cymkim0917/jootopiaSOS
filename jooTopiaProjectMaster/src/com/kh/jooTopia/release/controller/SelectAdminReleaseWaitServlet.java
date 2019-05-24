@@ -14,10 +14,11 @@ import com.kh.jooTopia.heap.model.service.HeapAdminService;
 import com.kh.jooTopia.heap.model.vo.PageInfo;
 import com.kh.jooTopia.release.model.service.ReleaseAdminService;
 import com.kh.jooTopia.release.model.vo.ReleaseAdmin;
-
+ 
 /**
  * Servlet implementation class SelectAdminReleaseListServlet
  */
+//출고대기
 @WebServlet("/selectAdminRelease.do")
 public class SelectAdminReleaseWaitServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -50,7 +51,7 @@ public class SelectAdminReleaseWaitServlet extends HttpServlet {
 				
 				limit = 10;
 				
-				int listCount = new ReleaseAdminService().getListCount();
+				int listCount = new ReleaseAdminService().getListCountWait();
 				
 				System.out.println(listCount);
 				
@@ -68,7 +69,7 @@ public class SelectAdminReleaseWaitServlet extends HttpServlet {
 				//--여기까지 페이징 처리
 		
 		//ArrayList<ReleaseAdmin> list = new ReleaseAdminService().selectAdminList();
-		ArrayList<ReleaseAdmin> list = new ReleaseAdminService().selectAdminList(pi);
+		ArrayList<ReleaseAdmin> list = new ReleaseAdminService().selectAdminWait(pi);
 		System.out.println(list);
 		System.out.println(pi);
 		

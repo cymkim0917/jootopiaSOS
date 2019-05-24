@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8" import="com.kh.jooTopia.heap.model.vo.* , java.util.*"%>	
 	 
 <% ArrayList<HeapAdmin> list = (ArrayList<HeapAdmin>) request.getAttribute("list");   
-   
+    
   	PageInfo pi = (PageInfo)request.getAttribute("pi");
   	int currentPage = pi.getCurrentPage();
   	int maxPage = pi.getMaxPage();
