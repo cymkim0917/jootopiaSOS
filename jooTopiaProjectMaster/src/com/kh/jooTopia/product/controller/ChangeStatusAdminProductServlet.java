@@ -2,6 +2,7 @@ package com.kh.jooTopia.product.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,10 +24,10 @@ public class ChangeStatusAdminProductServlet extends HttpServlet {
 		
 		String numArr = request.getParameter("numArr");
 		String[] num = numArr.split("\\|");
-		int pId[] = new int[num.length];
+		ArrayList<Integer> pId = new ArrayList<Integer>();
 		
 		for(int i = 0; i < num.length; i++) {
-			pId[i] = Integer.parseInt(num[i]);
+			pId.add(Integer.parseInt(num[i]));
 		}
 		
 		String status = "";

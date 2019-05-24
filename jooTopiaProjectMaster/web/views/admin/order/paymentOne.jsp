@@ -52,7 +52,7 @@
 		<div class="selectListArea">
 				<table id="selectList" class="selectList" border="1">
 					<tr>
-						<th colspan="6">주문내역</th>
+						<th colspan="5">주문내역</th>
 					</tr>
 					<tr>
 						<th width="50px">상세 주문번호</th>
@@ -60,7 +60,6 @@
 						<th width="150px">상품명</th>
 						<th width="100px">판매가(원)</th>
 						<th width="100px">배송비(원)</th>
-						<th width="100px">주문상태</th>
 					</tr>
 					<% for(int i = 0; i < orderDetail.size(); i++) { 
 						totalPPrice += (int) orderDetail.get(i).get("pPrice");
@@ -75,14 +74,12 @@
 						<% }else { %>
 						<td>0</td>
 						<% } %>
-						<td><%= o.getStatus() %></td>
 					</tr>
 					<% } %>
 					<tr>
 						<th colspan="3">계</th>
 						<th><%= totalPPrice %></th>
 						<th><%= orderDetail.get(0).get("deliveryPrice") %></th>
-						<th></th>
 					</tr>
 				</table>
 		</div>

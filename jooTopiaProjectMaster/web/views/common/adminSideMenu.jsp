@@ -60,9 +60,9 @@
 		<div class="sideMenu" id="sideMenu4">
 		<div class="sideMenuBtn" id="" onclick="location.href='/jootopia/selectAdminDelCompletedList.do'">배송완료 관리</div></div>
 		<div class="sideMenu" id="sideMenu5">
-		<div class="sideMenuBtn" id="" onclick="location.href='views/admin/order/orderCancelList.jsp'">주문취소 관리</div></div>
+		<div class="sideMenuBtn" id="" onclick="location.href='/jootopia/selectAdminOrderCancleList.do'">주문취소 관리</div></div>
 		<div class="sideMenu" id="sideMenu6">
-		<div class="sideMenuBtn" id="" onclick="location.href='views/admin/order/refundList.jsp'">환불 관리</div></div>
+		<div class="sideMenuBtn" id="" onclick="location.href='/jootopia/refundAdminList.do'">환불 관리</div></div>
 		
 		<% }else if(root.equals("storage")) { %>
 

@@ -60,10 +60,9 @@ public class InsertAccountPaymentServlet extends HttpServlet {
 			String pIdArr = request.getParameter("pIdArr");
 			System.out.println("pIdArr : " + pIdArr);
 			String[] pIds = pIdArr.split("\\|");
-			int[] pId = new int[pIds.length];
+			ArrayList<Integer> pId = new ArrayList<Integer>();
 			for(int i = 0; i < pIds.length; i++) {
-				pId[i] = Integer.parseInt(pIds[i]);
-				System.out.println("int pId[] : " + pId[i]);
+				pId.add(Integer.parseInt(pIds[i]));
 			}
 			result1 = new PaymentService().insertOrderDetail(poId, pId);
 			
@@ -73,7 +72,7 @@ public class InsertAccountPaymentServlet extends HttpServlet {
 			}
 			
 			String view = "";
-			if(result2 > 0 && result2 == pId.length) {
+			if(result2 > 0 && result2 == pId.size()) {
 				System.out.println("주문 성공!!!!!!!!");
 				//연결을 어디로...?
 				view = "views/member/orderListPage.jsp";

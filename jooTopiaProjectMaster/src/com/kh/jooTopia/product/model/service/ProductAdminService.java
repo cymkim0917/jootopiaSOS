@@ -138,7 +138,7 @@ public class ProductAdminService {
 		return listCount;
 	}
 
-	public int changeStatusProduct(String status, int[] pId) {
+	public int changeStatusProduct(String status, ArrayList<Integer> pId) {
 		Connection con = getConnection();
 		int result = new ProductAdminDao().changeStatusProduct(con, status, pId);
 		

@@ -94,7 +94,6 @@
 				<tr>
 					<th colspan="9" style="height: 45px; text-align: left;">
 						<button class="selectBtn" onclick="deliveryInsert('배송준비중')">배송준비중</button>
-						<button class="selectBtn" onclick="oTypeChange('주문취소')">주문취소</button>
 					</th>
 				</tr>
 				<tr>

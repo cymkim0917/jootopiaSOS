@@ -64,23 +64,20 @@ public class DeliveryAdminService {
 		
 		if(result > 1) {
 			commit(con);
-			System.out.println("모달 수정완료!!");
 		}else {
 			rollback(con);
-			System.out.println("모달 수정실패!!");
 		}
 		
 		return result;
 	}
 
-	public int changeStatusDelivery(String status, int[] dId) {
-		//배송상태 변경 - 배송중, 배송완료
+	public int changeStatusDelivery(String status, ArrayList<Integer> dId) {
+		//배송상태 변경 - 배송완료
 		Connection con = getConnection();
 		int result = 0;
 		
 		result += new DeliveryAdminDao().changeStatusDelivery(con, status, dId);
-		
-		if(result > 0 && result == dId.length) {
+		if(result > 0 && result == dId.size()) {
 			commit(con);
 		}else {
 			rollback(con);
@@ -89,14 +86,13 @@ public class DeliveryAdminService {
 		return result;
 	}
 
-	public int changeStatusProduct(String pStatus, int[] dId) {
+	public int changeStatusProduct(String pStatus, ArrayList<Integer> dId) {
 		//배송완료된 상품상태 변경 - 판매완료
 		Connection con = getConnection();
 		int result = 0;
 		
 		result += new DeliveryAdminDao().changeStatusProduct(con, pStatus, dId);
-		
-		if(result > 0 && result == dId.length) {
+		if(result > 0 && result == dId.size()) {
 			commit(con);
 		}else {
 			rollback(con);

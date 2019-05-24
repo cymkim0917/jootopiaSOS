@@ -257,7 +257,8 @@ private Properties prop = new Properties();
 			
 			pstmt2 = con.prepareStatement(querydelivery);
 			pstmt2.setDate(1, modiDelivery.getStartDate());
-			pstmt2.setInt(2, modiOrder.getPoId());
+			pstmt2.setString(2, modiDelivery.getStatus());
+			pstmt2.setInt(3, modiOrder.getPoId());
 			
 			result += pstmt2.executeUpdate();
 			
@@ -271,19 +272,18 @@ private Properties prop = new Properties();
 		return result;
 	}
 
-	public int changeStatusDelivery(Connection con, String status, int[] dId) {
-		//배송상태 변경 - 배송중, 배송완료
+	public int changeStatusDelivery(Connection con, String status, ArrayList<Integer> dId) {
+		//배송상태 변경 - 배송완료
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
 		String query = prop.getProperty("changeStatusDelivery");
-		
 		try {
 			pstmt = con.prepareStatement(query);
 			
-			for(int i = 0; i < dId.length; i++) {
+			for(int i = 0; i < dId.size(); i++) {
 				pstmt.setString(1, status);
-				pstmt.setInt(2, dId[i]);
+				pstmt.setInt(2, dId.get(i));
 				result += pstmt.executeUpdate();
 			}
 			
@@ -292,11 +292,10 @@ private Properties prop = new Properties();
 		} finally {
 			close(pstmt);
 		}
-		
 		return result;
 	}
 
-	public int changeStatusProduct(Connection con, String pStatus, int[] dId) {
+	public int changeStatusProduct(Connection con, String pStatus, ArrayList<Integer> dId) {
 		//배송완료된 상품의 상태를 판매완료로 바꾸기
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -306,9 +305,9 @@ private Properties prop = new Properties();
 		try {
 			pstmt = con.prepareStatement(query);
 			
-			for(int i = 0; i < dId.length; i++) {
+			for(int i = 0; i < dId.size(); i++) {
 				pstmt.setString(1, pStatus);
-				pstmt.setInt(2, dId[i]);
+				pstmt.setInt(2, dId.get(i));
 				
 				result += pstmt.executeUpdate();
 			}
@@ -405,9 +404,10 @@ private Properties prop = new Properties();
 				o.setPoId(rset.getInt("POID"));
 				hmap.put("o", o);
 				
-				//결제 정보 : PY.DEPOSIT_NAME, PY.PAYMENT_OPTION, PY.CARD_COMPANY, PY.CARD_KIND,
+				//결제 정보 : PY.PYMID, PY.DEPOSIT_NAME, PY.PAYMENT_OPTION, PY.CARD_COMPANY, PY.CARD_KIND,
 				//PY.INSTALLMENT, PY.TID
 				Payment pym = new Payment();
+				pym.setPymId(rset.getInt("PYMID"));
 				pym.setDepositName(rset.getString("DEPOSIT_NAME"));
 				pym.setDepositDate(rset.getDate("DEPOSIT_DATE"));
 				pym.setPaymentOption(rset.getString("PAYMENT_OPTION"));

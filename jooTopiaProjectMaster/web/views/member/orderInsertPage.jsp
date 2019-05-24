@@ -15,7 +15,9 @@
 <link rel="shortcut icon" href="/jootopia/images/favicon.ico">
 <link rel="stylesheet" href="jquery-3.4.0.min.js">
 <link rel="stylesheet" href="/jootopia/css/common.css">
-<link rel="stylesheet" href="/jootopia/css/user/semantic.css">	
+<link rel="stylesheet" href="/jootopia/css/user/semantic.css">
+
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-x.y.z.js"></script>
 <title>JooTopia</title>
 <style>
 	div>h1{
@@ -36,7 +38,6 @@
 	   cursor: pointer;
 	   border-radius:10px;
 	}
-	
 	#delBtn{
 		width:100px;
 		background-color: #7A7A7A;
@@ -51,21 +52,16 @@
 		cursor: pointer;
 		border-radius:10px;
 	}	
-	
-
 	#btnArea{
 		text-align:center;
 	}
-	
 	table{
 		text-align:center;
 	}
-	
 	#cartTable>td{
 		height:120px;
 		margin-top:auto;
 	}
-	
 	th{
 		text-align: center !important;
 	}
@@ -80,7 +76,6 @@
 		background: #FFBB00;
 		color: rgb(53, 15, 15);
 	}
-
 </style>
 </head>
 <body>
@@ -222,6 +217,7 @@
 		});
 		
 		$(".btn").click(function() {
+			var account = '<%= account %>'
 			var type = $(this).text();
 			var $t = $("#payment tbody");
 			
