@@ -14,6 +14,7 @@ import java.util.Properties;
 import static com.kh.jooTopia.common.JDBCTemplate.*;
 
 import com.kh.jooTopia.buy.model.vo.BuyWaitAdmin;
+import com.kh.jooTopia.heap.model.vo.PageInfo;
  
 public class BuyWaitAdminDao {
 	private Properties prop = new Properties();
@@ -73,6 +74,75 @@ public class BuyWaitAdminDao {
 			close(rset);
 			close(pstmt);
 		}
+		return list;
+	}
+
+	public int getBuyWaitListCount(Connection con) {
+		
+		Statement stmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("listCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<BuyWaitAdmin> selectBuyWaitAdminList(Connection con, PageInfo pi) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<BuyWaitAdmin> list = null;
+		
+		String query = prop.getProperty("selectListAfterPaging");
+		
+		int startRow = (pi.getCurrentPage() -1) * pi.getLimit() +1;
+		int endRow = startRow + pi.getLimit() -1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<BuyWaitAdmin>();
+			
+			while(rset.next()) {
+				BuyWaitAdmin b = new BuyWaitAdmin();
+				
+				b.setPcdId(rset.getInt("PCDID"));
+				b.setcGroup(rset.getString("CGROUP"));
+				b.setName(rset.getString("NAME"));
+				b.setApplicant(rset.getString("APPLICANT"));
+				b.setAppPhone(rset.getString("APPLICANT_PHONE"));
+				b.setStatus(rset.getString("STATUS"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
 		return list;
 	}
 
