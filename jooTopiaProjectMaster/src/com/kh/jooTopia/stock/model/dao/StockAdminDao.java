@@ -123,14 +123,15 @@ public class StockAdminDao {
 				
 				s.setpId(rset.getInt("PID"));
 				s.sethId(rset.getInt("HID"));
-				s.setRlId(rset.getInt("RLID"));
-				s.setPcdId(rset.getInt("PCDID"));
+				//s.setRlId(rset.getInt("RLID"));
+				//s.setPcdId(rset.getInt("PCDID"));
 				s.setcGroup(rset.getString("CGROUP"));
 				s.setName(rset.getString("NAME"));
-				s.setPoId(rset.getInt("POID"));
-				s.setdId(rset.getInt("DID"));
+				//s.setPoId(rset.getInt("POID"));
+				//s.setdId(rset.getInt("DID"));
 				s.setlBarcode(rset.getInt("LBARCODE"));
-				s.setpContent(rset.getString("PCONTENT"));
+				//s.setpContent(rset.getString("PCONTENT"));
+				s.sethDate(rset.getDate("HDATE"));
 				
 				list.add(s);
 				

@@ -188,17 +188,17 @@ private Properties prop = new Properties();
 				HeapAdmin h = new HeapAdmin();
 				
 				h.setpId(rset.getInt("PID"));
-				h.sethId(rset.getInt("HID"));
-				h.setRlId(rset.getInt("RLID"));
-				h.setPcdId(rset.getInt("PCDID"));
+				//h.sethId(rset.getInt("HID"));
+				//h.setRlId(rset.getInt("RLID"));
+				//h.setPcdId(rset.getInt("PCDID"));
 				h.setcGroup(rset.getString("CGROUP"));
 				h.setName(rset.getString("NAME"));
-				h.setPoId(rset.getInt("POID"));
-				h.setdId(rset.getInt("DID"));
-				h.setlBarcode(rset.getInt("LBARCODE"));
-				h.setpContent(rset.getString("PCONTENT"));
+				//h.setPoId(rset.getInt("POID"));
+				//h.setdId(rset.getInt("DID"));
+				//h.setlBarcode(rset.getInt("LBARCODE"));
+				//h.setpContent(rset.getString("PCONTENT"));
 				h.setpName(rset.getString("PNAME"));
-				h.setChangeName(rset.getString("CHANGE_NAME"));
+				//h.setChangeName(rset.getString("CHANGE_NAME"));
 				
 				list.add(h);
 				
