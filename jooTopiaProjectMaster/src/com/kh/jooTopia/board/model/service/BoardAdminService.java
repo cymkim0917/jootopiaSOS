@@ -228,6 +228,8 @@ public class BoardAdminService {
 		
 		hmap = new BoardAdminDao().selectQnAList(con, pageInfo);
 		
+		System.out.println("서비스hmap" + hmap);
+		
 		return hmap;
 	}
 

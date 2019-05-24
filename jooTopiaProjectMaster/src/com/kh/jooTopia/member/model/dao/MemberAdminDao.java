@@ -270,7 +270,7 @@ public class MemberAdminDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, 1);
+			pstmt.setInt(1, uNo);
 			
 			rset=pstmt.executeQuery();
 			
@@ -310,7 +310,7 @@ public class MemberAdminDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, 1);
+			pstmt.setInt(1, uNo);
 			
 			rset=pstmt.executeQuery();
 			
@@ -352,7 +352,7 @@ public class MemberAdminDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, 1);
+			pstmt.setInt(1, uNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -393,7 +393,7 @@ public class MemberAdminDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, 1);
+			pstmt.setInt(1, uNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -417,6 +417,133 @@ public class MemberAdminDao {
 			close(pstmt);
 			close(rset);
 		}
+		
+		
+		
+		return list;
+	}
+
+	public int deleteMember(Connection con, int uNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteMember");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, uNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteMemberReason(Connection con, String withdrawal, int uNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteMemberReason");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, withdrawal);
+			pstmt.setInt(2, uNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int comeBackMember(Connection con, int uNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		System.out.println("DAO1"+uNo);
+		
+		
+		String query = prop.getProperty("comeBackMember");
+		System.out.println(" query : " + query);
+		System.out.println("con : " + con);
+		try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setInt(1, uNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		System.out.println("DAO" + result);
+		
+		
+		return result;
+	}
+
+	public ArrayList<Member> searchDeleteMember(Connection con, PageInfo pageInfo, String userId, String wType, String nReason) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Member> list = null;
+		
+		int startRow = (pageInfo.getCurrentPage()-1)*pageInfo.getLimit()+1;
+		int endRow = startRow + pageInfo.getLimit()-1;
+		
+		String sum = wType+nReason;
+		
+		String query = prop.getProperty("searchDeleteMember");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, sum);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset=pstmt.executeQuery();
+			
+			list = new ArrayList();
+			
+			while(rset.next()) {
+				Member member = new Member();
+				member.setUno(rset.getInt("UNO"));
+				member.setUserId(rset.getString("USER_ID"));
+				member.setUserName(rset.getString("USER_NAME"));
+				member.setWidthDrawal_date(rset.getDate("WIDTHDRAWAL_DATE"));
+				member.setWidthDrawal_reason(rset.getString("WIDTHDRAWAL_REASON"));
+				
+				list.add(member);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
 		
 		
 		

@@ -40,7 +40,7 @@
     <h3 class="title">회원관리</h3>
 	<hr>
 		<div>
-			<form id="searchForm" action="<%=request.getContextPath() %>/searchAdminMember.do" method="post">
+			<form action="<%=request.getContextPath() %>/searchAdminMember.do" method="post">
 			<table id="searchBox" border="1">
 				  <tr>
 				    <td width="15%"><label class="titleName">아이디</label></td>
@@ -69,7 +69,7 @@
 		</div>
 		<hr>
 		<div id="resultArea">
-			<form>
+			<form action="<%=request.getContextPath() %>/deleteAdminM.do"  method="post">
 		   		<table id="memberList" border="1" align="center"> 
 		   			<tr>
 		   				<th width="50px;">선택</th>
@@ -82,7 +82,7 @@
 		   			</tr>
 		   			<%for(Member member:list){ %>
 		   			<tr>
-		   				<th><input type="checkbox" value="<%=member.getUno()%>"></th>
+		   				<th><input type="checkbox" name="checkuNo" value="<%=member.getUno()%>"></th>
 		   				<td><%=member.getUserId() %></td>
 		   				<td><%=member.getUserName() %></td>
 		   				<td><%=member.getUserDate() %></td>
@@ -92,11 +92,11 @@
 		   			</tr>
 		   			<%} %>
 		   		</table>
-		   	</form>
-		   	<hr>
+		   		<hr>
 		   	<div id="searchBtnArea" align="right">
 		   		<input type="submit" value="강퇴">
 		   	</div>
+		   	</form>
 		
 		
 		</div>

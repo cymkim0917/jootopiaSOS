@@ -110,6 +110,66 @@ public class MemberAdminService {
 		return list;
 	}
 
+	public int deleteMember(int uNo) {
+		Connection con = getConnection();
+		
+		int result = new MemberAdminDao().deleteMember(con, uNo);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	public int deleteMemberReason(String withdrawal, int uNo) {
+		Connection con = getConnection();
+		
+		int result = new MemberAdminDao().deleteMemberReason(con, withdrawal, uNo);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	public int comeBackMember(int uNo) {
+		Connection con = getConnection();
+		
+		System.out.println("SErvice" + uNo);
+		
+		int result = new MemberAdminDao().comeBackMember(con, uNo);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	public ArrayList<Member> searchDeleteMember(PageInfo pageInfo, String userId, String wType, String nReason) {
+		Connection con = getConnection();
+		
+		ArrayList<Member> list = new MemberAdminDao().searchDeleteMember(con, pageInfo, userId, wType, nReason);
+		
+		close(con);
+		
+		return list;
+	}
+
 	
 
 }
