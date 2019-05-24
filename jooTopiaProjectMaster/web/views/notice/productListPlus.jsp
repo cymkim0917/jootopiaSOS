@@ -41,7 +41,7 @@
 			<td style="text-align:right;" colspan="2">카테고리 <span> <%= category.getcGroup() %> > </span> <span><%= category.getName() %></span></td>
 		</tr>
 		<tr>
-			<td rowspan="4"><img src="<%= request.getContextPath() %>/images_upload/<%= attList.get(0).getChangeName() %>" width="300px" height="300px"alt="" /></td>
+			<td rowspan="4"><img src="<%= request.getContextPath() %>/images/product/<%= attList.get(0).getChangeName() %>" width="300px" height="300px"alt="" /></td>
 			<td><label for=""><%= product.getpBrand() %> <%= product.getpName() %></label></td>
 		</tr>
 		<tr><td><label for="">모델명 : <%= product.getpModelName() %> </label></td></tr>
@@ -79,7 +79,7 @@
 			<% for(int i=1; i<attList.size();i++) { %>
 			
 			<tr>
-				<td><img src="<%= request.getContextPath() %>/images_upload/<%= attList.get(i).getChangeName() %>" alt="" /></td>
+				<td><img src="<%= request.getContextPath() %>/images/product/<%= attList.get(i).getChangeName() %>" alt="" /></td>
 			</tr>
 			<% } 
 			

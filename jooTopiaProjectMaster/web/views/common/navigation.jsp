@@ -80,9 +80,9 @@
 					 href="<%= request.getContextPath() %>/productList.do?cid=26">주방 가구 <span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="<%= request.getContextPath() %>/productList.do?cid=21">식탁</a></li>
-						<li><a href="<%= request.getContextPath() %>/productList.do?cid=22">전자레인지</a></li>
+						<li><a href="<%= request.getContextPath() %>/productList.do?cid=22">의자</a></li>
 						<li><a href="<%= request.getContextPath() %>/productList.do?cid=23">수납장</a></li>
-						<li><a href="<%= request.getContextPath() %>/productList.do?cid=24">식탁의자</a></li>
+						<li><a href="<%= request.getContextPath() %>/productList.do?cid=24">렌지대</a></li>
 					</ul>
 				</li>
 				

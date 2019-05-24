@@ -6,11 +6,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.jooTopia.board.model.vo.Attachment;
+import com.kh.jooTopia.board.model.vo.PageInfo;
 import com.kh.jooTopia.product.model.vo.Category;
 import com.kh.jooTopia.product.model.vo.Product;
 import static com.kh.jooTopia.common.JDBCTemplate.*;
@@ -38,6 +40,7 @@ public class ProductDao {
 		
 		try {
 			pstmt = con.prepareStatement(sql);
+			
 			
 			rs = pstmt.executeQuery();
 			
@@ -74,7 +77,7 @@ public class ProductDao {
 		Product product = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT DISTINCT ATTACHMENT.FILE_LEVEL,PRODUCT.PID,PRODUCT.PNAME , PPRICE, PRODUCT.PBRAND,PRODUCT.PCONTENT,ATTACHMENT.CHANGE_NAME,PRODUCT.PMODELNAME,CATEGORY.CID,CATEGORY.CGROUP,CATEGORY.NAME,PURCHASE.USE_PERIOD FROM PRODUCT,CATEGORY,ATTACHMENT,PURCHASE WHERE CATEGORY.CID = PRODUCT.CID AND PRODUCT.PID = ATTACHMENT.PID AND CATEGORY.CID = PURCHASE.CID AND PRODUCT.PID = ? AND PRODUCT.STATUS = '판매중' AND ATTACHMENT.STATUS = 'Y' ORDER BY ATTACHMENT.FILE_LEVEL ASC";
+		String sql = "SELECT DISTINCT ATTACHMENT.FILE_LEVEL,PRODUCT.PID,PRODUCT.PNAME , PPRICE, PRODUCT.PBRAND,PRODUCT.PCONTENT,ATTACHMENT.CHANGE_NAME,PRODUCT.PMODELNAME,CATEGORY.CID,CATEGORY.CGROUP,CATEGORY.NAME,PURCHASE.USE_PERIOD FROM PRODUCT,CATEGORY,ATTACHMENT,PURCHASE,PURCHASE_DETAIL WHERE CATEGORY.CID = PRODUCT.CID AND PRODUCT.PID = ATTACHMENT.PID AND AND PURCHASE_DTAIL.PCDID = PRODUCT.PCDID CATEGORY.CID = PURCHASE.CID AND PRODUCT.PID = ? AND PRODUCT.STATUS = '판매중' AND ATTACHMENT.STATUS = 'Y' ORDER BY ATTACHMENT.FILE_LEVEL ASC";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -115,6 +118,33 @@ public class ProductDao {
 		}
 		
 		return detailProc;
+	}
+
+
+	public int getListCount(Connection con) {
+		Statement stmt = null;
+		int listCount = 0;
+		ResultSet rs = null;
+		String sql = prop.getProperty("listCount");
+		
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(sql);
+			
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+				
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(stmt);
+		}
+		
+		return listCount;
 	}
 
 }
