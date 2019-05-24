@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.jooTopia.member.model.vo.Member"%>
+  <% Member loginUser = (Member)session.getAttribute("loginUser"); %>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +14,7 @@
 <title>JooTopia</title>
 </head>
 <body>
+	<%if(loginUser.getUserId().equals("admin")){ %>
 	<header class="row" contextmenu="">
 		<span class="col-lg-1" onclick="location.href='/jootopia/views/main/AdminMainPage.jsp'">
 			<img id="navHomeBtn" src="/jootopia/images/adminMenuHomeBtn.png">
@@ -37,6 +39,10 @@
 			창고관리
 		</span>
 	</header>
+	<%}else{
+		request.getRequestDispatcher("/views/common/errorPage500.jsp").forward(request, response);
+	}%>
+	
 	
 	<!-- loginModal -->
 	<div id="logModal" class="modal fade" role="dialog">
