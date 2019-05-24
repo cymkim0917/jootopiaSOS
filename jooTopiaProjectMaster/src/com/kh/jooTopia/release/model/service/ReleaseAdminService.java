@@ -83,6 +83,17 @@ public class ReleaseAdminService {
 		return listCount;
 	}
 
+	public ArrayList<ReleaseAdmin> selectAdminList(PageInfo pi) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<ReleaseAdmin> list = new ReleaseAdminDao().selectAdminList(con, pi);
+		
+		close(con);
+		
+		return list;
+	}
+
 	
 	
 	/*public int insertAdminRelease(ReleaseAdmin r) {
