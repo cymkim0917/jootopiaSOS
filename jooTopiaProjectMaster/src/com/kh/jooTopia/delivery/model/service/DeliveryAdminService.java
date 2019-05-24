@@ -90,7 +90,8 @@ public class DeliveryAdminService {
 		}
 				
 		//4. 해당 PID를 통해 출고 INSERT
-		int result3 = new DeliveryAdminDao().insertRealase(con, pIdList, poId);
+		Date startDate = modiDelivery.getStartDate();
+		int result3 = new DeliveryAdminDao().insertRealase(con, pIdList, poId, startDate);
 		
 		if(result3 <= 0 || result3 != pIdList.size()) {
 			System.out.println("출고 인서트 실패");

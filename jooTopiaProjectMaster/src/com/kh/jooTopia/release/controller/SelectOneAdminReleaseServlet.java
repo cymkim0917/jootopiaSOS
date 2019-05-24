@@ -33,7 +33,6 @@ public class SelectOneAdminReleaseServlet extends HttpServlet {
 		int num = Integer.parseInt(request.getParameter("num")); 
 		
 		ReleaseAdmin r = new ReleaseAdminService().selectOneAdminRelease(num);
-		
 		String page = "";
 		if(r != null) {
 			page = "/views/admin/storage/releaseRegist.jsp";
