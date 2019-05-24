@@ -33,7 +33,7 @@
 		<span class="col-lg-1" onclick="location.href='/jootopia/views/admin/order/orderMain.jsp'">
 			주문관리
 		</span>
-		<span class="col-lg-1" onclick="location.href='/jootopia/selectAdminStock.do'">
+		<span class="col-lg-1" onclick="location.href='<%=request.getContextPath()%>/selectAdminBuy.do'">
 			창고관리
 		</span>
 	</header>

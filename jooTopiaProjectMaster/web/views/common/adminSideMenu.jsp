@@ -31,7 +31,7 @@
 			<div class="sideMenuBtn" id="boardSide1" onclick="location.href='/jootopia/adminBoardList.do'">공지사항</div>
 		</div>
 		<div class="sideMenu" id="sideMenu2">
-			<div class="sideMenuBtn" id="boardSide1" onclick="location.href='/jootopia/views/admin/board/review.jsp'">후기게시판</div>
+			<div class="sideMenuBtn" id="boardSide1" onclick="location.href='/jootopia/selectAdminReview.do'">후기게시판</div>
 		</div>
 		<div class="sideMenu" id="sideMenu3">
 			<div class="sideMenuBtn" id="boardSide1" onclick="location.href='/jootopia/selectAdminQnA.do'">1:1게시판</div>
@@ -66,11 +66,13 @@
 		
 		<% }else if(root.equals("storage")) { %>
 
-		<div class="sideMenu" id="sideMenu1"><div class="sideMenuBtn" id="" onclick="location.href='<%=request.getContextPath()%>/selectAdminBuy.do'">매입리스트</div></div>
+		<div class="sideMenu" id="sideMenu1">
+			<div class="sideMenuBtn" id="" onclick="location.href='<%=request.getContextPath()%>/selectAdminBuy.do'">매입리스트</div>
+		</div>
 		<div class="sideMenu" id="sideMenu2"><div class="sideMenuBtn" id="" onclick="location.href='<%=request.getContextPath()%>/selectAdminHeap.do'">적치대기</div></div>
 		<div class="sideMenu" id="sideMenu3"><div class="sideMenuBtn" id="" onclick="location.href='<%=request.getContextPath()%>/selectAdminRelease.do'">출고대기</div></div>
 		<div class="sideMenu" id="sideMenu4"><div class="sideMenuBtn" id="" onclick="location.href='<%=request.getContextPath()%>/selectAdminReleaseList.do'">출고리스트</div></div>
-		<%-- <div class="sideMenu" id="sideMenu5"><div class="sideMenuBtn" id="" onclick="location.href='<%=request.getContextPath()%>/selectAdminStock.do'">재고리스트</div></div> --%>
+		<div class="sideMenu" id="sideMenu5"><div class="sideMenuBtn" id="" onclick="location.href='<%=request.getContextPath()%>/selectAdminStock.do'">재고리스트</div></div>
 		
 		<% } %>
 	</nav>

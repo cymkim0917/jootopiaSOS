@@ -454,4 +454,82 @@ private Properties prop = new Properties();
 		return hmap;
 	}
 
+	public ArrayList<Integer> selectHeapPIdSearch(Connection con, int poId) {
+		//해당 POID를 통해 PID 조회하기
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Integer> pIdList = null;
+		
+		String query = prop.getProperty("selectHeapPIdSearch");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, poId);
+			
+			rset = pstmt.executeQuery();
+			
+			pIdList = new ArrayList<Integer>();
+			while(rset.next()) {
+				pIdList.add(rset.getInt("PID"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return pIdList;
+	}
+
+	public int updateAdminHeapStatus(Connection con, ArrayList<Integer> pIdList) {
+		//적치상태 출고됨으로 변경
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateAdminHeapStatus");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			for(int i = 0; i < pIdList.size(); i++) {
+				pstmt.setString(1, "출고됨");
+				pstmt.setInt(2, pIdList.get(i));
+				
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertRealase(Connection con, ArrayList<Integer> pIdList, int poId) {
+		//출고 인서트
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertRealase");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			for(int i = 0; i < pIdList.size(); i++) {
+				
+			}
+			/*RLID
+			REQUSET_DATE
+			RLDATE
+			POID
+			PID*/
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return result;
+	}
+
 }

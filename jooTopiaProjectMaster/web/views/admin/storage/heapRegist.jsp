@@ -19,26 +19,21 @@
 	border: 1px solid #ccc;
 	width: 80%;	
 }
- 
 .separate tr {
 	height: 30px;
 	padding: 5px;
 }
-
 .separate td {
 	padding: 5px;
 	background-color: #fafafa;
 	border: 1px solid #ccc;
 }
-
 .imgArea img {
 	width: 500px;
 	height: 400px;
 	margin-bottom: 20px;
 	border: 2px solid orangered;
-
 }
-
 .btnArea {
 	margin-bottom: 30px;
 }

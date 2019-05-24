@@ -23,6 +23,17 @@
 .table th {
 	text-align: left;
 } 
+.listArea{
+	padding-left: 5%;
+	width: 100%;
+}
+#tableArea th{
+	width: 10%;
+}
+#tableArea td{
+	width: 10%;
+	text-align: center;
+}
 </style>
 </head>
 <body>
@@ -33,9 +44,8 @@
       
       <h3 class="title">창고 재고현황</h3>
 	    	<hr>      	
-      	
       <div class="searchArea">
-			<table id="searchBox"  border="1" align="center">
+			<table id="tableArea"  border="1" align="center">
 				<tr><th colspan="3" style="background: rgb(224, 224, 224); height: 35px;"></th></tr>
 				<tr>
 					<td>검색 분류</td>
@@ -48,43 +58,16 @@
 						<input type="search" placeholder="검색 단어를 입력하세요." width="20px">
 					</td>
 				</tr>
-				<!-- <tr>
-					<td>상품 카테고리</td>
-					<td colspan="2">
-						&nbsp;<select id="searchCategory" onchange="smallCategoty(this.value)">
-							<option value="">- 대분류 -
-							<option value="bedRoom">침실
-							<option value="livingRoom">거실
-							<option value="kitchen">주방
-							<option value="study">서재
-						</select>
-						<select id="small">
-							<option value="">- 중분류 -
-						</select>
-					</td>
-				</tr> -->
-				<%-- <tr>
-					<td>적치일자</td>
-					<td id="selectDate" colspan="2">						
-						<input type="date" id="startDate" name="startDate" class="date" value="<%= startDay %>"> ~ 
-						<input type="date" id="endDate" name="endDate" class="date" value="<%= endDay %>">
-					</td>
-				</tr> --%>				
 			</table>
-			
-			<br>
-			
+			<br><br>
 			<div id="searchBtnArea" align="center">
 				<input type="submit" value="검색" onclick="">
 				<input type="reset" value="초기화" onclick="">
 			</div>
 		</div>
-		
-		<br><br><br><br><br><br>
-	
-				<div class="container">
-
-				<table class="table table-striped" id="test1">
+		<br><br><br><br>
+			<div class="listArea">
+				<table class="table table-striped" id="tableArea">
 					<thead>
 					<tr>
 						<th>No.</th>
@@ -96,8 +79,8 @@
 						<th>적치일자</th>
 					</tr>
 				</thead>
-				<% int i = 0; for(StockAdmin s : list){ i++; %>
 				<tbody>
+				<% int i = 0; for(StockAdmin s : list){ i++; %>
 					<tr>
 						<td><%= i %></td>
 						<td><%= s.getcGroup() %></td>
@@ -112,7 +95,6 @@
 				</tbody>
 			</table>		
 			</div>
-				
 				<div class="pagingArea" align="center">
          <button
             onclick="location.href='<%= request.getContextPath() %>/selectAdminStock.do?currentPage=1'"><<

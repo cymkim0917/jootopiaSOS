@@ -345,33 +345,25 @@ public class ReleaseAdminDao {
 			
 			while(rset.next()) {
 				ReleaseAdmin r = new ReleaseAdmin();
-				
-				//r.setpId(rset.getInt("PID"));
-				//r.sethId(rset.getInt("HID"));
-				//r.setRlId(rset.getInt("RLID"));
-				//r.setPcdId(rset.getInt("PCDID"));
-				//r.setcGroup(rset.getString("CGROUP"));
-				//r.setName(rset.getString("NAME"));
-				r.setPoId(rset.getInt("POID"));
+				//D.DID, O.POID, D.STATUS, O.NAME, O.PHONE, O.ADDRESS, O.DMESSAGE
 				r.setdId(rset.getInt("DID"));
-				//r.setlBarcode(rset.getInt("LBARCODE"));
-				//r.setRlDate(rset.getDate("RLDATE"));
-				//r.setpContent(rset.getString("PCONTENT"));
+				r.setPoId(rset.getInt("POID"));
 				r.setStatus(rset.getString("STATUS"));
+				r.setdName(rset.getString("NAME"));
+				r.setdPhone(rset.getString("PHONE"));
+				r.setdAddress(rset.getString("ADDRESS"));
+				r.setdMessage(rset.getString("DMESSAGE"));
 				
 				list.add(r);
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);
 			close(pstmt);
 		}
 		return list;
-		
-		
 	}
 
 	

@@ -25,6 +25,18 @@
 .table th {
 	text-align: left;
 }
+.listArea{
+	padding-left: 5%;
+	width: 100%;
+}
+#tableArea th{
+	width: 10%;
+	text-align: center;
+}
+#tableArea td{
+	width: 10%;
+	text-align: center;
+}
 </style>
 </head>
 <body>
@@ -36,10 +48,8 @@
 			<h3 class="title">적치대기</h3>
 			<hr>
 			<br><br>
-			
-			<div class="container">
-
-				<table class="table table-hover" id="test1">
+			<div class="listArea">
+				<table class="table table-hover" id="tableArea">
 					<thead>
 						<tr>
 							<!-- <th>No.</th> -->							
@@ -49,7 +59,7 @@
 							<th>중분류</th>						
 						</tr>
 					</thead>
-					<% /* int i = 0; */ for(HeapAdmin h : list){ /* i++; */%>
+					<% for(HeapAdmin h : list){ /* i++; */%>
 					<tbody>
 						<tr>
 							<%-- <td><%= i %></td> --%>							

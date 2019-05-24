@@ -15,58 +15,48 @@ import com.kh.jooTopia.heap.model.vo.PageInfo;
 import com.kh.jooTopia.release.model.service.ReleaseAdminService;
 import com.kh.jooTopia.release.model.vo.ReleaseAdmin;
  
-/**
- * Servlet implementation class SelectAdminReleaseListServlet
- */
 //출고대기
 @WebServlet("/selectAdminRelease.do")
 public class SelectAdminReleaseWaitServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public SelectAdminReleaseWaitServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//--페이징 시작
-				int currentPage;
-				int limit;
-				int maxPage;
-				int startPage;
-				int endPage;
+		int currentPage;
+		int limit;
+		int maxPage;
+		int startPage;
+		int endPage;
 				
-				currentPage = 1;
+		currentPage = 1;
 				
-				if(request.getParameter("currentPage") != null) {
-					currentPage = Integer.parseInt(request.getParameter("currentPage"));
-				}
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
 				
-				limit = 10;
+		limit = 10;
 				
-				int listCount = new ReleaseAdminService().getListCountWait();
+		int listCount = new ReleaseAdminService().getListCountWait();
 				
-				System.out.println(listCount);
+		System.out.println(listCount);
 				
-				maxPage = (int)((double)listCount / limit + 0.9);
+		maxPage = (int)((double)listCount / limit + 0.9);
 				
-				startPage = (((int)((double)currentPage / limit + 0.9)) -1) *10 +1;
+		startPage = (((int)((double)currentPage / limit + 0.9)) -1) *10 +1;
 				
-				endPage = startPage +10 -1;
+		endPage = startPage +10 -1;
 				
-				if(maxPage < endPage) {
-					endPage = maxPage;
-				}
+		if(maxPage < endPage) {
+			endPage = maxPage;
+		}
 				
-				PageInfo pi = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
-				//--여기까지 페이징 처리
+		PageInfo pi = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
+		//--여기까지 페이징 처리
 		
 		//ArrayList<ReleaseAdmin> list = new ReleaseAdminService().selectAdminList();
 		ArrayList<ReleaseAdmin> list = new ReleaseAdminService().selectAdminWait(pi);

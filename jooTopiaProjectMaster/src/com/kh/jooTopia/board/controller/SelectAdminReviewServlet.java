@@ -61,6 +61,7 @@ public class SelectAdminReviewServlet extends HttpServlet {
 				PageInfo pageInfo = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
 				
 				HashMap<String, Object> hmap = new BoardAdminService().selectReviewList(pageInfo);
+				System.out.println("서블릿" + hmap.get("board"));
 				
 				String page = "";
 				

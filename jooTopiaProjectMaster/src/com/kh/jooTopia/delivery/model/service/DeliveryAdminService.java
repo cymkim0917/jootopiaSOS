@@ -58,15 +58,51 @@ public class DeliveryAdminService {
 
 	public int updateAdminDeliveryModal(POrder modiOrder, Delivery modiDelivery) {
 		//배송중 배송정보(및 주문) 모달 수정용
+		//적치상태 변경
 		Connection con = getConnection();
+		int result = 0;
 		
-		int result = new DeliveryAdminDao().updateAdminDeliveryModal(con, modiOrder, modiDelivery);
+		//1. 배송정보(주문)를 수정하고 배송상태를 배송중으로 변경
+		int result1 = new DeliveryAdminDao().updateAdminDeliveryModal(con, modiOrder, modiDelivery);
 		
-		if(result > 1) {
-			commit(con);
-		}else {
+		if(result1 <= 0) {
+			System.out.println("배송정보 수정 실패");
 			rollback(con);
+			return result;
 		}
+		//2. POID를 통해 해당 PID를 조회
+		int poId = modiOrder.getPoId();
+		ArrayList<Integer> pIdList = new DeliveryAdminDao().selectHeapPIdSearch(con, poId);
+		
+		if(pIdList == null) {
+			System.out.println("PID 조회 실패");
+			rollback(con);
+			return result;
+		}
+		
+		//3. 조회한 PID를 통해 해당 적치의 상태를 '출고됨' 처리
+		int result2 = new DeliveryAdminDao().updateAdminHeapStatus(con, pIdList);
+		
+		if(result2 <= 0 || result2 != pIdList.size()) {
+			System.out.println("적치 상태 변경 실패");
+			rollback(con);
+			return result;
+		}
+				
+		//4. 해당 PID를 통해 출고 INSERT
+		int result3 = new DeliveryAdminDao().insertRealase(con, pIdList, poId);
+		
+		if(result3 <= 0 || result3 != pIdList.size()) {
+			System.out.println("출고 인서트 실패");
+			rollback(con);
+			return result;
+		}
+		
+		if(result1 > 0 && result2 == result3) {
+			commit(con);
+		}
+		
+		close(con);
 		
 		return result;
 	}

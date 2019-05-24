@@ -50,7 +50,7 @@ public class SearchAdminQnAServlet extends HttpServlet {
 		
 		limit = 10;
 		
-		int listCount = new BoardAdminService().getNoticeListCount();
+		int listCount = new BoardAdminService().getQnAListCount();
 		
 		maxPage = (int)((double)listCount / limit+0.9);
 		

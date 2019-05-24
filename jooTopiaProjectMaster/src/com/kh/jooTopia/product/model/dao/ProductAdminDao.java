@@ -165,6 +165,7 @@ public class ProductAdminDao {
 				hmap.put("pName", rset.getString("PNAME"));
 				hmap.put("pId", rset.getInt("PID"));
 				hmap.put("pcPrice", rset.getInt("PCPRICE"));
+				System.out.println(hmap.get("pcPrice"));
 				hmap.put("pGrade", rset.getString("PGRADE"));
 				hmap.put("pPrice", rset.getInt("PPRICE"));
 				hmap.put("pContent", rset.getString("PCONTENT"));
@@ -467,7 +468,6 @@ public class ProductAdminDao {
 	}
 
 	public ProductregAdmin selectOneAdminProductreg(Connection con, int num) {
-		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ProductregAdmin p = null;
@@ -483,6 +483,7 @@ public class ProductAdminDao {
 			if(rset.next()) {
 				p = new ProductregAdmin();
 				
+				p.setPcid(rset.getInt("PCID"));
 				p.setPcdId(rset.getInt("PCDID"));
 				p.setBrand(rset.getString("BRAND"));
 				p.setcGroup(rset.getString("CGROUP"));
@@ -492,18 +493,14 @@ public class ProductAdminDao {
 				p.setpCost(rset.getInt("PRIME_COST"));
 				p.sethCost(rset.getInt("HOPE_COST"));
 				p.setMemo(rset.getString("MEMO"));
+				p.setpBarcode(rset.getString("PBARCODE"));
 			}
-			
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);
 			close(pstmt);
 		}
-		
-		
 		return p;
 	}
 
@@ -519,24 +516,23 @@ public class ProductAdminDao {
 		String query = prop.getProperty("insertAdminProductreg");
 		
 		try {
+			System.out.println("");
+			System.out.println(" dao 에서  p :  " + p);
 			pstmt = con.prepareStatement(query);
-			
+			// 입력값 : PNAME, PCONTENT, PGRADE, PBARCODE, PBRAND, PMODELNAME, CID, PCDID
 			pstmt.setString(1, p.getpName());
-			pstmt.setInt(2, p.getpPrice());
-			pstmt.setString(3, p.getpContent());
-			pstmt.setString(4, p.getpGrade());
+			pstmt.setString(2, p.getpContent());
+			pstmt.setString(3, p.getpGrade());
+			pstmt.setString(4, p.getpBarCode());
 			pstmt.setString(5, p.getpBrand());
 			pstmt.setString(6, p.getpModelName());
 			pstmt.setInt(7, p.getcId());
 			pstmt.setInt(8, p.getPcDId());
 			
 			result = pstmt.executeUpdate();
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			
 			close(pstmt);
 		}		
 		

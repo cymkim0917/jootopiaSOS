@@ -3,7 +3,6 @@ package com.kh.jooTopia.release.model.vo;
 import java.sql.Date; 
 
 public class ReleaseAdmin implements java.io.Serializable{
-	
 	private int pId;		//PID - 상품번호(시퀀스)
 	private int hId;		//HID - 적치번호(시퀀스)
 	private int rlId;		//RLID - 출고번호(시퀀스)
@@ -16,13 +15,20 @@ public class ReleaseAdmin implements java.io.Serializable{
 	private Date rlDate;	//RLDATE - 출고일자
 	private Date hDate;		//HDATE - 적치일자
 	private String pContent;//PCONTENT - 상품상세정보
-	private String status;	//STATUS - 상태
+	private String status;	//STATUS - 배송상태
 	private String changeName;	//CHANGE_NAME - 변경이름
+	private String dName; //NAME - 주문 : 수령자이름
+	private String dPhone; //PHONE - 주문 : 수령자 연락처
+	private String dAddress; //ADDRESS - 주문 : 수령자 주소
+	private String dMessage; //DMESSAGE - 주문 : 배송메시지
 	
 	public ReleaseAdmin() {}
 
+	
+
 	public ReleaseAdmin(int pId, int hId, int rlId, int pcdId, String cGroup, String name, int poId, int dId,
-			int lBarcode, Date rlDate, Date hDate, String pContent, String status, String changeName) {
+			int lBarcode, Date rlDate, Date hDate, String pContent, String status, String changeName, String dName,
+			String dPhone, String dAddress, String dMessage) {
 		super();
 		this.pId = pId;
 		this.hId = hId;
@@ -38,7 +44,13 @@ public class ReleaseAdmin implements java.io.Serializable{
 		this.pContent = pContent;
 		this.status = status;
 		this.changeName = changeName;
+		this.dName = dName;
+		this.dPhone = dPhone;
+		this.dAddress = dAddress;
+		this.dMessage = dMessage;
 	}
+
+
 
 	public int getpId() {
 		return pId;
@@ -151,6 +163,41 @@ public class ReleaseAdmin implements java.io.Serializable{
 	public void setChangeName(String changeName) {
 		this.changeName = changeName;
 	}
+	
+	
+	public String getdName() {
+		return dName;
+	}
+
+	public void setdName(String dName) {
+		this.dName = dName;
+	}
+
+	public String getdPhone() {
+		return dPhone;
+	}
+
+	public void setdPhone(String dPhone) {
+		this.dPhone = dPhone;
+	}
+
+	public String getdAddress() {
+		return dAddress;
+	}
+
+	public void setdAddress(String dAddress) {
+		this.dAddress = dAddress;
+	}
+
+	public String getdMessage() {
+		return dMessage;
+	}
+
+	public void setdMessage(String dMessage) {
+		this.dMessage = dMessage;
+	}
+
+
 
 	@Override
 	public String toString() {
