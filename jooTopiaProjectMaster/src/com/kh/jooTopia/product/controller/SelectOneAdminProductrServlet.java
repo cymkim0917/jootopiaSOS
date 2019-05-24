@@ -19,7 +19,6 @@ public class SelectOneAdminProductrServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		int num = Integer.parseInt(request.getParameter("num"));
 		
 		ProductregAdmin p = new ProductAdminService().selectOneAdminProductreg(num);
@@ -29,7 +28,7 @@ public class SelectOneAdminProductrServlet extends HttpServlet {
 			page = "views/admin/storage/productreg.jsp";
 			request.setAttribute("p", p);
 		}else {
-			page = "views/admin/common/errorPage500.jsp";
+			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "상세보기실패");
 		}
 		request.getRequestDispatcher(page).forward(request, response);
