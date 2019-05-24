@@ -65,11 +65,11 @@ public class ReleaseAdminService {
 		
 		Connection con = getConnection();
 		
-		ArrayList<ReleaseAdmin> list = new ReleaseAdminDao().selectAdminList(con, pi);
+		ArrayList<ReleaseAdmin> rlist = new ReleaseAdminDao().selectAdminList(con, pi);
 		
 		close(con);
 		
-		return list;
+		return rlist;
 	}
 
 	public int getListCount() {
@@ -90,6 +90,28 @@ public class ReleaseAdminService {
 		ArrayList<ReleaseAdmin> list = new ReleaseAdminDao().selectAdminList(con, pi);
 		
 		close(con);
+		
+		return list;
+	}
+
+	//출고대기 카운트
+	public int getListCountWait() {
+
+		Connection con = getConnection();
+		
+		int listCount = new ReleaseAdminDao().getListCountWait(con);
+		
+		return listCount;
+	}
+
+	//출고대기 페이징
+	public ArrayList<ReleaseAdmin> selectAdminWait(PageInfo pi) {
+
+		Connection con = getConnection();
+		
+		ArrayList<ReleaseAdmin> list = new ReleaseAdminDao().selectAdminWait(con, pi);
+		
+		close(con);		
 		
 		return list;
 	}

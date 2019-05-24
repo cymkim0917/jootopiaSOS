@@ -13,7 +13,7 @@ import com.kh.jooTopia.release.model.vo.ReleaseAdmin;
 /**
  * Servlet implementation class SelectOneAdminReleaseServlet
  */
-@WebServlet("/selectOneAdminRelease.do")
+@WebServlet("/selectRLOne.do")
 public class SelectOneAdminReleaseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -35,16 +35,16 @@ public class SelectOneAdminReleaseServlet extends HttpServlet {
 		ReleaseAdmin r = new ReleaseAdminService().selectOneAdminRelease(num);
 		
 		String page = "";
-		
 		if(r != null) {
-			page = "views/admin/storage/releaseRegist.jsp";
+			page = "/views/admin/storage/releaseRegist.jsp";
 			request.setAttribute("r", r);
+			request.getRequestDispatcher(page).forward(request, response);
 		}else {
-			page = "views/admin/common/errorPage500.jsp";
+			
+			page = "/views/common/errorPage500.jsp";
 			request.setAttribute("msg", "실패");
+			request.getRequestDispatcher(page).forward(request, response);
 		}
-		request.getRequestDispatcher(page).forward(request, response);
-		
 	}
 
 	/**

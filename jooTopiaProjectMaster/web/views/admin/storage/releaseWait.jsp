@@ -45,9 +45,9 @@
 						<th>상태</th>
 						<th>주문번호</th>
 						<th>배송번호</th>
-						<th>상품번호</th>
+						<!-- <th>상품번호</th>
 						<th>적치번호</th>
-						<th>위치바코드</th>
+						<th>위치바코드</th> -->
 					</tr>
 				</thead>
 				<% for(ReleaseAdmin r : list){ %>
@@ -56,9 +56,9 @@
 						<td><%= r.getStatus() %></td>						
 						<td><%= r.getPoId() %></td>
 						<td><%= r.getdId() %></td>
-						<td><%= r.getpId() %></td>
+						<%-- <td><%= r.getpId() %></td>
 						<td><%= r.gethId() %></td>
-						<td><%= r.getlBarcode() %></td>						
+						<td><%= r.getlBarcode() %></td>	 --%>					
 					</tr>
 					<% } %>
 					
@@ -130,7 +130,7 @@
 				console.log(num);
 				<%-- location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num; --%>
 				<%-- location.href="<%=request.getContextPath()%>/insertAdminRelease.do"; --%>
-				location.href="<%=request.getContextPath()%>/selectOneAdminRelease.do?num=" + num;
+				location.href="<%=request.getContextPath()%>/selectRLOne.do?num=" + num;
 				/* location.href="views/admin/storage/releaseRegist.jsp"; */
 			})
 		})
