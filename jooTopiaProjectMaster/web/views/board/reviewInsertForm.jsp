@@ -37,7 +37,7 @@
 	
 	}
 	table {
-		border:1px solid white;
+		border:1px solid black;
 	}
 	.insertArea {
 		width:500px;
@@ -47,6 +47,7 @@
 	.btnArea {
 		width:250px;
 		margin:0 auto;
+		
 	}
 	#titleImgArea {
 		width:300px;
@@ -68,16 +69,6 @@
 	#contentImgArea2:hover, #contentImgArea3:hover {
 		cursor:pointer;
 	}
-	
-	
-	<!-- 자가코딩 시작 -->
-			
-			
-			
-			
-			
-	<!-- 자가코딩 끝 -->
-	
 	
 </style>
 </head>
@@ -110,12 +101,12 @@
 						<tr>
 							<td>첨부파일</td>
 							<td>
-								<div id="titleImgArea" style="float:left; margin-right:1%;" >
-									<img id="titleImg1" width="120" height="100">
+								<div id="titleImgArea" style="float:left; margin-right:15%;" >
+									<img id="titleImg1" width="350" height="250">
 								</div>
 								
 								<div id="contentImgArea11">
-									<img id="titleImg2" width="120" height="100">
+									<img id="titleImg2" width="350" height="250">
 								
 								</div>
 							</td>							
@@ -123,87 +114,17 @@
 						
 					</tbody>
 					
-					<!-- <tbody>
-						<tr>
-							<th>첨부사진 1</th>
-								<td>
-									
-									<div id="titleImgArea">
-										<div id = "thumbnailImg1">
-											<img id = titleImg width="300" height="150">
-										</div>
-									</div>
-								</td>
-							
-							<th>첨부사진 2</th>
-								<td>
-									<div id="contentImgArea1">
-										<div id="thumbnailImg2">
-										 	<img id = titleImg width="150" height="75">
-										</div>
-									</div>
-								</td>
-						</tr>
-					
-					</tbody>
-				 -->
-				
 				</table><tr></tr>
 			
 			</div>
 			
-			
-			
-			
-			<!-- 자가코딩 끝 -->
-			
-			
-			
-			
-			
-			<!-- <div class="insertArea">
-				<table align="center">
-					<tr>
-						<td width="100px">제목</td>
-						<td colspan="3">
-							<input type="text" size="45" name="title">
-						</td>
-					</tr>
-					<tr>
-						<td>대표이미지</td>
-						<td colspan="3">
-							<div id="titleImgArea">
-								<img id="titleImg" width="350" height="200">
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>내용사진</td>
-						<td>
-							<div id="contentImgArea1">
-								<img id="contentImg1" width="120" height="100">
-							</div>
-						</td>
-					
-					</tr>
-					<tr>
-						<td>사진 메모</td>
-						<td colspan="3">
-							<textarea name="content" rows="5" cols="50" style="resize:none;"></textarea>
-						</td>
-					</tr>
-				</table>
-			</div> -->
 			<div id="fileArea">
 				<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this,1)">
 				<input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this,2)">
 				
 			</div>
 			<br>
-			<div class="btnArea">
-				<!-- <button type="reset">취소하기</button>
-				<button type="submit">작성하기</button> -->
-				
+			<div class="btnArea" align="center">
 				<button onclick="location.href='<%=request.getContextPath()%>/selectReviewTotalList.do'">취소하기</button>
 				<button onclick="location.href='<%=request.getContextPath()%>/insertReview.do'">작성하기</button>
 				

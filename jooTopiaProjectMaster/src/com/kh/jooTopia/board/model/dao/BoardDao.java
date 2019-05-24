@@ -439,7 +439,9 @@ public class BoardDao {
          while(rset.next()) {
             Board b = new Board();
             b.setbId(rset.getInt("BID"));
+            b.setbNo(rset.getInt("BNO"));
             b.setfCategory(rset.getString("FCATEGORY"));
+            b.setbType(rset.getInt("BTYPE"));
             b.setbTitle(rset.getString("BTITLE"));
             b.setbDate(rset.getDate("BDATE"));
             b.setbCount(rset.getInt("BCOUNT"));
@@ -623,6 +625,7 @@ public class BoardDao {
          while(rset.next()) {
             Board b =new Board();
             b.setbId(rset.getInt("BID"));
+            b.setbNo(rset.getInt("BNO"));
             b.setfCategory(rset.getString("FCATEGORY"));
             b.setbType(rset.getInt("BTYPE"));
             b.setbTitle(rset.getString("BTITLE"));
@@ -849,6 +852,10 @@ public class BoardDao {
 	           hmap.put("status",rset.getObject("STATUS"));
 	           
 	           list.add(hmap);
+	           
+	          
+	           
+	           System.out.println("hmap in dao: " + hmap);
 
 		   }
 		  
@@ -868,7 +875,7 @@ public class BoardDao {
    public int reviewInsertForm(Connection con, Board b) {
 	   PreparedStatement pstmt = null;
 	   int result = 0;
-	   String sql = prop.getProperty("reviewInsertForm");
+	   String sql = prop.getProperty("insertReviewForm");
 	   
 	   try {
 		   pstmt = con.prepareStatement(sql);
@@ -895,8 +902,6 @@ public class BoardDao {
       ArrayList<Member> mList = null;
       ArrayList<Attachment> aList = null;*/
       
-      
-      
       PreparedStatement pstmt = null;
       ResultSet rset = null;
       HashMap<String,Object> list = null;
@@ -918,33 +923,7 @@ public class BoardDao {
          //list = new ArrayList<HashMap<String,Object>>();
          
          while(rset.next()) {
-            //list=new HashMap<String,Object>();
-            
-         /*   Board b = new Board();
-            Member m = new Member();
-            Attachment a = new Attachment();
-            
-            
-            b.setbId(rset.getInt("BID"));
-            b.setbNo(rset.getInt("BNO"));
-            b.setbTitle(rset.getString("BTITLE"));
-            b.setbContent(rset.getString("BCONTENT"));
-            m.setUserId(rset.getString("USER_ID"));
-            b.setbCount(rset.getInt("BCOUNT"));
-            b.setbDate(rset.getDate("BDATE"));
-            a.setfId(rset.getInt("FID"));
-            a.setOriginName(rset.getString("ORIGIN_NAME"));
-            a.setChangeName(rset.getString("CHANGE_NAME"));
-            a.setFilePath(rset.getString("FILE_PATH"));
-            a.setUploadDate(rset.getDate("UPLOAD_DATE"));
-            
-            aList.add(a);
-            
-            bList.add(b);
-            
-            mList.add(m);*/
-            //---------------------------
-            
+          
             Board b = new Board();
             b.setbId(rset.getInt("BID"));
             b.setbNo(rset.getInt("BNO"));

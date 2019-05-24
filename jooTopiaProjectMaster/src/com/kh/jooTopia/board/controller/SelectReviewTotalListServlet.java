@@ -39,6 +39,8 @@ public class SelectReviewTotalListServlet extends HttpServlet {
 		ArrayList<HashMap<String, Object>> list = new BoardService().selectReviewTotalList();
 		// ArrayList<Attachment> fileList = (ArrayList<Attachment>) list.get("attachement");
 		
+		
+		
 		System.out.println("servlet list : " + list);
 		String page="";
 		if(list != null) {

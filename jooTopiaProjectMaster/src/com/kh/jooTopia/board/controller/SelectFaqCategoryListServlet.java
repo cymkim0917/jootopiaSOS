@@ -48,7 +48,7 @@ public class SelectFaqCategoryListServlet extends HttpServlet {
 			new Gson().toJson(list, response.getWriter());
 		}else {
 			page="views/common/errorPage500.jsp";
-			request.setAttribute("msg", "공지사항 조회 실패");
+			request.setAttribute("msg", " 조회 실패");
 			RequestDispatcher view = request.getRequestDispatcher(page);
 			view.forward(request, response);
 			System.out.println("request : " + request );

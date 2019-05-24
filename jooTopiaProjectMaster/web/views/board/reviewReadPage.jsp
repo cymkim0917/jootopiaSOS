@@ -42,22 +42,20 @@
    
    } */
    <!--게시판 형식 -->
-   
-   
    .outer{
       width:1000px;
       height:650px;
       background:black;
-      color:white;
+      color:black;
       margin-left:auto;
       margin-right:auto;
       margin-top:50px;
    }
-   .detail td {
+  .detail td {
       text-align:center;
       width:1000px;
-      border:1px solid white;
-   }
+      border:1px solid black;
+   } 
    #titleImgArea {
       width:500px;
       height:300px;
@@ -80,7 +78,6 @@
       height:180px;
    }
    
-
 </style>
 
 
@@ -91,146 +88,59 @@
    
    <section>
       <h1 align="center">상품 후기</h1>
+      <br>
       
        <div class="outer">
-      <table class="detail" align="center">
-         <tr>
-            <td width="50">제목</td>
-            <td colspan="5"><label><%=hmap.put("btitle","btitle") %></label></td>
-         </tr>
-         <tr>
-            <td>작성자</td>
-            <td><label><%= hmap.put("user_id","user_id") %></label></td>
-            <td>조회수</td>
-            <td><label><%= hmap.put("bcount","bcount") %></label></td>
-            <td>작성일</td>
-            <td><label><%= hmap.put("bdate","bdate") %></label></td>
-         </tr>
-         <tr>
-            <td>대표사진</td>
-            <td colspan="4">
-               <div id="titleImg" align="center">
-                  <img id="titleImg"
-                     src="<%=request.getContextPath() %>/images_upload/=titleImg.getChangeName()"/>
-               </div>
-            </td>
-         </tr>
-      
-      
-      
-      
-      
-     <!--  ////////////////////////////////// -->
-     <%--  <div class="outer">
-      <table class="detail" align="center">
-         <tr>
-            <td width="50">제목</td>
-            <td colspan="5"><label><%=bList.getbId() %></label></td>
-         </tr>
-         <tr>
-            <td>작성자</td>
-            <td><label><%= mList.getuNo() %></label></td>
-            <td>조회수</td>
-            <td><label><%= bList.getbCount() %></label></td>
-            <td>작성일</td>
-            <td><label><%= bList.getbDate() %></label></td>
-         </tr>
-         <tr>
-            <td>대표사진</td>
-            <td colspan="4">
-               <div id="titleImg" align="center">
-                  <img id="titleImg"
-                     src="<%=request.getContextPath() %>/images_upload/=titleImg.getChangeName()"/>
-               </div>
-            </td>
-         </tr> --%>
-         
-         
-         <!-- ////////////////////////////// -->
-         <tr>
-            <td>사진메모</td>
-            <td colspan="6">
-              
-               <p id="contentArea"><%=hmap.put("bcontent","bcontent")%></p>
-            </td>
-         </tr>
-      </table>
-      
-      
-      
-      
-      <table class="detail">
-         <tr>
-            <td>
-               <div class="detailImgArea">
-                  <img id="detailImg1" class="detailImg"
-                  src="<%=request.getContextPath()%>/images_upload/=detailImg1.getChangeName()"/>
-               </div>
-            </td>
-         </tr>
-      </table>
+	      <table class="detail" align="center">
+	         <tr>
+	            <td width="50">제목</td>
+	            <td colspan="5"><label><%=hmap.put("btitle","btitle") %></label></td>
+	         </tr>
+	         <tr>
+	            <td>작성자</td>
+	            <td><label><%= hmap.put("user_id","user_id") %></label></td>
+	            <td>조회수</td>
+	            <td><label><%= hmap.put("bcount","bcount") %></label></td>
+	            <td>작성일</td>
+	            <td><label><%= hmap.put("bdate","bdate") %></label></td>
+	         </tr>
+	         <tr>
+	            <td>대표사진</td>
+	            <td colspan="6" align="center">
+	               <div id="titleImg" align="center">
+	                  <img id="titleImg"
+	                     src="<%=request.getContextPath() %>/images_upload/=titleImg.getChangeName()"/>
+	               </div>
+	            </td>
+	         </tr>
+	         <tr>
+	            <td>사진메모</td>
+	            <td colspan="6" height="200px" align="center">
+	               <p id="contentArea"><%=hmap.put("bcontent","bcontent")%></p>
+	            </td>
+	         </tr>
+	    	 <tr>
+	            <td colspan="6">
+	               <div class="detailImgArea" align="center" >
+	                  <img id="detailImg1" class="detailImg"
+	                  src="<%=request.getContextPath()%>/images_upload/=detailImg1.getChangeName()"/>
+	               </div>
+	            </td>
+	         </tr>
+	      </table>
    </div>
-      
-      <!--------원래본문----------------------------------------------------->
-     <%--  <div class="outer">
-      <% for(Board b : bList){ %>
-      <table class="detail" align="center">
-         <tr>
-            <td width="50">제목</td>
-            <td colspan="5"><label><%= b.getbTitle() %></label></td>
-         </tr>
-         <tr>
-            <td>작성자</td>
-            <td><label>= b.getuNo()</label></td>
-            <td>조회수</td>
-            <td><label><%= b.getbCount() %></label></td>
-            <td>작성일</td>
-            <td><label><%= b.getbDate() %></label></td>
-         </tr>
-         <tr>
-            <td>대표사진</td>
-            <td colspan="4">
-               <div id="titleImg" align="center">
-                  <img id="titleImg"
-                     src="<%=request.getContextPath() %>/images_upload/=titleImg.getChangeName()"/>
-               </div>
-            </td>
-         </tr>
-         <tr>
-            <td>사진메모</td>
-            <td colspan="6">
-               <p id="contentArea"><%= b.getbContent()%></p>
-            </td>
-         </tr>
-      </table>
-      <% } %>
-      
-      
-      
-      <table class="detail">
-         <tr>
-            <td>
-               <div class="detailImgArea">
-                  <img id="detailImg1" class="detailImg"
-                  src="<%=request.getContextPath()%>/images_upload/=detailImg1.getChangeName()"/>
-               </div>
-            </td>
-         </tr>
-      </table>
-   </div> --%>
-   <!--------원래본문----------------------------------------------------->
-      
-      <div class="notice">
-         <button onclick="location.href='<%=request.getContextPath()%>/views/notice/reviewList.jsp'">목록</button>
-         <button onclick="location.href='<%=request.getContextPath()%>/views/notice/reviewWrite.jsp'">수정</button>
-         <button onclick="review_delete();">삭제</button>
-      <script>
-      function review_delete(){
-         alert("게시물을 삭제하시겠습니까?");
-      }
-      </script>
+   <br><br><br>
+       <div class="notice" align="center">
+	         <button onclick="location.href='<%=request.getContextPath()%>/selectReviewTotalList.do'">목록</button>
+	         <button onclick="location.href='<%=request.getContextPath()%>/views/notice/reviewWrite.jsp'">수정</button>
+	         <button onclick="review_delete();">삭제</button>
+			      <script>
+			      function review_delete(){
+			         alert("게시물을 삭제하시겠습니까?");
+			      }
+			      </script>
          </div>
-      </div>   
+        
    <br><br>
    </section>
 <%@ include file="/views/common/footer.jsp" %>
