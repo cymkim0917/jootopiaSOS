@@ -78,7 +78,6 @@ public class BuyWaitAdminDao {
 	}
 
 	public int getBuyWaitListCount(Connection con) {
-		
 		Statement stmt = null;
 		int listCount = 0;
 		ResultSet rset = null;
@@ -94,7 +93,6 @@ public class BuyWaitAdminDao {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(stmt);

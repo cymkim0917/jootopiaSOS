@@ -74,5 +74,16 @@ public class HeapAdminService {
 		return list;
 	}
 
+	public String checkPBarcode(int pid) {
+		Connection con = getConnection();
+		String pBarcode = null;
+		
+		pBarcode = new HeapAdminDao().checkPBarcode(con, pid);
+		
+		close(con);
+		
+		return pBarcode;
+	}
+
 	
 }
