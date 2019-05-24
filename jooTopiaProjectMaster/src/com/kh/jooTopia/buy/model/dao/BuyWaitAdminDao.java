@@ -1,4 +1,3 @@
-
 package com.kh.jooTopia.buy.model.dao;
 
 import java.io.FileReader;
@@ -78,6 +77,7 @@ public class BuyWaitAdminDao {
 	}
 
 	public int getBuyWaitListCount(Connection con) {
+		
 		PreparedStatement pstmt = null;
 		int listCount = 0;
 		ResultSet rset = null;
@@ -86,6 +86,10 @@ public class BuyWaitAdminDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
+			/*pstmt.setString(1, "매입대기중");
+			pstmt.setString(2, "매입중");
+			pstmt.setString(3, "현장거절");
+			pstmt.setString(4, "매입완료");*/
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
@@ -93,6 +97,7 @@ public class BuyWaitAdminDao {
 			}
 			
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
@@ -126,6 +131,16 @@ public class BuyWaitAdminDao {
 			
 			list = new ArrayList<BuyWaitAdmin>();
 			
+			/*while(rset.next()) {
+				BuyWaitAdmin b = new BuyWaitAdmin();
+				
+				b.setPcdId(rset.getInt("PCDID"));
+				b.setcGroup(rset.getString("CGROUP"));
+				b.setName(rset.getString("NAME"));
+				b.setApplicant(rset.getString("APPLICANT"));
+				b.setAppPhone(rset.getString("APPLICANT_PHONE"));
+				b.setStatus(rset.getString("STATUS"));
+			}*/
 			BuyWaitAdmin b = new BuyWaitAdmin();
 			int count = 0;
 			while(rset.next()) {
@@ -161,4 +176,3 @@ public class BuyWaitAdminDao {
 	}
 
 }
-
