@@ -8,7 +8,7 @@
 %>
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="/jootopia/images/favicon.ico">
 
@@ -17,6 +17,20 @@
 <link rel="stylesheet" href="/jootopia/css/user/common.css">
 <link rel="stylesheet" href="/jootopia/css/user/purchase.css">
 <title>JooTopia</title>
+<style>
+input[name*=Price]{
+	width: 70%;
+	display: inline-block;
+	text-align:right;
+}
+select{
+	padding: 5px 10px;
+}
+input[type=file]{
+	width: 70%; 
+	display: inline-block;
+}
+</style>
 </head>
 <body>
 <%@ include file="/views/common/navigation.jsp" %>
@@ -71,32 +85,37 @@
 					<tr>
 						<td><label>사용기간</label></td>
 						<td>
-							<input list="userDays" name="usePeriod" class="form-control" placeholder="해당사항이 없으면 년수로 입력해주세요." value="3개월 이하">
-							<datalist id="userDays">
-						  		<option value="3개월 이하">
-						  		<option value="6개월 이하">
-						  		<option value="1년 이하">
-						  		<option value="3년 이하">
-						  		<option value="3년 초과">
-							</datalist>
+							<select name="usePeriod">
+								<option>---- 선택 ----</option>
+								<option value="3개월 이하">3개월 이하 </option>
+								<option value="6개월 이하">3개월 ~ 6개월</option>
+								<option value="1년 이하">6개월 ~ 1년 </option>
+								<option value="3년 이하">1년 ~ 3년</option>
+								<option value="3년 초과">3년 ~ </option>
+							</select>
 						</td>
 					</tr>
 					<tr>
 						<td><label>구매 가격</label></td>
-						<td><input type="number" class="form-control" name="primePrice" value="10000">원</td>
+						<td>
+							<input type="number" class="form-control" name="primePrice" placeholder="10000" step="10000" min="10000">&nbsp;원
+						</td>
 					</tr>
 					<tr>
 						<td><label>희망 가격</label></td>
-						<td><input type="number" class="form-control" name="hopePrice" value="10000">원</td>
+						<td>
+							<input type="number" class="form-control" name="hopePrice" placeholder="0" step="10000" min="0">&nbsp;원
+						</td>
 					</tr>
 					<tr>
 						<td><label>이미지 첨부</label></td>
 						<td>
-							<input type="file" class="form-control" name="imgFile1" style="width:230px;">
-							<input type="file" class="form-control" name="imgFile2" style="width:230px;">
-							<input type="file" class="form-control" name="imgFile3" style="width:230px;">
+							<input type="file" class="form-control" name="imgFile1">
+							<input type="file" class="form-control" name="imgFile2">
+							<input type="file" class="form-control" name="imgFile3">
 							<button id="addImg">이미지 추가</button> &nbsp;&nbsp;
 							<button id="removeImg">이미지 삭제</button>
+							<br><br>
 						</td>
 					</tr>
 					

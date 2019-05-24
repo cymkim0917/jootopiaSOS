@@ -204,7 +204,6 @@ private Properties prop = new Properties();
 				
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);
@@ -212,6 +211,29 @@ private Properties prop = new Properties();
 		}
 		
 		return list;
+	}
+
+	public String checkPBarcode(Connection con, int pid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String pBarcode = null;
+		
+		String query = prop.getProperty("checkPBarcode");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pid);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				pBarcode = rset.getString("PBARCODE");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return pBarcode;
 	}
 
 }

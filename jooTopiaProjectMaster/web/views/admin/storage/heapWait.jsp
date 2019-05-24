@@ -59,25 +59,18 @@
 							<th>중분류</th>						
 						</tr>
 					</thead>
-					<% for(HeapAdmin h : list){ /* i++; */%>
 					<tbody>
+					<% for(HeapAdmin h : list){%>
 						<tr>
-							<%-- <td><%= i %></td> --%>							
 							<td><%= h.getpId() %></td>
 							<td><%= h.getpName() %></td>
 							<td><%= h.getcGroup() %></td>
 							<td><%= h.getName() %></td>
-													
 						</tr>
 						<% } %>
 					</tbody>
 				</table>
 			</div>		
-			
-			
-			
-			
-			
 		<div class="pagingArea" align="center">
          <button
             onclick="location.href='<%= request.getContextPath() %>/selectAdminHeap.do?currentPage=1'"><<
@@ -112,32 +105,18 @@
             onclick="location.href='<%= request.getContextPath() %>/selectAdminHeap.do?currentPage=<%= maxPage %>'">
             >></button>
       </div>
-
-			<hr>
-			<!-- <div align="center">
-				<ul class="pagination">
-					<li><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-				</ul>
-			</div> -->
-		</div>
-		
+	</div> <!-- adminSection -->
 	</section>
 	<%@ include file="/views/common/adminFooter.jsp"%>
-	
 	<script>
 		$(function(){
-			$("#test1 td").mouseenter(function(){
+			$("#tableArea td").mouseenter(function(){
 				$(this).parent();
 			}).mouseout(function(){
 				$(this).parent();
 			}).click(function(){
-				var num = $(this).parent().children().eq(0).text();				
+				var num = $(this).parent().children().eq(0).text();		
 				console.log(num);
-				<%-- location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num; --%>
 				location.href="<%=request.getContextPath()%>/selectOneAdminHeap.do?num=" + num;
 				//location.href="heapRegist.jsp";
 			})
