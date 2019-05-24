@@ -25,7 +25,14 @@ public class ProductService {
 	public HashMap<String, Object> detailProduct(int pid) {
 		Connection con = getConnection();
 		
-		HashMap<String, Object> detailProc = new ProductDao().detailProduct(con,pid);
+		int result = new ProductDao().updateCount(con,pid);
+		HashMap<String, Object> detailProc = null;
+		if(result > 0 ) {
+			commit(con);
+			detailProc = new ProductDao().detailProduct(con,pid);
+		}else {
+			rollback(con);
+		}
 		
 		close(con);
 		

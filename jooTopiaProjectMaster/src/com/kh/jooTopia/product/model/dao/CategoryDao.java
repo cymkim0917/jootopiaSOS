@@ -338,7 +338,7 @@ public class CategoryDao {
 		case 2: orderTypeName = "PPRICE"; break;
 		case 3: orderTypeName = "PCOUNT"; break;
 		}
-		
+		System.out.println("orderTypeName"+orderTypeName);
 		
 		switch(cid){
 			case 6:  sql = prop.getProperty("category1SortProduct"); break;
@@ -347,21 +347,21 @@ public class CategoryDao {
 			case 36: sql = prop.getProperty("category4SortProduct");break;
 			default: sql = prop.getProperty("categoryAllSortProduct");break;
 		}
-		
+		System.out.println("sql : " + sql);
 		try {
 			pstmt = con.prepareStatement(sql);
 			
 			if(sql.equals(prop.getProperty("categoryAllSortProduct"))) {
-				pstmt.setInt(1, cid);
-				pstmt.setString(2,orderTypeName );
-				pstmt.setInt(3, pi.getStartPage());
-				pstmt.setInt(4, pi.getEndPage());
-			}else {
-				pstmt.setString(1, orderTypeName);
+				pstmt.setInt(1, cid);/*
+				pstmt.setString(2,orderTypeName );*/
 				pstmt.setInt(2, pi.getStartPage());
 				pstmt.setInt(3, pi.getEndPage());
+			}else {/*
+				pstmt.setString(1, orderTypeName);*/
+				pstmt.setInt(1, pi.getStartPage());
+				pstmt.setInt(2, pi.getEndPage());
 			}
-			
+			System.out.println("sql : " + sql);
 			rs = pstmt.executeQuery();
 			
 			list = new ArrayList<HashMap<String,Object>>();
@@ -374,7 +374,7 @@ public class CategoryDao {
 				procList.put("change_name", rs.getString("change_name"));
 				procList.put("pbrand", rs.getString("pbrand"));
 				procList.put("cgroup", rs.getString("cgroup"));
-				
+				System.out.println(rs.getInt("PCOUNT"));
 				list.add(procList);
 			}
 		} catch (SQLException e) {

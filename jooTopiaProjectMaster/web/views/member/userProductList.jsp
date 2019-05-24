@@ -41,7 +41,7 @@
 				<br /><br />
 				<div id="orderProductArea">
 				<select name="orderProduct" id="orderProduct">
-					<option value="">정렬방식</option>
+					<option value="4">정렬방식</option>
 					<option value="1">이름순 정렬</option>
 					<option value="2">가격순 정렬</option>
 					<option value="3">인기순 정렬</option>
@@ -54,6 +54,7 @@
 					</tbody>				
 				</table>
 				<div class="pagingArea" align="center" id ="pagingArea">
+				
 			<button
 				onclick="location.href='<%= request.getContextPath() %>/productList.do?currentPage=1&cid=<%= cid %>'"><<</button>
 
@@ -76,8 +77,7 @@
 			<button disabled><%= p %></button>
 
 			<% }else { %>
-			<button
-				onclick="location.href='<%=request.getContextPath()%>/productList.do?currentPage=<%= p %>&cid=<%= cid %>'"><%= p %></button>
+			<button onclick="location.href='<%=request.getContextPath()%>/productList.do?currentPage=<%= p %>&cid=<%= cid %>'"><%= p %></button>
 
 			<% 		
 					}
@@ -98,216 +98,199 @@
 			<div class="col-sm-3"></div>
 		</div>
 		
-		
-		<script>
-			$(function(){
-				$table = $("#productArea > tbody");
-				$table.html('');
-				
-				var index = 0;
-				var $tr = $('<tr>');
-				
-				<% for (int i=0; i<procList.size();i++){ %>
-						var $div = $('<div>');
-						var $td = $('<td>');		    			
-		    			var $img = $('<img>');
-		    			var $pnamep = $('<p>').text('<%= procList.get(i).get("pname") %>');
-		    			var $pprice = $('<p>').text(<%= procList.get(i).get("pprice") %>);
-		    			var $pbrand = $('<p>').text('<%= procList.get(i).get("pbrand") %>');
-					if(index < 3){		    		
-		    			$img.attr('src','<%= request.getContextPath() %>/images/product/<%= procList.get(i).get("change_name") %>');
-		    			$img.attr('width','300px');
-		    			$img.attr('height','300px');
-		    			
-		    			$div.append($img);
-		    			$div.append($pnamep);
-		    			$div.append($pprice);
-		    			$div.append($pbrand);
-		    			$div.css('marginLeft','20px');
-		    			$div.attr('onclick','location.href="<%= request.getContextPath() %>/detailProduct.do?num=<%= procList.get(i).get("pid") %>"')
-		    			$td.append($div);
-		    			$tr.append($td);
-		    			
-		    			if(index ==2){
-		    				$table.append($tr);
-		    				$tr = $('<tr>');
-		    				index = -1;
-		    				
-		    			}
-		    			index++;
-					}
-				<%} %>
-				
-				if(index >= 1){
-					$table.append($tr);
-				}
-			})
-			
-			
-		<%-- 	$("#orderProduct").change(function(){
-				var orderType = $("#orderProduct").val();
-				var cid = <%= cid %>
-				var currentPage = <%= currentPage %>
-				$.ajax({
-					url:"<%= request.getContextPath() %>/orderByProduct.do",
-					type:"post",
-					data:{orderType:orderType,cid:cid,currentPage:currentPage},
-					success:function(data){
-						console.log('성공!');
-						
-						
-						//procList
-						var procList = data["procList"];
-						var pi = data["pi"];
-						
-						$table = $("#productArea > tbody");
-						$table.html('');
-						
-						var index = 0;
-						var $tr = $('<tr>');
-						
-						$.each(procList,function(index2,value){
-							var pid = value.pid;
-							var $div = $('<div>');
-							var $td = $('<td>');		    			
-			    			var $img = $('<img>');
-			    			var $pnamep = $('<p>').text(value.pname);//pname
-			    			var $pprice = $('<p>').text(value.pprice);//pprice
-			    			var $pbrand = $('<p>').text(value.pbrand);//pbrand
-			    			console.log(value);
-			    			if(index < 3){		    		
-				    			$img.attr('src','<%= request.getContextPath() %>/images/product/'+value.change_name);//change_name
-				    			$img.attr('width','300px');
-				    			$img.attr('height','300px');
-				    			
-				    			$div.append($img);
-				    			$div.append($pnamep);
-				    			$div.append($pprice);
-				    			$div.append($pbrand);
-				    			$div.css('marginLeft','20px');
-				    			$div.attr('onclick','location.href="<%= request.getContextPath() %>/detailProduct.do?num='+value.pid+'"');
-				    			$td.append($div);
-				    			$tr.append($td);
-				    			
-				    			if(index ==2){
-				    				$table.append($tr);
-				    				$tr = $('<tr>');
-				    				index = -1;
-				    				
-				    			}
-				    			index++;
-							}
-						})
-						
-						if(index >= 1){
-							$table.append($tr);
-						}
-	
-						
-						
-					}
-					
-					//pagingArea
-					
-					$pagingArea = $("pagingArea");
-					$pagingArea.html('');
-					
-					var $firstTd = $('<li><a onclick="sortProduct(1);" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>');
-		            $paging.append($firstTd);
-		            for (var i = 0; i < pi.maxPage; i++) {
-		               $paging.append('<li><a onclick="sortProduct('+(i+1)+');">'+(i+1)+'</a></li>');
-		            }
-		            var $endTd = $('<li><a onclick="sortProduct('+pi.maxPage+');" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>');
-		            $paging.append($endTd);
-		        	 }
+<script>
+   $(function(){
+      $table = $("#productArea > tbody");
+      $table.html('');
 
-					
-				})//ajax끝
-				
-			})
-				function sortProduct(page){
-				var orderType = $("#orderProduct").val();
-				var cid = <%= cid %>
-				var currentPage = page;
-				$.ajax({
-					url:"<%= request.getContextPath() %>/orderByProduct.do",
-					type:"post",
-					data:{orderType:orderType,cid:cid,currentPage:currentPage},
-					success:function(data){
-						console.log('성공!');
-						
-						
-						//procList
-						var procList = data["procList"];
-						var pi = data["pi"];
-						
-						$table = $("#productArea > tbody");
-						$table.html('');
-						
-						var index = 0;
-						var $tr = $('<tr>');
-						
-						$.each(procList,function(index2,value){
-							var pid = value.pid;
-							var $div = $('<div>');
-							var $td = $('<td>');		    			
-			    			var $img = $('<img>');
-			    			var $pnamep = $('<p>').text(value.pname);//pname
-			    			var $pprice = $('<p>').text(value.pprice);//pprice
-			    			var $pbrand = $('<p>').text(value.pbrand);//pbrand
-			    			console.log(value);
-			    			if(index < 3){		    		
-				    			$img.attr('src','<%= request.getContextPath() %>/images/product/'+value.change_name);//change_name
-				    			$img.attr('width','300px');
-				    			$img.attr('height','300px');
-				    			
-				    			$div.append($img);
-				    			$div.append($pnamep);
-				    			$div.append($pprice);
-				    			$div.append($pbrand);
-				    			$div.css('marginLeft','20px');
-				    			$div.attr('onclick','location.href="<%= request.getContextPath() %>/detailProduct.do?num='+value.pid+'"');
-				    			$td.append($div);
-				    			$tr.append($td);
-				    			
-				    			if(index ==2){
-				    				$table.append($tr);
-				    				$tr = $('<tr>');
-				    				index = -1;
-				    				
-				    			}
-				    			index++;
-							}
-						})
-						
-						if(index >= 1){
-							$table.append($tr);
-						}
-	
-						
-						
-					}
-					
-					//pagingArea
-					
-					$pagingArea = $("#pagingArea");
-					$pagingArea.html('');
-					
-					var $firstTd = $('<li><a onclick="sortProduct(1);" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>');
-		            $paging.append($firstTd);
-		            for (var i = 0; i < pi.maxPage; i++) {
-		               $paging.append('<li><a onclick="sortProduct('+(i+1)+');">'+(i+1)+'</a></li>');
-		            }
-		            var $endTd = $('<li><a onclick="sortProduct('+pi.maxPage+');" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>');
-		            $paging.append($endTd);
-		        	 }
+      var index = 0;
+      var $tr = $('<tr>');
 
-					
-				})//ajax끝
-				}
-				 --%>
+      <% for (int i=0; i<procList.size();i++){ %>
+      var $div = $('<div>');
+      var $td = $('<td>');                   
+      var $img = $('<img>');
+      var $pnamep = $('<p>').text('<%= procList.get(i).get("pname") %>');
+      var $pprice = $('<p>').text(<%= procList.get(i).get("pprice") %>);
+      var $pbrand = $('<p>').text('<%= procList.get(i).get("pbrand") %>');
+      if(index < 3){                
+         $img.attr('src','<%= request.getContextPath() %>/images/product/<%= procList.get(i).get("change_name") %>');
+         $img.attr('width','300px');
+         $img.attr('height','300px');
+
+         $div.append($img);
+         $div.append($pnamep);
+         $div.append($pprice);
+         $div.append($pbrand);
+         $div.css('marginLeft','20px');
+         $div.attr('onclick','location.href="<%= request.getContextPath() %>/detailProduct.do?num=<%= procList.get(i).get("pid") %>"')
+         $td.append($div);
+         $tr.append($td);
+
+         if(index ==2){
+            $table.append($tr);
+            $tr = $('<tr>');
+            index = -1;
+
+         }
+         index++;
+      }
+      <%} %>
+
+      if(index >= 1){
+         $table.append($tr);
+      }
+   })
+
+
+   $("#orderProduct").on("change", function(){
+      var orderType = $("#orderProduct").val();
+	   console.log('바뀜!' + orderType)
+      var cid = <%= cid %>
+      var currentPage = <%= currentPage %>
+      $.ajax({
+         url:"<%= request.getContextPath() %>/orderByProduct.do",
+         type:"post",
+         data:{orderType:orderType,cid:cid,currentPage:currentPage},
+         success:function(data){
+            console.log('성공!');
+            //pagingArea
+
 			
-		</script>
+            //procList
+            var procList = data["procList"];
+            var pi = data["pi"];
+
+            $table = $("#productArea > tbody");
+            $table.html('');
+
+            var index = 0;
+            var $tr = $('<tr>');
+
+            $.each(procList,function(index2,value){
+               var pid = value.pid;
+               var $div = $('<div>');
+               var $td = $('<td>');                   
+               var $img = $('<img>');
+               var $pnamep = $('<p>').text(value.pname);//pname
+               var $pprice = $('<p>').text(value.pprice);//pprice
+               var $pbrand = $('<p>').text(value.pbrand);//pbrand
+               console.log(value);
+               if(index < 3){                
+                  $img.attr('src','<%= request.getContextPath() %>/images/product/'+value.change_name);//change_name
+                  $img.attr('width','300px');
+                  $img.attr('height','300px');
+
+                  $div.append($img);
+                  $div.append($pnamep);
+                  $div.append($pprice);
+                  $div.append($pbrand);
+                  $div.css('marginLeft','20px');
+                  $div.attr('onclick','location.href="<%= request.getContextPath() %>/detailProduct.do?num='+value.pid+'"');
+                  $td.append($div);
+                  $tr.append($td);
+
+                  if(index ==2){
+                     $table.append($tr);
+                     $tr = $('<tr>');
+                     index = -1;
+
+                  }
+                  index++;
+               }//if끝
+            });//each끝
+
+            if(index >= 1){
+               $table.append($tr);
+            }
+
+            $pagingArea = $("#pagingArea");
+            $pagingArea.html('');
+			var $firstButton = $('<button onclick="sortProduct(1);"> << </button>');
+
+      		 $pagingArea.append($firstButton);
+            for (var i = 0; i < pi.maxPage; i++) {
+               $pagingArea.append('<button onclick="sortProduct('+ (i+1) +')">'+ (i+1) +'</button>');
+            }
+            $endButton = $('<button onclick="sortProduct('+ pi.maxPage  +');"> >> </button>')
+      
+			$pagingArea.append($endButton);
+         }
+
+      });//ajax끝
+
+
+
+   });//채인지 끝
+
+
+   function sortProduct(page){
+      var orderType = $("#orderProduct").val();
+      var cid = <%= cid %>
+      var currentPage = page;
+      $.ajax({
+         url:"<%= request.getContextPath() %>/orderByProduct.do",
+         type:"post",
+         data:{orderType:orderType,cid:cid,currentPage:currentPage},
+         success:function(data){
+            //procList
+            var procList = data["procList"];
+            var pi = data["pi"];
+
+            $table = $("#productArea > tbody");
+            $table.html('');
+
+            var index = 0;
+            var $tr = $('<tr>');
+
+            $.each(procList,function(index2,value){
+               var pid = value.pid;
+               var $div = $('<div>');
+               var $td = $('<td>');                   
+               var $img = $('<img>');
+               var $pnamep = $('<p>').text(value.pname);//pname
+               var $pprice = $('<p>').text(value.pprice);//pprice
+               var $pbrand = $('<p>').text(value.pbrand);//pbrand
+               console.log(value);
+               if(index < 3){                
+                  $img.attr('src','<%= request.getContextPath() %>/images/product/'+value.change_name);//change_name
+                  $img.attr('width','300px');
+                  $img.attr('height','300px');
+
+                  $div.append($img);
+                  $div.append($pnamep);
+                  $div.append($pprice);
+                  $div.append($pbrand);
+                  $div.css('marginLeft','20px');
+                  $div.attr('onclick','location.href="<%= request.getContextPath() %>/detailProduct.do?num='+value.pid+'"');
+                  $td.append($div);
+                  $tr.append($td);
+
+                  if(index ==2){
+                     $table.append($tr);
+                     $tr = $('<tr>');
+                     index = -1;
+                  }
+                  index++;
+               }
+            });//each 끝
+            if(index >= 1){
+               $table.append($tr);
+            }
+            $pagingArea = $("#pagingArea");
+            $pagingArea.html('');
+			var $firstButton = $('<button onclick="sortProduct(1);"> << </button>');
+
+      		 $pagingArea.append($firstButton);
+            for (var i = 0; i < pi.maxPage; i++) {
+               $pagingArea.append('<button onclick="sortProduct('+ (i+1) +')">'+ (i+1) +'</button>');
+            }
+            $endButton = $('<button onclick="sortProduct('+ pi.maxPage  +');"> >> </button>');
+			$pagingArea.append($endButton);
+         }//success끝
+      });//ajax끝
+   }//function끝
+   </script>
 	</section>
 <%@ include file="/views/common/footer.jsp" %>
 </body>
