@@ -21,9 +21,9 @@
 <link rel="stylesheet" href="/jootopia/css/admin/adminCommon.css">
 <title>JooTopia</title>
 <style>
-.table th {
-	text-align: left;
-} 
+#test1 {
+	text-align: center;
+}
 </style>
 </head>
 <body>
@@ -39,29 +39,27 @@
 			<div class="container">
 
 				<table class="table table-hover" id="test1">
-					<thead>
+				<thead>
 					<tr>
-						<!-- <th>No.</th> -->
-						<th>상태</th>
-						<th>주문번호</th>
 						<th>배송번호</th>
-						<!-- <th>상품번호</th>
-						<th>적치번호</th>
-						<th>위치바코드</th> -->
+						<th>주문번호</th>
+						<th>상태</th>
+						<th>배송중 처리</th>
 					</tr>
 				</thead>
 				<% for(ReleaseAdmin r : list){ %>
 				<tbody>
 					<tr>
-						<td><%= r.getStatus() %></td>						
-						<td><%= r.getPoId() %></td>
 						<td><%= r.getdId() %></td>
-						<%-- <td><%= r.getpId() %></td>
-						<td><%= r.gethId() %></td>
-						<td><%= r.getlBarcode() %></td>	 --%>					
+						<td><%= r.getPoId() %></td>
+						<td><%= r.getStatus() %></td>
+						<th>
+						<div id="memo" class="memo">MEMO
+						</div>
+						<input type="hidden" id="dMsg" value="<%= r.getdMessage() %>">
+						</th>				
 					</tr>
 					<% } %>
-					
 				</tbody>
 			</table>
 
@@ -119,6 +117,67 @@
 	
 	<%@ include file="/views/common/adminFooter.jsp"%>
 	
+	<!-- The Modal : 배송정보 관련 모달 -->
+	<div id="memoModal" class="memoModal">
+		<div class="memoModalContent">
+		<div class="memoModalHeader">
+		<button type="button" class="close" data-dismiss="modal">&times;</button>
+		<h4>배송정보 수정</h4>
+		<hr>
+		</div>
+		<!-- Modal content -->
+	    <div class="memoModalBody">
+	    	<table class="memoModalTable">
+	    		<tr>
+	    			<th>배송코드 : <span id="modalDId">배송코드임시</span><br>
+	    			주문코드 : <span id="modalPoId">주문코드임시</span>
+	    		</tr>
+	    	</table>
+	    	<br>
+	        <table class="memoModalTable">
+	        	<tr>
+	        		<th colspan="2">배송지 정보</th>
+	        	</tr>
+	        	<tr>
+	    			<th>수령자명</th>
+	    			<td>
+	    			<input type="text" id="modalName" name="modalName" value="">
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<th>연락처</th>
+	    			<td>
+	    			<input type="text" id="modalPhone" name="modalPhone" value="">
+					</td>
+	    		</tr>
+	    		<tr>
+	    			<th>배송지 주소</th>
+	    			<td>
+	    			<input type="text" id="modalAddress" name="modalAddress" value="">
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<th>배송메시지</th>
+	    			<td>
+	    			<input type="text" id="oMemo" name="oMemo" placeholder="배송메시지를 입력하세요" value="">
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<th>배송시작일</th>
+	    			<td>
+	    			<input type="date" id="dStartDate" name="dStartDate" value="">
+	    			</td>
+	    		</tr>
+	    	</table>
+	    	<br>
+	    	<div class="modalBtnArea" align="center">
+					<input type="submit" value="수정" onclick="changeDelivery();">
+					<input type="reset" value="닫기">
+			</div>
+	    </div>
+	    </div>
+	</div>
+	
 	<script>
 		$(function(){
 			$("#test1 td").mouseenter(function(){
@@ -133,7 +192,87 @@
 				location.href="<%=request.getContextPath()%>/selectRLOne.do?num=" + num;
 				/* location.href="views/admin/storage/releaseRegist.jsp"; */
 			})
-		})
+		});
+		
+		//배송정보 모달용 펑션
+		$(".memo").click(function() {
+			var dId = $(this).parent().parent().children().eq(0).text();
+			
+			//배송정보 출력용 에이젝스
+			$.ajax({
+				url : "selectDeliveryModal.do",
+				type : "post",
+				data : {dId : dId},
+				success : function(data) {
+					
+					console.log(data);
+					console.log(data["o"]);
+					console.log(data["d"]);
+					
+					var order = data["o"];
+					var delivery = data["d"];
+					var startDate = data["startDate"];
+					
+					//조회 성공 시 모달에 넣어주기
+					$(function() {
+						$("#modalDid").text(delivery.dId);
+						$("#modalPoId").text(order.poId);
+						$('#modalPoDate').text(order.poDate);
+						
+						$("#modalName").val(order.name);
+						$("#modalPhone").val(order.phone);
+						$("#modalAddress").val(order.address);
+						$("#oMemo").val(order.dMessage);
+						if(startDate != null) {
+							$("#dStartDate").val(startDate);
+						}else {
+							var today = new Date().toISOString().substr(0, 10);
+							console.log("오늘날짜 : " + today);
+							$("#dStartDate").val(today);
+						}
+						$("#modalDId").text(dId);
+					});
+				},
+				error : function(data) {
+					alert(data);
+				}
+			});
+			
+			$("#memoModal").css("display", "block");
+			
+			$(".close").click(function() {
+				$("#memoModal").css("display", "none");
+			});
+			
+			$(".modalBtnArea>input[type=reset]").click(function() {
+				$("#memoModal").css("display", "none");
+			});
+		});
+		
+		//배송정보 변경 및 배송중 처리
+		function changeDelivery() {
+			
+			var poId = $("#modalPoId").text();
+			var name = $("#modalName").val();
+			var phone = $("#modalPhone").val();
+			var address = $("#modalAddress").val();
+			var dMessage = $("#oMemo").val();
+			var startDate = $("#dStartDate").val();
+			var hId = $("#").text();
+			
+			$.ajax({
+				url : "updateAdminDeliveryModal.do",
+				type : "post",
+				data : {poId : poId, name : name, phone : phone, address : address, dMessage : dMessage, startDate : startDate},
+				success : function(data) {
+					location.href='selectAdminRelease.do';
+					alert(data);
+				},
+				error : function(data) {
+					alert("에이젝스 접속실패");
+				}
+			});
+		};
 	</script>
 	
 </body>
