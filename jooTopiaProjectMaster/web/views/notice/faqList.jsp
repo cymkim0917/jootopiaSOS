@@ -20,6 +20,7 @@
     
     
     
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -86,8 +87,6 @@
 		</div>
 		<br><br><br><br>
 		<div class="container">
-		  <!-- <h2>Hover Rows</h2>
-		  <p>The .table-hover class enables a hover state on table rows:</p>   -->          
 		  <table class="table table-hover" id="faqList">
 		      <tr>
 		        <th>글번호</th>
@@ -99,7 +98,9 @@
 		   
 		    <% for(Board b: list){ %>
 		      <tr>
-		        <td><%=b.getbId() %></td>
+		        <td><%=b.getbNo() %>
+		        	<input type="hidden" name="bid" id="bid" value="<%= b.getbId()%>">
+		        </td>
 		        <td><%=b.getfCategory() %></td>
 		        <td><%=b.getbTitle() %></td>
 		        <td><%=b.getbDate() %></td>
@@ -116,31 +117,8 @@
 			<input type="text">&nbsp;
 			<button onclick="location.href='<%=request.getContextPath()%>/views/notice/faqList.jsp'">검색</button>
 		</div>
-		<!--  <div class ="paging button" align="center">
-			<button type="submit"><<</button>&nbsp;
-			<button type="submit"><</button>&nbsp;
-			<button type="submit">1</button>&nbsp;
-			<button type="submit">2</button>&nbsp;
-			<button type="submit">3</button>&nbsp;
-			<button type="submit">4</button>&nbsp;
-			<button type="submit">5</button>&nbsp;
-			<button type="submit">></button>&nbsp;
-			<button type="submit">>></button>
-		</div>  -->
+		
 		<script>
-			 $(".table td").click(function() {
-				 console.log("ddddd");
-				 var num = $(this).parent().children().eq(0).text();
-				 console.log(num);
-				 location.href="<%=request.getContextPath()%>/SelectOneFaqTotalList.do?num="+num;
-			 });
-			 
-			 
-			 
-			 
-			 
-			 
-			 
 			 function faqList (fCategory){
 					console.log(fCategory);
 					 $.ajax({
@@ -148,10 +126,7 @@
 						 url:"selectFaqCategoryList.do", 
 						 data:{fCategory:fCategory},
 						 success:function(data){
-							/*  console.log(data);
-						 /* location.href:"selectFaqTotal.do" */
-						 //console.log(data[0]); */
-						 
+							 
 						 $tableBody = $("#faqList tbody"); //tbody는 자동으로 생성되있고 눈에는 보이지 않는다.
 						 $tableBody.html('');//초기화
 						 
@@ -168,10 +143,11 @@
 						 $tr1.append($bDateTh);
 						 $tr1.append($bCountTh);
 						 $tableBody.append($tr1);
-						 
+						
 						 $.each(data,function(index,value){
+							 var bidAndBno = value.bNo + "<input type='hidden' id='bid' value='" + value.bId + "'>";
 							 var $tr=$("<tr>");
-							 var $noTd=$("<td>").text(value.bNo);
+							 var $noTd=$("<td>").html(bidAndBno);
 							 var $fCategoryTd=$("<td>").text(value.fCategory);
 							 var $bTitleTd=$("<td>").text(decodeURIComponent(value.bTitle));
 							 var $bDateTd=$("<td>").text(value.bDate);
@@ -186,77 +162,24 @@
 							 $tableBody.append($tr);
 						 })
 			 
-			 
-			 
-			 
-			 /*  원본시작 ----------------------------- */
-			/* function faqList (fCategory){
-				console.log(fCategory);
-				 $.ajax({
-					 type:"POST",
-					 url:"selectFaqCategoryList.do", 
-					 data:{fCategory:fCategory},
-					 success:function(data){
-						/*  console.log(data);
-					 /* location.href:"selectFaqTotal.do" */
-					 //console.log(data[0]); */
-					 
-					 /* $tableBody = $("#faqList tbody"); //tbody는 자동으로 생성되있고 눈에는 보이지 않는다.
-					 $tableBody.html('');//초기화
-					 
-					 var $tr1=$("<tr>")
-					 var $noTh=$("<th>").text("글번호");
-					 var $fCategoryTh=$("<th>").text("분류");
-					 var $bTitleTh=$("<th>").text("제목");
-					 var $bDateTh=$("<th>").text("작성일");
-					 var $bCountTh=$("<th>").text("조회수");
-					 
-					 $tr1.append($noTh);
-					 $tr1.append($fCategoryTh);
-					 $tr1.append($bTitleTh);
-					 $tr1.append($bDateTh);
-					 $tr1.append($bCountTh);
-					 $tableBody.append($tr1);
-					 
-					 $.each(data,function(index,value){
-						 var $tr=$("<tr>");
-						 var $noTd=$("<td>").text(value.bId);
-						 var $fCategoryTd=$("<td>").text(value.fCategory);
-						 var $bTitleTd=$("<td>").text(decodeURIComponent(value.bTitle));
-						 var $bDateTd=$("<td>").text(value.bDate);
-						 var $bCountTd=$("<td>").text(value.bCount);
-						 
-						 
-						 $tr.append($noTd);
-						 $tr.append($fCategoryTd);
-						 $tr.append($bTitleTd);
-						 $tr.append($bDateTd);
-						 $tr.append($bCountTd);
-						 $tableBody.append($tr);
-					 }) */ 
-					/*  원본 끝 ----------------------------- */
-					 
-			<%-- $("td").click(function() {
-				 console.log("ddddd");
-				 var num = $(this).parent().children().eq(0).text();
-				 console.log(num);
-				 location.href="<%=request.getContextPath()%>/selectFaqCList.do?num="+num;
-			 }); --%>
-			 
-			 
-			 $("td").click(function() {
-				 console.log("ddddd");
-				 var num = $(this).parent().children().eq(0).text();
-				 console.log(num);
-				 location.href="<%=request.getContextPath()%>/selectFaqCList.do?num="+num;
-			 
-			 }); 
-			 
+						 $("td").click(function() {
+							 var num = $("#bid").val();
+							 console.log(num);
+							 location.href="<%=request.getContextPath()%>/SelectOneFaqTotalList.do?num="+num;
+						 });
+					 }, fail : function(){
+						 console.log("실패");
+					 }, complete : function(){
+						 console.log("컴플리트");
 					 }
 				 });
-			  
 			 } 
-			
+			 $(".table td").click(function() {
+				 var num = $("#bid").val();
+				 
+				 console.log("채채 : " + num);
+				 location.href="<%=request.getContextPath()%>/SelectOneFaqTotalList.do?num="+num;
+			 });
 			
 			
 			

@@ -33,6 +33,7 @@
 
 
 
+
 </head>
 <body>
 <%@ include file="/views/common/navigation.jsp" %>
@@ -67,8 +68,10 @@
 			
 			</div>
 			
+
+			
 			<div class ="newWriting" align="center">
-			<button onclick="location.href='<%=request.getContextPath()%>/selectList.do'">목록</button> 
+			<button onclick="location.href='<%=request.getContextPath()%>/selectFaqCategoryList.do'">목록</button> 
 		</div>	
 		
 		

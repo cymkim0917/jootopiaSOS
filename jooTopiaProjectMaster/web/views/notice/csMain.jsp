@@ -22,6 +22,7 @@
   
 }
 
+
 .notice {
 	text-align: center;
 	

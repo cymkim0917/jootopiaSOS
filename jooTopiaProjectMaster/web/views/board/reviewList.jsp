@@ -18,7 +18,7 @@
 <style>
 .outer {
 		width:1200px;
-		height:900px;
+		height:1500px;
 		background:coral; 
 		color:white;
 		margin-left:auto;
@@ -71,32 +71,17 @@
 			<%
 			for(int i = 0; i<list.size(); i++){
 				HashMap<String,Object> hmap = list.get(i);
-				
-				
-			
 			%>
 			
-		<div class="thumb-list" align="center">
+			<div class="thumb-list" align="center">
 				<div>
-					<%-- <input type="hidden" name="bid" value="<%=hmap.get("bId") %>">
-					
-					<img src="<%=request.getContextPath() %>/images_upload/<%=hmap.get("changeName") %>"
-						width="200px" height="150px">
-				</div>
-				<p>
-				No. <%=hmap.get("bId") %> <br>
-				제목 : <%=hmap.get("bTitle")%><br>
-				글쓴이 : <%=hmap.get("userId") %><br>
-				조회수 : <%=hmap.get("bCount") %>
-				</p>
-				
-			</div>
-			<% } %>  --%>
 			
-			<input type="hidden" name="bid" value="<%=hmap.get("bno")%>">
-					
-					<img src="<%=request.getContextPath() %>/images_upload/<%=hmap.get("changeName")%>"
-						width="200px" height="150px">
+					<input type="hidden" name="bid" value="<%=hmap.get("bid")%>">
+		
+				<img src="<%=request.getContextPath()%>/<%= hmap.get("file_path") %>/<%=hmap.get("change_name")%>"
+						width="200px" height="150px"> 
+						
+						
 				</div>
 				<p>
 				No. <%=hmap.get("bno") %> <br>
@@ -104,6 +89,8 @@
 				글쓴이 : <%=hmap.get("user_id") %><br>
 				조회수 : <%=hmap.get("bcount")%>
 				</p>
+				
+				
 				
 			</div>
 			<% } %> 

@@ -280,6 +280,7 @@ public class BoardService {
      
       close(con);
       
+      
       return hmap;*/
    
    public ArrayList<HashMap<String, Object>> selectReviewTotalList() {
@@ -290,6 +291,7 @@ public class BoardService {
 	      
 	      return list;
    }
+   
    
    
    

@@ -31,6 +31,7 @@
 }
 </style>
 
+
 </head>
 <body>
 <%@ include file="/views/common/navigation.jsp" %>
@@ -63,6 +64,11 @@
 			
 			</table>
 			</div>
+			
+			<div class ="newWriting" align="center">
+         <button onclick="location.href='<%=request.getContextPath()%>/selectFaqTotalList.do'">목록</button> 
+      </div>   
+			
 	<script>
 	
 	
