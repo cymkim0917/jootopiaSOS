@@ -204,13 +204,11 @@
 		    	<% } %>
 	      		<div class="moveBtnArea">
 					<ul class="pagination">
-						<!-- <li><a href="#">이전</a></li> -->
 						<li>
 							<a href="<%= request.getContextPath() %>/selectPurchaseAdminList.do">
 								&nbsp;&nbsp;&nbsp;목록으로&nbsp;&nbsp;&nbsp;
 							</a>
 						</li>
-						<!-- <li><a href="#">다음</a></li> -->
 					</ul>
 	      		</div>
 	      	</div>
@@ -231,6 +229,9 @@
 		  </div>
 		</div>
 		<script>
+			$("#denyReason").focus(function(){
+	      		$(this).html("");
+	      	});
 			function purchaseDeny(){
 				var denyReason = $("#denyReason").val();
 				location.href="<%= request.getContextPath() %>/insertDeny.do?no=<%= hmap.get("pcid") %>&denyReason=" + denyReason;

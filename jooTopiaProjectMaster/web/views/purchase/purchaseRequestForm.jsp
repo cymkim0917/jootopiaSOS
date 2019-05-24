@@ -74,10 +74,10 @@
 							<input list="userDays" name="usePeriod" class="form-control" placeholder="해당사항이 없으면 년수로 입력해주세요." value="3개월 이하">
 							<datalist id="userDays">
 						  		<option value="3개월 이하">
-						  		<option value="3개월 ~6개월">
-						  		<option value="6개월 ~1년">
-						  		<option value="1년 ~3년">
-						  		<option value="3년 이상">
+						  		<option value="6개월 이하">
+						  		<option value="1년 이하">
+						  		<option value="3년 이하">
+						  		<option value="3년 초과">
 							</datalist>
 						</td>
 					</tr>

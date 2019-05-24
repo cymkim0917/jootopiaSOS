@@ -193,4 +193,49 @@ public class PurchaseDetailDao {
 		}
 		return currval;
 	}
+
+	public int insertPCDpersonDeny(Connection con, PurchaseDetail pcd) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertPCDpersonDeny");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, pcd.getPcid());
+			pstmt.setString(2, pcd.getDenyReason());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public Object selectPCDdenyPersonReason(Connection con, int pcid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String denyReason = "";
+		
+		String sql = prop.getProperty("selectPCDdenyPersonReason");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, pcid);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				denyReason = rset.getString("DENY_REASON");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return denyReason;
+	}
 }

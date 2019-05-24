@@ -24,6 +24,8 @@ public class PurchaseService {
 		System.out.println("cid : " + cid);
 		if(cid <= 0) {
 			System.out.println("cid error");
+			rollback(con);
+			return 0;
 		}
 		
 		// 2. Purchase테이블에 데이터 삽입

@@ -1,11 +1,16 @@
 package com.kh.jooTopia.purchase.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.jasper.tagplugins.jstl.core.Out;
 
 import com.kh.jooTopia.product.model.service.ProductAdminService;
 import com.kh.jooTopia.product.model.vo.ProductregAdmin;
@@ -25,6 +30,10 @@ public class InsertPurchaseDetailAcceptAdminServlet extends HttpServlet {
 		String message = request.getParameter("message");
 		int buyPrice = Integer.parseInt(request.getParameter("buyPrice"));
 		
+		System.out.println("pcid : " + pcid);
+		System.out.println("message : " + message);
+		System.out.println("buyPrice : " + buyPrice);
+		
 		PurchaseDetail pcd = new PurchaseDetail();
 		pcd.setMessage(message);
 		pcd.setPcPrice(buyPrice);
@@ -32,20 +41,15 @@ public class InsertPurchaseDetailAcceptAdminServlet extends HttpServlet {
 		
 		ProductregAdmin p = new PurchaseAdminService().insertPersonAccept(pcd);
 		
-		/*ProductregAdmin p = null;
-		if(result > 0) {
-			p = new ProductAdminService().selectOneAdminProductreg(num);
-		}
-		page = "views/admin/storage/productreg.jsp";
-		request.setAttribute("p", p);
-		
-		if(result > 0) {
-			request.setAttribute("hmap", new PurchaseAdminService().selectPurchaseOne(pcid));
-			request.getRequestDispatcher("/selectOneAdminProductr.do?num=" + pcd.getPcid()).forward(request, response);
-		}else {
+		if(p != null) {
+			// request.setAttribute("p", p);
+			// request.getRequestDispatcher("/views/admin/storage/productreg.jsp").forward(request, response);
+			// request.setAttribute("hmap", new PurchaseAdminService().selectPurchaseOne(pcid));
+			request.getRequestDispatcher("/selectAdminBuy.do").forward(request, response);
+		} else {
 			request.setAttribute("msg", "현장 매입 요청 실패!");
 			request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response);
-		}*/
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

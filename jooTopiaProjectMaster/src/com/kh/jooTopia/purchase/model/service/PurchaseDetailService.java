@@ -40,4 +40,20 @@ public class PurchaseDetailService {
 		
 		return result;
 	}
+
+	public int insertPCDpersonDeny(PurchaseDetail pcd) {
+		Connection con = getConnection();
+		int result = 0;
+			
+		result = new PurchaseDetailDao().insertPCDpersonDeny(con, pcd);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
 }

@@ -6,7 +6,6 @@
 	
 	Attachment img1 = fileList.get(0);
 	Attachment img2 = fileList.get(1);
-	
 %>
 <!DOCTYPE html>
 <html>
@@ -48,7 +47,6 @@
       	 						<img id="contentImg1" width="120" height="100" src="<%=request.getContextPath()%>/images/notice/<%=img1.getChangeName()%>">
       	 						<input type="hidden" name = "img1Fid" value="<%=img1.getfId()%>">
       	 					</div>
-      	 					
       	 					<div id="contentImgArea2" style="float:left">
       	 						<img id="contentImg2" width="120" height="100" src="<%=request.getContextPath()%>/images/notice/<%=img2.getChangeName()%>">
       	 						<input type="hidden" name = "img2Fid" value="<%=img2.getfId()%>">

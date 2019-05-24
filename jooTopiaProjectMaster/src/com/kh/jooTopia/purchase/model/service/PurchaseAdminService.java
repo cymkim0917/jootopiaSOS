@@ -48,6 +48,7 @@ public class PurchaseAdminService {
 			hmap.put("pBarcode", new PurchaseDetailDao().selectPCDbarcode(con, pcid));
 			hmap.put("denyReason", new PurchaseDetailDao().selectPCDdenyReason(con, pcid));
 			hmap.put("fileList", new PurchaseAdminDao().selectAttachment(con, pcid));
+			hmap.put("denyPersonReason", new PurchaseDetailDao().selectPCDdenyPersonReason(con, pcid));
 		}
 		close(con);
 		
