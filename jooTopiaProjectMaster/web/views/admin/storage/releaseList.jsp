@@ -23,6 +23,18 @@
 .table th {
 	text-align: left;
 } 
+.listArea{
+	padding-left: 5%;
+	width: 100%;
+}
+#tableArea th{
+	width: 10%;
+	text-align: center;
+}
+#tableArea td{
+	width: 10%;
+	text-align: center;
+}
 </style>
 </head>
 <body>
@@ -50,13 +62,6 @@
 						</select> <input type="search" placeholder="검색 단어를 입력하세요." width="20px">
 						</td>
 					</tr>
-					<%-- <tr>
-						<td>출고일자</td>
-						<td id="selectDate" colspan="2">&nbsp;						
-						<input type="date" id="startDate" name="startDate" class="date"value="<%= startDay %>">
-							~ <input type="date" id="endDate" name="endDate" class="date"value="<%= endDay %>">
-						</td>
-					</tr> --%>
 				</table>
 
 				<br>
@@ -69,9 +74,9 @@
 
 			<br><br><br><br><br><br>
 
-			<div class="container">
+			<div class="listArea">
 
-				<table class="table table-striped">
+				<table class="table table-striped" id="tableArea">
 					<thead>
 					<tr>
 						<th>No.</th>

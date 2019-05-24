@@ -19,9 +19,11 @@ public class SelectOneAdminProductrServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		int num = Integer.parseInt(request.getParameter("num"));
 		
 		ProductregAdmin p = new ProductAdminService().selectOneAdminProductreg(num);
+		
 		
 		String page = "";
 		if(p != null) {
@@ -35,7 +37,6 @@ public class SelectOneAdminProductrServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

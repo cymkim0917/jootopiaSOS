@@ -35,7 +35,6 @@ public class PurchaseAdminService {
 	}
 
 	public HashMap<String, Object> selectPurchaseOne(int pcid) {
-		System.out.println("selectPurchaseOne service");
 		Connection con = getConnection();
 		HashMap<String, Object> hmap = null;
 		
@@ -115,23 +114,19 @@ public class PurchaseAdminService {
 		Connection con = getConnection();
 		ProductregAdmin p = null;
 		int result = 0;		
-		int pcdid = 0;
+		int pcid = 0;
 		
 		result = new PurchaseAdminDao().insertPersonAccept(con, pcd);
 		
 		if(result > 0) {
+			System.out.println("INSERT완료");
+			p = new ProductAdminDao().selectOneAdminProductreg(con, pcd.getPcid());
 			commit(con);
-			pcdid = new PurchaseDetailDao().selectPCDCurrval(con);
 		}else {
 			rollback(con);
 		}
-		
-		if(pcdid != 0) {
-			p = new ProductAdminDao().selectOneAdminProductreg(con, pcdid);
-		}
-		
 		close(con);
-		
+		System.out.println("p : " + p);
 		return p;
 	}
 }

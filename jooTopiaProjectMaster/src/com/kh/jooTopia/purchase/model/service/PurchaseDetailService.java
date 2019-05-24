@@ -56,4 +56,20 @@ public class PurchaseDetailService {
 		
 		return result;
 	}
+
+	public int insertPCDEnd(int pcid) {
+		Connection con = getConnection();
+		int result = 0;
+		
+		result = new PurchaseDetailDao().insertPCDEnd(con, pcid);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
 }
