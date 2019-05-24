@@ -31,9 +31,8 @@
 		height: 25px;
 	
 	}
-	#orderListTb{
+	#orderListTb, #reviewListTb, #sellingListTb, #qnaListTb{
 		text-align:center;
-	
 	}
 	
 
@@ -107,25 +106,31 @@
       						<th width="300px;" height="30px">상태</th>
       						<th width="300px;" height="30px">비고</th>
       					</tr>
+      					<tbody id="orderTbody">
+      					</tbody>
       				</table>
       			
       				<table id="sellingListTb" border="1px;" style="display:none">
       					<tr>
-      						<th width="300px;" height="30px">카테고리</th>
-      						<th width="300px;" height="30px">신청일</th>
-      						<th width="300px;" height="30px">매입여부</th>
-      						<th width="300px;" height="30px">입고여부</th>
+      						<th width="300px;" height="30px">모델명</th>
+      						<th width="300px;" height="30px">신청주소</th>
+      						<th width="300px;" height="30px">희망가격</th>
+      						<th width="300px;" height="30px">상태</th>
       						<th width="300px;" height="30px">비고</th>
       					</tr>
+      					<tbody id="sellingTbody">
+      					</tbody>
       				</table>
       				<table id="reviewListTb" border="1px;" style="display:none">
       					<tr>
       						<th width="300px;" height="30px">글번호</th>
       						<th width="300px;" height="30px">제목</th>
-      						<th width="300px;" height="30px">후기제품</th>
+      						<th width="300px;" height="30px">상품이름</th>
       						<th width="300px;" height="30px">작성일</th>
       						<th width="300px;" height="30px">평점</th>
       					</tr>
+      					<tbody id="reviewTbody">
+      					</tbody>
       				</table>
       				<table id="qnaListTb" border="1px;" style="display:none">
       					<tr>
@@ -135,6 +140,8 @@
       						<th width="300px;" height="30px">답변여부</th>
       						<th width="300px;" height="30px">비고</th>
       					</tr>
+      					<tbody id="qnaTbody">
+      					</tbody>
       				</table>
       			</form>
       		</div>
@@ -151,10 +158,6 @@
       			var type = $("#selectFormBox option:selected").val();
       			var uno = $("#uNo").val();
       			
-      			console.log(type);
-      			console.log(uno);
-      			
-      			
       			if(type=="orderList"){
       				document.getElementById('orderListTb').style.display  = 'block';
       				document.getElementById('reviewListTb').style.display  = 'none';
@@ -169,12 +172,10 @@
       					},
       					type:"post",
       					success:function(data){
-      						$tableBody=$("#orderListTb");
+      						$table=$("#orderListTb");
+      						$tableBody=$("#orderTbody");
       						
-      						$th = $tableBody("<th>");
-      						
-      						console.log($th);
-      						
+      						$tableBody.empty();
       						
       						for(var key in data){
       							var hmap = data[key];
@@ -202,14 +203,12 @@
       							$tr.append($nullTd);
       							
       							$tableBody.append($tr);
+      							$table.append($tableBody);
       						}
-      						
-      						
       					},
       					error:function(){
       						console.log(data);
       					}
-      					
       				});
       				
       				
@@ -219,7 +218,51 @@
       				document.getElementById('sellingListTb').style.display  = 'none';
       				document.getElementById('qnaListTb').style.display  = 'none';
       				
-      				
+      				$.ajax({
+      					url:"selectAdminMReview.do",
+      					data:{
+      						type:type,
+      						uno:uno
+      					},
+      					type:"post",
+      					success:function(data){
+      						$table=$("#reviewListTb");
+      						$tableBody=$("#reviewTbody");
+      						
+      						$tableBody.empty();
+      						
+      						for(var key in data){
+      							var hmap = data[key];
+      							
+      							var board = hmap["board"];
+      							
+      							var bno = board.bNo;
+      							var btitle = board.bTitle;
+      							var productName = hmap["pname"];
+      							var bdate = board.bDate;
+      							var rrating =board.rrating;
+      							
+      							var $tr = $("<tr>");
+      							var $bnoTd = $("<td>").text(bno);
+      							var $btitleTd = $("<td>").text(btitle);
+      							var $productNameTd = $("<td>").text(productName);
+      							var $bdateTd = $("<td>").text(bdate);
+      							var $rratingTd = $("<td>").text(rrating);
+      							
+      							$tr.append($bnoTd);
+      							$tr.append($btitleTd);
+      							$tr.append($productNameTd);
+      							$tr.append($bdateTd);
+      							$tr.append($rratingTd);
+      							
+      							$tableBody.append($tr);
+      							$table.append($tableBody);
+      						}
+      					},
+      					error:function(){
+      						console.log(data);
+      					}
+      				});
       				
       				
       				
@@ -229,11 +272,107 @@
       				document.getElementById('sellingListTb').style.display  = 'block';
       				document.getElementById('qnaListTb').style.display  = 'none';
       				
+      				$.ajax({
+      					url:"selectAdminSellingList.do",
+      					data:{
+      						type:type,
+      						uno:uno
+      					},
+      					type:"post",
+      					success:function(data){
+      						$table=$("#sellingListTb");
+      						$tableBody=$("#sellingTbody");
+      						
+      						$tableBody.empty();
+      						
+      						for(var key in data){
+      							var hmap = data[key];
+      							
+      							var purchase = hmap["purchase"];
+      							
+      							var pmodel = purchase.model;
+      							var address = purchase.appAddress;
+      							var cost = purchase.hopeCost;
+      							var status = hmap["status"];
+      							
+      							var $tr = $("<tr>");
+      							var $pmodelTd = $("<td>").text(pmodel);
+      							var $addressTd = $("<td>").text(address);
+      							var $costTd = $("<td>").text(cost);
+      							var $statusTd = $("<td>").text(status);
+      							var $nullTd = $("<td>").text("");
+      							
+      							$tr.append($pmodelTd);
+      							$tr.append($addressTd);
+      							$tr.append($costTd);
+      							$tr.append($statusTd);
+      							$tr.append($nullTd);
+      							
+      							$tableBody.append($tr);
+      							$table.append($tableBody);
+      						}
+      					},
+      					error:function(){
+      						console.log(data);
+      					}
+      				});
+      				
+      				
       			}else{
       				document.getElementById('orderListTb').style.display  = 'none';
       				document.getElementById('reviewListTb').style.display  = 'none';
       				document.getElementById('sellingListTb').style.display  = 'none';
       				document.getElementById('qnaListTb').style.display  = 'block';
+      				
+      				$.ajax({
+      					url:"SelectAdminMQnA.do",
+      					data:{
+      						type:type,
+      						uno:uno
+      					},
+      					type:"post",
+      					success:function(data){
+      						$table=$("#qnaListTb");
+      						$tableBody=$("#qnaTbody");
+      						
+      						$tableBody.empty();
+      						
+      						for(var key in data){
+      							
+      							var bdate = data[key].bDate;
+      							var btitle = data[key].bTitle;
+      							var qcategory = data[key].qCategory;
+      							var astatus = data[key].aStatus;
+      							
+      							var status ='';
+      							
+      							if(astatus=='N'){
+      								status='미답변'
+      							}else{
+      								status='답변완료'
+      							}
+      							
+      							var $tr = $("<tr>");
+      							var $bdateTd = $("<td>").text(bdate);
+      							var $btitleTd = $("<td>").text(btitle);
+      							var $qcategoryTd = $("<td>").text(qcategory);
+      							var $statusTd = $("<td>").text(status);
+      							var $nullTd = $("<td>").text("");
+      							
+      							$tr.append($bdateTd);
+      							$tr.append($btitleTd);
+      							$tr.append($qcategoryTd);
+      							$tr.append($statusTd);
+      							$tr.append($nullTd);
+      							
+      							$tableBody.append($tr);
+      							$table.append($tableBody);
+      						}
+      					},
+      					error:function(){
+      						console.log(data);
+      					}
+      				});
       				
       			} 
       			
