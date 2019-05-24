@@ -322,4 +322,50 @@ public class PaymentAdminDao {
 		}
 		return poId;
 	}
+
+	public int selectCanclePoId(Connection con, int pymId) {
+		//POID 조회하기
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int poId = 0;
+		
+		String query = prop.getProperty("selectCanclePoId");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pymId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				poId = rset.getInt("POID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return poId;
+	}
+
+	public int insertOrderCancle(Connection con, int poId) {
+		//주문취소 INSERT
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertOrderCancle");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, poId);
+			pstmt.setString(2, "상품준비중 단계에서 주문취소");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }

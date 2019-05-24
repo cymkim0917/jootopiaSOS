@@ -71,7 +71,6 @@
 		<div class="selectListArea">
 			<table id="selectList" class="selectList" border="1">
 				<tr>
-					<th width="25px"><input type="checkbox" id="allCheck"></th>
 					<th width="25px">No</th>
 					<th width="100px">주문상태</th>
 					<th width="90px">주문일</th>
@@ -94,7 +93,6 @@
 				<% if(i >= 0 && o.getPoId() != beforePoId) { 
 				%>
 				<tr>
-					<th><input type="checkbox" class="check" value="<%= o.getPoId() %>"></th>
 					<td><%= count++ %></td>
 					<td><%= o.getStatus() %></td>
 					<td><%= o.getPoDate() %></td>
@@ -115,7 +113,7 @@
 					<input type="hidden" id="totalPrice" value="<%= hmap.get("totalPrice") %>">
 					</th>
 					<th>
-					<div id="cancle" class="memo-cancle">CANCLE</div>
+					<div id="cancle" class="memo-cancle">X</div>
 					</th>
 				</tr>
 				<% } %>
@@ -259,15 +257,6 @@
 </div>
 
 <script>
-	$("#allCheck").click(function() {
-		
-		if($("#allCheck").prop("checked")) {
-			$("input[type=checkBox]").prop("checked", true);
-		}else {
-			$("input[type=checkBox]").prop("checked", false);
-		}
-	});
-	
 	//배송메시지 모달용 펑션
 	$(".memo").click(function() {
 		var code = $(this).parent().parent().children().eq(0).children().eq(0).val();
