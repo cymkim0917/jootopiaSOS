@@ -18,7 +18,7 @@ import com.kh.jooTopia.heap.model.vo.PageInfo;
 
 @WebServlet("/selectAdminBuy.do")
 public class SelectAdminBuyWaitServlet extends HttpServlet {
-   private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
        
     public SelectAdminBuyWaitServlet() {
         super();
@@ -26,7 +26,7 @@ public class SelectAdminBuyWaitServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-/*	//--페이징 시작
+			//--페이징 시작
 			int currentPage;
 			int limit;
 			int maxPage;
@@ -57,14 +57,15 @@ public class SelectAdminBuyWaitServlet extends HttpServlet {
 			
 			PageInfo pi = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
 			//--여기까지 페이징 처리
-*/		
-		ArrayList<BuyWaitAdmin> list = new BuyWaitAdminService().selectAdminList();
-		// ArrayList<BuyWaitAdmin> list = new BuyWaitAdminService().selectBuyWaitAdminList(pi);
+		
+		//ArrayList<BuyWaitAdmin> list = new BuyWaitAdminService().selectAdminList();
+		ArrayList<BuyWaitAdmin> list = new BuyWaitAdminService().selectBuyWaitAdminList(pi);
 		String page = "";
 		if(list != null) {
 			page = "views/admin/storage/buyWait.jsp";
 			request.setAttribute("list", list);
-			// request.setAttribute("pi", pi);
+			request.setAttribute("pi", pi);
+			
 		}else {
 			page = "views/common/errorPage500.jsp";
 			request.setAttribute("msg","실패");
@@ -74,7 +75,7 @@ public class SelectAdminBuyWaitServlet extends HttpServlet {
 		
 	}
 
-   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      doGet(request, response);
-   }
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
 }
