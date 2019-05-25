@@ -33,7 +33,7 @@ public class SelectFaqMemberShipListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Board> list = new BoardService().selectFaqMembershipList();
+		/*//ArrayList<Board> list = new BoardService().selectFaqMembershipList();
 		
 		System.out.println("list : " + list);
 		System.out.println(list);
@@ -47,16 +47,16 @@ public class SelectFaqMemberShipListServlet extends HttpServlet {
 		}else {
 			page="views/common/errorPage500.jsp";
 			request.setAttribute("msg", "공지사항 조회 실패");
-		}
+		}*/
 		
 		
-		
-		RequestDispatcher view = request.getRequestDispatcher(page);
-		
+		/*
+		RequestDispatcher view = request.getRequestDispatcher(page);*/
+	/*	
 		view.forward(request, response);
 		
 		System.out.println("request : " + request );
-		System.out.println("response : "  + response);
+		System.out.println("response : "  + response)*/;
 	
 		
 		

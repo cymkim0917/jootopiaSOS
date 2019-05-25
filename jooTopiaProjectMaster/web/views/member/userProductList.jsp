@@ -35,10 +35,20 @@
 				<br />
 				<% if(procList.get(0).get("cgroup") != null) {%>
 			
-				<h1 style="font-wieght:bold;"><%=  procList.get(0).get("cgroup")%></h1>
+				<h1 style="font-weight:bold;"><%=  procList.get(0).get("cgroup")%></h1>
 				<% }  %>				
-				
-				<br /><br />
+						<hr style="border:2px solid black; width:900;"/>
+			
+				<h2 style="font-weight:bold; color:red;">인기상품 TOP 3</h2>
+				<br />
+			
+				<table id="sortProductArea">
+					
+					<tbody>
+					
+					</tbody>				
+				</table>
+						<hr style="border:2px solid black; width:900;"/>
 				<div id="orderProductArea">
 				<select name="orderProduct" id="orderProduct">
 					<option value="4">정렬방식</option>
@@ -47,7 +57,6 @@
 					<option value="3">인기순 정렬</option>
 				</select>
 				</div>
-				<br /><br />
 				<table id="productArea">
 					<tbody>
 					
@@ -100,6 +109,46 @@
 		
 <script>
    $(function(){
+	  $sortTable = $("#sortProductArea > tbody");
+	  $sortTable.html('');
+	  
+	  var $sortTr = $('<tr>');
+	  var sortIndex = 0;
+	  
+	  <%for (int i = 0; i < 3; i++) {%>
+	  
+	  if(sortIndex < 3){
+	  var $div = $('<div>');
+      var $td = $('<td>');                   
+      var $img = $('<img>');
+      var $pnamep = $('<p>').text('<%=procList.get(i).get("pname")%>');
+      var $pprice = $('<p>').text(<%=procList.get(i).get("pprice")%>);
+      var $pbrand = $('<p>').text('<%=procList.get(i).get("pbrand")%>');
+                
+         $img.attr('src','<%=request.getContextPath()%>/images/product/<%=procList.get(i).get("change_name")%>');
+         $img.attr('width','300px');
+         $img.attr('height','300px');
+
+         $div.append($img);
+         $div.append($pnamep);
+         $div.append($pprice);
+         $div.append($pbrand);
+         $div.css('marginLeft','20px');
+         $div.attr('onclick','location.href="<%=request.getContextPath()%>/detailProduct.do?num=<%=procList.get(i).get("pid")%>"');
+		$td.append($div);
+		$sortTr.append($td);
+		
+		  if(sortIndex ==2){
+	            $sortTable.append($sortTr);
+	            $sortTr = $('<tr>');
+	          
+
+	         }
+		  sortIndex++;
+	  }
+<%}%>
+	  
+	   
       $table = $("#productArea > tbody");
       $table.html('');
 

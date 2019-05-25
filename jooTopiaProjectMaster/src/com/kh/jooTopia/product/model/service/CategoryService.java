@@ -54,8 +54,14 @@ public class CategoryService {
 
 	public ArrayList<HashMap<String, Object>> sortProductList(int cid, PageInfo pi,int orderType) {
 		Connection con = getConnection();
-		ArrayList<HashMap<String, Object>> list = new CategoryDao().sortProductList(con,cid,pi,orderType);
-				
+		ArrayList<HashMap<String, Object>> list = null;
+		
+		switch(orderType) {
+		case 3:list = new CategoryDao().sortProductList(con,cid,pi,orderType);break;
+		case 1:list = new CategoryDao().sortProductList2(con, cid, pi, orderType);break;
+		case 2:list = new CategoryDao().sortProductList3(con, cid, pi, orderType);break;
+		}
+	
 		
 		close(con);
 		

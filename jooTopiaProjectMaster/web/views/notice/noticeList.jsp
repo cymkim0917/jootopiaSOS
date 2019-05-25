@@ -60,12 +60,13 @@ table th{
             <% for(int i = 0; i < nList.size(); i++){ %>
                <tr>
                  <td><%= nList.get(i).getbNo() %></td>
-                 <td><%if(nList.get(i).getnType()=="공지사항"){ %>
+                 <td><%if(nList.get(i).getnType().equals("공지사항")){ %>
                     공지사항
                     <%}else{ %>
                     이벤트
                     <%} %>
                  </td>
+                 
                  <td><%=nList.get(i).getbTitle() %></td>
                  <td><%=mList.get(i).getUserId() %></td>
                  <td><%=nList.get(i).getModifyDate() %></td>

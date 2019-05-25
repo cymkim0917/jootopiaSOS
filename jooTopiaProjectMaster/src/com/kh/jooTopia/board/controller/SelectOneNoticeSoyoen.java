@@ -10,39 +10,32 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.jooTopia.board.model.service.BoardService;
 import com.kh.jooTopia.board.model.vo.Notice;
 
-@WebServlet("/selectNoticeOne.do")
-public class SelectOneNoticeServlet extends HttpServlet {
+/**
+ * Servlet implementation class SelectOneNoticeSoyoen
+ */
+@WebServlet("/selectOneNotice2.do")
+public class SelectOneNoticeSoyoen extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public SelectOneNoticeServlet() {
+
+    public SelectOneNoticeSoyoen() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int num = Integer.parseInt(request.getParameter("num"));
-		System.out.println("selectOneNotice : " + num);
-		System.out.println("서블릿 실행");
-		Notice n = new BoardService().selectOne(num);
-		System.out.println("노티스 확인! " + n);
 		
-		String page="";
-		if(n != null) {
-			System.out.println("조회성공");
-			page="views/notice/noticeListPlus.jsp";
-			request.setAttribute("n", n);
-			
+		Notice notice = new BoardService().selectOneNotice(num);
+		
+		if(notice!=null ) {
+			request.setAttribute("n", notice);
+			request.getRequestDispatcher("views/notice/noticeListPlus.jsp").forward(request, response);
 		}else {
-			System.out.println("조회실패");
-			page="views/common/errorPage500.jsp";
-			request.setAttribute("msg", "게시글 상세 보기 실패");
+			response.sendRedirect(request.getContextPath()+"/selectList.do");
 		}
-		
-		
-		request.getRequestDispatcher(page).forward(request, response);
-	
 	}
 
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

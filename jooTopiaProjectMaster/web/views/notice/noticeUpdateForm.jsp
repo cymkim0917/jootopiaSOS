@@ -3,13 +3,7 @@
     
 <%
 	Notice n = (Notice) request.getAttribute("n");
-	/* 
-	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
-	int currentPage = pageInfo.getCurrentPage();
-	int maxPage = pageInfo.getMaxPage();
-	int startPage = pageInfo.getStartPage();
-	int endPage = pageInfo.getEndPage(); 
-	*/
+
 %>
     
 <!DOCTYPE html>
@@ -135,18 +129,20 @@
 	         <tr>
 	         	<td><input type="hidden" value=<%= n.getbId() %> name="bid" /></td>
 	            <td width="50">제목</td>
-	            <td colspan="5"><label><%= n.getbTitle() %></label></td>
+	            <td colspan="5"><input type="text" name="title" value="<%= n.getbTitle() %>"/></td>	            
 	         </tr>
 	         <tr>
 	            
 	            <td>조회수</td>
-	            <td><label><%=n.getbCount() %></label></td>
+	            <td><input type="text" value="<%=n.getbCount() %>" /></td>	            
 	            <td>작성일</td>
 	            <td><label><%=n.getModifyDate() %></label></td>
 	         </tr>
 	         <tr>
 	            <td>내용</td>
-	            <td><label><%=n.getbContent() %></label></td>
+	            <td><textarea name="content" id="" cols="30" rows="10">
+	            <%=n.getbContent() %>
+	            </textarea></td>
 	         </tr>
 	         
 	      </table>
@@ -178,7 +174,6 @@
 			         <% } %>
 			      }
 			      
-			      
 			      function updateNotice(){
 			    	  <% if(loginUser== null){ %>
 			    	  	alert('로그인 후 이용가능한 서비스입니다');
@@ -189,13 +184,14 @@
 			    	  
 			    	  if(uno==1){
 			    	  
-			         $("#noticeForm").attr("action","<%= request.getContextPath() %>/requestNotice.do").submit();
+			         alert("게시물을 수정하시겠습니까?");
+			         $("#noticeForm").attr("action","<%= request.getContextPath() %>/updateNotice.do").submit();
 			    		  
 			    	  }else{
 			    		  alert('권한이 없습니다.');
 			    	  }
 			         
-			         <% } %>
+			         <% } %>  
 			      }
 			      </script>
          </div>

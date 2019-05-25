@@ -1,48 +1,46 @@
 package com.kh.jooTopia.board.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class DeleteReviewServlet
- */
+import com.kh.jooTopia.board.model.service.BoardService;
+import com.kh.jooTopia.member.model.vo.Member;
+
 @WebServlet("/deleteReview.do")
 public class DeleteReviewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public DeleteReviewServlet() {
-        super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Member member =(Member) request.getSession().getAttribute("loginUser");
+		int bid = Integer.parseInt(request.getParameter("bno"));
+		System.out.println(member.getUno());
+		int result  = 0;
+		if(member!=null) {
+			System.out.println("loginUSer not null");
+			int uno = member.getUno();
+			result = new BoardService().deleteReview(bid,uno);
+		}
 		
-	String [] deleteId = request.getParameterValues("deleteId");
-	
-	int[] bId = new int[deleteId.length];
-	
-	for(int i = 0; i < deleteId.length; i++) {
-		bId[i] = Integer.parseInt(deleteId[i]);
-	}
-	
-	int result = 0;
-	
-	/*for(int i = 0; i < bId.length; i++) {
-		result += new BoardService().
 		
-	}*/
-	
-	
+		PrintWriter out = response.getWriter();
+		if(result > 0) {
+			out.println("<script>alert('게시글 삭제가 완료되었습니다.');location.href='" + request.getContextPath()  + "/selectReviewTotalList.do'</script>");
+		}else {
+			out.println("<script>alert('게시글 삭제에 실패했습니다.');location.href='" + request.getContextPath()  + "/selectReviewTotalList.do'</script>");
+		}
+		
 	}
 
 	/**

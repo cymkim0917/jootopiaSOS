@@ -35,6 +35,7 @@ public class SelectOneReviewServlet extends HttpServlet {
       
       if(hmap != null) {
          page="views/board/reviewReadPage.jsp";
+         request.setAttribute("board",hmap.get("board"));
          request.setAttribute("list", hmap);
          
          

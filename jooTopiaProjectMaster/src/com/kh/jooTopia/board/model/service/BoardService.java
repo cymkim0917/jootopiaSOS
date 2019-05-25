@@ -28,11 +28,11 @@ public class BoardService {
    //상세
    public Notice selectOne(int num) {
       Connection con = getConnection();
-      Notice n = new BoardDao().selectOne(con,num);
-      int result = 0;
+      Notice n =  null;
+      int  result = new BoardDao().updateCount(con, num);
      
-      if(n != null) {
-         result = new BoardDao().updateCount(con, n.getbNo());
+      if(result > 0) {
+         n = new BoardDao().selectOne(con,num);
          System.out.println("n is not null");
          System.out.println("result : " + result);
       }
@@ -296,10 +296,10 @@ public class BoardService {
    
    
    //(s) 후기쓰는 페이지
-   public int reviewInsertForm(Board b, ArrayList<Attachment> fileList) {
+   public int reviewInsertForm(Board b, ArrayList<Attachment> fileList,int uno) {
       Connection con = getConnection();
       int result = 0;
-      int result1=new BoardDao().reviewInsertForm(con,b);
+      int result1=new BoardDao().reviewInsertForm(con,b,uno);
       
       if(result1>0) {
          int bid=new BoardDao().selectCurrval(con);
@@ -322,27 +322,85 @@ public class BoardService {
       
       return result;
    }
-   
-   //(s) 후기게시판 읽기----------------------------------------------------
-   public HashMap<String, Object> reviewReadPage(int num) {
-      Connection con = getConnection();
-      HashMap<String,Object> hmap = new BoardDao().reviewReadPage(con,num);
-      
-      if(hmap !=null) {
-    	  int result = new BoardDao().updateCount(con, num);
-    	  
-    	  if(result > 0) {
-    		  commit(con);
-    	  }else {
-    		  rollback(con);
-    	  }
-      }
-      
-      return hmap;
- 
-      
-   }
-   
+
+	// (s) 후기게시판 읽기----------------------------------------------------
+	public HashMap<String, Object> reviewReadPage(int num) {
+		Connection con = getConnection();
+		int result = new BoardDao().updateCount(con, num);
+		HashMap<String, Object> hmap = null;
+
+		if (result > 0) {
+			commit(con);
+
+			hmap = new BoardDao().reviewReadPage(con, num);
+		} else {
+			rollback(con);
+		}
+		
+		close(con);
+
+		return hmap;
+
+	}
+
+	public ArrayList<Board> selectFaqMembershipList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int deleteReview(int bid,int uno) {
+		Connection con = getConnection();
+		int result = new BoardDao().deleteReview(con,bid,uno);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+
+	public int deleteNotice(int bid) {
+		Connection con  =getConnection();
+		
+		int result = new BoardDao().deleteNotice(con,bid);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+
+	public int updateNotice(Notice notice) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().updateNotice(con,notice);
+		
+		if(result > 0 ) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	public Notice selectOneNotice(int num) {
+		Connection con = getConnection();
+		Notice notice = new BoardDao().selectOneNotice(con,num);
+		
+		close(con);
+		
+		return notice;
+	}
    
    
    

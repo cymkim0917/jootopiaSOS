@@ -1,8 +1,7 @@
 package com.kh.jooTopia.board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,34 +10,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.jooTopia.board.model.service.BoardService;
-import com.kh.jooTopia.board.model.vo.Attachment;
 
-@WebServlet("/selectReviewTotalList.do")
-public class SelectReviewTotalListServlet extends HttpServlet {
+@WebServlet("/deleteNotice.do")
+
+public class DeleteNoticeServlet extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
-       
-    public SelectReviewTotalListServlet() {
+	
+    public DeleteNoticeServlet() {
         super();
     }
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		int bid = Integer.parseInt(request.getParameter("bid"));
+		System.out.println("del : bid : " + bid);
 		
-		ArrayList<HashMap<String, Object>> list = new BoardService().selectReviewTotalList();	
+		int result = new BoardService().deleteNotice(bid);
 		
-		System.out.println("servlet list : " + list);
-		String page="";
-		if(list != null) {
-			page="views/board/reviewList.jsp";
-			request.setAttribute("list", list);
+		PrintWriter out = response.getWriter();
+		if(result > 0) {
+			out.println("<script>alert('게시글 삭제가 완료되었습니다.');location.href='" + request.getContextPath()  + "/selectList.do'</script>");
 		}else {
-			page="views/common/errorPage.jsp";
-			request.setAttribute("msg", "리스트 조회 실패!");
+			out.println("<script>alert('게시글 삭제가 완료되었습니다.');location.href='" + request.getContextPath()  + "/selectList.do'</script>");
 		}
-		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
