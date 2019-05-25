@@ -55,10 +55,13 @@
 					
 					<tr>
 						<th>내용</th>
-						<ht><%=b.getbContent() %></ht>
+						<td colspan="2" rowspan="2"><label for=""><%= b.getbContent() %></label></td>
+						
 						<!-- <td><textArea cols="10" placeholder="내용을 입력하세요" name="content" style="width:1000px; height:500px"></textArea></td> -->
 						<!-- <td height="500px">내용입니다.</td> -->
-						<td></td>
+					
+					</tr>
+					<tr>
 					</tr>
 				</tbody>
 			

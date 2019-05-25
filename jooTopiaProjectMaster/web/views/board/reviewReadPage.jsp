@@ -2,14 +2,13 @@
     pageEncoding="UTF-8" import="com.kh.jooTopia.board.model.vo.* , java.util.*"%>
 <%	
 	HashMap<String,Object> hmap = (HashMap<String,Object>) request.getAttribute("list");
-	//Board b = (Board) request.getAttribute("b");
-    ArrayList<Member> mList = (ArrayList<Member>) hmap.get("mList");
-    ArrayList<Board> bList = (ArrayList<Board>) hmap.get("bList");
-    // ArrayList<Attachment> aList = (ArrayList<Attachment>) list.get("aList");
-   // ArrayList<Attachment> fileList = (ArrayList<Attachment>) request.getAttribute("fileList");
-   // Attachment titleImg = fileList.get(0);
-   // Attachment detailImg1 = fileList.get(1);
-   //ArrayList<Board> bList = (ArrayList<Board>)request.getAttribute("bList");
+	ArrayList<Attachment> attList = (ArrayList<Attachment>) hmap.get("attList");
+ 	Board board = (Board) request.getAttribute("board"); 	
+	Attachment img1 = attList.get(0);
+	Attachment img2 = attList.get(1);
+   
+	String userName = (String)hmap.get("userName");
+	
 %>
 
 <!DOCTYPE html>
@@ -92,43 +91,47 @@
       <br>
       
        <div class="outer">
+       <form action="" id="readForm">
 	      <table class="detail" align="center">
 	         <tr>
 	            <td width="50">제목</td>
-	            <td colspan="5"><label><%=hmap.put("btitle","btitle") %></label></td>
+	            <td colspan="5"><label><%= board.getbTitle() %></label></td>
 	         </tr>
 	         <tr>
 	            <td>작성자</td>
-	            <td><label><%= hmap.put("user_id","user_id") %></label></td>
+	            <td><label><%= userName %></label></td>
 	            <td>조회수</td>
-	            <td><label><%= hmap.put("bcount","bcount") %></label></td>
+	            <td><label><%= board.getbCount() %></label></td>
 	            <td>작성일</td>
-	            <td><label><%= hmap.put("bdate","bdate") %></label></td>
+	            <td><label><%= board.getbDate() %></label></td>
 	         </tr>
 	         <tr>
 	            <td>대표사진</td>
 	            <td colspan="6" align="center">
 	               <div id="titleImg" align="center">
 	                  <img id="titleImg"
-	                     src="<%=request.getContextPath() %>/images_upload/=titleImg.getChangeName()"/>
+	                     src="<%=request.getContextPath() %>/images/review/<%= img1.getChangeName() %>"/>
 	               </div>
 	            </td>
 	         </tr>
 	         <tr>
 	            <td>사진메모</td>
 	            <td colspan="6" height="200px" align="center">
-	               <p id="contentArea"><%=hmap.put("bcontent","bcontent")%></p>
+	            
+	            <input type="hidden"   value="<%= board.getbId() %>"name="bno" />
+	               <p id="contentArea"><%= board.getbContent() %></p>
 	            </td>
 	         </tr>
 	    	 <tr>
 	            <td colspan="6">
 	               <div class="detailImgArea" align="center" >
 	                  <img id="detailImg1" class="detailImg"
-	                  src="<%=request.getContextPath()%>/images_upload/=detailImg1.getChangeName()"/>
+	                  src="<%=request.getContextPath()%>/images/review/<%= img2.getChangeName() %>"/>
 	               </div>
 	            </td>
 	         </tr>
 	      </table>
+	      </form>
    </div>
    <br><br><br>
        <div class="notice" align="center">
@@ -140,16 +143,20 @@
 			      
 			      function delconfirm(){
 			    	  var message = confirm("정말 삭제하시겠습니까?");
-			    	  if(message == true){
-			    		  alert("삭제되었습니다.");
-			    		  location.href=<%= hmap.%>
+			    	  if(message == true){/* 
 			    		  
+			    		  alert("삭제되었습니다."); */
+			    		  var bno = $("#bno").val();
+			    		  console.log(bno);
+			    		  
+			    		  $("#readForm").attr("action","<%= request.getContextPath() %>/deleteReview.do?").submit();
+			    		 
 			    		  
 			    	  }else{
-			    		  
-			    	  }
+			    	  
 			    	  return false;			    	  
-			      }
+			      }  
+			     }
 			      
 			     
 			      

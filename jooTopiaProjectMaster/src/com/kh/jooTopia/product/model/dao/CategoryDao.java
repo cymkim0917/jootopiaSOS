@@ -331,14 +331,6 @@ public class CategoryDao {
 		HashMap<String, Object> procList = null;
 		String sql= "";
 		
-		String orderTypeName = "PDATE";
-		
-		switch(orderType) {
-		case 1: orderTypeName = "PNAME"; break;
-		case 2: orderTypeName = "PPRICE"; break;
-		case 3: orderTypeName = "PCOUNT"; break;
-		}
-		System.out.println("orderTypeName"+orderTypeName);
 		
 		switch(cid){
 			case 6:  sql = prop.getProperty("category1SortProduct"); break;
@@ -385,6 +377,118 @@ public class CategoryDao {
 			close(pstmt);
 		}
 		
+		
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> sortProductList2(Connection con, int cid, PageInfo pi, int orderType) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		ResultSet rs = null;
+		HashMap<String, Object> procList = null;
+		String sql= "";
+		
+		
+		switch(cid){
+			case 6:  sql = prop.getProperty("category1SortProduct2"); break;
+			case 16: sql = prop.getProperty("category2SortProduct2");break;
+			case 26: sql = prop.getProperty("category3SortProduct2");break;
+			case 36: sql = prop.getProperty("category4SortProduct2");break;
+			default: sql = prop.getProperty("categoryAllSortProduct2");break;
+		}
+		System.out.println("sql : " + sql);
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			if(sql.equals(prop.getProperty("categoryAllSortProduct"))) {
+				pstmt.setInt(1, cid);/*
+				pstmt.setString(2,orderTypeName );*/
+				pstmt.setInt(2, pi.getStartPage());
+				pstmt.setInt(3, pi.getEndPage());
+			}else {/*
+				pstmt.setString(1, orderTypeName);*/
+				pstmt.setInt(1, pi.getStartPage());
+				pstmt.setInt(2, pi.getEndPage());
+			}
+			System.out.println("sql : " + sql);
+			rs = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String,Object>>();
+			while(rs.next()) {
+				procList = new HashMap<String, Object>();
+				procList.put("pid", rs.getInt("pid"));
+				procList.put("cid", rs.getInt("cid"));
+				procList.put("pname", rs.getString("pname"));
+				procList.put("pprice",rs.getInt("pprice"));
+				procList.put("change_name", rs.getString("change_name"));
+				procList.put("pbrand", rs.getString("pbrand"));
+				procList.put("cgroup", rs.getString("cgroup"));
+				System.out.println(rs.getInt("PCOUNT"));
+				list.add(procList);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> sortProductList3(Connection con, int cid, PageInfo pi, int orderType) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		ResultSet rs = null;
+		HashMap<String, Object> procList = null;
+		String sql= "";
+		
+		
+		switch(cid){
+			case 6:  sql = prop.getProperty("category1SortProduct3"); break;
+			case 16: sql = prop.getProperty("category2SortProduct3");break;
+			case 26: sql = prop.getProperty("category3SortProduct3");break;
+			case 36: sql = prop.getProperty("category4SortProduct3");break;
+			default: sql = prop.getProperty("categoryAllSortProduct3");break;
+		}
+		System.out.println("sql : " + sql);
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			if(sql.equals(prop.getProperty("categoryAllSortProduct"))) {
+				pstmt.setInt(1, cid);/*
+				pstmt.setString(2,orderTypeName );*/
+				pstmt.setInt(2, pi.getStartPage());
+				pstmt.setInt(3, pi.getEndPage());
+			}else {/*
+				pstmt.setString(1, orderTypeName);*/
+				pstmt.setInt(1, pi.getStartPage());
+				pstmt.setInt(2, pi.getEndPage());
+			}
+			System.out.println("sql : " + sql);
+			rs = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String,Object>>();
+			while(rs.next()) {
+				procList = new HashMap<String, Object>();
+				procList.put("pid", rs.getInt("pid"));
+				procList.put("cid", rs.getInt("cid"));
+				procList.put("pname", rs.getString("pname"));
+				procList.put("pprice",rs.getInt("pprice"));
+				procList.put("change_name", rs.getString("change_name"));
+				procList.put("pbrand", rs.getString("pbrand"));
+				procList.put("cgroup", rs.getString("cgroup"));
+				System.out.println(rs.getInt("PCOUNT"));
+				list.add(procList);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
 		
 		return list;
 	}

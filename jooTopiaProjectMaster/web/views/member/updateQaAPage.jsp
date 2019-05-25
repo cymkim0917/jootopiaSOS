@@ -104,6 +104,7 @@
 						<td>
 							<% if(loginUser != null){ %> <%= loginUser.getUserId() %> <% } %>
 							<input type="hidden" name="bid" value="<%= board.getbId() %>" />
+							<input type="hidden" name="bno" value="<%= board.getbId() %>" />
 						</td>
 						<td><label for="">수정일자</label></td>
 						<td>

@@ -171,7 +171,7 @@ public class BoardDao {
    public int updateCount(Connection con, int getbId) {
       PreparedStatement pstmt = null;
       int result = 0;
-      String query = prop.getProperty("updateCount");
+      String query = prop.getProperty("noticeUpdateCount");
       
       try {
          pstmt = con.prepareStatement(query);
@@ -874,7 +874,7 @@ public class BoardDao {
    
    
    //(s) 후기쓰기
-   public int reviewInsertForm(Connection con, Board b) {
+   public int reviewInsertForm(Connection con, Board b,int uno) {
 	   PreparedStatement pstmt = null;
 	   int result = 0;
 	   String sql = prop.getProperty("insertReviewForm");
@@ -885,6 +885,7 @@ public class BoardDao {
 		   
 		   pstmt.setString(1, b.getbTitle());
 		   pstmt.setString(2, b.getbContent());
+		   pstmt.setInt(3, uno);
 		   
 		   result = pstmt.executeUpdate();
 	   } catch (SQLException e) {
@@ -896,73 +897,52 @@ public class BoardDao {
 	   
    }
    //(s) 후기 상세게시
-   public HashMap<String, Object> reviewReadPage(Connection con, int num) {
-      /*Statement stmt = null;
-      ResultSet rset = null;
-      HashMap<String,Object> list = null;
-      ArrayList<Board> bList = null;
-      ArrayList<Member> mList = null;
-      ArrayList<Attachment> aList = null;*/
-      
-      PreparedStatement pstmt = null;
-      ResultSet rset = null;
-      HashMap<String,Object> list = null;
-      ArrayList<Board> bList = null;
-      ArrayList<Member> mList = null;
-      ArrayList<Attachment> aList = null;
-      //ArrayList<HashMap<String,Object>> list = null;
-      
-      String quary = prop.getProperty("selectOneReviewList");
-      
-      try {
-         pstmt=con.prepareStatement(quary);
-         //stmt=con.prepareStatement(quary);
-         rset = pstmt.executeQuery(quary);
-         bList = new ArrayList<Board>();
-         mList = new ArrayList<Member>();
-         aList = new ArrayList<Attachment>();
-         list = new HashMap<String,Object>();
-         //list = new ArrayList<HashMap<String,Object>>();
-         
-         while(rset.next()) {
-          
-            Board b = new Board();
-            b.setbId(rset.getInt("BID"));
-            b.setbNo(rset.getInt("BNO"));
-            b.setbTitle(rset.getString("BTITLE"));
-            b.setbContent(rset.getString("BCONTENT"));
-            b.setbCount(rset.getInt("BCOUNT"));
-            b.setbDate(rset.getDate("BDATE"));
-            bList.add(b);
-            
-            Member m = new Member();
-            m.setUserId(rset.getString("USER_ID"));
-            mList.add(m);
-            
-            Attachment a = new Attachment();
-            a.setfId(rset.getInt("FID"));
-            a.setOriginName(rset.getString("ORIGIN_NAME"));
-            a.setChangeName(rset.getString("CHANGE_NAME"));
-            a.setFilePath(rset.getString("FILE_PATH"));
-            a.setUploadDate(rset.getDate("UPLOAD_DATE"));
-            aList.add(a);
-            
-         }
-         list.put("bList", bList);
-         list.put("mList", mList);
-         list.put("aList", aList);
-         System.out.println(list.get("bList"));
-         System.out.println(list.get("mList"));
-         System.out.println(list.get("aList"));
-         
+   public HashMap<String, Object> reviewReadPage(Connection con, int num) {      
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Board b = null;
+		HashMap<String, Object> quesMap = null;
+		Attachment att = null;
+		ArrayList<Attachment> attList = null;
+		String quary = prop.getProperty("selectOneReviewList");
+		String userName = "";
+		try {
+			pstmt = con.prepareStatement(quary);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			attList= new ArrayList<Attachment>();			
+			while (rs.next()) {
+						
+				b = new Board();
+				b.setbId(rs.getInt("BID"));
+				b.setbNo(rs.getInt("BNO"));
+				b.setbTitle(rs.getString("BTITLE"));
+				b.setbContent(rs.getString("BCONTENT"));
+				b.setbDate(rs.getDate("BDATE"));
+
+				userName = rs.getString("USER_ID");
+				att = new Attachment();
+				att.setfId(rs.getInt("FID"));
+				att.setOriginName(rs.getString("ORIGIN_NAME"));
+				att.setChangeName(rs.getString("CHANGE_NAME"));
+				att.setFilePath(rs.getString("FILE_PATH"));
+				att.setUploadDate(rs.getDate("UPLOAD_DATE"));
+				
+				attList.add(att);
+
+			}
+			quesMap = new HashMap<String,Object>();
+			quesMap.put("board", b);
+			quesMap.put("attList", attList);
+			quesMap.put("userId",userName);
       } catch (SQLException e) {
          e.printStackTrace();
       }finally {
-         close(rset);
+         close(rs);
          close(pstmt);
          
       }
-      return list;
+      return quesMap;
       
    }
    
@@ -976,6 +956,111 @@ public class BoardDao {
       // TODO Auto-generated method stub
       return null;
    }
+
+public int deleteReview(Connection con, int bid,int uno) {
+	PreparedStatement pstmt = null;
+	int result = 0;
+	String sql = prop.getProperty("deleteReview");
+	System.out.println("sql : " + sql);
+	
+	try {
+		pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, bid);
+		pstmt.setInt(2, uno);
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}finally {
+		close(pstmt);
+	}
+	
+	return result;
+}
+
+public int deleteNotice(Connection con, int bid) {
+	int result = 0;
+	PreparedStatement pstmt = null;
+	String sql = prop.getProperty("deleteNotice");
+	
+	try {
+		pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, bid);
+		result = pstmt.executeUpdate();
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}finally {
+		close(pstmt);
+	}
+	
+	
+	return result;
+}
+
+public int updateNotice(Connection con, Notice notice) {
+	PreparedStatement pstmt = null;
+	int result = 0 ;
+	String sql = prop.getProperty("updateNotice");
+	
+	try {
+		pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, notice.getbContent());
+		pstmt.setString(2, notice.getbTitle());
+		pstmt.setInt(3, notice.getbId());
+		result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}finally {
+		close(pstmt);
+	}
+	
+	
+	return result;
+}
+
+public Notice selectOneNotice(Connection con, int num) {
+	   PreparedStatement pstmt = null;
+	      ResultSet rset = null;
+	      Notice n = null;
+	      
+	      String query = prop.getProperty("selectOneNotice");
+	      try {
+	         pstmt=con.prepareStatement(query);
+	         pstmt.setInt(1, num);
+	         rset=pstmt.executeQuery();
+	         System.out.println("selectOne : " + query);
+	         System.out.println("num in dao : " + num);
+	         
+	         if(rset.next()) {
+	            n=new Notice();
+	            n.setbId(rset.getInt("BID"));
+	            n.setbNo(rset.getInt("BNO"));
+	            n.setbType(rset.getInt("BTYPE"));
+	            n.setbTitle(rset.getString("BTITLE"));
+	            n.setbContent(rset.getString("BCONTENT"));
+	            n.setStatus(rset.getString("STATUS"));
+	            /*n.setEnrollDate(rset.getDate("ENROLL_DATE"));*/
+	            n.setModifyDate(rset.getDate("MODIFY_DATE"));
+	            n.setbCount(rset.getInt("BCOUNT"));
+	            n.setuNo(rset.getInt("UNO"));
+	            
+	            
+	         }
+	         
+	      } catch (SQLException e) {
+
+	         e.printStackTrace();
+	      }finally {
+	         close(pstmt);
+	         close(rset);
+	      }
+	      System.out.println("last num in dao : " + num);
+	      return n;
+	      
+}
 
 
 }

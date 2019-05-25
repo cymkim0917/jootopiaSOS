@@ -10,25 +10,28 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.jooTopia.board.model.service.BoardService;
 import com.kh.jooTopia.board.model.vo.Notice;
 
-@WebServlet("/selectNoticeOne.do")
-public class SelectOneNoticeServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    public SelectOneNoticeServlet() {
+/**
+ * Servlet implementation class RequestUpdateNoticeServlet
+ */
+@WebServlet("/requestNotice.do")
+public class RequestUpdateNoticeServlet extends HttpServlet {
+
+    public RequestUpdateNoticeServlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int num = Integer.parseInt(request.getParameter("num"));
-		System.out.println("selectOneNotice : " + num);
+		int num = Integer.parseInt(request.getParameter("bid"));
+		System.out.println("requestNotice : " + num);
 		System.out.println("서블릿 실행");
-		Notice n = new BoardService().selectOne(num);
+		Notice n = new BoardService().selectOneNotice(num);
 		System.out.println("노티스 확인! " + n);
 		
 		String page="";
 		if(n != null) {
 			System.out.println("조회성공");
-			page="views/notice/noticeListPlus.jsp";
+			page="views/notice/noticeUpdateForm.jsp";
 			request.setAttribute("n", n);
 			
 		}else {
@@ -39,10 +42,8 @@ public class SelectOneNoticeServlet extends HttpServlet {
 		
 		
 		request.getRequestDispatcher(page).forward(request, response);
-	
 	}
 
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

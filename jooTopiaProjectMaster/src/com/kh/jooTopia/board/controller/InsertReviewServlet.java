@@ -31,25 +31,15 @@ import com.kh.jooTopia.common.JootopiaFileRenamePolicy;
 import com.kh.jooTopia.member.model.vo.Member;
 import com.oreilly.servlet.MultipartRequest;
 
-/**
- * Servlet implementation class SelectReviewWriteServlet
- */
 @WebServlet("/insertReview.do")
 public class InsertReviewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public InsertReviewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 1024 * 1024 * 100;
@@ -87,7 +77,7 @@ public class InsertReviewServlet extends HttpServlet {
 			//m.setUserId(String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getUno()));
 			
 			ArrayList<Attachment> fileList = new ArrayList<Attachment>();
-			for (int i = 0; i < originFiles.size(); i++) {
+			for (int i = originFiles.size() -1; i>=0; i--) {
 				Attachment at = new Attachment();
 				at.setFilePath(filePath);
 				at.setOriginName(originFiles.get(i));
@@ -98,7 +88,14 @@ public class InsertReviewServlet extends HttpServlet {
 				fileList.add(at);
 			}
 			
-			int result = new BoardService().reviewInsertForm(b,fileList);
+			
+			Member member = (Member)request.getSession().getAttribute("loginUser");
+			int result = 0;
+			if(member != null) {
+				int uno = member.getUno();
+				result = new BoardService().reviewInsertForm(b,fileList,uno);
+			}
+			
 			String page = "";
 			if(result > 0) {
 				response.sendRedirect(request.getContextPath()+"/selectReviewTotalList.do"); // 데이터를 받으면 리스트가 출력되는 곳으로 뿌려준다. 고로 insertReview가 아닌 selectReviewTotalList.do
@@ -113,11 +110,6 @@ public class InsertReviewServlet extends HttpServlet {
 				request.getRequestDispatcher(page).forward(request, response);
 			}
 		}
-	
-	
-	
-		
-		
 	}
 
 	/**

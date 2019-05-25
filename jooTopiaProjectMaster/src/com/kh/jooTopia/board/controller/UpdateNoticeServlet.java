@@ -1,6 +1,8 @@
 package com.kh.jooTopia.board.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,39 +12,34 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.jooTopia.board.model.service.BoardService;
 import com.kh.jooTopia.board.model.vo.Notice;
 
-@WebServlet("/selectNoticeOne.do")
-public class SelectOneNoticeServlet extends HttpServlet {
+@WebServlet("/updateNotice.do")
+public class UpdateNoticeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public SelectOneNoticeServlet() {
+
+    public UpdateNoticeServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int num = Integer.parseInt(request.getParameter("num"));
-		System.out.println("selectOneNotice : " + num);
-		System.out.println("서블릿 실행");
-		Notice n = new BoardService().selectOne(num);
-		System.out.println("노티스 확인! " + n);
+
+		Notice notice = new Notice();
+		notice.setbTitle(request.getParameter("title"));
+		System.out.println(request.getParameter("content"));
+		notice.setbContent(request.getParameter("content"));
+		notice.setbId(Integer.parseInt(request.getParameter("bid")));
 		
-		String page="";
-		if(n != null) {
-			System.out.println("조회성공");
-			page="views/notice/noticeListPlus.jsp";
-			request.setAttribute("n", n);
+		int result = new BoardService().updateNotice(notice);
+		
+		PrintWriter out = response.getWriter();
+
+		if (result > 0) {
+			System.out.println("업로드 성공");
+			out.println("<script>alert('게시글 수정이 완료되었습니다.'</script>");
+			response.sendRedirect(request.getContextPath()+"/selectOneNotice2.do?num="+notice.getbId());
 			
-		}else {
-			System.out.println("조회실패");
-			page="views/common/errorPage500.jsp";
-			request.setAttribute("msg", "게시글 상세 보기 실패");
 		}
-		
-		
-		request.getRequestDispatcher(page).forward(request, response);
-	
 	}
 
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

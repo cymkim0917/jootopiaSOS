@@ -76,7 +76,9 @@
 			<div class="thumb-list" align="center">
 				<div>
 			
-					<input type="hidden" name="bid" value="<%=hmap.get("bid")%>">
+					<input type="hidden" name="bno" value="<%=hmap.get("bid")%>" id="bno">
+					
+					<% System.out.println("reviewList : "+ hmap.get("bid")); %>
 		
 				<img src="<%=request.getContextPath()%>/images/review/<%=hmap.get("change_name")%>"
 				
@@ -137,7 +139,7 @@
 	<script>
 			$(function(){
 				$(".thumb-list").click(function(){
-					var num = $(this).children().children().eq(0).val();
+					var num = $("#bno").val();
 					console.log("num : " + num);
 					
 					location.href="<%=request.getContextPath()%>/selectOneReview.do?num="+num;  
