@@ -19,6 +19,7 @@ public class BuyWaitAdmin implements java.io.Serializable {
 	private String appPhone; 	// APPLICANT_PHONE - 신청자연락처
 	private String appAddress;
 	private int pcid;
+	private String pBarcode;
 
 	public BuyWaitAdmin() {}
 	
@@ -41,6 +42,15 @@ public class BuyWaitAdmin implements java.io.Serializable {
 		this.appPhone = appPhone;
 		this.pcid = pcid;
 		this.appAddress = appAddress;
+	}
+
+	
+	public String getpBarcode() {
+		return pBarcode;
+	}
+
+	public void setpBarcode(String pBarcode) {
+		this.pBarcode = pBarcode;
 	}
 
 	public String getAppAddress() {
@@ -176,6 +186,8 @@ public class BuyWaitAdmin implements java.io.Serializable {
 		return "BuyWaitAdmin [pId=" + pId + ", hId=" + hId + ", rlId=" + rlId + ", pcdId=" + pcdId + ", cGroup="
 				+ cGroup + ", name=" + name + ", odId=" + odId + ", dId=" + dId + ", lBarcode=" + lBarcode + ", rlDate="
 				+ rlDate + ", hDate=" + hDate + ", status=" + status + ", applicant=" + applicant + ", appPhone="
-				+ appPhone + ", pcid=" + pcid + "]";
+				+ appPhone + ", appAddress=" + appAddress + ", pcid=" + pcid + ", pBarcode=" + pBarcode + "]";
 	}
+
+	
 }

@@ -188,7 +188,9 @@
 					</tr>
 					<tr>
 						<td>상품 특이사항</td>
-						<td><%= hmap.get("bContent") %></td>
+						<td><%= hmap.get("bContent") %>
+						</td>
+						
 					</tr>
 					<tr>
 						<td>매입 요청 사항</td>
@@ -264,8 +266,10 @@
 									</td>
 								</tr>
 								<tr>
-									<td colspan="2" style="text-align: center; font-weight: bold"><br>바코드
+									<td colspan="2" style="text-align: center; font-weight: bold">
+										<br>바코드
 										<input type="hidden" id="bCodeCheck" value="N">
+										<input type="hidden" id="pBarcode" name="pBarcode" value="<%= hmap.get("pBarcode") %>">
 									</td>
 								</tr>
 								<tr>

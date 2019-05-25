@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.jooTopia.heap.model.service.HeapAdminService;
 
 @WebServlet("/checkPBarcode.do")
@@ -19,14 +20,14 @@ public class HeapCheckPBarcodeServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int pid = Integer.parseInt(request.getParameter("pid"));
-		
+		System.out.println("바코드 체크 서블릿 : " + pid);
 		String pBarcode = new HeapAdminService().checkPBarcode(pid);
 		
-		if(pBarcode != null) {
-			
-		}else {
-			
-		}
+		System.out.println("바코드값 : " + pBarcode);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		new Gson().toJson(pBarcode, response.getWriter());
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -42,12 +42,12 @@ input[type=file]{
 				<table>
 					<tr>
 						<td><label>신청자 명</label></td>
-						<td><input type="text" class="form-control" name="name" value="홍길동" class=""></td>
+						<td><input type="text" class="form-control" name="name" value="<%= loginUser.getUserName() %>" class=""></td>
 					</tr>			
 					<tr>
 						<td><label>주소</label></td>
 						<td>
-							<input type="text" class="form-control" name="address" placeholder="주소를 입력해주세요." value="<%= address %>">
+							<input type="text" class="form-control" name="address" placeholder="주소를 입력해주세요." value="<%= address %>" readonly>
 							<input type="hidden" name="appDistance" value="<%= distance %>">
 							<input type="hidden" name="post" value="<%= post %>">
 							<input type="hidden" name="dPrice" value="<%= dPrice %>">
@@ -55,7 +55,7 @@ input[type=file]{
 					</tr>
 					<tr>
 						<td><label>연락처</label></td>
-						<td><input type="tel" class="form-control" name="phone" placeholder="-를 뼤고 입력해주세요" value="010-1234-5678"></td>
+						<td><input type="tel" class="form-control" name="phone" value="<%= loginUser.getPhone()%>"></td>
 					</tr>
 					<tr>
 						<td><label>신청품목</label></td>
@@ -76,11 +76,11 @@ input[type=file]{
 					</tr>
 					<tr>
 						<td><label>브랜드</label></td>
-						<td><input type="text" class="form-control" name="brand" value="kh"></td>
+						<td><input type="text" class="form-control" name="brand" placeholder="Brand" value=" "></td>
 					</tr>
 					<tr>
 						<td><label>모델명</label></td>
-						<td><input type="text" class="form-control" name="model" value="라꾸라꾸"></td>
+						<td><input type="text" class="form-control" name="model" placeholder="modelName" value=" "></td>
 					</tr>
 					<tr>
 						<td><label>사용기간</label></td>
@@ -122,14 +122,14 @@ input[type=file]{
 					<tr>
 						<td><label>상품 특이사항</label></td>
 						<td>
-							<textarea class="form-control" name="content" cols="20" rows="5" style="resize:none">ㅎㅎㅎ</textarea><br><br>
+							<textarea class="form-control" name="content" id="content" cols="20" rows="5" style="resize:none">상품 특이사항을 입력해주세요</textarea><br><br>
 						</td>
 					</tr>
 					
 					<tr>
 						<td><label>매입 요청사항</label></td>
 						<td>
-							<textarea class="form-control" name="pcRequset" cols="20" rows="5" style="resize:none">ㅋㅋㅋ</textarea>
+							<textarea class="form-control" name="pcRequset" id="pcRequset" cols="20" rows="5" style="resize:none">매입요청사항을 입력해주세요.</textarea>
 						</td>
 					</tr>
 				</table>
@@ -197,6 +197,12 @@ input[type=file]{
 			location.href='/jootopia/views/purchase/purchaseInfo.jsp';
 			return false;
 		}
+		$("#content").click(function(){
+			$(this).reset();
+		})
+		$("#pcRequset").click(function(){
+			$(this).reset();
+		})
 	</script>
 <%@ include file="/views/common/footer.jsp" %>
 </body>

@@ -18,10 +18,10 @@ import com.kh.jooTopia.purchase.model.service.PurchaseAdminService;
 import com.kh.jooTopia.purchase.model.vo.PurchaseDetail;
 
 @WebServlet("/insertPCDAccept.do")
-public class InsertPurchaseDetailAcceptAdminServlet extends HttpServlet {
+public class InsertPCDDAcceptAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public InsertPurchaseDetailAcceptAdminServlet() {
+    public InsertPCDDAcceptAdminServlet() {
         super();
     }
 
@@ -29,15 +29,18 @@ public class InsertPurchaseDetailAcceptAdminServlet extends HttpServlet {
 		int pcid = Integer.parseInt(request.getParameter("no"));
 		String message = request.getParameter("message");
 		int buyPrice = Integer.parseInt(request.getParameter("buyPrice"));
+		String pBarcode = request.getParameter("pBarcode");
 		
 		System.out.println("pcid : " + pcid);
 		System.out.println("message : " + message);
 		System.out.println("buyPrice : " + buyPrice);
+		System.out.println("pBarcode : " + pBarcode);
 		
 		PurchaseDetail pcd = new PurchaseDetail();
 		pcd.setMessage(message);
 		pcd.setPcPrice(buyPrice);
 		pcd.setPcid(pcid);
+		pcd.setpBarcode(pBarcode);
 		
 		ProductregAdmin p = new PurchaseAdminService().insertPersonAccept(pcd);
 		

@@ -118,20 +118,15 @@ private Properties prop = new Properties();
 				
 				h.setpId(rset.getInt("PID"));
 				h.setChangeName(rset.getString("CHANGE_NAME"));
-				
-				
+				h.setpBarcode(rset.getString("PBARCODE"));
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);
 			close(pstmt);
 		}
-		
-		
-		
 		return h;
 	}
 
