@@ -10,24 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.jooTopia.heap.model.service.HeapAdminService;
 import com.kh.jooTopia.heap.model.vo.HeapAdmin;
 
-/**
- * Servlet implementation class SelectOneAdminHeapServlet
- */
 @WebServlet("/selectOneAdminHeap.do")
 public class SelectOneAdminHeapServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public SelectOneAdminHeapServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int num = Integer.parseInt(request.getParameter("num"));

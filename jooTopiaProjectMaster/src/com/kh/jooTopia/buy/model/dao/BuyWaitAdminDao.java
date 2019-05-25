@@ -159,13 +159,13 @@ public class BuyWaitAdminDao {
 					b.setAppPhone(rset.getString("APPLICANT_PHONE"));
 					b.setcGroup(rset.getString("CGROUP"));
 					b.setName(rset.getString("NAME"));
+					b.setpBarcode(rset.getString("PBARCODE"));
 					count++;
 				}
 			}
 			
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);

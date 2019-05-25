@@ -17,7 +17,8 @@ public class HeapAdmin implements java.io.Serializable{
 	private Date hDate;		//HDATE - 적치일자
 	private String pContent;//PCONTENT - 상품상세정보
 	private String pName;	//PNAME - 상품명
-	public String changeName;	//CHANGE_NAME - 사진변경이름
+	private String changeName;	//CHANGE_NAME - 사진변경이름
+	private String pBarcode;
 	
 	public HeapAdmin() {}
 
@@ -38,6 +39,14 @@ public class HeapAdmin implements java.io.Serializable{
 		this.pContent = pContent;
 		this.pName = pName;
 		this.changeName = changeName;
+	}
+
+	public String getpBarcode() {
+		return pBarcode;
+	}
+
+	public void setpBarcode(String pBarcode) {
+		this.pBarcode = pBarcode;
 	}
 
 	public int getpId() {
@@ -157,13 +166,8 @@ public class HeapAdmin implements java.io.Serializable{
 		return "HeapAdmin [pId=" + pId + ", hId=" + hId + ", rlId=" + rlId + ", pcdId=" + pcdId + ", cGroup=" + cGroup
 				+ ", name=" + name + ", poId=" + poId + ", dId=" + dId + ", lBarcode=" + lBarcode + ", rlDate=" + rlDate
 				+ ", hDate=" + hDate + ", pContent=" + pContent + ", pName=" + pName + ", changeName=" + changeName
-				+ "]";
+				+ ", pBarcode=" + pBarcode + "]";
 	}
-
-	
-
-	
-	
 
 
 }

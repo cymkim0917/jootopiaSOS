@@ -71,6 +71,7 @@ public class InsertAdminPAttachmentServlet extends HttpServlet {
 			String pGrade = multiRequest.getParameter("pGrade");
 			String pContent = multiRequest.getParameter("pContent");
 			String pBarCode = multiRequest.getParameter("pBarcode");
+			System.out.println("창고-상품등록에서 바코드 넘어오는지 서블릿확인 : " + pBarCode);
 			
 			int cId = 0;
 			
