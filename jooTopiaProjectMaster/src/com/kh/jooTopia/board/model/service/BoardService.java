@@ -393,13 +393,13 @@ public class BoardService {
 		return result;
 	}
 
-	public Notice selectOneNotice(int num) {
+	public HashMap<String, Object> selectOneNotice(int num) {
 		Connection con = getConnection();
-		Notice notice = new BoardDao().selectOneNotice(con,num);
+		HashMap<String, Object> noticeMap = new BoardDao().selectOneNotice(con,num);
 		
 		close(con);
 		
-		return notice;
+		return noticeMap;
 	}
    
    

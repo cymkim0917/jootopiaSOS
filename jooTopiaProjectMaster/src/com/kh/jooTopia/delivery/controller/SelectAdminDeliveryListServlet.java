@@ -39,7 +39,7 @@ public class SelectAdminDeliveryListServlet extends HttpServlet {
 
 		limit = 10;
 
-		String query = "SELECT COUNT(*) FROM DELIVERY WHERE STATUS != '배송완료'";
+		String query = "SELECT COUNT(*) FROM DELIVERY WHERE STATUS != '배송중'";
 		int listCount = new OrderAdminService().getOrderListCount(query);
 
 		maxPage = (int)((double)listCount / limit + 0.9);

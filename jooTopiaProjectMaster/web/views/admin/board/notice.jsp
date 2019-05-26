@@ -138,7 +138,7 @@
       </div>
    </section>
    <script>
-  	 /* $(function(){
+  	  $(function(){
 		$("#noticeList td").mouseenter(function(){
 			$(this).parent().css({"background":"darkgray","cursor":"pointer"});
 		}).mouseout(function(){

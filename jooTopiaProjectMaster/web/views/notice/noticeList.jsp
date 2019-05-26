@@ -91,7 +91,7 @@ table th{
 			 console.log("ddddd");
 			 var num = $(this).parent().children().eq(0).text();
 			 console.log(num);
-			 location.href="<%=request.getContextPath()%>/selectNoticeOne.do?num="+num;
+			 location.href="<%=request.getContextPath()%>/selectOneNotice2.do?num="+num;
 			 
 			/*  $('',this).triger('click'); */
 		 });
