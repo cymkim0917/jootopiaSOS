@@ -1021,12 +1021,16 @@ public int updateNotice(Connection con, Notice notice) {
 	return result;
 }
 
-public Notice selectOneNotice(Connection con, int num) {
+public HashMap<String, Object> selectOneNotice(Connection con, int num) {
 	   PreparedStatement pstmt = null;
 	      ResultSet rset = null;
+	      HashMap<String, Object> noticeMap = null;
 	      Notice n = null;
+	      ArrayList<Attachment> aList = null;
+	      Attachment a = null;
 	      
 	      String query = prop.getProperty("selectOneNotice");
+	      
 	      try {
 	         pstmt=con.prepareStatement(query);
 	         pstmt.setInt(1, num);
@@ -1034,7 +1038,9 @@ public Notice selectOneNotice(Connection con, int num) {
 	         System.out.println("selectOne : " + query);
 	         System.out.println("num in dao : " + num);
 	         
-	         if(rset.next()) {
+	         noticeMap = new HashMap<String, Object>();
+	         aList = new ArrayList<Attachment>();
+	         while(rset.next()) {
 	            n=new Notice();
 	            n.setbId(rset.getInt("BID"));
 	            n.setbNo(rset.getInt("BNO"));
@@ -1047,8 +1053,17 @@ public Notice selectOneNotice(Connection con, int num) {
 	            n.setbCount(rset.getInt("BCOUNT"));
 	            n.setuNo(rset.getInt("UNO"));
 	            
+	            //A.ORIGIN_NAME, A.CHANGE_NAME, A.FILE_PATH
+	            a = new Attachment();
+	            a.setOriginName(rset.getString("ORIGIN_NAME"));
+	            a.setChangeName(rset.getString("CHANGE_NAME"));
+	            a.setFilePath(rset.getString("FILE_PATH"));
+	            
+	            aList.add(a);
 	            
 	         }
+	         noticeMap.put("n", n);
+	         noticeMap.put("aList", aList);
 	         
 	      } catch (SQLException e) {
 
@@ -1058,7 +1073,7 @@ public Notice selectOneNotice(Connection con, int num) {
 	         close(rset);
 	      }
 	      System.out.println("last num in dao : " + num);
-	      return n;
+	      return noticeMap;
 	      
 }
 

@@ -2,7 +2,10 @@
     pageEncoding="UTF-8" import="java.util.*, com.kh.jooTopia.board.model.vo.*"%>
     
 <%
-	Notice n = (Notice) request.getAttribute("n");
+	HashMap<String, Object> notice = (HashMap<String, Object>) request.getAttribute("notice");
+	Notice n = (Notice) notice.get("n");
+	ArrayList<Attachment> aList = (ArrayList<Attachment>) notice.get("aList");
+	/* Notice n = (Notice) request.getAttribute("n"); */
 	/* 
 	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 	int currentPage = pageInfo.getCurrentPage();
@@ -21,46 +24,10 @@
 <link rel="stylesheet" href="/jootopia/css/user/common.css">
 <title>JooTopia</title>
 
-<!-- <style>
-
-
-
-.containaer{
-	margin-left:15%;
-	margin-right:150px;
-	margin-top:50px;
-	width:1000px;
-	height:800px;
-	border:1px solid black;
-	text-align:center;
-}
-
-.table-bordered tr th{
-	 background-color:lightgray;
-	 width:80px;
-}
-</style> -->
-
 <style>
-   <!--게시판 형식 -->
-   /* .containaer{
-   margin-left:250px;
-   margin-right:150px;
-
-   width:1000px;
-   height:800px;
-   }
-
-   .table-bordered tr th{
-    background-color:lightgray;
-    width:80px;
-   
-   } */
-   <!--게시판 형식 -->
    .outer{
       width:1000px;
-      height:650px;
-      background:black;
+      height: 100%;
       color:black;
       margin-left:auto;
       margin-right:auto;
@@ -95,7 +62,6 @@
    
 </style>
 
-
 </head>
 <body>
 <%@ include file="/views/common/navigation.jsp" %>
@@ -111,7 +77,6 @@
 		     
 		         <tr>
 		         	<td colspan="1"><input type="hidden" value=<%= n.getbId() %> name="bid">제목</td>
-		            <!-- <td width="50">제목</td> -->
 		            <td colspan="10"><label><%= n.getbTitle() %></label></td>
 		         </tr>
 		         <tr>
@@ -122,11 +87,20 @@
 		            <td><label><%=n.getModifyDate() %></label></td>
 		         </tr>
 		         
-		       <tr>
-	            <td>내용</td>
-	            
-	            <td colspan="5" height="400px"><label><%=n.getbContent() %></label></td>
-	         </tr>
+
+		         <tr>
+		         	<td colspan="4">
+		         	<br>
+		            <% for(int i = 0; i < aList.size(); i++) { %>
+			            <div id="noticeImg" align="center">
+			            	<img id="NoticeImg" src="<%=aList.get(i).getFilePath()%>/<%=aList.get(i).getChangeName()%>" style="width: 350px">
+				         </div>
+				         <br>
+		           <% } %>
+		           	 <textarea rows="5" style="width: 100%; height:100%; border: 0; text-align: center; resize: none;"><%= n.getbContent() %></textarea>
+		           	 </td>
+		         </tr>
+
 		         
 		      </table>
 	      </form>
@@ -134,7 +108,6 @@
    <br><br><br>
        <div class="notice" align="center">
 	         <button onclick="location.href='<%=request.getContextPath()%>/selectList.do'">목록</button>
-	         <button onclick="updateNotice();">수정</button>
 	         <button onclick="review_delete();">삭제</button>
 			      <script>
 			      function review_delete(){
@@ -157,29 +130,8 @@
 			         <% } %>
 			      }
 			      
-			      
-			      function updateNotice(){
-			    	  <% if(loginUser== null){ %>
-			    	  	alert('로그인 후 이용가능한 서비스입니다');
-			    	  	return false;
-			    	  <% }else{%>
-			    	  
-			    	  var uno = <%=loginUser.getUno()%>		
-			    	  
-			    	  if(uno==1){
-			    	  
-			         $("#noticeForm").attr("action","<%= request.getContextPath() %>/requestNotice.do").submit();
-			    		  
-			    	  }else{
-			    		  alert('권한이 없습니다.');
-			    	  }
-			         
-			         <% } %>
-			      }
 			      </script>
          </div>
-		
-				
 			
 	</section>
 <%@ include file="/views/common/footer.jsp" %>

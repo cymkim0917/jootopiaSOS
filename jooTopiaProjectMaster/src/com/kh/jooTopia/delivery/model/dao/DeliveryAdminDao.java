@@ -69,7 +69,7 @@ private Properties prop = new Properties();
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, "배송완료");
+			pstmt.setString(1, "배송중");
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, endRow);
 			
@@ -503,7 +503,6 @@ private Properties prop = new Properties();
 		} finally {
 			close(pstmt);
 		}
-		
 		return result;
 	}
 

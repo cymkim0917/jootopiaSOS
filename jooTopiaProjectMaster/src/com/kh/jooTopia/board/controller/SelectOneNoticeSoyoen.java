@@ -1,6 +1,8 @@
 package com.kh.jooTopia.board.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,11 +26,23 @@ public class SelectOneNoticeSoyoen extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int num = Integer.parseInt(request.getParameter("num"));
-		
-		Notice notice = new BoardService().selectOneNotice(num);
-		
+		System.out.println("num : " + num);
+		//소연
+		/*Notice notice = new BoardService().selectOneNotice(num);
 		if(notice!=null ) {
 			request.setAttribute("n", notice);
+			request.getRequestDispatcher("views/notice/noticeListPlus.jsp").forward(request, response);
+		}else {
+			response.sendRedirect(request.getContextPath()+"/selectList.do");
+		}*/
+		
+		//예랑
+		HashMap<String, Object> noticeMap = new BoardService().selectOneNotice(num);
+		
+		System.out.println("noticeMap : "+ noticeMap);
+		
+		if(noticeMap != null) {
+			request.setAttribute("notice", noticeMap);
 			request.getRequestDispatcher("views/notice/noticeListPlus.jsp").forward(request, response);
 		}else {
 			response.sendRedirect(request.getContextPath()+"/selectList.do");

@@ -41,7 +41,7 @@ table th, td {
 		<div class="selectListArea">
 			<table id="selectList" class="selectList" >
 				<tr>
-					<th colspan="9" style="height: 45px; text-align: left;">
+					<th colspan="8" style="height: 45px; text-align: left;">
 						<button class="selectBtn" onclick="deliveryCompleted()">배송완료</button>
 					</th>
 				</tr>
@@ -54,7 +54,6 @@ table th, td {
 					<th width="150px">배송코드</th>
 					<th width="70px">주문자</th>
 					<th width="250px">상품명</th>
-					<th width="100px">배송중 변경</th>
 				</tr>
 				<% for(int i = 0; i < list.size(); i++) { 
 					HashMap<String,Object> hmap = list.get(i);
@@ -82,11 +81,6 @@ table th, td {
 						<td><%= d.getdId() %></td>
 						<td><%= o.getName() %></td>
 						<td><%= hmap.get("pName") %></td>
-						<th>
-						<div id="memo" class="memo">MEMO
-						</div>
-						<input type="hidden" id="dMsg" value="<%= o.getdMessage() %>">
-						</th>
 					</tr>
 					<% } %>
 				<% } %>

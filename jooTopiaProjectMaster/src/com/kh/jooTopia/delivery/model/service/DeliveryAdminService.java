@@ -73,7 +73,6 @@ public class DeliveryAdminService {
 		//2. POID를 통해 해당 PID를 조회
 		int poId = modiOrder.getPoId();
 		ArrayList<Integer> pIdList = new DeliveryAdminDao().selectHeapPIdSearch(con, poId);
-		
 		if(pIdList == null) {
 			System.out.println("PID 조회 실패");
 			rollback(con);
@@ -82,7 +81,6 @@ public class DeliveryAdminService {
 		
 		//3. 조회한 PID를 통해 해당 적치의 상태를 '출고됨' 처리
 		int result2 = new DeliveryAdminDao().updateAdminHeapStatus(con, pIdList);
-		
 		if(result2 <= 0 || result2 != pIdList.size()) {
 			System.out.println("적치 상태 변경 실패");
 			rollback(con);
@@ -101,6 +99,7 @@ public class DeliveryAdminService {
 		
 		if(result1 > 0 && result2 == result3) {
 			commit(con);
+			result = 1;
 		}
 		
 		close(con);
