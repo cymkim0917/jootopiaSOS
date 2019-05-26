@@ -10,9 +10,28 @@
 <title>JooTopia</title>
 </head>
 <style>
+	div>h1{
+		text-align:center;
+		font-weight:bold;
+	}
+	
+	#modifyBtn{
+		width:100px;
+		background-color: #FFBB00;
+	   border: none;
+	   color:#fff;
+	   padding: 15px 0;
+	   text-align: center;
+	   text-decoration: none;
+	   display: inline-block;
+	   font-size: 15px;
+	   margin: 4px;
+	   cursor: pointer;
+	   border-radius:10px;
+	}
+	
 	#delBtn{
-		width:50px;
-		height:20px;
+		width:100px;
 		background-color: #7A7A7A;
 		border: none;
 		color:#fff;
@@ -20,85 +39,182 @@
 		text-align: center;
 		text-decoration: none;
 		display: inline-block;
+		font-size: 15px;
+		margin: 4px;
+		cursor: pointer;
+		border-radius:10px;
+	}	
+	
+	#answerBtn{
+		width:45px;
+		background-color: white;
+		border: 1px solid black;;
+		color:black;
+		padding: 7px 0;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
 		font-size: 10px;
 		margin: 4px;
 		cursor: pointer;
 		border-radius:10px;
+	}	
+	
+	#btnArea{
+		text-align:center;
 	}
 	
 	table{
 		text-align:center;
 	}
 	
-	div>h1{
+	#answerTable{
+		text-align:center;
+	}
+	
+	#btnArea{
+		text-align:center;
+	}
+	
+	table{
+		text-align:center;
+		width:100%;
+	}
+	
+	#tableArea{
+		width:800px;
+		height:500px;
+	}
+	
+	#searchArea{
+	
+		width:100%;
+		align:center;
+		text-align:center;
+	}
+	#tempBtnArea{
+		text-align:center;
+		top:120px;
+	}
+	#tempBtnArea{
+		width:250px;
+		top:0;
+		left:0;
+		background:rgb(53, 15, 15); 
+		 margin: 0 auto;
+		height:100vh;
+		z-index:9999;
+		
+	}
+
+	#myTable{
+		text-align:center;
+		align:center;
+		position:relative;
+		left:80px; 
+		
+	}
+		
+		div>h1{
 		text-align:center;
 		font-weight:bold;
 	}
+	#modifyBtn{
+		width:100px;
+		background-color: #FFBB00;
+	   border: none;
+	   color:#fff;
+	   padding: 15px 0;
+	   text-align: center;
+	   text-decoration: none;
+	   display: inline-block;
+	   font-size: 15px;
+	   margin: 4px;
+	   cursor: pointer;
+	   border-radius:10px;
+	   
+	}	#orderBtn{
+		width:200px;
+		background:rgb(53, 15, 15); 
+		
+		color:black;
+		padding: 15px 0;
+		text-align: center;
+		color:rgb(241, 196, 15);
+		font-weight:bold;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 15px;
+		margin: 4px;
+		cursor: pointer;
+		border-radius:10px;
+		
+	}	
 	
-	table>th{
+	#delBtn{
+		width:100px;
+		background-color: #7A7A7A;
+		border: none;
+		color:#fff;
+		padding: 15px 0;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 15px;
+		margin: 4px;
+		cursor: pointer;
+		border-radius:10px;
+	}
+	
+	#btnArea{
+		text-align:center;
+	}
+	
+	table{
+		text-align:center;
+		width:100%;
+	}
+	
+	#tableArea{
+		width:800px;
+		height:500px;
+	}
+	
+	#searchArea{
+	
+		width:100%;
+		align:center;
+		text-align:center;
+	}
+	#tempBtnArea{
+		text-align:center;
+		top:120px;
+	}
+	#tempBtnArea{
+		width:250px;
+		top:0;
+		left:0;
+		background:rgb(53, 15, 15); 
+		 margin: 0 auto;
+		height:100vh;
+		z-index:9999;
 		
 	}
-	
-	table>tr>td{
-		font-color:black;
+
+	#myTable{
+		text-align:center;
+		align:center;
+		position:relative;
+		left:80px; 
+		
 	}
-	
 </style>
 <body>
-<%@ include file="/views/common/navigation.jsp" %>
-	<section>
-	<br /><br />
-		<div class="row">
-			<div class="col-sm-2"></div>
-			<div class="col-sm-8">
-			<br />
-			<h1>주문 내역</h1>
-			
-			<br /><br />
-				<table class="table table-striped">
-					<tr>
-						<th>No.</th>
-						<th>상품명</th>
-						<th>결제 금액</th>
-						<th>주문일</th>
-						<th>배송 정보</th>
-					</tr>
-					<tr style="color:black;">
-						<td>1</td>
-						<td><a href="detailOrderPage.jsp">멀미나는 쇼파</a></td>
-						<td>200,000</td>
-						<td>2019-04-17</td>
-						<td><a href="#" id="delBtn">조회</a></td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td><a href="#">스치면 부러지는 의자</a></td>
-						<td>100,000</td>
-						<td>2019-04-12</td>
-						<td><a href="#" id="delBtn">조회</a></td>
-					</tr>	
-					<tr>
-						<td>3</td>
-						<td><a href="#">흔들리지 않는 흔들 의자</a></td>
-						<td>50,000</td>
-						<td>2019-03-17</td>
-						<td><a href="#" id="delBtn">조회</a></td>
-					</tr>
-				</table>
-			
-			<div class="text-center">
-				<ul class="pagination">
-					<li><a href="">1</a> </li>
-					<li><a href="">2</a></li>
-					<li><a href="">3</a></li>
-					<li><a href="">4</a></li>
-					<li><a href="">5</a></li>
-				</ul>
+<div class="col-sm-3" id="tempBtnArea">
+				<a href="<%= request.getContextPath() %>/orderList.do" id="orderBtn">주문내역</a><br />
+				<a href="<%= request.getContextPath() %>/selectBoardList.do" id="orderBtn">게시글 조회</a><br />
+				<a href="<%= request.getContextPath() %>/views/member/myRecentProduct.jsp" id="orderBtn">최근 본 상품 조회</a><br />
+				<a href="<%= request.getContextPath() %>/views/member/insertQaAPage.jsp" id="orderBtn">1:1 문의 작성</a>
 			</div>
-			</div>
-			<div class="col-sm-2"></div>
-		</div>
-	</section>
-<%@ include file="/views/common/footer.jsp" %>
 </body>
 </html>

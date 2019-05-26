@@ -55,6 +55,7 @@ table {
 </head>
 <body>
 	<%@ include file="/views/common/navigation.jsp"%>
+<%@ include file="/views/member/temp.jsp" %>	
 	<section>
 		<div class="row">
 			<div class="col-sm-3"></div>

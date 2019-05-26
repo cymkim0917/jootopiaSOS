@@ -7,7 +7,7 @@
 	Attachment img1 = attList.get(0);
 	Attachment img2 = attList.get(1);
    
-	String userName = (String)hmap.get("userName");
+	String userName = (String)hmap.get("userId");
 	
 %>
 

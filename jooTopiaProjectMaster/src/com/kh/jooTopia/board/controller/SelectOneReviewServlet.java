@@ -38,7 +38,7 @@ public class SelectOneReviewServlet extends HttpServlet {
          request.setAttribute("board",hmap.get("board"));
          request.setAttribute("list", hmap);
          
-         
+         System.out.println(hmap);
       }else {
          page="views/common/errorPage.jsp";
          request.setAttribute("msg", "사진게시판 상세보기 실패!");

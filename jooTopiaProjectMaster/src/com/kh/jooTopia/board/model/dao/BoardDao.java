@@ -178,7 +178,6 @@ public class BoardDao {
          pstmt.setInt(1, getbId);
          pstmt.setInt(2, getbId);
          
-         System.out.println("result : " + pstmt.executeUpdate());
          result = pstmt.executeUpdate();
          
          System.out.println();
@@ -918,6 +917,7 @@ public class BoardDao {
 				b.setbNo(rs.getInt("BNO"));
 				b.setbTitle(rs.getString("BTITLE"));
 				b.setbContent(rs.getString("BCONTENT"));
+				b.setbCount(rs.getInt("BCOUNT"));
 				b.setbDate(rs.getDate("BDATE"));
 
 				userName = rs.getString("USER_ID");
