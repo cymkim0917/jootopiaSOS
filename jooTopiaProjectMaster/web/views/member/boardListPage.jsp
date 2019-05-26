@@ -7,8 +7,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="/jootopia/images/favicon.ico">
-<link rel="stylesheet" href="/jootopia/js/external/jquery-3.4.0.min.js">
-<link rel="stylesheet" href="/jootopia/css/user/common.css">
+<link rel="stylesheet" href="jquery-3.4.0.min.js">
+<link rel="stylesheet" href="/jootopia/css/common.css">
 <title>JooTopia</title>
 <style>
 	div>h1{
@@ -28,7 +28,21 @@
 	   margin: 4px;
 	   cursor: pointer;
 	   border-radius:10px;
-	}
+	}	#orderBtn{
+		width:200px;
+		background-color: white;
+		border: 1px solid black;
+		color:black;
+		padding: 15px 0;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 15px;
+		margin: 4px;
+		cursor: pointer;
+		border-radius:10px;
+		
+	}	
 	
 	#delBtn{
 		width:100px;
@@ -65,11 +79,35 @@
 		align:center;
 		text-align:center;
 	}
+	#tempBtnArea{
+		text-align:center;
+		top:120px;
+	}
+	#tempBtnArea{
+		width:250px;
+		top:0;
+		left:0;
+		background:rgb(53, 15, 15); 
+		 margin: 0 auto;
+		height:100vh;
+		z-index:9999;
+		
+	}
+
+	#myTable{
+		text-align:center;
+		align:center;
+		position:relative;
+		left:80px; 
+		
+	}
+	
 </style>
 </head>
 
 <body>
 <%@ include file="/views/common/navigation.jsp" %>
+<%@ include file="/views/member/temp.jsp" %>
 
 <% ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list"); 
 	int boardIndex = 1;//
@@ -77,15 +115,15 @@
 	<section>
 	<br />
 		<div class="row">
-			<h1 align="center">게시글 조회</h1><br /><br />
-			<div class="col-sm-2"></div>
+			
 			<div class="col-sm-7" id="tableArea" style="text-align:center;">
+			<h1 >게시글 조회</h1><br /><br />
 			
 			
 				<div id="searchArea">
 
 				
-				<table class="table" style="text-align:center;" >
+				<table class="table" id="myTable" >
 						<tr>
 							<td colspan="2" rowspan="2"><br />
 							<br /> <label for="">게시글 카테고리</label> <select name="btype"id="btype">
@@ -112,7 +150,7 @@
 					</table>
 				</div>
 				
-				<div id="tableArea">
+				<div id="myTable">
 				<table class="table" id="printTable">
 				<thead>
 					<tr>
@@ -185,7 +223,7 @@
 					</ul>
 				</div>
 			</div>
-		<div class="col-sm-3"></div>
+		<div class="col-sm-2"></div>
 	</div>
 
 	</section>

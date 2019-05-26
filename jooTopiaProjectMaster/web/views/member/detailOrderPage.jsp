@@ -16,11 +16,6 @@
 		text-align:center;
 		font-weight:bold;
 	}
-	
-	table{
-		text-align:center;
-	}
-	
 	#modifyBtn{
 		width:100px;
 		background-color: #FFBB00;
@@ -34,7 +29,21 @@
 	   margin: 4px;
 	   cursor: pointer;
 	   border-radius:10px;
-	}
+	}	#orderBtn{
+		width:200px;
+		background-color: white;
+		border: 1px solid black;
+		color:black;
+		padding: 15px 0;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 15px;
+		margin: 4px;
+		cursor: pointer;
+		border-radius:10px;
+		
+	}	
 	
 	#delBtn{
 		width:100px;
@@ -53,15 +62,59 @@
 	
 	#btnArea{
 		text-align:center;
-	}	
+	}
+	
+	table{
+		text-align:center;
+		width:100%;
+	}
+	
+	#tableArea{
+		width:800px;
+		height:500px;
+	}
+	
+	#searchArea{
+	
+		width:100%;
+		align:center;
+		text-align:center;
+	}
+	#tempBtnArea{
+		text-align:center;
+		top:120px;
+	}
+	#tempBtnArea{
+		width:250px;
+		top:0;
+		left:0;
+		background:rgb(53, 15, 15); 
+		 margin: 0 auto;
+		height:100vh;
+		z-index:9999;
+		
+	}
+
+	#myTable{
+		text-align:center;
+		align:center;
+		position:relative;
+		left:80px; 
+		
+	}
 </style>
 </head>
 <body>
 <%@ include file="/views/common/navigation.jsp" %>
 	<section>
+			<div class="col-sm-3" id="tempBtnArea">
+				<a href="<%= request.getContextPath() %>/orderList.do" id="orderBtn">주문내역</a><br />
+				<a href="<%= request.getContextPath() %>/selectBoardList.do" id="orderBtn">게시글 조회</a><br />
+				<a href="views/member/myRecentProduct.jsp" id="orderBtn">최근 본 상품 조회</a><br />
+				<a href="views/member/insertQaAPage.jsp" id="orderBtn">1:1 문의 작성</a>
+			</div>
 		<div class="row">
 		<h1>주문 내역 상세 페이지</h1>
-		<div class="col-sm-2"></div>
 		<div class="col-sm-5">
 		<br /><br /><br />
 		
@@ -104,7 +157,7 @@
 				<tr>
 					<td rowspan="4">
 					
-					<img src="<%= request.getContextPath() %>/images_upload/<%= order.getChange_name() %>" alt="" style="width:280px; heihgt:200px;"/>
+					<img src="<%= request.getContextPath() %>/images/product/<%= order.getChange_name() %>" alt="" style="width:280px; heihgt:200px;"/>
 					</td>
 				</tr>
 			</table>
