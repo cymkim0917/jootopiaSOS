@@ -19,6 +19,11 @@
 <link rel="stylesheet" href="/jootopia/css/admin/adminCommon.css">
  
 <title>JooTopia</title>
+<style>
+table th, td {
+    border-top: 1px solid #ccc;  	
+}
+</style>
 </head>
 <body>
 
@@ -90,7 +95,7 @@
 		<br>
 		
 		<div class="selectListArea">
-			<table id="selectList" class="selectList" border="1">
+			<table id="selectList" class="selectList">
 				<tr>
 					<th colspan="9" style="height: 45px; text-align: left;">
 						<button class="selectBtn" onclick="deliveryInsert('배송준비중')">배송준비중</button>
@@ -344,7 +349,7 @@
 	
 	//------해당 상품정보(게시물) 조회 펑션
 	$("#selectList td").mouseenter(function(){
-		$(this).parent().css({"background":"rgb(61, 81, 113)", "color":"white", "cursor":"pointer"});
+		$(this).parent().css({"background":"rgb(242, 242, 242)", "color":"black", "cursor":"pointer"});
 	}).mouseout(function(){
 		$(this).parent().css({"background":"white", "color":"black"});
 	}).click(function(){

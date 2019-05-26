@@ -70,7 +70,7 @@
 		<hr>
 		<div id="resultArea">
 			<form action="<%=request.getContextPath() %>/deleteAdminM.do"  method="post">
-		   		<table id="memberList" border="1" align="center"> 
+		   		<table id="memberList"  align="center" class="table table-hover"> 
 		   			<tr>
 		   				<th width="50px;">선택</th>
 		   				<th width="100px;">아이디</th>
@@ -121,11 +121,11 @@
    		location.href="detailMemberList.jsp"
    	});
    
-   	$(function(){
+   	/* $(function(){
 		$("#memberList td").mouseenter(function(){
 			$(this).parent().css({"background":"darkgray","cursor":"pointer"});
 		}).mouseout(function(){
-			$(this).parent().css({"background":"white"});
+			$(this).parent().css({"background":"white"}); */
 			
 		}).click(function(){
 			var tr = $(this).parent();

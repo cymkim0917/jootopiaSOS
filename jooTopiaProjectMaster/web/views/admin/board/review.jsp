@@ -106,7 +106,7 @@
 		<div id="resultArea">
 		<h3>후기글 목록</h3>
 			<form action="<%=request.getContextPath()%>/deleteAdminReview.do">
-		   		<table id="reviewList" border="1" align="center"> 
+		   		<table id="reviewList" class="table table-hover" align="center"> 
 		   			<tr>
 		   				<th width="50px;">선택</th>
 		   				<th width="100px;">글쓴이</th>
@@ -150,11 +150,11 @@
    </section>
    
    <script>
-   $(function(){
+   /* $(function(){
 		$("#reviewList td").mouseenter(function(){
 			$(this).parent().css({"background":"darkgray","cursor":"pointer"});
 		}).mouseout(function(){
-			$(this).parent().css({"background":"white"});
+			$(this).parent().css({"background":"white"}); */
 			
 		}).click(function(){
 			var tr = $(this).parent();

@@ -21,6 +21,11 @@
 <link rel="stylesheet" href="/jootopia/css/admin/adminCommon.css">
 
 <title>JooTopia</title>
+<style>
+table th, td {
+    border-top: 1px solid #ccc;  	
+}
+</style>
 </head>
 <body>
 
@@ -50,7 +55,7 @@
 		<br>
 		
 		<div class="selectListArea">
-			<table id="selectList" class="selectList" border="1">
+			<table id="selectList" class="selectList" >
 				<tr>
 					<th colspan="9" style="height: 45px; text-align: left;">
 						<button class="selectBtn" onclick="pTypeChange('상품삭제')">상품삭제</button>
@@ -60,7 +65,7 @@
 					<th width="25px"><input type="checkbox" id="allCheck"></th>
 					<th width="25px">No</th>
 					<th width="100px">상품상태</th>
-					<th width="100px">상품분류</th>
+					<th width="120px">상품분류</th>
 					<th width="150px">상품코드</th>
 					<th width="110px">상품이미지</th>
 					<th width="250px">상품명</th>
@@ -115,7 +120,7 @@
 <script>
 	
 	$("#selectList td").mouseenter(function(){
-		$(this).parent().css({"background":"rgb(61, 81, 113)", "color":"white", "cursor":"pointer"});
+		$(this).parent().css({"background":"rgb(242, 242, 242)", "color":"black", "cursor":"pointer"});
 	}).mouseout(function(){
 		$(this).parent().css({"background":"white", "color":"black"});
 	}).click(function(){
