@@ -162,7 +162,7 @@ public class BoardDao {
          close(stmt);
          close(rset);
       }
-      System.out.println("dao 리스트 카운트 " +listCount);
+     
       
       return listCount;
    }

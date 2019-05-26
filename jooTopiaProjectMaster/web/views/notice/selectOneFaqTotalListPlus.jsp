@@ -68,7 +68,6 @@
 		<br>
 		 <div class="outer" align="center">
 		  
-		  <form action="" id="noticeForm"> 
 	      <table class="detail" align="center">
 	     
 	         <tr>
