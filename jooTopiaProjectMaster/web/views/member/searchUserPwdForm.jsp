@@ -72,12 +72,8 @@
 												email : email
 											},
 											success : function(data) {
-
 												getData = data;
 												$("#reqNums2").val(getData);
-											},
-											error : function() {
-												console.log("실패");
 											}
 										});
 							}

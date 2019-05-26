@@ -339,21 +339,17 @@ public class CategoryDao {
 			case 36: sql = prop.getProperty("category4SortProduct");break;
 			default: sql = prop.getProperty("categoryAllSortProduct");break;
 		}
-		System.out.println("sql : " + sql);
 		try {
 			pstmt = con.prepareStatement(sql);
 			
 			if(sql.equals(prop.getProperty("categoryAllSortProduct"))) {
-				pstmt.setInt(1, cid);/*
-				pstmt.setString(2,orderTypeName );*/
+				pstmt.setInt(1, cid);
 				pstmt.setInt(2, pi.getStartPage());
 				pstmt.setInt(3, pi.getEndPage());
-			}else {/*
-				pstmt.setString(1, orderTypeName);*/
+			}else {
 				pstmt.setInt(1, pi.getStartPage());
 				pstmt.setInt(2, pi.getEndPage());
 			}
-			System.out.println("sql : " + sql);
 			rs = pstmt.executeQuery();
 			
 			list = new ArrayList<HashMap<String,Object>>();

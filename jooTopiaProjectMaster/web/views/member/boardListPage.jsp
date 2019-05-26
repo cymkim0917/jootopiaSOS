@@ -165,14 +165,19 @@
 					<% 
 					if(list != null) {
 					for(int i=0; i<list.size(); i++){ %>
+					<% int num = list.get(i).getbType();  
 					
+						if(num==5){
+							continue;
+						}
+					%>
 					<tr>
 						
 						<td><label><%= boardIndex %><% boardIndex++; %></label>
 						
 						<input type="hidden" name="bid" value="<%= list.get(i).getbId() %>"/>
 						</td>
-						<% int num = list.get(i).getbType();  
+						<% 
 							switch(num){
 							case 3: %>
 						<td><a href="<%= request.getContextPath() %>/selectQaA.do?num=<%=list.get(i).getbId() %>"><%= list.get(i).getbTitle() %></a></td>	
@@ -183,10 +188,12 @@
 							<td><a href="<%= request.getContextPath() %>/selectNoticeOne.do?num=<%=list.get(i).getbNo() %>"><%= list.get(i).getbTitle() %></a></td>
 							<%  break; case 4: %>
 							<td><a href="<%= request.getContextPath() %>/selectOneReview.do?num=<%=list.get(i).getbId() %>"><%= list.get(i).getbTitle() %></a></td>
-							<% break; case 5: %>
-							<td><a href="#"><%= list.get(i).getbTitle() %></a></td>
+							<% break;
 							
-							<% break;} %>
+							case 5: continue; 
+							}
+								
+							%>
 
 						<td><label for=""><%= list.get(i).getbDate() %></label></td>
 						<td><label for=""><%= list.get(i).getbCount() %></label><td>

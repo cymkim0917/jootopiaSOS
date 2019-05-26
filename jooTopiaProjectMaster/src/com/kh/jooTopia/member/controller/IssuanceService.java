@@ -46,10 +46,6 @@ public class IssuanceService extends HttpServlet {
 		String userName = request.getParameter("userName");
 		String email = request.getParameter("email");
 		String userId = request.getParameter("userId");
-				
-		
-		System.out.println("defaultPwd : " + defaultPwd);
-		System.out.println(userPwd);
 		
 		String host = "http://localhost:8888/jootopia/";
 		String from = "beagles1004@gmail.com"; // 보내는이

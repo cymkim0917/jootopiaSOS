@@ -139,7 +139,6 @@
 		    	url:"<%= request.getContextPath() %>/selectProduct.do",
 		    	type:"post",
 		    	success:function(data){
-		    		console.log(data);
 		    		var $productGroupTable = $("#productGroupTable>tbody");
 		    		$productGroupTable.html('');
 		    		
@@ -147,46 +146,44 @@
 		    		var maxindex = 0;
 		    		var $tr = $('<tr>');
 		    		
-		    		for(var key in data){
-		    			console.log(data[key].pid);
-		    			
-		    		if(maxindex<15){
-			    		if(index < 3){
-			    			var $td = $('<td>');
-			    			
-			    			var $a = $('<a>');
-			    			
-			    			var $img = $('<img>');
-			    			var $pnamep = $('<p>').text(data[key].pname);	
-			    			var $pricep = $('<p>').text(data[key].pprice);
-			    			
-			    			$a.attr('href','<%= request.getContextPath() %>/detailProduct.do?num='+ data[key].pid);
-			    			
-			    			$img.attr('src','<%= request.getContextPath() %>/images/product/'+ data[key].change_name);
-			    			$img.attr('width','300px');
-			    			$img.attr('height','300px');
-			    			
-			    			$a.append($img);
-			    			$td.append($a);
-			    			$td.css('padding','20px');
-			    			$td.append($pnamep);
-			    			$td.append($pricep);
-			    			$tr.append($td);
-			    			
-			    			if(index ==2){
-			    				$productGroupTable.append($tr);
-			    				$tr = $('<tr>');
-			    				index = -1;
-			    				
-			    			}
-			    			index++;
-			    			maxindex++;
-						}
-			    		if(index >= 1){
-			    			$productGroupTable.append($tr);	
+		    		for(var key in data){	
+			    		if(maxindex<15){
+				    		if(index < 3){
+				    			var $td = $('<td>');
+				    			
+				    			var $a = $('<a>');
+				    			
+				    			var $img = $('<img>');
+				    			var $pnamep = $('<p>').text(data[key].pname);	
+				    			var $pricep = $('<p>').text(data[key].pprice);
+				    			
+				    			$a.attr('href','<%= request.getContextPath() %>/detailProduct.do?num='+ data[key].pid);
+				    			
+				    			$img.attr('src','<%= request.getContextPath() %>/images/product/'+ data[key].change_name);
+				    			$img.attr('width','300px');
+				    			$img.attr('height','300px');
+				    			
+				    			$a.append($img);
+				    			$td.append($a);
+				    			$td.css('padding','20px');
+				    			$td.append($pnamep);
+				    			$td.append($pricep);
+				    			$tr.append($td);
+				    			
+				    			if(index ==2){
+				    				$productGroupTable.append($tr);
+				    				$tr = $('<tr>');
+				    				index = -1;
+				    				
+				    			}
+				    			index++;
+				    			maxindex++;
+							}
+				    		if(index >= 1){
+				    			$productGroupTable.append($tr);	
+				    		}
 			    		}
-		    		}
-		    	}
+			    	}
 		    	}	    	
 		    })	
 		})

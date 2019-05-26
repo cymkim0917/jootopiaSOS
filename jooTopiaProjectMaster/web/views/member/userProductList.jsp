@@ -209,7 +209,6 @@
 
    $("#orderProduct").on("change", function(){
       var orderType = $("#orderProduct").val();
-	   console.log('바뀜!' + orderType)
       var cid = <%= cid %>
       var currentPage = <%= currentPage %>
       $.ajax({
@@ -217,11 +216,6 @@
          type:"post",
          data:{orderType:orderType,cid:cid,currentPage:currentPage},
          success:function(data){
-            console.log('성공!');
-            //pagingArea
-
-			
-            //procList
             var procList = data["procList"];
             var pi = data["pi"];
 

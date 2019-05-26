@@ -34,9 +34,7 @@ public class GetKaKaoInfoServlet extends HttpServlet {
 		
 		String reqAccessToken = request.getParameter("kakaoToken");		
 		String tempVal[] = reqAccessToken.split(",");	
-		System.out.println(tempVal[0]);		
-		String tempVal2[] = tempVal[0].split(":");		
-		System.out.println(tempVal2[1]);		
+		String tempVal2[] = tempVal[0].split(":");
 		String accessToken = tempVal2[1].replace("\"", "");
 	
 		String reqURL = "https://kapi.kakao.com/v2/user/me";
@@ -50,24 +48,18 @@ public class GetKaKaoInfoServlet extends HttpServlet {
         int responseCode = conn.getResponseCode();
         System.out.println("responseCode : " + responseCode);
         
-        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        
+        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));       
         String line = "";
         String result = "";
         
         while ((line = br.readLine()) != null) {
             result += line;
         }
-        System.out.println("response body : " + result);
-        
         JsonParser parser = new JsonParser();
         JsonElement element = parser.parse(result);
         
         JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
         String id = element.getAsJsonObject().get("id").getAsString();
-        System.out.println(id);
-        
-        
         String nickname = properties.getAsJsonObject().get("nickname").getAsString();
         
         KakaoMember kakao = new KakaoMember();
@@ -75,7 +67,6 @@ public class GetKaKaoInfoServlet extends HttpServlet {
         kakao.setUserId("Kakao"+id.substring(4));
         kakao.setUserPwd(id);
         kakao.setUserName(nickname);
-      
         
     	int searchResult = new MemberService().kakaoMemberNY(kakao);
     	
@@ -83,10 +74,8 @@ public class GetKaKaoInfoServlet extends HttpServlet {
     		System.out.println("searchResult:0 : " + kakao);
     		request.setAttribute("kakao", kakao);    		
     		request.getRequestDispatcher("views/member/kakaoJoinForm.jsp").forward(request, response);
-    	}else {
-    		
-    		Member member = new MemberService().searchMember(kakao);
-    		
+    	}else {    		
+    		Member member = new MemberService().searchMember(kakao); 		
     		request.getSession().setAttribute("loginUser", member);
     		request.getRequestDispatcher("index.jsp").forward(request, response);
     	}
