@@ -72,7 +72,7 @@
 				</div>
 			</div>
 
-			<br><br><br><br><br><br>
+			<br><br><br><br>
 
 			<div class="listArea">
 
@@ -117,7 +117,19 @@
 			</div> -->
 		</div>
 		
-		<div class="pagingArea" align="center">
+		<div class="paging" align="center">
+		<ul class="pagination">
+			<li><a href="<%=request.getContextPath()%>/selectAdminReleaseList.do?currentPage=<%=currentPage-1%>">이전</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminReleaseList.do?currentPage=1">1</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminReleaseList.do?currentPage=2">2</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminReleaseList.do?currentPage=3">3</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminReleaseList.do?currentPage=4">4</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminReleaseList.do?currentPage=5">5</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminReleaseList.do?currentPage=<%=currentPage+1%>">다음</a></li>
+		</ul>
+		</div>
+		
+		<%-- <div class="pagingArea" align="center">
          <button
             onclick="location.href='<%= request.getContextPath() %>/selectAdminReleaseList.do?currentPage=1'"><<
             </button>
@@ -150,7 +162,7 @@
          <button
             onclick="location.href='<%= request.getContextPath() %>/selectAdminReleaseList.do?currentPage=<%= maxPage %>'">
             >></button>
-      </div>
+      </div> --%>
 		
 		</div>
 

@@ -50,10 +50,10 @@
 		border-bottom: 1px solid black;
 		cursor:pointer;
 	}
-	#listTable tr:hover{
+	/* #listTable tr:hover{
 		background: rgb(150, 150, 150); 
 		color: white;
-	}
+	} */
 	#listTable tr > td{
 		height : 50px;
 		text-align:center;
@@ -179,7 +179,7 @@
 	    	</script>
 	    	
 	    	<div class="lsitTableArea">
-	    		<table align="center" id="listTable">
+	    		<table align="center" class="table table-hover" id="listTable">
 	    			<tr>
 	    				<th>No.</th>
 	    				<th>회원번호</th>

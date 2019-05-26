@@ -105,7 +105,7 @@
 		<div id="resultArea">
 			<form action="<%=request.getContextPath() %>/returnAdminMember.do"  method="post">
 			
-		   		<table id="memberList" border="1" align="center" width="100%"> 
+		   		<table id="memberList" class="table table-hover" align="center" width="100%"> 
 		   			<tr>
 		   				<th width="50px;">선택</th>
 		   				<th width="100px;">아이디</th>

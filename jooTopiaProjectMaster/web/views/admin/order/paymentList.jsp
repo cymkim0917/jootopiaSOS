@@ -38,7 +38,10 @@
 }
 .memo-money:hover, .memo-cancle:hover {
 	background: rgb(114, 164, 208);
-}	
+}
+table th, td {
+    border-top: 1px solid #ccc;  	
+}
 </style>
 </head>
 <body>
@@ -69,7 +72,7 @@
 		<br>
 		
 		<div class="selectListArea">
-			<table id="selectList" class="selectList" border="1">
+			<table id="selectList" class="selectList" >
 				<tr>
 					<th width="25px">No</th>
 					<th width="100px">주문상태</th>
@@ -416,7 +419,7 @@
 	
 	//------해당 상품정보(게시물) 조회 펑션
 	$("#selectList td").mouseenter(function(){
-		$(this).parent().css({"background":"rgb(61, 81, 113)", "color":"white", "cursor":"pointer"});
+		$(this).parent().css({"background":"rgb(242, 242, 242)", "color":"black", "cursor":"pointer"});
 	}).mouseout(function(){
 		$(this).parent().css({"background":"white", "color":"black"});
 	}).click(function(){
