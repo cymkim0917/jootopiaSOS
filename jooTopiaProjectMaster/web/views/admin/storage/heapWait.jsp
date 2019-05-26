@@ -47,7 +47,7 @@
 
 			<h3 class="title">적치대기</h3>
 			<hr>
-			<br><br>
+			<br>
 			<div class="listArea">
 				<table class="table table-hover" id="tableArea">
 					<thead>

@@ -77,6 +77,7 @@
 </head>
 <body>
 <%@ include file="/views/common/navigation.jsp" %>
+<%@ include file="/views/member/temp.jsp" %>
 	<%
 		Date date = new Date();
 
@@ -87,7 +88,6 @@
 		<div class="row">
 		<h1>1:1문의</h1>
 		<br /><br />
-			<div class="col-sm-3"></div>
 
 			<div class="col-sm-6">
 				<form action="<%= request.getContextPath()%>/insertQues.do"	id="insertForm"  encType="multipart/form-data" method="post">

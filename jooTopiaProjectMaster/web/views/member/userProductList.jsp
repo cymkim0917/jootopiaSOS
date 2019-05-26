@@ -33,15 +33,24 @@
 			</div>
 			<div class="col-sm-6">
 				<br />
-				<% if(procList.get(0).get("cgroup") != null) {%>
-			
+				<% if(procList.size() == 0){ %>
+						<h1 align="center">등록된 상품이 없습니다.</h1>
+				<% } else{ 
+				
+					if(procList.get(0) != null) {
+				%>
+				
+				
 				<h1 style="font-weight:bold;"><%=  procList.get(0).get("cgroup")%></h1>
-				<% }  %>				
+				<% } } %>		
+				
+				
+				<div id="sortTextArea">		
 						<hr style="border:2px solid black; width:900;"/>
 			
 				<h2 style="font-weight:bold; color:red;">인기상품 TOP 3</h2>
 				<br />
-			
+				</div>
 				<table id="sortProductArea">
 					
 					<tbody>
@@ -109,13 +118,15 @@
 		
 <script>
    $(function(){
+	   
+	  <% if(procList.size() > 4){ %>
 	  $sortTable = $("#sortProductArea > tbody");
 	  $sortTable.html('');
 	  
 	  var $sortTr = $('<tr>');
 	  var sortIndex = 0;
 	  
-	  <%for (int i = 0; i < 3; i++) {%>
+	  <%for (int i = 0; i < procList.size(); i++) {%>
 	  
 	  if(sortIndex < 3){
 	  var $div = $('<div>');
@@ -142,12 +153,16 @@
 	            $sortTable.append($sortTr);
 	            $sortTr = $('<tr>');
 	          
-
+			
 	         }
 		  sortIndex++;
 	  }
-<%}%>
+<%}
+	  }else{
+%>
 	  
+	  $("#sortTextArea").hide();
+	  <% } %>
 	   
       $table = $("#productArea > tbody");
       $table.html('');

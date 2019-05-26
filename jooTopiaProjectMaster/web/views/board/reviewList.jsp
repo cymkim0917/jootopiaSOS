@@ -84,7 +84,6 @@
 				
 						width="200px" height="150px"> 
 						
-						
 				</div>
 				<p>
 				No. <%=hmap.get("bno") %> <br>
@@ -93,10 +92,7 @@
 				조회수 : <%=hmap.get("bcount")%>
 				</p> 
 				
-				getContextPath() : <%=request.getContextPath() %><br>
-				
-				
-				
+				<br>
 				
 			</div>
 			<% } %> 

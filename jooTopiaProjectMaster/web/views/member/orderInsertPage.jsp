@@ -80,6 +80,7 @@
 </head>
 <body>
 <%@ include file="/views/common/navigation.jsp" %>
+<%@ include file="/views/member/temp.jsp" %>
 	<section>
 		<br /><br />
 		<div class="row">

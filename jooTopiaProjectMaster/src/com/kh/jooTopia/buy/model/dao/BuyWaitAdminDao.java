@@ -153,6 +153,12 @@ public class BuyWaitAdminDao {
 						list.add(b);
 					}*/
 					/*b = new BuyWaitAdmin();*/
+				
+				if(rset.getInt("PCID") == b.getPcid()) {
+					b.setPcdId(rset.getInt("PCDID"));
+					b.setStatus(rset.getString("STATUS"));
+				}
+				
 					b.setPcid(rset.getInt("PCID"));
 					b.setPcdId(rset.getInt("PCDID"));
 					b.setStatus(rset.getString("STATUS"));

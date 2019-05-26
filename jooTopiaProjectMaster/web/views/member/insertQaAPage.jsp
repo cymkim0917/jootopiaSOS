@@ -73,10 +73,144 @@
 		text-align:center;
 	}
 	
+	#btnArea{
+		text-align:center;
+	}
+	
+	table{
+		text-align:center;
+		width:100%;
+	}
+	
+	#tableArea{
+		width:800px;
+		height:500px;
+	}
+	
+	#searchArea{
+	
+		width:100%;
+		align:center;
+		text-align:center;
+	}
+	#tempBtnArea{
+		text-align:center;
+		top:120px;
+	}
+	#tempBtnArea{
+		width:250px;
+		top:0;
+		left:0;
+		background:rgb(53, 15, 15); 
+		 margin: 0 auto;
+		height:100vh;
+		z-index:9999;
+		
+	}
+
+	#myTable{
+		text-align:center;
+		align:center;
+		position:relative;
+		left:80px; 
+		
+	}
+		
+		div>h1{
+		text-align:center;
+		font-weight:bold;
+	}
+	#modifyBtn{
+		width:100px;
+		background-color: #FFBB00;
+	   border: none;
+	   color:#fff;
+	   padding: 15px 0;
+	   text-align: center;
+	   text-decoration: none;
+	   display: inline-block;
+	   font-size: 15px;
+	   margin: 4px;
+	   cursor: pointer;
+	   border-radius:10px;
+	}	#orderBtn{
+		width:200px;
+		background-color: white;
+		border: 1px solid black;
+		color:black;
+		padding: 15px 0;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 15px;
+		margin: 4px;
+		cursor: pointer;
+		border-radius:10px;
+		
+	}	
+	
+	#delBtn{
+		width:100px;
+		background-color: #7A7A7A;
+		border: none;
+		color:#fff;
+		padding: 15px 0;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 15px;
+		margin: 4px;
+		cursor: pointer;
+		border-radius:10px;
+	}
+	
+	#btnArea{
+		text-align:center;
+	}
+	
+	table{
+		text-align:center;
+		width:100%;
+	}
+	
+	#tableArea{
+		width:800px;
+		height:500px;
+	}
+	
+	#searchArea{
+	
+		width:100%;
+		align:center;
+		text-align:center;
+	}
+	#tempBtnArea{
+		text-align:center;
+		top:120px;
+	}
+	#tempBtnArea{
+		width:250px;
+		top:0;
+		left:0;
+		background:rgb(53, 15, 15); 
+		 margin: 0 auto;
+		height:100vh;
+		z-index:9999;
+		
+	}
+
+	#myTable{
+		text-align:center;
+		align:center;
+		position:relative;
+		left:80px; 
+		
+	}
 </style>
 </head>
 <body>
 <%@ include file="/views/common/navigation.jsp" %>
+<%@ include file="/views/member/temp.jsp" %>
 	<%
 		Date date = new Date();
 //
@@ -84,12 +218,13 @@
 		String toDay = format.format(date);
 	%>
 	<section>
+			
 		<div class="row">
-		<h1>1:1문의</h1>
 		<br /><br />
-			<div class="col-sm-3"></div>
 
-			<div class="col-sm-6">
+			<div class="col-sm-7">
+		<h1>1:1문의</h1>
+			<br /><br />
 				<form action="<%= request.getContextPath()%>/insertQues.do"	id="insertForm"  encType="multipart/form-data" method="post">
 				<table class="table">
 					<tr>
@@ -120,10 +255,10 @@
 						<td> &nbsp; &nbsp;&nbsp;</td>					
 						<td colspan="2">
 						
-								<img id="QaAImg1" width="120" height="100"> &nbsp;
+								<img id="QaAImg1" width="300" height="300"> &nbsp;
 							
 						 	
-								<img id="QaAImg2" width="120" height="100">
+								<img id="QaAImg2" width="300" height="300">
 					
 						</td>				
 					</tr>
@@ -136,7 +271,7 @@
 				</form>
 			</div>
 
-			<div class="col-sm-3"></div>
+			<div class="col-sm-2"></div>
 		</div>
 		<div align="center">
 			<div class="btnArea" id="btnArea">

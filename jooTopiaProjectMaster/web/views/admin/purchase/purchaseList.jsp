@@ -19,7 +19,7 @@
 <title>JooTopia</title>
 <style>
 	#searchBox tr:nth-child(1) td{
-		 background: rgb(224, 224, 224); 
+		 background: rgb(209, 220, 222); 
 		 height: 40px; 
 		 width:100%;
 	}

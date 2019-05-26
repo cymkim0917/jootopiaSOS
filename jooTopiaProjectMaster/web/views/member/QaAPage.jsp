@@ -22,7 +22,6 @@
 		text-align:center;
 		font-weight:bold;
 	}
-	
 	#modifyBtn{
 		width:100px;
 		background-color: #FFBB00;
@@ -36,7 +35,21 @@
 	   margin: 4px;
 	   cursor: pointer;
 	   border-radius:10px;
-	}
+	}	#orderBtn{
+		width:200px;
+		background-color: white;
+		border: 1px solid black;
+		color:black;
+		padding: 15px 0;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 15px;
+		margin: 4px;
+		cursor: pointer;
+		border-radius:10px;
+		
+	}	
 	
 	#delBtn{
 		width:100px;
@@ -51,22 +64,50 @@
 		margin: 4px;
 		cursor: pointer;
 		border-radius:10px;
-	}	
+	}
 	
-	#answerBtn{
-		width:45px;
-		background-color: white;
-		border: 1px solid black;;
-		color:black;
-		padding: 7px 0;
-		text-align: center;
-		text-decoration: none;
-		display: inline-block;
-		font-size: 10px;
-		margin: 4px;
-		cursor: pointer;
-		border-radius:10px;
-	}	
+	#btnArea{
+		text-align:center;
+	}
+	
+	table{
+		text-align:center;
+		width:100%;
+	}
+	
+	#tableArea{
+		width:800px;
+		height:500px;
+	}
+	
+	#searchArea{
+	
+		width:100%;
+		align:center;
+		text-align:center;
+	}
+	#tempBtnArea{
+		text-align:center;
+		top:120px;
+	}
+	#tempBtnArea{
+		width:250px;
+		top:0;
+		left:0;
+		background:rgb(53, 15, 15); 
+		 margin: 0 auto;
+		height:100vh;
+		z-index:9999;
+		
+	}
+
+	#myTable{
+		text-align:center;
+		align:center;
+		position:relative;
+		left:80px; 
+		
+	}
 	
 	#btnArea{
 		text-align:center;
@@ -85,12 +126,17 @@
 <body>
 <%@ include file="/views/common/navigation.jsp" %>
 	<section>
+			<div class="col-sm-3" id="tempBtnArea">
+				<a href="<%= request.getContextPath() %>/orderList.do" id="orderBtn">주문내역</a><br />
+				<a href="<%= request.getContextPath() %>/selectBoardList.do" id="orderBtn">게시글 조회</a><br />
+				<a href="views/member/myRecentProduct.jsp" id="orderBtn">최근 본 상품 조회</a><br />
+				<a href="views/member/insertQaAPage.jsp" id="orderBtn">1:1 문의 작성</a>
+			</div>
 		<div class="row">
-		<h1>1:1문의</h1>
 		<br /><br />
-			<div class="col-sm-3"></div>
-			
-			<div class="col-sm-6">
+			<div class="col-sm-7">
+		<h1>1:1문의</h1>
+			<br /><br />
 				<table class="table">
 					<tr>
 						<td><label for="">아이디</label></td>
@@ -115,8 +161,8 @@
 
 					<tr>
 						<td>&nbsp; &nbsp;&nbsp;</td>
-						<td colspan="2"><img id="QaAImg1" width="120" height="100" src="<%=request.getContextPath()%>/images_upload/<%=quesImg1.getChangeName()%>">
-							&nbsp; <img id="QaAImg2" width="120" height="100"
+						<td colspan="2"><img id="QaAImg1" width="250" height="250" src="<%=request.getContextPath()%>/images_upload/<%=quesImg1.getChangeName()%>">
+							&nbsp; <img id="QaAImg2" width="250" height="250"
 							src="<%= request.getContextPath() %>/images_upload/<%= quesImg2.getChangeName() %>"></td>
 					</tr>
 				</table>
@@ -139,7 +185,7 @@
 				</div>
 			</div>				
 		
-			<div class="col-sm-3"></div>
+			<div class="col-sm-2"></div>
 		</div>
 		<div align="center">
 			<div class="btnArea" id="btnArea">

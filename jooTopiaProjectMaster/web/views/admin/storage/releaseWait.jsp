@@ -37,12 +37,12 @@ table th, td {
 
 			<h3 class="title">출고대기</h3>
 			<hr>
-			<br><br>
+			<br>
 
-			<div class="container">
+			<div class="listArea">
 
 				<table class="table table-hover" id="test1">
-				<thead>
+				<thead >
 					<tr>
 						<th>배송번호</th>
 						<th>주문번호</th>

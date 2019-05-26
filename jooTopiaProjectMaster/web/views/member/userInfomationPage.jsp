@@ -86,21 +86,17 @@
 		text-align:center;
 		align:center;
 		position:relative;
-		left:120px;
+		left:80px; 
 		
 	}
 </style>
 </head>
 <body>
 <%@ include file="../common/navigation.jsp" %>
-			<div class="col-sm-3" id="tempBtnArea">
-				<a href="<%= request.getContextPath() %>/orderList.do" id="orderBtn">임시)주문내역</a><br />
-				<a href="<%= request.getContextPath() %>/selectBoardList.do" id="orderBtn">임시)게시글 조회</a><br />
-				<a href="myRecentProduct.jsp" id="orderBtn">임시)최근 본 상품 조회</a><br />
-				<a href="insertQaAPage.jsp" id="orderBtn">임시)1:1 문의 작성</a>
-			</div>
+<%@ include file="/views/member/temp.jsp" %>
 	<section>
 		<div class="row">
+			
 			<div class="col-sm-7" id="myTable">
 			<br /><br />
 			<h1>회원 정보</h1><br />

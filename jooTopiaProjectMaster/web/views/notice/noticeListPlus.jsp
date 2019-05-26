@@ -87,6 +87,7 @@
 		            <td><label><%=n.getModifyDate() %></label></td>
 		         </tr>
 		         
+
 		         <tr>
 		         	<td colspan="4">
 		         	<br>
@@ -99,6 +100,7 @@
 		           	 <textarea rows="5" style="width: 100%; height:100%; border: 0; text-align: center; resize: none;"><%= n.getbContent() %></textarea>
 		           	 </td>
 		         </tr>
+
 		         
 		      </table>
 	      </form>

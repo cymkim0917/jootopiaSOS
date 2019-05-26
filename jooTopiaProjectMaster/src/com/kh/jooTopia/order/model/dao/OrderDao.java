@@ -51,8 +51,7 @@ public class OrderDao {
 				order.setpDate(rs.getDate(5));
 				order.setStatus(rs.getString(6));
 				order.setAddress(rs.getString(7));
-				order.setChange_name(rs.getString(8));
-				order.setOdid(rs.getInt("ODID"));
+				order.setOdid(rs.getInt(8));
 				list.add(order);
 			}
 			
