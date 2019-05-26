@@ -28,7 +28,7 @@
 	.thumbnailArea {
 		width:760px;
 		height:550px;
-		margin:0 auto;
+		margin:0 auto; 
 	}
 	.searchArea {
 		width:100%;
@@ -36,16 +36,23 @@
 		align:center;
 	}
 	.thumb-list {
-		width:220px;
-		border:1px solid white;
+		width:30%;
+		border:3px solid white;
 		display:inline-block;
 		margin:10px;
 		align:center;
+		padding : 10px;
+		
 	}
 	.thumb-list:hover{
-		opacity:0.8;
 		cursor:pointer;
+		background : rgb(255, 128, 128);
+		font-weight : bold;
 	}
+	 .thumb-list:hover .thumb-list p{
+	 	font-weigt : bold;
+	 	color : black;
+	 }
 <!--게시판용 스타일 -->
 	 .checkboxgroup{
 		margin-left:350px;
@@ -123,7 +130,9 @@
  .paging{
  	margin-top:10%;
  }
-	
+.boxArea{
+	background : rgba(205, 38, 21, 0.18); 
+}
 </style>
 
 <title>JooTopia</title>
@@ -131,48 +140,31 @@
 <body>
 <%@ include file="/views/common/navigation.jsp" %>
 	<section>
-	<div class="outer">
+	<div class="boxArea">
 	<br>
 		<h1 align="center">상품후기</h1>
 		
 		<br>
-		
 		<div class = "thumbnailArea">
-			<%
-			for(int i = 0; i<list.size(); i++){
-				HashMap<String,Object> hmap = list.get(i);
-			%>
-			
-			<div class="thumb-list" align="center">
+			<% for(int i = 0; i<list.size(); i++){
+				HashMap<String,Object> hmap = list.get(i); %>
+			<div class="thumb-list" align="center" onclick="location.href='<%=request.getContextPath()%>/selectOneReview.do?num=<%=hmap.get("bid")%>'">
 				<div>
-			
 					<input type="hidden" name="bno" value="<%=hmap.get("bid")%>" id="bno">
-					
-					<% System.out.println("reviewList : "+ hmap.get("bid")); %>
-		
-				<img src="<%=request.getContextPath()%>/images/review/<%=hmap.get("change_name")%>"
-				
-						width="200px" height="150px"> 
-						
+					<img src="<%=request.getContextPath()%>/images/review/<%=hmap.get("change_name")%>" width="200px" height="150px"> 
 				</div>
-				<p>
-				No. <%=hmap.get("bno") %> <br>
-				제목 : <%=hmap.get("btitle")%><br>
-				글쓴이 : <%=hmap.get("user_id") %><br>
-				조회수 : <%=hmap.get("bcount")%>
-				</p> 
-				
+					<p><br>
+					No. <%=hmap.get("bno") %> <br>
+					제목 : <%=hmap.get("btitle")%><br>
+					글쓴이 : <%=hmap.get("user_id") %><br>
+					조회수 : <%=hmap.get("bcount")%>
+					</p> 
 				<br>
-				
-			</div>
+				</div>
 			<% } %> 
-			
 		</div>
-		
 	</div>
 	<br><br>
-		
-		
 		
 		<div class="searchArea">
 			<div id="searchContentArea">
@@ -186,11 +178,8 @@
 			<div id="searchBtnArea"><button class="snip1535" type="submit">검색하기</button></div>
 			<div id="insertBtnArea"><button class="snip1535" onclick="location.href='<%=request.getContextPath()%>/views/board/reviewInsertForm.jsp'">작성하기</button></div>
 		</div>
-
-
 		<br>
 		<br>
-		
 		<div class="paging" align="center">
 		<ul class="pagination">
 			<li><a href="#">이전</a></li>
@@ -202,23 +191,7 @@
 			<li><a href="#">다음</a></li>
 		</ul>
 		</div>
-	
-	<script>
-			$(function(){
-				$(".thumb-list").click(function(){
-					var num = $("#bno").val();
-					console.log("num : " + num);
-					
-					location.href="<%=request.getContextPath()%>/selectOneReview.do?num="+num;  
-					
-				});
-			}); 
-		</script>
-	
-	
-		
 	</section>
-	
 	<br><br>
 <%@ include file="/views/common/footer.jsp" %>
 </body>

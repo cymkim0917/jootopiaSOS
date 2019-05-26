@@ -9,7 +9,6 @@ section {
 	width: 80%;
 	margin: 0 auto;
 }
-
 .title {
 	font-weight: bold;
 	margin-left: 20px;
@@ -37,3 +36,4 @@ section {
 table{
 	border-collapse : collpase;	
 }
+

@@ -10,10 +10,11 @@
 <script src="/jootopia/js/external/bootstrap.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="/jootopia/css/admin/adminHeader.css">
-
+ 
 <title>JooTopia</title>
 </head>
 <body>
+	<%if(loginUser.getUserId().equals("admin")){ %>
 	<header class="row" contextmenu="">
 		<span class="col-lg-1" onclick="location.href='/jootopia/views/main/AdminMainPage.jsp'">
 			<img id="navHomeBtn" src="/jootopia/images/adminMenuHomeBtn.png">
@@ -38,7 +39,7 @@
 			창고관리
 		</span>
 	</header>
-	<%}else{
+	<% }else{
 		request.getRequestDispatcher("/").forward(request, response);
 	}%>
 	

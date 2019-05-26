@@ -60,8 +60,6 @@
 	<section>
 		<h1 align="center">공지사항/이벤트</h1>
 		<br>
-		
-		
 		  <div class="outer">
 		  
 		  <form action="" id="noticeForm">
