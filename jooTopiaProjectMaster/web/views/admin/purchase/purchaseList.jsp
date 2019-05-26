@@ -50,10 +50,10 @@
 		border-bottom: 1px solid black;
 		cursor:pointer;
 	}
-	#listTable tr:hover{
+	/* #listTable tr:hover{
 		background: rgb(150, 150, 150); 
 		color: white;
-	}
+	} */
 	#listTable tr > td{
 		height : 50px;
 		text-align:center;
@@ -77,7 +77,7 @@
 		<div class="col-sm-10">
 	    	<h3 class="title">매입신청</h3>
 	    	<hr>
-	    	<!-- <div class="searchArea">
+	    	<div class="searchArea">
 	    		<form action="" method="">
 		    		<table border="1" align="center" id="searchBox">
 		    			<tr>
@@ -113,11 +113,11 @@
 	    						<input type="radio" name="bDate" id="year" value="365" hidden>
 	    						<label for="year">1년</label>
 								<Br>
-								<input type="radio" name="bDate" id="customDate" hidden>
+								<!-- <input type="radio" name="bDate" id="customDate" hidden>
 								<label for="customDate">
 									<input type="date" name="startDate">
 		    						<input type="date" name="endDate">
-								</label>
+								</label> -->
 		    				</td>
 		    			</tr>
 		    			
@@ -137,13 +137,13 @@
 		    			<tr>
 		    				<td colspan="2">
 		    					<button id="searchBtn">검색하기</button>
-		    					<button>검색하기</button> 
+		    					<!-- <button>검색하기</button> --> 
 		    				</td>
 		    			</tr>
 		    		</table>
 				</form>
-	    	</div> -->
-	    	<%-- <script>
+	    	</div>
+	    	<script>
 	    		$("#searchBtn").click(function(){
 	    			var searchType = $("#searchType").val();
 	    			var searchVal = $("#searchVal").val();
@@ -176,10 +176,10 @@
 	    				}
 	    			});
 	    		})
-	    	</script> --%>
-	    	<Br>
+	    	</script>
+	    	
 	    	<div class="lsitTableArea">
-	    		<table align="center" id="listTable">
+	    		<table align="center" class="table table-hover" id="listTable">
 	    			<tr>
 	    				<th>No.</th>
 	    				<th>회원번호</th>

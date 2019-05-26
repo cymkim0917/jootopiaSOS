@@ -24,6 +24,11 @@
 <link rel="stylesheet" href="/jootopia/css/admin/adminCommon.css">
 
 <title>JooTopia</title>
+<style>
+table th, td {
+    border-top: 1px solid #ccc;  	
+}
+</style>
 </head>
 <body>
 
@@ -106,7 +111,7 @@
 	<script>
 	
 		$("#selectList td").mouseenter(function(){
-			$(this).parent().css({"background":"rgb(61, 81, 113)", "color":"white", "cursor":"pointer"});
+			$(this).parent().css({"background":"rgb(242, 242, 242)", "color":"black", "cursor":"pointer"});
 		}).mouseout(function(){
 			$(this).parent().css({"background":"white", "color":"black"});
 		}).click(function(){

@@ -20,9 +20,7 @@
 <link rel="stylesheet" href="/jootopia/css/admin/adminCommon.css">
 <title>JooTopia</title>
 <style>
-.table th {
-	text-align: left;
-} 
+
 .listArea{
 	padding-left: 5%;
 	width: 100%;
@@ -45,7 +43,7 @@
       <h3 class="title">창고 재고현황</h3>
 	    	<hr>      	
       <div class="searchArea">
-			<table id="tableArea"  border="1" align="center">
+			<table id="searchBox"  border="1" align="center">
 				<tr><th colspan="3" style="background: rgb(224, 224, 224); height: 35px;"></th></tr>
 				<tr>
 					<td>검색 분류</td>
@@ -59,7 +57,7 @@
 					</td>
 				</tr>
 			</table>
-			<br><br>
+			<br>
 			<div id="searchBtnArea" align="center">
 				<input type="submit" value="검색" onclick="">
 				<input type="reset" value="초기화" onclick="">
@@ -95,7 +93,20 @@
 				</tbody>
 			</table>		
 			</div>
-				<div class="pagingArea" align="center">
+			
+			<div class="paging" align="center">
+		<ul class="pagination">
+			<li><a href="<%=request.getContextPath()%>/selectAdminStock.do?currentPage=<%=currentPage-1%>">이전</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminStock.do?currentPage=1">1</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminStock.do?currentPage=2">2</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminStock.do?currentPage=3">3</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminStock.do?currentPage=4">4</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminStock.do?currentPage=5">5</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectAdminStock.do?currentPage=<%=currentPage+1%>">다음</a></li>
+		</ul>
+		</div>
+			
+				<%-- <div class="pagingArea" align="center">
          <button
             onclick="location.href='<%= request.getContextPath() %>/selectAdminStock.do?currentPage=1'"><<
             </button>
@@ -128,7 +139,7 @@
          <button
             onclick="location.href='<%= request.getContextPath() %>/selectAdminStock.do?currentPage=<%= maxPage %>'">
             >></button>
-      </div>
+      </div> --%>
 	
 	
 	<!-- <div align="center">

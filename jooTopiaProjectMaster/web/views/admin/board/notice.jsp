@@ -75,7 +75,7 @@
 		<hr>
 		<div id="resultArea">
 			<form action="<%=request.getContextPath() %>/deleteAdminNotice.do"  method="post">
-		   		<table id="noticeList" border="1" align="center"> 
+		   		<table id="noticeList" class="table table-hover" align="center"> 
 		   			<tr>
 		   				<th width="50px;">선택</th>
 		   				<th width="50px;">글번호</th>
@@ -138,11 +138,11 @@
       </div>
    </section>
    <script>
-  	 $(function(){
+  	 /* $(function(){
 		$("#noticeList td").mouseenter(function(){
 			$(this).parent().css({"background":"darkgray","cursor":"pointer"});
 		}).mouseout(function(){
-			$(this).parent().css({"background":"white"});
+			$(this).parent().css({"background":"white"}); */
 			
 		}).click(function(){
 			var tr = $(this).parent();

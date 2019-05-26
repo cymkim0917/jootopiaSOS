@@ -22,6 +22,11 @@
 <link rel="stylesheet" href="/jootopia/css/admin/adminCommon.css">
  
 <title>JooTopia</title>
+<style>
+table th, td {
+    border-top: 1px solid #ccc;  	
+}
+</style>
 </head>
 <body>
 
@@ -35,7 +40,7 @@
 		<hr>
 		<br>
 		<div class="selectListArea">
-				<table id="selectList" class="selectList" border="1">
+				<table id="selectList" class="selectList" >
 					<tr>
 						<th width="25px">No</th>
 						<th width="100px">주문취소코드</th>

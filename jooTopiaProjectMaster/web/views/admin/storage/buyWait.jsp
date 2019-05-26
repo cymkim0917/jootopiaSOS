@@ -41,7 +41,7 @@
 		<div id="adminSection" class="col-sm-10">
 			<h3 class="title">매입리스트</h3>
 			<hr>
-			<br>
+			<br><br />
 			<div class="listArea">
 				<table class="table table-hover" id="tableArea">
 					<thead>

@@ -24,6 +24,11 @@
 <link rel="stylesheet" href="/jootopia/css/admin/adminCommon.css">
 
 <title>JooTopia</title>
+<style>
+table th, td {
+    border-top: 1px solid #ccc;  	
+}
+</style>
 </head>
 <body>
 
@@ -37,7 +42,7 @@
 		<hr>
 		<br>
 		<div class="selectListArea">
-			<table id="selectList" class="selectList" border="1">
+			<table id="selectList" class="selectList" >
 				<tr>
 					<th colspan="11" style="height: 45px; text-align: left;">
 						<button class="selectBtn" onclick="refund()">환불완료</button>
