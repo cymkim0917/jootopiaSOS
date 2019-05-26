@@ -57,7 +57,9 @@
 					<tbody>
 						<% for(BuyWaitAdmin b : list){ %>
 						<tr>
-							<td><%= b.getPcid() %></td>
+							<td><%= b.getPcdId() %>
+								<input type="hidden" id="pcid" value="<%= b.getPcid() %>">
+							</td>
 							<td><%= b.getcGroup() %></td>
 							<td><%= b.getName() %></td>
 							<td><%= b.getApplicant() %></td>
@@ -68,28 +70,27 @@
 					</tbody>
 				</table>
 			</div>
-
 		<div class="paging" align="center">
-		<ul class="pagination">
-			<li><a href="<%=request.getContextPath()%>/selectAdminBuy.do?currentPage=<%=currentPage-1%>">이전</a></li>
-			<li><a href="<%=request.getContextPath()%>/selectAdminBuy.do?currentPage=1">1</a></li>
-			<li><a href="<%=request.getContextPath()%>/selectAdminBuy.do?currentPage=2">2</a></li>
-			<li><a href="<%=request.getContextPath()%>/selectAdminBuy.do?currentPage=3">3</a></li>
-			<li><a href="<%=request.getContextPath()%>/selectAdminBuy.do?currentPage=4">4</a></li>
-			<li><a href="<%=request.getContextPath()%>/selectAdminBuy.do?currentPage=5">5</a></li>
-			<li><a href="<%=request.getContextPath()%>/selectAdminBuy.do?currentPage=<%=currentPage+1%>">다음</a></li>
-		</ul>
-		</div>
-			<!-- <br />
-			<div align="center">
 				<ul class="pagination">
-					<li><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
+				<% if(currentPage <= 1){ %>
+				<% } else { %>
+				<li><a href="<%= request.getContextPath() %>/selectAdminBuy.do?currentPage=<%= currentPage - 1 %>"><</a></li>
+				<% } %>
+				
+				<% for(int p = startPage; p <= endPage; p++){
+						if(p == currentPage){ %>
+							<li class="active"><a href="<%= request.getContextPath() %>/selectAdminBuy.do?currentPage=<%= p %>"><%= p %></a></li>
+				<%  	} else { %>
+							<li><a href="<%= request.getContextPath() %>/selectAdminBuy.do?currentPage=<%= p %>"><%= p %></a></li>
+				<%		} %>
+				<% } %>
+				
+				<% if(currentPage >= maxPage){ %>
+				<% } else { %>
+				<li><a href="<%= request.getContextPath() %>/selectAdminBuy.do?currentPage=<%= currentPage + 1 %>">></a></li>
+				<% } %>
 				</ul>
-			</div> -->
+			</div>
 		</div>
 
 	</section>
@@ -98,7 +99,7 @@
 	<script>
 		$(function(){
 			$("#tableArea tr").click(function(){
-				var num = $(this).children().eq(0).text();
+				var num = $("#pcid").val();
 				console.log(num);				
 				<%-- location.href="<%=request.getContextPath()%>/selectOneAdminProductr.do?num=" + num; --%>
 				location.href="<%= request.getContextPath() %>/selectBuyDetail.do?num=" + num;

@@ -23,10 +23,12 @@ public class SelectAddOneAdminProductServlet extends HttpServlet {
 		int pId = Integer.parseInt(request.getParameter("num"));
 		
 		HashMap<String, Object> hmap = new ProductAdminService().selectAddProductOne(pId);
+		int buyPrice = new ProductAdminService().selectBuyPrice(pId);
 		
 		String view = ""; //초기화
 		
 		if(hmap != null) {
+			hmap.put("buyPrice", buyPrice);
 			view = "views/admin/product/productInsertForm.jsp";
 			request.setAttribute("hmap", hmap);
 		}else {

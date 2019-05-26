@@ -62,8 +62,8 @@
 					<ul class="dropdown-menu">
 						<li><a  href="<%= request.getContextPath() %>/productList.do?cid=1">침대</a></li>
 						<li><a href="<%= request.getContextPath() %>/productList.do?cid=2">옷장</a></li>
-						<li><a  href="<%= request.getContextPath() %>/productList.do?cid=3">수납장</a></li>
-						<li><a  href="<%= request.getContextPath() %>/productList.do?cid=4">화장대</a></li>
+						<li><a  href="<%= request.getContextPath() %>/productList.do?cid=3">화장대</a></li>
+						<li><a  href="<%= request.getContextPath() %>/productList.do?cid=4">수납장</a></li>
 					</ul>
 				</li>
 				<li class="dropdown"><a class="dropdown-toggle"
@@ -71,8 +71,8 @@
 					<ul class="dropdown-menu">
 						<li><a href="<%= request.getContextPath() %>/productList.do?cid=11">책상</a></li>
 						<li><a href="<%= request.getContextPath() %>/productList.do?cid=12">책장</a></li>
-						<li><a href="<%= request.getContextPath() %>/productList.do?cid=13">수납장</a></li>
-						<li><a href="<%= request.getContextPath() %>/productList.do?cid=14">사무용의자</a></li>
+						<li><a href="<%= request.getContextPath() %>/productList.do?cid=13">사무용의자</a></li>
+						<li><a href="<%= request.getContextPath() %>/productList.do?cid=14">수납장</a></li>
 					</ul>
 				</li>
 

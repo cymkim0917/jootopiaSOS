@@ -14,7 +14,6 @@
 <title>JooTopia</title>
 </head>
 <body>
-	<%if(loginUser.getUserId().equals("admin")){ %>
 	<header class="row" contextmenu="">
 		<span class="col-lg-1" onclick="location.href='/jootopia/views/main/AdminMainPage.jsp'">
 			<img id="navHomeBtn" src="/jootopia/images/adminMenuHomeBtn.png">
@@ -40,7 +39,7 @@
 		</span>
 	</header>
 	<%}else{
-		request.getRequestDispatcher("/views/common/errorPage500.jsp").forward(request, response);
+		request.getRequestDispatcher("/").forward(request, response);
 	}%>
 	
 	

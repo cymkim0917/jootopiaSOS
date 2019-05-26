@@ -3,7 +3,6 @@ package com.kh.jooTopia.heap.model.vo;
 import java.sql.Date;
 
 public class HeapAdmin implements java.io.Serializable{
-	
 	private int pId;		//PID - 상품번호(시퀀스)
 	private int hId;		//HID - 적치번호(시퀀스)
 	private int rlId;		//RLID - 출고번호(시퀀스)
@@ -34,7 +33,6 @@ public class HeapAdmin implements java.io.Serializable{
 		this.name = name;
 		this.poId = poId;
 		this.dId = dId;
-		this.lBarcode = lBarcode;
 		this.rlDate = rlDate;
 		this.hDate = hDate;
 		this.pContent = pContent;
@@ -114,7 +112,6 @@ public class HeapAdmin implements java.io.Serializable{
 	public void setlBarcode(String lBarcode) {
 		this.lBarcode = lBarcode;
 	}
-
 	public Date getRlDate() {
 		return rlDate;
 	}

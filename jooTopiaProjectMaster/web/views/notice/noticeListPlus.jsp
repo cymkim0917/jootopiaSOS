@@ -5,14 +5,6 @@
 	HashMap<String, Object> notice = (HashMap<String, Object>) request.getAttribute("notice");
 	Notice n = (Notice) notice.get("n");
 	ArrayList<Attachment> aList = (ArrayList<Attachment>) notice.get("aList");
-	/* Notice n = (Notice) request.getAttribute("n"); */
-	/* 
-	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
-	int currentPage = pageInfo.getCurrentPage();
-	int maxPage = pageInfo.getMaxPage();
-	int startPage = pageInfo.getStartPage();
-	int endPage = pageInfo.getEndPage(); 
-	*/
 %>
     
 <!DOCTYPE html>
@@ -36,7 +28,7 @@
   .detail td {
       text-align:center;
       width:1000px;
-      border:1px solid black;
+      border:1px solid #ddd;
    } 
    #titleImgArea {
       width:500px;
@@ -73,11 +65,11 @@
 		  <div class="outer">
 		  
 		  <form action="" id="noticeForm">
-		      <table class="detail" align="center">
+		      <table class="detail" align="center" >
 		     
 		         <tr>
-		         	<td colspan="1"><input type="hidden" value=<%= n.getbId() %> name="bid">제목</td>
-		            <td colspan="10"><label><%= n.getbTitle() %></label></td>
+		         	<td colspan="1" style="display:none;"><input type="hidden" value=<%= n.getbId() %> name="bid">제목</td>
+		            <td colspan="10"><h3><%= n.getbTitle() %></h3></td>
 		         </tr>
 		         <tr>
 		            
@@ -97,7 +89,7 @@
 				         </div>
 				         <br>
 		           <% } %>
-		           	 <textarea rows="5" style="width: 100%; height:100%; border: 0; text-align: center; resize: none;"><%= n.getbContent() %></textarea>
+		           	 <textarea rows="5" style="width: 100%; height:100%; border: 0; text-align: center; font-size:2em; ; resize: none;"><%= n.getbContent() %></textarea>
 		           	 </td>
 		         </tr>
 
@@ -107,8 +99,8 @@
    </div>
    <br><br><br>
        <div class="notice" align="center">
-	         <button onclick="location.href='<%=request.getContextPath()%>/selectList.do'">목록</button>
-	         <button onclick="review_delete();">삭제</button>
+	         <button style="background-color:hsla(9, 100%, 64%, 0.6); color:#32435F; font-weight:bold; border:none;" type="button" class="btn btn-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/selectList.do'">목록</button>
+	         <button style="background-color:hsla(9, 100%, 64%, 0.6); color:#32435F; font-weight:bold; border:none;" type="button" class="btn btn-primary btn-lg" onclick="review_delete();">삭제</button>
 			      <script>
 			      function review_delete(){
 			    	  <% if(loginUser== null){ %>

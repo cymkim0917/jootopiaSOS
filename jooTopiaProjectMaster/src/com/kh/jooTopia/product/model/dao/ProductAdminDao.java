@@ -771,5 +771,33 @@ public class ProductAdminDao {
 		return result;
 	}
 
+	public int selectBuyPrice(Connection con, int pId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int buyPrice = 0;;
+		
+		String query = prop.getProperty("selectBuyPrice");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pId);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				buyPrice = rset.getInt(1);
+				System.out.println("rset = " + rset);
+				System.out.println("buyPrice = " + buyPrice);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return buyPrice;
+	}
+
 	
 }
