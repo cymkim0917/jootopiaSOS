@@ -117,11 +117,34 @@
 		<div align="center">
 			<div class="btnArea" id="btnArea">
 				<a href="<%= request.getContextPath() %>/orderList.do" id="modifyBtn">확인</a>
-				<a href="orderCancelPage.jsp" id="delBtn">주문취소</a>						
+				<a onclick="orderCancle()" id="delBtn">주문취소</a>						
 			</div>	
 		</div>
 		
 	</section>
 <%@ include file="/views/common/footer.jsp" %>
+<script>
+	function orderCancle() {
+		var answer = window.confirm("주문을 취소 하시겠습니까?");
+		
+		if(answer) {
+			console.log("dd");
+			var poId = "<%=order.getPoid()%>";
+			var reason = "입금 전 주문 취소";
+			$.ajax({
+				url : "insertAdminOrderCancle.do",
+				type : "post",
+				data : {poId : poId, reason : reason},
+				success : function(data) {
+					alert(data);
+					location.href='orderList.do';
+				},
+				error : function(data) {
+					alert("해당상품 주문취소 처리 실패");
+				}
+			});
+		}
+	}
+</script>
 </body>
 </html>

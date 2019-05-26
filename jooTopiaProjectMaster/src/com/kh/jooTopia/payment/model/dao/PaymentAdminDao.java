@@ -39,9 +39,7 @@ public class PaymentAdminDao {
 		//상품준비중-계좌이체 주문취소 상태 업데이트
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
 		String query = prop.getProperty("updatePaymentStatus");
-		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, "결제취소");
@@ -54,7 +52,6 @@ public class PaymentAdminDao {
 		}finally {
 			close(pstmt);
 		}
-		
 		return result;
 	}
 
@@ -360,6 +357,32 @@ public class PaymentAdminDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, poId);
 			pstmt.setString(2, "상품준비중 단계에서 주문취소");
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateOrderCancleStatus(Connection con, int poId) {
+		//취소된 주문을 주문취소로 변경
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateOrderCancleStatus");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "주문취소");
+			pstmt.setInt(2, poId);
+			
+			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

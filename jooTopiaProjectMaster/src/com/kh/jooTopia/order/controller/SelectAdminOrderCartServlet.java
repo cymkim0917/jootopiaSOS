@@ -39,7 +39,7 @@ public class SelectAdminOrderCartServlet extends HttpServlet {
 		
 		String view = "";
 		if(productList != null) {
-			view = "orderList.do";
+			view = "views/member/orderInsertPage.jsp";
 			request.setAttribute("productList", productList);
 		}else {
 			view = "views/common/errorPage500.jsp";

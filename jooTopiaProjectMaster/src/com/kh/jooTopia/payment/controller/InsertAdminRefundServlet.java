@@ -1,6 +1,7 @@
 package com.kh.jooTopia.payment.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -35,6 +36,18 @@ public class InsertAdminRefundServlet extends HttpServlet {
 		}
 		
 		int result = new PaymentAdminService().insertRefund(pymCId, rfPrice);
+		
+		String msg = "";
+		if(result > 0) {
+			msg = "해당 주문을 환불처리했습니다.";
+		}else {
+			msg = "해당 상품 환불처리 실패";
+		}
+		
+		PrintWriter out = response.getWriter();
+		out.println(msg);
+		out.flush();
+		out.close();
 		
 	}
 

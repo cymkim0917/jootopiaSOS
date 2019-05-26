@@ -35,106 +35,12 @@
 		<div class="col-sm-10">
 		<h3 class="title">환불 관리</h3>
 		<hr>
-		
-		<div id="listArea">
-				<% if(list != null) { 
-				for(int i = 0; i < list.size(); i++) {
-					HashMap<String, Object> hmap = (HashMap<String, Object>) list.get(i);
-					Refund r = (Refund) hmap.get("r");
-					if(r.getRfDate() == null) {
-						refundIng += 1;
-					}else {
-						refundCompleted += 1;
-					}
-				}
-			%>
-				전체 <a href="#"><%= list.size() %></a>건  |  
-				환불중 <a href="#"><%= refundIng %></a>건  |
-				환불완료 <a href="#"><%= refundCompleted %></a>건
-			<% }else { %>
-				전체 <a href="#">0</a>건  |  
-				환불중 <a href="#">0</a>건  |
-				환불완료 <a href="#">0</a>건
-			<% } %>
-		</div>
 		<br>
-		
-		<div class="searchArea">
-			<table id="searchBox"  border="1" align="center">
-				<tr><th colspan="3" style="height: 35px;">　</th></tr>
-				<tr>
-					<td>검색 분류</td>
-					<td colspan="2">
-						<select id="searchCondition">
-							<option value="pName">상품명
-							<option value="pCode">상품코드
-							<option value="oCode">주문코드
-							<option value="userName">주문자명
-							<option value="userId">주문자 아이디
-							<option value="phone">주문자 전화번호
-						</select>
-						<input type="search" placeholder="검색 단어를 입력하세요." width="20px">
-					</td>
-				</tr>
-				<tr>
-					<td>주문일</td>
-					<td id="selectDate" colspan="2">
-						<a href="#" class="btnDate" period="0"><span>오늘</span></a>
-						<a href="#" class="btnDate" period="7"><span>7일</span></a>
-						<a href="#" class="btnDate" period="30"><span>1개월</span></a>
-						<a href="#" class="btnDate" period="90"><span>3개월</span></a>
-						<a href="#" class="btnDate" period="365"><span>1년</span></a>
-						<a href="#" class="btnDate" period="-1"><span>전체</span></a>
-						<input type="date" id="startDate" name="startDate" class="date" value=""> ~ 
-						<input type="date" id="endDate" name="endDate" class="date" value="">
-					</td>
-				</tr>
-				<tr>
-					<td>배송일</td>
-					<td id="selectDate" colspan="2">
-						<a href="#" class="btnDate" period="0"><span>오늘</span></a>
-						<a href="#" class="btnDate" period="7"><span>7일</span></a>
-						<a href="#" class="btnDate" period="30"><span>1개월</span></a>
-						<a href="#" class="btnDate" period="90"><span>3개월</span></a>
-						<a href="#" class="btnDate" period="365"><span>1년</span></a>
-						<a href="#" class="btnDate" period="-1"><span>전체</span></a>
-						<input type="date" id="startDate" name="startDate" class="date" value=""> ~ 
-						<input type="date" id="endDate" name="endDate" class="date" value="">
-					</td>
-				</tr>
-				<tr>
-					<td>주문 상태</td>
-					<td colspan="2">
-						<input type="radio" name="pType" id="all"><label>전체</label>
-						<input type="radio" name="pType" id=""><label>환불중</label>
-						<input type="radio" name="pType" id=""><label>환불완료</label>
-					</td>
-				</tr>
-			</table>
-			
-			<br>
-			
-			<div id="searchBtnArea" align="center">
-				<input type="submit" value="검색" onclick="">
-				<input type="reset" value="초기화" onclick="">
-			</div>
-		</div>
-		
-		<br>
-		
-		<div class="selectTopList">
-		<span>주문 목록</span><br>
-		<span>[총 <a><% if(list != null) { %><%= list.size() %><% }else { %>0<% } %></a>개]</span>
-		</div>
-		
-		<br>
-		
 		<div class="selectListArea">
 			<table id="selectList" class="selectList" border="1">
 				<tr>
 					<th colspan="11" style="height: 45px; text-align: left;">
 						<button class="selectBtn" onclick="refund()">환불완료</button>
-						<button class="selectBtn" onclick="refuse()">환불거절</button>
 					</th>
 				</tr>
 				<tr>
@@ -184,13 +90,25 @@
 	<br><br><br>
 	<div class="paging" align="center">
 		<ul class="pagination">
-			<li><a href="#">Previous</a></li>
-			<li><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">4</a></li>
-			<li><a href="#">5</a></li>
-			<li><a href="#">Previous</a></li>
+		<% if(currentPage <= 1) { %>
+		<li><a>이전</a></li>
+		<% } else { %>
+		<li><a href="<%=request.getContextPath()%>/refundAdminList.do?currentPage=<%= currentPage - 1 %>">이전</a></li>
+		<% } %>
+		
+		<% for(int p = startPage; p < endPage; p++) { 
+			if(p == currentPage) { %>
+			<li><a><%= p %></a></li>
+			<% 	}else { %>
+			<li><a href="<%=request.getContextPath()%>/refundAdminList.do?currentPage=<%= p %>"><%= p %></a></li>	
+			<% 	} 
+		} %>
+		
+		<% if(currentPage >= maxPage) { %>
+		<li><a>다음</a></li>
+		<% }else { %>
+		<li><a href="<%=request.getContextPath()%>/refundAdminList.do?currentPage=<%= currentPage + 1 %>">다음</a></li>
+		<% } %>
 		</ul>
 	</div>
 		
@@ -375,15 +293,6 @@
 			});
 		}
 	};
-	
-	//-----환불거절용 펑션
-	function refuse() {
-		var answer = window.confirm("선택한 주문을 환불거절 하시겠습니까?");
-		
-		if(answer) {
-			alert("해당주문을 환불거절 처리 하였습니다.");
-		}
-	}
 	
 	$("#allCheck").click(function() {
 		

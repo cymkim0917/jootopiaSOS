@@ -95,8 +95,11 @@
 					
 					<% for(int i =0; i<cart.size(); i++) { %>
 						<tr>
-							<td><input type="checkBox" class="check" name="selectCart" id="selectCart" value="<%=cart.get(i).getCartId() %>" />
-						
+							<td><% if(cart.get(i).getStatus().equals("판매중")) {%>
+							<input type="checkBox" class="check" name="selectCart" id="selectCart" value="<%=cart.get(i).getCartId() %>" />
+							<% } else{%> 
+							<input type="checkBox" class="check" name="selectCart" id="selectCart" value="<%=cart.get(i).getCartId() %>" disabled="disabled"/>
+							<% } %>
 							</td>
 							<td>
 								<img src="<%= request.getContextPath() %>/images/product/<%= cart.get(i).getChange_name() %>" alt="" style="width:100px; height:100px;" />
@@ -181,8 +184,12 @@
 				}
 				
 				console.log(queryString);
+				if(pIdArr.length > 0) {
+					location.href="<%=request.getContextPath()%>/selectCartOrderOne.do?pId="+queryString;
+				}else {
+					alert("선택한 상품이 없습니다.");
+				}
 				
-				location.href="<%=request.getContextPath()%>/selectCartOrderOne.do?pId="+queryString;
 			}
 			
 		});

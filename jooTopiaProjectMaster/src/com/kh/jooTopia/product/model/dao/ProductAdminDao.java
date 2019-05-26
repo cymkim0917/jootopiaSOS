@@ -756,6 +756,7 @@ public class ProductAdminDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
+			
 			/*UPDATE PRODUCT SET (SELECT P.STATUS AS STATUS
 					FROM PAYMENT_CANCLE PC
 					JOIN PAYMENT PY ON (PY.PYMID = PC.PYMID)

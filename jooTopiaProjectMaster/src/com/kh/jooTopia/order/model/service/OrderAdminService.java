@@ -144,38 +144,54 @@ public class OrderAdminService {
 		//주문취소 처리
 		Connection con = getConnection();
 		int result = 0;
-		int result1 = 0;
-		int result2 = 0;
-		
-		ArrayList<Integer> poIdList = null;
-		int result3 = 0;
 		
 		//해당 주문의 상태를 '주문취소'로 변경
-		result1 = new OrderAdminDao().updateOrderStatus(con, oc.getPoId());
-		
-		if(result1 > 0) {
-			System.out.println("주문상태 주문취소로 변경 성공");
-			//주문취소로 변경하면 주문취소 테이블 INSERT
-			result2 = new OrderAdminDao().insertOrderCancle(con, oc);
-			
-			if(result2 > 0) {
-				System.out.println("주문취소 테이블에 INSERT 성공");
-				//해당 주문에 해당하는 상품 PID SELECT
-				poIdList = new ProductAdminDao().selectThisOrderPid(con, oc.getPoId());
-				System.out.println("셀렉트는? " + poIdList.size());
-				//해당 주문에 대한 상품의 상태를 판매중으로 변경
-				result3 = new ProductAdminDao().changeStatusProduct(con, "판매중", poIdList);
-				System.out.println("result3 : " + result3);
-				if(result3 > 0 && result3 == poIdList.size()) {
-					System.out.println("상품상태도 변경완료 끝!!!!!!");
-					result = 1;
-					commit(con);
-				}
-			}else {
-				rollback(con);
-			}
-		}else {
+		int result1 = new OrderAdminDao().updateOrderStatus(con, oc.getPoId());
+		if(result1 <= 0) {
+			System.out.println("주문취소 변경 실패");
 			rollback(con);
+			return result;
+		}
+		
+		//해당주문의 PYMID를 조회
+		int pymId = new OrderAdminDao().selectOrderCanclePymId(con, oc.getPoId());
+		if(pymId <= 0) {
+			System.out.println("pymId 조회 실패");
+			rollback(con);
+			return result;
+		}
+		
+		//해당주문의 결제 상태를 결제취소로 변경
+		int result2 = new OrderAdminDao().updateOrderCanclePaymaneStatus(con, pymId);
+		if(result2 <= 0) {
+			System.out.println("결제취소 변경 실패");
+			rollback(con);
+			return result;
+		}
+		
+		//주문취소로 변경하면 주문취소 테이블 INSERT
+		int result3 = new OrderAdminDao().insertOrderCancle(con, oc);
+		if(result3 <= 0) {
+			System.out.println("주문취소 테이블 추가 실패");
+			rollback(con);
+			return result;
+		}
+		
+		ArrayList<Integer> poIdList = null;
+		//해당 주문에 해당하는 상품 PID SELECT
+		poIdList = new ProductAdminDao().selectThisOrderPid(con, oc.getPoId());
+		//해당 주문에 대한 상품의 상태를 판매중으로 변경
+		int result4 = new ProductAdminDao().changeStatusProduct(con, "판매중", poIdList);
+		if(result4 <= 0 && result4 != poIdList.size()) {
+			System.out.println("해당상품 판매중 변경 실패");
+			rollback(con);
+			return result;
+		}
+		
+		if(result1 > 0 && result2 > 0 && result3 > 0 && result4 == poIdList.size()) {
+			System.out.println("커밋스");
+			commit(con);
+			result = 1;
 		}
 		
 		

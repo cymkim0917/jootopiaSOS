@@ -33,11 +33,11 @@
 		<div id="infoArea">
 		<table id="pInfo1">
 			<tr>
-				<th>주문일</th>
+				<th>주문코드</th>
 				<td><%= o.getPoId() %></td>
 			</tr>
 			<tr>
-				<th>주문코드</th>
+				<th>주문일</th>
 				<td><%= o.getPoDate() %></td>
 			</tr>
 			<tr>
@@ -138,10 +138,6 @@
 			</tr>
 			<% } %>
 			<% }else { %>
-			<tr>
-				<th>결제수단</th>
-				<td><%= pym.getPaymentOption() %></td>
-			</tr>
 			<tr>
 				<th>입금자명</th>
 				<td><%= pym.getDepositName() %></td>

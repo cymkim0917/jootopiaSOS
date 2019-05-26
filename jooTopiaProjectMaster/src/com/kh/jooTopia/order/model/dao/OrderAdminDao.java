@@ -339,6 +339,7 @@ public class OrderAdminDao {
 				pym.settId(rset.getString("TID"));
 				pym.setProductPrice(rset.getInt("PRODUCT_PRICE"));
 				pym.setDeliveryPrice(rset.getInt("DELIVERY_PRICE"));
+				pym.setDepositDate(rset.getDate("DEPOSIT_DATE"));
 				hmap.put("pym", pym);
 				
 				//그 외 : M.USER_NAME, M.PHONE
@@ -352,9 +353,10 @@ public class OrderAdminDao {
 				orderDetailMap.put("pPrice", rset.getInt("PPRICE"));
 				orderDetailMap.put("odId", rset.getInt("ODID"));
 				orderDetailMap.put("deliveryPrice", rset.getString("DELIVERY_PRICE"));
-				
 				orderDetail.add(orderDetailMap);
+				
 			}
+			
 			hmap.put("orderDetail", orderDetail);
 			
 		} catch (SQLException e) {
@@ -548,6 +550,55 @@ public class OrderAdminDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, oc.getPoId());
 			pstmt.setString(2, oc.getReason());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int selectOrderCanclePymId(Connection con, int poId) {
+		//주문취소건에 해당하는 결제 PYMID 검색
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int pymId = 0;
+		
+		String query = prop.getProperty("selectOrderCanclePymId");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, poId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				pymId = rset.getInt("PYMID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return pymId;
+	}
+
+	public int updateOrderCanclePaymaneStatus(Connection con, int pymId) {
+		//주문취소건 결제 결제취소로 변경
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateOrderCanclePaymaneStatus");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "결제취소");
+			pstmt.setInt(2, pymId);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
