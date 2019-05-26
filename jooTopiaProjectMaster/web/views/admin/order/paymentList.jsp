@@ -51,23 +51,9 @@
 		<div class="col-sm-10">
 		<h3 class="title">입금전 관리</h3>
 		<hr>
-		
-		<div id="listArea">
-		<% if(list != null) { %>
-		전체 <a href="#"><%= list.size() %></a>건	
-		<% }else { %>
-		전체 <a href="#">0</a>건	
-		<% } %>
-		</div>
-		<br>
-		
 		<div class="selectTopList">
-		<span>주문 목록</span><br>
-		<span>[총 <a><% if(list != null) { %><%= list.size() %><% }else { %>0<% } %></a>개]</span>
 		</div>
-		
 		<br>
-		
 		<div class="selectListArea">
 			<table id="selectList" class="selectList" border="1">
 				<tr>
@@ -98,11 +84,7 @@
 					<td><%= o.getPoDate() %></td>
 					<td><%= o.getPoId() %></td>
 					<td><%= hmap.get("userName") %></td>
-					<% if(hmap.get("count") != null && (int) hmap.get("count") > 1) { %>
-					<td><%= hmap.get("pName") %> 외 <%= (int) hmap.get("count") -1 %>건</td>
-					<% }else { %>
 					<td><%= hmap.get("pName") %></td>
-					<% } %>
 					<th>
 					<div id="memo" class="memo">MEMO
 					</div>
@@ -127,21 +109,21 @@
 		<% if(currentPage <= 1) { %>
 		<li><a>이전</a></li>
 		<% } else { %>
-		<li><a href="<%=request.getContextPath()%>/adminProductList.do?currentPage=<%= currentPage - 1 %>">이전</a></li>
+		<li><a href="<%=request.getContextPath()%>/selectAdminPaymentList.do?currentPage=<%= currentPage - 1 %>">이전</a></li>
 		<% } %>
 		
 		<% for(int p = startPage; p < endPage; p++) { 
 			if(p == currentPage) { %>
 		<li><a><%= p %></a></li>
 		<% 	}else { %>
-		<li><a href="<%=request.getContextPath()%>/adminProductList.do?currentPage=<%= p %>"><%= p %></a></li>	
+		<li><a href="<%=request.getContextPath()%>/selectAdminPaymentList.do?currentPage=<%= p %>"><%= p %></a></li>	
 		<% 	} 
 		} %>
 		
 		<% if(currentPage >= maxPage) { %>
 		<li><a>다음</a></li>
 		<% }else { %>
-		<li><a href="<%=request.getContextPath()%>/adminProductList.do?currentPage=<%= currentPage + 1 %>">다음</a></li>
+		<li><a href="<%=request.getContextPath()%>/selectAdminPaymentList.do?currentPage=<%= currentPage + 1 %>">다음</a></li>
 		<% } %>
 		</ul>
 	</div>
@@ -259,8 +241,8 @@
 <script>
 	//배송메시지 모달용 펑션
 	$(".memo").click(function() {
-		var code = $(this).parent().parent().children().eq(0).children().eq(0).val();
-		var date = $(this).parent().parent().children().eq(3).text();
+		var code = $(this).parent().parent().children().eq(3).text();
+		var date = $(this).parent().parent().children().eq(2).text();
 		var message = $(this).parent().children().eq(1).val();
 		
 		if(message == "null") {
@@ -310,8 +292,8 @@
 	
 	//------입금처리 모달 펑션들
 	$(".memo-money").click(function() {
-		var code = $(this).parent().parent().children().eq(0).children().eq(0).val();
-		var date = $(this).parent().parent().children().eq(3).text();
+		var code = $(this).parent().parent().children().eq(3).text();
+		var date = $(this).parent().parent().children().eq(2).text();
 		var totalPrice = $(this).parent().children().eq(1).val();
 		
 		console.log(totalPrice);
@@ -358,9 +340,8 @@
 	
 	//-------주문취소 처리 모달 펑션
 	$(".memo-cancle").click(function() {
-		var poId = $(this).parent().parent().children().eq(0).children().eq(0).val();
+		var poId = $(this).parent().parent().children().eq(3).text();
 		var poDate = $(this).parent().parent().children().eq(3).text();
-		 
 		console.log(poId);
 		console.log(poDate);
 		
@@ -420,7 +401,7 @@
 	}).mouseout(function(){
 		$(this).parent().css({"background":"white", "color":"black"});
 	}).click(function(){
-		var num = $(this).parent().children().eq(4).text();
+		var num = $(this).parent().children().eq(3).text();
 		location.href="<%=request.getContextPath()%>/adminPaymentOne.do?num=" + num;
 	});
 	

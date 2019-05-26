@@ -32,21 +32,7 @@
 		<div class="col-sm-10">
 		<h3 class="title">상품등록 목록</h3>
 		<hr>
-		
-		<div id="listArea">
-			<% if(list != null) { %>
-				전체 <a href="#"><%= list.size() %></a>건
-			<% }else { %>
-				전체 <a href="#">0</a>건
-			<% } %>
-		</div>
 		<br>
-		
-		<div class="selectTopList">
-		<span>미등록 상품</span><br>
-		<span>[총 <a><% if(list != null) { %><%= list.size() %><% }else { %>0<% } %></a>개]</span>
-		</div>
-		
 		<br>
 		
 		<div class="selectListArea">

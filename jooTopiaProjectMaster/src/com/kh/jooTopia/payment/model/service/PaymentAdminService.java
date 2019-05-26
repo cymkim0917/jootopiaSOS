@@ -15,20 +15,22 @@ import com.kh.jooTopia.product.model.dao.ProductAdminDao;
 public class PaymentAdminService {
 
 	public int updatePaymentStatus(int pymId) {
-		//계좌이체 주문취소건 : 상태를 주문취소로 변경
+		
 		Connection con = getConnection();
 		int result = 0;
 		
 		//결제를 결제취소 상태로 변경
 		int result1 = new PaymentAdminDao().updatePaymentStatus(con, pymId);
-		if(result <= 0) {
+		if(result1 <= 0) {
+			System.out.println("결제취소 변경 실패");
 			rollback(con);
 			return result;
 		}
 		
-		//주문상태를 주문취소로 변경 시 주문취소 테이블 INSERT
+		//주문상태를 주문취소로 변경 시 결제취소 테이블 INSERT
 		int result2 = new PaymentAdminDao().insertPaymentCancle(con, pymId);
 		if(result2 <= 0) {
+			System.out.println("결제취소 인서트 실패");
 			rollback(con);
 			return result;
 		}
@@ -36,18 +38,30 @@ public class PaymentAdminService {
 		//결제번호를 통해 주문번호 조회
 		int poId = new PaymentAdminDao().selectCanclePoId(con, pymId);
 		if(poId <= 0) {
+			System.out.println("주문번호 조회 실패");
+			rollback(con);
+			return result;
+		}
+		
+		//계좌이체 주문취소건 : 상태를 주문취소로 변경
+		int result3 = new PaymentAdminDao().updateOrderCancleStatus(con, poId);
+		if(result3 <= 0) {
+			System.out.println("주문취소로 변경 실패");
 			rollback(con);
 			return result;
 		}
 		
 		//주문취소 테이블 추가
-		int result3 = new PaymentAdminDao().insertOrderCancle(con, poId);
-		if(result3 <= 0) {
+		int result4 = new PaymentAdminDao().insertOrderCancle(con, poId);
+		if(result4 <= 0) {
+			System.out.println("주문취소 테이블 추가 실패");
 			rollback(con);
 			return result;
 		}
 		
-		if(result1 > 0 && result2 > 0 && result3 > 0) {
+		if(result1 > 0 && result2 > 0 && result3 > 0 && result4 > 0) {
+			System.out.println("성공");
+			commit(con);
 			result = 1;
 		}
 		
@@ -65,24 +79,18 @@ public class PaymentAdminService {
 	}
 
 	public int insertRefund(ArrayList<Integer> pymCId, ArrayList<Integer> rfPrice) {
-		//환불REFUND INSERT
 		Connection con = getConnection();
 		
-		int result = 0;
-		int result1 = new PaymentAdminDao().insertRefund(con, pymCId, rfPrice);
-		int result2 = 0;
-		
-		if(result1 > 0 && result1 == pymCId.size()) {
-			//해당 주문건에 대한 상품 상태를 '환불완료'로 수정
-			result2 = new ProductAdminDao().updateRefundProductStatus(con, pymCId);
-			if(result2 > 0 && result2 == pymCId.size()) {
-				commit(con);
-			}else {
-				rollback(con);
-			}
+		//환불 테이블에 INSERT
+		int result = new PaymentAdminDao().insertRefund(con, pymCId, rfPrice);
+		System.out.println(result);
+		if(result > 0) {
+			commit(con);
 		}else {
 			rollback(con);
 		}
+		
+		close(con);
 		
 		return result;
 	}

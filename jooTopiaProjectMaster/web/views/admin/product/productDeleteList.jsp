@@ -36,38 +36,8 @@
 		<h3 class="title">삭제상품 목록</h3>
 		<hr>
 		
-		<div id="listArea">
-			<% if(list != null) { 
-				for(int i = 0; i < list.size(); i++) {
-					if(list.get(i).get("status").equals("삭제상품")) {
-						delete += 1;
-					}else if(list.get(i).get("status").equals("환불완료")) {
-						refund += 1;
-					}else {
-						sell += 1;
-					}
-				}
-			%>
-				전체 <a href="#"><%= list.size() %></a>건  |  
-				삭제상품 <a href="#"><%= delete %></a>건  |
-				환불완료 <a href="#"><%= refund %></a>건  |
-				판매완료 <a href="#"><%= sell %></a>건
-			<% }else { %>
-				전체 <a href="#">0</a>건  |  
-				삭제상품 <a href="#">0</a>건  |
-				환불완료 <a href="#">0</a>건  |
-				판매완료 <a href="#">0</a>건
-			<% } %>
-		</div>
 		<br>
-		
-		<div class="selectTopList">
-		<span>상품 목록</span><br>
-		<span>[총 <a><% if(list != null) { %><%= list.size() %><% }else { %>0<% } %></a>개]</span>
-		</div>
-		
 		<br>
-		
 		<div class="selectListArea">
 			<form action="" method="post">
 				<table id="selectList" class="selectList" border="1">
@@ -113,7 +83,7 @@
 		<li><a href="<%=request.getContextPath()%>/adminDeleteProductList.do?currentPage=<%= currentPage - 1 %>">이전</a></li>
 		<% } %>
 		
-		<% for(int p = startPage; p <= endPage; p++) { 
+		<% for(int p = startPage; p < endPage; p++) { 
 			if(p == currentPage) { %>
 		<li><a><%= p %></a></li>
 		<% 	}else { %>

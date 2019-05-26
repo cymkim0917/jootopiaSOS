@@ -34,27 +34,7 @@
 		<div class="col-sm-10">
 		<h3 class="title">상품 목록</h3>
 	    <hr>
-		<div id="listArea">
-			<% if(list != null) { 
-				for(int i = 0; i < list.size(); i++) {
-					if(list.get(i).get("status").equals("판매중")) {
-						sell += 1;
-					}else {
-						noSell += 1;
-					}
-				}
-			%>
-				전체 <a href="#"><%= list.size() %></a>건  |  
-				판매중 <a href="#"><%= sell %></a>건  |
-				판매미등록 <a href="#"><%= noSell %></a>건
-			<% }else { %>
-				전체 <a href="#">0</a>건  |  
-				판매중 <a href="#">0</a>건  |
-				판매미등록 <a href="#">0</a>건
-			<% } %>
-		</div>
 		<br>
-		
 		<form action="<%=request.getContextPath()%>/searchAdminProduct.do">
 		<div class="searchArea">
 			<table id="searchBox"  border="1" align="center">
@@ -143,14 +123,7 @@
 		</form>
 		
 		<br>
-		
-		<div class="selectTopList">
-		<span>상품 목록</span><br>
-		<span>[총 <a><% if(list != null) { %><%= list.size() %><% }else { %>0<% } %></a>개]</span>
-		</div>
-		
 		<br>
-		
 		<div class="selectListArea">
 			<table id="selectList" class="selectList" border="1">
 				<tr>
@@ -191,7 +164,6 @@
 	<br><br><br>
 	<div class="paging" align="center">
 		<ul class="pagination">
-		<li><a><<</a></li>
 		<% if(currentPage <= 1) { %>
 		<li><a>이전</a></li>
 		<% } else { %>

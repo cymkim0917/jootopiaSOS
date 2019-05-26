@@ -74,10 +74,7 @@ public class InsertAccountPaymentServlet extends HttpServlet {
 			String view = "";
 			if(result2 > 0 && result2 == pId.size()) {
 				System.out.println("주문 성공!!!!!!!!");
-				//연결을 어디로...?
-				view = "views/member/orderListPage.jsp";
-				/*request.setAttribute("list", list);
-				request.setAttribute("pageInfo", pageInfo);*/
+				view = "orderList.do";
 			}else {
 				System.out.println("주문 실패!!!!!!!!");
 				view = "views/common/errorPage500.jsp";

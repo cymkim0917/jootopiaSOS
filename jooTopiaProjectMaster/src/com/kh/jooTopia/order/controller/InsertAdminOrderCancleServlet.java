@@ -23,6 +23,9 @@ public class InsertAdminOrderCancleServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int poId = Integer.parseInt(request.getParameter("poId"));
 		String reason = request.getParameter("reason");
+		if(reason == null) {
+			reason = "고객 취소";
+		}
 		
 		OrderCancle oc = new OrderCancle();
 		oc.setPoId(poId);
