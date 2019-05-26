@@ -40,7 +40,7 @@
 		</span>
 	</header>
 	<%}else{
-		request.getRequestDispatcher("/views/common/errorPage500.jsp").forward(request, response);
+		request.getRequestDispatcher("/").forward(request, response);
 	}%>
 	
 	
