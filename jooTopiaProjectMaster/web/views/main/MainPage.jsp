@@ -27,6 +27,7 @@
 </head>
 <body>
 	<%@ include file="/views/common/navigation.jsp" %>
+	<br><br>
 	<div class="conatiner container2">
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
 			<!-- Indicators -->
@@ -37,16 +38,16 @@
 			</ol>
 			<div class="carousel-inner">
 				<div class="item active">
-					<a href=""><img src="/jootopia/images/event11.jpg" alt="event"
+					<a href=""><img src="/jootopia/images/slide1.jpg" alt="event"
 						style="width: 100%; margin: 0 auto;"></a>
 				</div>
 				<div class="item">
-					<a href=""><img src="/jootopia/images/event22.jpg" alt="event"
+					<a href=""><img src="/jootopia/images/slide2.jpg" alt="event"
 						style="width: 100%; margin: 0 auto;"></a>
 				</div>
 
 				<div class="item">
-					<a href=""><img src="/jootopia/images/notice1.jpg" alt="notice"
+					<a href=""><img src="/jootopia/images/slide3.jpg" alt="notice"
 						style="width: 100%; margin: 0 auto;"></a>
 				</div>
 			</div>

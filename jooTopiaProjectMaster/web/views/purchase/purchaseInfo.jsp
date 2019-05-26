@@ -16,8 +16,8 @@
 <%@ include file="/views/common/navigation.jsp" %>
 	<section>
 		<h2 class="title">매입 신청 안내</h2>
-		<div class="imgArea">
-			<img src="#" alt="매입신청 안내에 대한 이미지가 들어가는 자리입니다." class="infoImg"><br>
+		<div class="imgArea" style="border-style: none; text-align: center;">
+			<img src="/jootopia/images/purchaseNotice.jpg" class="infoImg"><br>
 		</div>
 		<div class="btnArea" align="center">
 			<a onclick="location.href='/jootopia/views/purchase/locationCheck.jsp'" class="jBtn">매입신청</a> &nbsp;

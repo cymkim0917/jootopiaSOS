@@ -78,6 +78,8 @@
       height:180px;
    }
    
+   
+   
 </style>
 
 
@@ -135,9 +137,9 @@
    </div>
    <br><br><br>
        <div class="notice" align="center">
-	         <button onclick="location.href='<%=request.getContextPath()%>/selectReviewTotalList.do'">목록</button>
+	         <button style="background-color:hsla(9, 100%, 64%, 0.6); color:#32435F; font-weight:bold; border:none;" onclick="location.href='<%=request.getContextPath()%>/selectReviewTotalList.do'">목록</button>
 	         <%-- <button onclick="location.href='<%=request.getContextPath()%>/views/notice/reviewWrite.jsp'">수정</button> --%>
-	         <button onclick="delconfirm();">삭제</button>
+	         <button style="background-color:hsla(9, 100%, 64%, 0.6); color:#32435F; font-weight:bold; border:none;" onclick="delconfirm();">삭제</button>
 			      <script>
 			    
 			      
