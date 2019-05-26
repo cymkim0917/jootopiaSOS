@@ -122,20 +122,11 @@
 		            <td><label><%=n.getModifyDate() %></label></td>
 		         </tr>
 		         
-		         <tr>
-		            <td>내용</td>
-			            <td>
-			            	<div id="noticeImg" align="center">
-			            		<img id="NoticeImg" src="<%=request.getContextPath()%>/images/review/<%= %>">
-				         	</div>
-				         </td>
-		           
-		            	<td colspan="5" height="400px"><label><%=n.getbContent() %></label></td>
-		         </tr>
-		         
-		         <tr>
-		         	<td>내용</td>
-		         </tr>
+		       <tr>
+	            <td>내용</td>
+	            
+	            <td colspan="5" height="400px"><label><%=n.getbContent() %></label></td>
+	         </tr>
 		         
 		      </table>
 	      </form>
