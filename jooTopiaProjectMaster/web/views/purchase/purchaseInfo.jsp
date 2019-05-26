@@ -11,13 +11,24 @@
 <link rel="stylesheet" href="/jootopia/css/user/common.css">
 <link rel="stylesheet" href="/jootopia/css/user/purchase.css">
 <title>JooTopia</title>
+<style>
+	.btnArea{
+		margin-top: 0;
+		padding-bottom:0;
+	}
+	.imgArea{
+		margin-bottom: 0;
+		padding-bottom:0;
+		height : auto;
+	}
+</style>
 </head>
 <body>
 <%@ include file="/views/common/navigation.jsp" %>
 	<section>
 		<h2 class="title">매입 신청 안내</h2>
 		<div class="imgArea" style="border-style: none; text-align: center;">
-			<img src="/jootopia/images/purchaseNotice.jpg" class="infoImg"><br>
+			<img src="/jootopia/images/purchaseNotice.jpg" class="infoImg" width="100%;"><br>
 		</div>
 		<div class="btnArea" align="center">
 			<a onclick="location.href='/jootopia/views/purchase/locationCheck.jsp'" class="jBtn">매입신청</a> &nbsp;

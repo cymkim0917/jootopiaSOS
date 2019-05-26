@@ -31,12 +31,14 @@ public class InsertAdminHeapServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String pBarcode = request.getParameter("pBarcode");
-		String lBarcode = request.getParameter("lbarcode");
-		int pId = Integer.parseInt(request.getParameter("pId"));
+		String lBarcode = request.getParameter("lBarcode");
+		System.out.println(request.getParameter("no"));
+		int pId = Integer.parseInt(request.getParameter("no"));
 		
 		HeapAdmin h = new HeapAdmin();
 		h.setlBarcode(lBarcode);
 		h.setpId(pId);
+		h.setpBarcode(pBarcode);
 		
 		int result = new HeapAdminService().insertAdminHeap(h);
 		

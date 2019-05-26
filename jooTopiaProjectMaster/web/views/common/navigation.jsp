@@ -24,6 +24,12 @@
 <!-- kakao -->
  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
+<style>
+	.container-fluid > .navbar-nav{
+		margin-left: 20%;
+		text-align:center !important;
+	}	
+</style>
 <title>JooTopia</title>
 </head>
 <body>
@@ -52,9 +58,9 @@
 			
 		<span class="col-lg-1"></span>
 	</header>
-	<nav class="navbar navbar-inverse mainNav">
-		<div class="container-fluid">
-			<ul class="nav navbar-nav">
+	<nav class="navbar navbar-inverse mainNav" align="center">
+		<div class="container-fluid" align="center">
+			<ul class="nav navbar-nav" align="center">
 				<li class="active"><a href="#">Home</a></li>
 				<li class="dropdown">
 					<a class="dropdown-toggle"
@@ -97,12 +103,12 @@
 				</li>
 			</ul>
 			<!-- 상품검색 시작 -->
-			<form class="navbar-form navbar-left" action="/action_page.php">
+			<!-- <form class="navbar-form navbar-left" action="/action_page.php">
 				<div class="form-group">
 					<input type="text" class="form-control" placeholder="Search">
 				</div>
 				<button type="submit" class="btn btn-default">검색</button>
-			</form>
+			</form> -->
 		</div>
 	</nav>
 	<script>

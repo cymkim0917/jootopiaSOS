@@ -15,7 +15,6 @@
 		text-align:center;
 		font-weight:bold;
 	}
-	
 	#modifyBtn{
 		width:100px;
 		background-color: #FFBB00;
@@ -30,7 +29,6 @@
 	   cursor: pointer;
 	   border-radius:10px;
 	}
-	
 	#delBtn{
 		width:100px;
 		background-color: #7A7A7A;
@@ -45,7 +43,6 @@
 		cursor: pointer;
 		border-radius:10px;
 	}	
-	
 	#answerBtn{
 		width:45px;
 		background-color: white;
@@ -60,15 +57,12 @@
 		cursor: pointer;
 		border-radius:10px;
 	}	
-	
 	#btnArea{
 		text-align:center;
 	}
-	
 	table{
 		text-align:center;
 	}
-	
 	#answerTable{
 		text-align:center;
 	}
@@ -80,7 +74,6 @@
 <%@ include file="/views/member/temp.jsp" %>
 	<%
 		Date date = new Date();
-
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String toDay = format.format(date);//
 	%>

@@ -104,11 +104,11 @@
 						<td>고객센터 문의</td>
 					</tr>
 				</table>		
-				<button onclick="getInfo();">지도 정보 불러오기</button>				
+				<!-- <button onclick="getInfo();">지도 정보 불러오기</button>				 -->
 			</div>
 		</div>
 		<br clear="both"> 
-		<div class="row">
+		<div class="row">	
 			<div class="col-sm-5">
 				<div class="searchArea">
 					<h2>주소 검색</h2>

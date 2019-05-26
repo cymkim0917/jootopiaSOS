@@ -16,12 +16,13 @@
 	<section class="row">
 	<%@ include file="/views/common/adminSideMenu.jsp" %>
 		<div class="col-sm-10">
-	    	<h3 align="center">Admin 메인페이지 입니다.</h3>
+	    	<!-- <h3 align="center">Admin 메인페이지 입니다.</h3>
 	    	<br><br>
 	    	<h3 align="center" onclick="location.href='/jootopia'">
 	    		User 메인페이지로 가기
 	    	</h3>
-	      	
+ -->
+ 	<% request.getRequestDispatcher("/selectPurchaseAdminList.do").forward(request,response); %>	      	
 	    </div><!-- col-sm-10 -->
 	</section>
 <%@ include file="/views/common/adminFooter.jsp" %>

@@ -75,13 +75,13 @@ td input{
 					<tr>
 						<td width="120">위치바코드</td>
 						<td width="500">
-						<input type="text" placeholder="위치바코드를 입력하세요" name="lbarcode" id="lPbarcode">
+						<input type="text" placeholder="위치바코드를 입력하세요" name="lbarcode" id="lPbarcode" value="">
 						</td>
 					</tr>										
 				</table>
 				<br><br>
 				<div align="center" class="btnArea">
-				<button onkeydown="return false" id="btnClick">등록</button>
+				<button id="btnClick">등록</button>
 				</div>
 			</div>
 			</div>
@@ -100,12 +100,11 @@ td input{
 			});	
 			$("#lPbarcode").change(function(){
 				var location = $("#lPbarcode").val();
-				var result = window.confirm(location + "에 적치하시는게 맞습니까?");
-				if(result){
-					location.href="<%=request.getContextPath()%>/insertAdminHeap.do?no=" + <%= h.getpId() %> + "&pBarcode=" + $("#checkPBarcode").val() + "&lPbarcode=" + location;
-				}
+				location.href="<%=request.getContextPath()%>/insertAdminHeap.do?no=" + <%= h.getpId() %> + "&pBarcode=" + $("#checkPBarcode").val() + "&lBarcode=" + location;
 			})
-			
+			$("#btnClick").click(function(){
+				location.href="<%=request.getContextPath()%>/insertAdminHeap.do?no=" + <%= h.getpId() %> + "&pBarcode=" + $("#checkPBarcode").val() + "&lBarcode=" + $("lPbarcode").val();
+			})
 		</script>
 	</section>
 	<%@ include file="/views/common/adminFooter.jsp"%>

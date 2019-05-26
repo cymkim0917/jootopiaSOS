@@ -39,10 +39,6 @@ public class InsertPurchaseAcceptAdminServlet extends HttpServlet {
 			barcode.setDrawingText(false);
 			barcode.setLabel(pBarcode);
 			barcode.setBarHeight(80);
-			System.out.println("데이터 : " + barcode.getData());
-			System.out.println("라벨 : " + barcode.getLabel());
-			System.out.println("투스트링 : " + barcode.toString());
-			
 			System.out.println("barcode : " + barcode);
 			
 			String root = request
@@ -55,6 +51,28 @@ public class InsertPurchaseAcceptAdminServlet extends HttpServlet {
 			
 			// 경로에 바코드 이미지로 저장
 			BarcodeImageHandler.savePNG(barcode, file);
+
+			
+			
+			
+			/*String lBarcode[] = {"A-0001-1", "A-0001-2", "A-0001-3", "A-0001-4", "A-0001-5",
+					"B-0001-1", "B-0001-2", "B-0001-3", "B-0001-4", "B-0001-5", 
+					"C-0001-1", "C-0001-2", "C-0001-3", "C-0001-4", "C-0001-5", 
+					"D-0001-1", "D-0001-2", "D-0001-3", "D-0001-4", "D-0001-5"
+			};
+			
+			Barcode barcode2 = null;
+			for(int i = 0; i < lBarcode.length; i++) {
+				barcode2 = BarcodeFactory.createCode128(lBarcode[i]);
+				barcode2.setDrawingText(true);
+				barcode2.setBarHeight(80);
+				System.out.println("barcode : " + lBarcode[i]);
+				
+				String path2 = root + "images\\barcode\\" + lBarcode[i] + ".PNG";
+				File file2 = new File(path2);
+				// 경로에 바코드 이미지로 저장
+				BarcodeImageHandler.savePNG(barcode2, file2);
+			}*/
 			
 		} catch (BarcodeException e) {
 			e.printStackTrace();

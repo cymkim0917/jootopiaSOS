@@ -51,14 +51,10 @@
  .notice button:hover{
  	color: rgba(255, 255, 255, 0.85);
 	box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
- 
- 
  }
-
 .checkboxgroup{
 	margin-left:10%;
 }
-
 .snip1535 {
   background-color: #c47135;
   border: none;
@@ -112,13 +108,22 @@
   height: 100%;
   width: 100%;
 }
-
-	#cateArea1,#cateArea2,#cateArea3,#cateArea4,#cateArea5,#cateArea6,#cateArea7 {
-		float:left;
-		margin-left:4%;
-		margin-right:1%;
-	}
-
+#cateArea1,#cateArea2,#cateArea3,#cateArea4,#cateArea5,#cateArea6,#cateArea7 {
+	align: center;
+	float:left;
+	width : 13%;
+	padding : 0 12px !important;
+}
+.bgstick button {
+	padding : 10% 5%;
+	width : 100%;
+}
+.bgstick{
+	text-align : center;
+}
+.notice{
+	margin-left: 10px;
+}
 </style>
 <title>JooTopia</title>
 </head>
@@ -129,7 +134,7 @@
 		<h1 align="center">FAQ LIST</h1>
 		<br>
 		 <div class = "bgstick" align="center">
-			<div class="notice">
+			<div class="notice" align="center">
 				<div id="cateArea1">
 					<button onclick="faqList('회원가입')">회원가입</button>
 				</div>
@@ -154,12 +159,11 @@
 				</div>
 				<div id="cateArea7">
 					<button onclick="faqList('기타')">기타</button>
-				
 				</div>
 			</div>
 		</div>
 		<br><br><br><br>
-		<div class="container">
+		<div>
 		  <table class="table table-hover" id="faqList">
 		      <tr>
 		        <th>글번호</th>

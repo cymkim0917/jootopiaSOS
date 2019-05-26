@@ -12,7 +12,7 @@
 </head>
 <body> 
 	<nav class="sideNav col-sm-2" align="center">
-		<div class="sideMenuImg" id="sideMenuImg">
+		<div class="sideMenuImg" id="sideMenuImg" onclick="location.href='/jootopia/'">
 			<img src="/jootopia/images/sideMenuImg.png" width="100%">
 		</div>
 		<br>

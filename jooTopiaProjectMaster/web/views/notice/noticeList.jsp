@@ -96,8 +96,8 @@ table th{
 	<br><br>
       <h1 align="center">공지사항/이벤트</h1>
       <br>
-       <div class="container">
-       <table class="table table-hover">
+       <div>
+       <table class="table table-hover" id="listTable">
             <tr>
               <th>글번호</th>
               <th>유형</th>
@@ -123,7 +123,6 @@ table th{
                </tr>
             <%} %>   
         </table>
-      
       </div>  
 		<br>
 		<br>

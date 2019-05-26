@@ -14,18 +14,19 @@
 <title>JooTopia</title>
 <style>
 .outer{
-      width:1200px;
-      height:650px;
+      width : 75%;
       background:white;
       color:black;
       margin-left:auto;
       margin-right:auto;
       margin-top:50px;
+      border: 5px solid rgba(51, 26, 0, .1);
    }
   .detail td {
       text-align:center;
-      width:1000px;
+      width : 25%;
       border:1px solid #ddd;
+      padding : 7px;
    } 
    #titleImgArea {
       width:500px;
@@ -35,18 +36,18 @@
    #contentArea {
       height:30px;
    }
+   #bContent{
+   	padding : 100px;
+   }
 </style>
 </head>
 <body>
 <%@ include file="/views/common/navigation.jsp" %>
 	<section>
-	
+	<br><br><br>
 	<h1 align="center">FAQ TOTAL LIST</h1>
-		<br>
 		 <div class="outer" align="center">
-		  
 	      <table class="detail" align="center">
-	     
 	         <tr>
 	         	<td style="display:none;" ><input type="hidden" value=<%= b.getbTitle() %> name="bid">제목</td>
 	            <td colspan="10"><h3><%= b.getbTitle() %></h3></td>
@@ -60,16 +61,16 @@
 	         </tr>
 	         <tr>
 	            <td style="display:none;">내용</td>
-	            <td colspan="5" height="400px"><label style="font-size:2em;"><%=b.getbContent() %></label></td>
+	            <td colspan="5" id="bContent"><label style="font-size:2em;"><%=b.getbContent() %></label></td>
 	         </tr>
-	         
 	      </table>
-	      
-   </div>
-			
-			<div class ="newWriting" align="center">
-         <button style="background-color:hsla(9, 100%, 64%, 0.6); color:#32435F; font-weight:bold; border:none;" type="button" class="btn btn-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/selectFaqTotalList.do'">목록</button> 
-      </div>   
+	   </div>
+		<div class ="newWriting" align="center">
+			<Br><br><br>
+         <button style="background-color:hsla(9, 100%, 64%, 0.6); color:white; 
+         		font-weight:bold; border:none;" type="button" class="btn btn-primary btn-lg class="jBtn"
+         		 onclick="location.href='<%=request.getContextPath()%>/selectFaqTotalList.do'">목록</button> 
+      	</div>   
 			
 	<script>
 	
