@@ -18,7 +18,7 @@
 <style>
 .outer {
 		width:1200px;
-		height:1500px;
+		height:1100px;
 		background:coral; 
 		color:white;
 		margin-left:auto;
@@ -64,12 +64,13 @@
   font-size: 1em;
   font-size: 12px;
   line-height: 1em;
-  margin: 15px 40px;
+  left-margin: 10%;
   outline: none;
-  padding: 12px 40px 10px;
+ padding: 12px 40px 10px; 
   position: relative;
   text-transform: uppercase;
   font-weight: 700;
+ 
 }
 .snip1535:before,
 .snip1535:after {
@@ -134,9 +135,7 @@
 	<div class="outer">
 	<br>
 		<h1 align="center">상품후기</h1>
-		
 		<br>
-		
 		<div class = "thumbnailArea">
 			<%
 			for(int i = 0; i<list.size(); i++){
@@ -145,15 +144,10 @@
 			
 			<div class="thumb-list" align="center">
 				<div>
-			
 					<input type="hidden" name="bno" value="<%=hmap.get("bid")%>" id="bno">
-					
 					<% System.out.println("reviewList : "+ hmap.get("bid")); %>
-		
 				<img src="<%=request.getContextPath()%>/images/review/<%=hmap.get("change_name")%>"
-				
 						width="200px" height="150px"> 
-						
 				</div>
 				<p>
 				No. <%=hmap.get("bno") %> <br>
@@ -161,64 +155,27 @@
 				글쓴이 : <%=hmap.get("user_id") %><br>
 				조회수 : <%=hmap.get("bcount")%>
 				</p> 
-				
 				<br>
-				
 			</div>
 			<% } %> 
-			
 		</div>
-		
 	</div>
 	<br><br>
-		
-		
-		
-		<div class="searchArea">
-			<div id="searchContentArea">
-			<select name="searchCondition" id="searchCondition">
-				<option value="writer">작성자</option>
-				<option value="title">제목</option>
-				<option value="content">내용</option>
-			</select>
-			<input type="search" />
+		<div class="searchArea" >
+			<div class="searchArea1" align="center">
+			<div id="insertBtnArea" ><button class="snip1535" onclick="location.href='<%=request.getContextPath()%>/views/board/reviewInsertForm.jsp'">작성하기</button></div>
 			</div>
-			<div id="searchBtnArea"><button class="snip1535" type="submit">검색하기</button></div>
-			<div id="insertBtnArea"><button class="snip1535" onclick="location.href='<%=request.getContextPath()%>/views/board/reviewInsertForm.jsp'">작성하기</button></div>
 		</div>
-
-
-		<br>
-		<br>
-		
-		<div class="paging" align="center">
-		<ul class="pagination">
-			<li><a href="#">이전</a></li>
-			<li><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">4</a></li>
-			<li><a href="#">5</a></li>
-			<li><a href="#">다음</a></li>
-		</ul>
-		</div>
-	
 	<script>
 			$(function(){
 				$(".thumb-list").click(function(){
 					var num = $("#bno").val();
 					console.log("num : " + num);
-					
 					location.href="<%=request.getContextPath()%>/selectOneReview.do?num="+num;  
-					
 				});
 			}); 
 		</script>
-	
-	
-		
 	</section>
-	
 	<br><br>
 <%@ include file="/views/common/footer.jsp" %>
 </body>
