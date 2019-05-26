@@ -54,6 +54,9 @@
 			align:center;
 			margin-left:3%;
 		}
+		#searchTd{
+			width:35% !important;
+		}
 </style>
 <title>JooTopia</title>
 </head>
@@ -63,12 +66,14 @@
       <%@ include file="/views/common/adminSideMenu.jsp" %>
       <div class="col-sm-10">
       <h3 class="title">1:1질문 관리</h3>
+      <hr />
+      
       		<div class="searchArea">
       			<form id="searchForm" action="<%=request.getContextPath()%>/searchAdminQnA.do">
       			<table id="searchBox"  border="1" align="center">
-				<tr><th colspan="3" style="background: rgb(224, 224, 224); height: 35px;">　</th></tr>
+				<tr><th colspan="3" style="background: rgb(209, 220, 222); height: 35px;">　</th></tr>
 				<tr>
-					<td colspan="2">
+					<td colspan="2" id="searchTd">
 						&nbsp;<input type="radio" name="answer" value="All"><label>전체</label>
 						&nbsp;<input type="radio" name="answer" value="Y"><label>답변Yes</label>
 						&nbsp;<input type="radio" name="answer" value="N"><label>답변No</label>
@@ -89,7 +94,7 @@
 	  <hr>
 	  <div id="resultArea">
 			<form action="<%=request.getContextPath() %>/deleteAdminQnA.do"  method="post">
-		   		<table id="qnaList" border="1"> 
+		   		<table id="qnaList" class="table table-hover"> 
 		   			<tr>
 		   				<th width="50px;">선택</th>
 		   				<th width="100px;">아이디</th>
@@ -155,7 +160,7 @@
   	 }
   	 $(function(){
  		$("#qnaList td").mouseenter(function(){
- 			$(this).parent().css({"background":"darkgray","cursor":"pointer"});
+ 			$(this).parent().css({"background":"rgb(242, 242, 242)","cursor":"pointer"});
  		}).mouseout(function(){
  			$(this).parent().css({"background":"white"});
  			
