@@ -14,6 +14,8 @@
 
 <title>JooTopia</title>
 <style>
+
+
 .bgstick {
   background-color: coral;
   
@@ -25,16 +27,53 @@
 
 .notice {
 	text-align: center;
+	align:center;
 	
 	padding: 50px;
 }
- .notice button {
-	width:100px;
-	height:100px;
-	border:1px solid black;
-	margin-left: 100px;
+.wrap {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -86px;
+	margin-left: -89px;
+	text-align: center;
+}
+
+.cateBtn {
+	-webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	display: block;
+	margin: 20px auto;
+	max-width: 180px;
+	text-decoration: none;
+	border-radius: 4px;
+	padding: 20px 30px;
+	color: rgba(30, 22, 54, 0.6);
+	box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+	float:left;
+}
+
+.cateBtn:hover {
+	color: rgba(255, 255, 255, 0.85);
+	box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
+}
+	#cateBtnArea1{
+		margin-left : 30%;
+	}
 	
-} 
+	#cateBtnArea2{
+		margin-left : 50%;
+	}
+	
+
+	#cateBtnArea3{
+		margin-left : 70%;
+}
+
 </style>
 
 
@@ -46,23 +85,18 @@
 		<h1 align="center">고객센터</h1><br><br>
 		
 		 <div class = "bgstick" align="center">
-			<!-- 
-			<button style="submit" height="100px" width="200px">공지사항</button>&nbsp;
-			<!-- <button style="submit">상품후기</button>&nbsp;
-			<button style="submit">FAQ</button>
-			<input type="submit" value="공지사항" style="height:100px; width:200px; margin-top:50px;" a href="/jootopia/views/notice/productListPlus.jsp">
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="submit" value="상품후기" style="height:100px; width:200px; margin-top:50px;">
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="submit" value="FAQ" style="height:100px; width:200px; margin-top:50px;"> -->
 			 
 			
 			<div class="notice">
-			<%-- <button onclick="location.href='<%=request.getContextPath()%>/views/notice/noticeList.jsp'">공지사항</button> --%>
-			
-			<button onclick="location.href='<%=request.getContextPath()%>/selectList.do'">공지사항</button>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectReviewTotalList.do'">상품후기</button>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectFaqTotalList.do'">FAQ</button>
+				<div id="cateBtnArea1">
+					<button class="cateBtn" onclick="location.href='<%=request.getContextPath()%>/selectList.do'">공지사항</button>
+				</div>
+				<div id="cateBtnArea2">
+					<button class="cateBtn" onclick="location.href='<%=request.getContextPath()%>/selectReviewTotalList.do'">상품후기</button>
+				</div>
+				<div id="cateBtnArea3">
+					<button class="cateBtn" onclick="location.href='<%=request.getContextPath()%>/selectFaqTotalList.do'">FAQ</button>
+				</div>
 			</div>
 			
 			
@@ -72,11 +106,11 @@
 		
 		<br><br>
 		<div class="csMain" align="center">
-		<h2>고객 상담 응대 시간</h2>
-		<p>평일 : 7시~19시</p>
+		<h1>고객 상담 응대 시간</h1>
+		<h3>평일 : 7시~19시</h3>
 		<br><br>
-		<p>이메일 : jootopia@gmail.com</p>
-		<p>전화번호 : 02)3333 - 3333</p>
+		<h3>이메일 : jootopia@gmail.com</h3>
+		<h3>전화번호 : 02)3333 - 3333</h3>
 		</div>
 		
 
@@ -87,31 +121,6 @@
 	</section>
 	<br><br>
 <%@ include file="/views/common/footer.jsp" %>
-<%--  <script>
-	$(function(){
-		$("#notice").click(function(){
-			location.href="<%=request.getContextPath()%>/views/notice/noticeList.jsp";
-		});
-	});
-	
-	
-	$(function(){
-		$("#notice").click(function(){
-			location.href="<%=request.getContextPath()%>/views/notice/reviewList.jsp";
-		});
-	});
-	
-	
-	$(function(){
-		$("#notice").click(function(){
-			location.href="<%=request.getContextPath()%>/views/notice/faqList.jsp";
-		});
-	});
-	
-	
-	
-	
-	
-</script>  --%>
+
 </body>
 </html>

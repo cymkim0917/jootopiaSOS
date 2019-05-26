@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.jooTopia.board.model.vo.* , java.util.*"%>
-<%	
-	HashMap<String,Object> hmap = (HashMap<String,Object>) request.getAttribute("list");
-	ArrayList<Attachment> attList = (ArrayList<Attachment>) hmap.get("attList");
- 	Board board = (Board) request.getAttribute("board"); 	
-	Attachment img1 = attList.get(0);
-	Attachment img2 = attList.get(1);
+<%   
+   HashMap<String,Object> hmap = (HashMap<String,Object>) request.getAttribute("list");
+   ArrayList<Attachment> attList = (ArrayList<Attachment>) hmap.get("attList");
+    Board board = (Board) request.getAttribute("board");    
+   Attachment img1 = attList.get(0);
+   Attachment img2 = attList.get(1);
    
-	String userName = (String)hmap.get("userId");
-	
+   String userName = (String)hmap.get("userId");
+   
 %>
 
 <!DOCTYPE html>
@@ -27,34 +27,19 @@
 
 
 <style>
-   <!--게시판 형식 -->
-   /* .containaer{
-   margin-left:250px;
-   margin-right:150px;
 
-   width:1000px;
-   height:800px;
-   }
-
-   .table-bordered tr th{
-    background-color:lightgray;
-    width:80px;
-   
-   } */
-   <!--게시판 형식 -->
    .outer{
       width:1000px;
       height:650px;
-      background:black;
       color:black;
       margin-left:auto;
       margin-right:auto;
       margin-top:50px;
    }
-  .detail td {
+  .detail table, td {
       text-align:center;
       width:1000px;
-      border:1px solid black;
+      border:1px solid #ddd;
    } 
    #titleImgArea {
       width:500px;
@@ -77,6 +62,10 @@
       width:250px;
       height:180px;
    }
+   .notice{
+   		margin-top:20%;
+   }
+   
    
 </style>
 
@@ -92,75 +81,79 @@
       
        <div class="outer">
        <form action="" id="readForm">
-	      <table class="detail" align="center">
-	         <tr>
-	            <td width="50">제목</td>
-	            <td colspan="5"><label><%= board.getbTitle() %></label></td>
-	         </tr>
-	         <tr>
-	            <td>작성자</td>
-	            <td><label><%= userName %></label></td>
-	            <td>조회수</td>
-	            <td><label><%= board.getbCount() %></label></td>
-	            <td>작성일</td>
-	            <td><label><%= board.getbDate() %></label></td>
-	         </tr>
-	         <tr>
-	            <td>대표사진</td>
-	            <td colspan="6" align="center">
-	               <div id="titleImg" align="center">
-	                  <img id="titleImg"
-	                     src="<%=request.getContextPath() %>/images/review/<%= img1.getChangeName() %>"/>
-	               </div>
-	            </td>
-	         </tr>
-	         <tr>
-	            <td>사진메모</td>
-	            <td colspan="6" height="200px" align="center">
-	            
-	            	<input type="hidden"   value="<%= board.getbId() %>"name="bno" />
-	               <p id="contentArea"><%= board.getbContent() %></p>
-	            </td>
-	         </tr>
-	    	 <tr>
-	            <td colspan="6">
-	               <div class="detailImgArea" align="center" >
-	                  <img id="detailImg1" class="detailImg"
-	                  src="<%=request.getContextPath()%>/images/review/<%= img2.getChangeName() %>"/>
-	               </div>
-	            </td>
-	         </tr>
-	      </table>
-	      </form>
+         <table class="detail" align="center">
+            <tr>
+               <td width="50" style="display:none;">제목</td>
+               <td colspan="6"><h3><%= board.getbTitle() %></h3></td>
+            </tr>
+            <tr>
+            	<td style="display:none;"></td>
+               <td>작성자</td>
+               <td><label><%= userName %></label></td>
+               <td>조회수</td>
+               <td><label><%= board.getbCount() %></label></td>
+               <td>작성일</td>
+               <td><label><%= board.getbDate() %></label></td>
+            </tr>
+            <tr>
+               <td style="display:none;">대표사진</td>
+               <td colspan="6" align="center">
+                  <div id="titleImg" align="center">
+                     <img id="titleImg"
+                        src="<%=request.getContextPath() %>/images/review/<%= img1.getChangeName() %>"/>
+                  </div>
+               </td>
+            </tr>
+            <tr>
+               <td style="display:none;">사진메모</td>
+               <td colspan="6" height="200px" align="center">
+               
+                  <input type="hidden"   value="<%= board.getbId() %>"name="bno" />
+                  <p style="font-size:2em;" id="contentArea"><%= board.getbContent() %></p>
+               </td>
+            </tr>
+           <tr>
+               <td colspan="6">
+                  <div class="detailImgArea" align="center" >
+                     <img id="detailImg1" class="detailImg"
+                     src="<%=request.getContextPath()%>/images/review/<%= img2.getChangeName() %>"/>
+                  </div>
+               </td>
+            </tr>
+         </table>
+         </form>
    </div>
    <br><br><br>
+       
        <div class="notice" align="center">
-	         <button onclick="location.href='<%=request.getContextPath()%>/selectReviewTotalList.do'">목록</button>
-	         <%-- <button onclick="location.href='<%=request.getContextPath()%>/views/notice/reviewWrite.jsp'">수정</button> --%>
-	         <button onclick="delconfirm();">삭제</button>
-			      <script>
-			    
-			      
-			      function delconfirm(){
-			    	  var message = confirm("정말 삭제하시겠습니까?");
-			    	  if(message == true){/* 
-			    		  
-			    		  alert("삭제되었습니다."); */
-			    		  var bno = $("#bno").val();
-			    		  console.log(bno);
-			    		  
-			    		  $("#readForm").attr("action","<%= request.getContextPath() %>/deleteReview.do?").submit();
-			    		 
-			    		  
-			    	  }else{
-			    	  
-			    	  return false;			    	  
-			      }  
-			     }
-			      
-			     
-			      
-			      </script>
+            <button style="background-color:hsla(9, 100%, 64%, 0.6); color:#32435F; font-weight:bold; border:none;" type="button" class="btn btn-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/selectReviewTotalList.do'">목록</button>
+            
+            <%if(loginUser.getUserId()==userName) {%>
+            <button style="background-color:hsla(9, 100%, 64%, 0.6); color:#32435F; font-weight:bold; border:none;"type="button" class="btn btn-primary btn-lg" onclick="delconfirm();">삭제</button>
+              <%} %>
+               <script>
+             
+               
+               function delconfirm(){
+                  var message = confirm("정말 삭제하시겠습니까?");
+                  if(message == true){/* 
+                     
+                     alert("삭제되었습니다."); */
+                     var bno = $("#bno").val();
+                     console.log(bno);
+                     
+                     $("#readForm").attr("action","<%= request.getContextPath() %>/deleteReview.do?").submit();
+                    
+                     
+                  }else{
+                  
+                  return false;                  
+               }  
+              }
+               
+              
+               
+               </script>
          </div>
         
    <br><br>
