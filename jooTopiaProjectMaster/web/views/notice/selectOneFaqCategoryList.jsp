@@ -75,7 +75,7 @@
    </div>
 		
 			<div class ="newWriting" align="center">
-			<button onclick="location.href='<%=request.getContextPath()%>/selectFaqCategoryList.do'">목록</button> 
+			<button onclick="location.href='<%=request.getContextPath()%>/selectFaqTotalList.do'">목록</button> 
 		</div>	
 		
 		

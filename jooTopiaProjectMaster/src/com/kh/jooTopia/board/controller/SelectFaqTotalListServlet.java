@@ -17,7 +17,7 @@ import com.kh.jooTopia.board.model.vo.PageInfo;
 
 
 
-@WebServlet("/selectFaqTList.do")
+@WebServlet("/selectFaqTotalList.do")
 public class SelectFaqTotalListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
