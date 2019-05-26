@@ -24,7 +24,7 @@ public class SelectOneAdminProductServlet extends HttpServlet {
 		System.out.println(pId);
 		
 		HashMap<String, Object> hmap = new ProductAdminService().selectProductOne(pId);
-		
+		 
 		String view = ""; //초기화
 		
 		if(hmap != null) {

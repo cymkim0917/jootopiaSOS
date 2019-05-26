@@ -87,7 +87,7 @@
 			</tr>
 			<tr>
 				<th>상품 매입가</th>
-				<td name="pcPrice"><%= hmap.get("pcPrice") %> (원)</td>
+				<td name="pcPrice"><%= hmap.get("buyPrice") %> (원)</td>
 			</tr>
 			<tr>
 				<th>상품등급</th>

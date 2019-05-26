@@ -58,26 +58,14 @@ td input{
 			</div>
 			<br>
 			<div class="listArea1" align="center">
-			<form action="<%=request.getContextPath()%>/insertAdminHeap.do" method="post" onsubmit="return checkBar();" id="heapForm">
+			<div action="<%=request.getContextPath()%>/insertAdminHeap.do" method="post" onsubmit="return checkBar();" id="heapForm">
 				<table class="separate" border="1">
-					<%-- <tr>
-						<td width="120">매입번호</td>
-						<td width="500"><%= h.getPcdId() %>
-						<input type="hidden" name="pcdId" value="<%= h.getPcdId() %>">
-						</td>
-					</tr> --%>
 					<tr>
 						<td width="120">상품번호</td>
 						<td width="500"><%= h.getpId() %>
 						<input type="hidden" name="pId" id="pid" value="<%= h.getpId() %>">
 						</td>
 					</tr>					
-					<!-- <tr>
-						<td width="120">적치일자 등록</td>
-						<td id="selectDate" colspan="2">
-						<input type="date" name="hDate">					
-					</td> 
-					</tr>-->
 					<tr>
 						<td width="120">상품바코드</td>
 						<td width="500">
@@ -87,35 +75,36 @@ td input{
 					<tr>
 						<td width="120">위치바코드</td>
 						<td width="500">
-						<input type="text" placeholder="위치바코드를 입력하세요" id="lPbarcode" name="lbarcode" value="">
+						<input type="text" placeholder="위치바코드를 입력하세요" name="lbarcode" id="lPbarcode">
 						</td>
 					</tr>										
 				</table>
 				<br><br>
-			<div align="center" class="btnArea">
-			<button onkeydown="return false" id="btnClick">등록</button>
+				<div align="center" class="btnArea">
+				<button onkeydown="return false" id="btnClick">등록</button>
+				</div>
 			</div>
-				</form>
 			</div>
 			<br>
 		</div>
 		<script>
-			function checkBar (){
-				$("#checkPBarcode").change(function(){
-					console.log(<%= h.getpBarcode() %>);
-					console.log($(this).val());
-					if(<%= h.getpBarcode() %> == $(this).val()){
-						console.log("상품바코드 확인완료!");
-						$("#lPbarcode").focus();
-					}else{
-						alert("상품바코드가 일치하지 않습니다!");
-					}
-					return false;
-				});	
-				$("#btnClick").click(function(){
-					return true;
-				})			
-			}
+			$("#checkPBarcode").change(function(){
+				console.log(<%= h.getpBarcode() %>);
+				console.log($(this).val());
+				if(<%= h.getpBarcode() %> == $(this).val()){
+					console.log("상품바코드 확인완료!");
+					$("#lPbarcode").focus();
+				}else{
+					alert("상품바코드가 일치하지 않습니다!");
+				}
+			});	
+			$("#lPbarcode").change(function(){
+				var location = $("#lPbarcode").val();
+				var result = window.confirm(location + "에 적치하시는게 맞습니까?");
+				if(result){
+					location.href="<%=request.getContextPath()%>/insertAdminHeap.do?no=" + <%= h.getpId() %> + "&pBarcode=" + $("#checkPBarcode").val() + "&lPbarcode=" + location;
+				}
+			})
 			
 		</script>
 	</section>
