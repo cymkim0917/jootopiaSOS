@@ -38,6 +38,9 @@
 			창고관리
 		</span>
 	</header>
+	<%}else{
+		request.getRequestDispatcher("/").forward(request, response);
+	}%>
 	
 	
 	<!-- loginModal -->
