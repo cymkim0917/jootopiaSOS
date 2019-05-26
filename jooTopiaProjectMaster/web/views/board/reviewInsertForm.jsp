@@ -20,7 +20,6 @@
 	.outer {
 		width:1100px;
 		height:1100px;
-		background:coral;
 		color:black;
 		margin-left:auto;
 		margin-right:auto;
@@ -71,6 +70,11 @@
 		cursor:pointer;
 	}
 	
+	#btn1Area{
+		margin-right:2%;
+		float:left;
+	}
+	
 </style>
 </head>
 <body>
@@ -93,21 +97,21 @@
 					<tbody>
 						<tr>
 							<th>제목</th>
-							<td><input type="text" placeholder="제목을 입력하세요" name="title" style="width:700px;"></td>
+							<td><input type="text" placeholder="제목을 입력하세요" name="title" style="width:100%;"></td>
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td><input type="text" placeholder="내용을 입력하세요" name="content" style="width:700px; height:600px";></td>
+							<td><input type="text" placeholder="내용을 입력하세요" name="content" style="width:100%; height:600px";></td>
 						</tr>
 						<tr>
 							<td>첨부파일</td>
 							<td>
 								<div id="titleImgArea" style="float:left; margin-right:15%;" >
-									<img id="titleImg1" width="350" height="250">
+									<img id="titleImg1" width="250px" height="200px">
 								</div>
 								
 								<div id="contentImgArea11">
-									<img id="titleImg2" width="350" height="250">
+									<img id="titleImg2" width="250px" height="200px">
 								
 								</div>
 							</td>							
@@ -126,8 +130,12 @@
 			</div>
 			<br>
 			<div class="btnArea" align="center">
-				<button onclick="location.href='<%=request.getContextPath()%>/selectReviewTotalList.do'">취소하기</button>
-				<button onclick="location.href='<%=request.getContextPath()%>/insertReview.do'">작성하기</button>
+				<div id="btn1Area">
+					<button style="background-color:hsla(9, 100%, 64%, 0.6); color:#32435F; font-weight:bold; border:none;" type="button" class="btn btn-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/selectReviewTotalList.do'">취소하기</button>
+				</div>
+				<div id="btn2Area">
+					<button style="background-color:hsla(9, 100%, 64%, 0.6); color:#32435F; font-weight:bold; border:none;" type="button" class="btn btn-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/insertReview.do'">작성하기</button>
+				</div>
 				
 			</div>
 		</form>
@@ -144,8 +152,6 @@
 			});
 			
 		});
-		
-		
 		//----------여기부분 이해불가---------------//
 		function loadImg(value,num){
 			if(value.files && value.files[0]){
@@ -166,13 +172,6 @@
 		};
 	</script>
 	
-	<%-- <% }else {
-		request.setAttribute("msg", "잘못된 경로로 접근하셨습니다!");
-		request
-			.getRequestDispatcher("../common/errorPage.jsp")
-			.forward(request, response);
-	} %>
-	 --%>
 	</section>
 <%@ include file="/views/common/footer.jsp" %>
 </body>

@@ -13,23 +13,6 @@
 <link rel="stylesheet" href="/jootopia/css/common.css">
 <title>JooTopia</title>
 <style>
-
-
-/* .containaer{
-	margin-left:15%;
-	margin-right:150px;
-	margin-top:50px;
-	width:1000px;
-	height:800px;
-	border:1px solid black;
-	text-align:center;
-}
-
-.table-bordered tr th{
-	 background-color:lightgray;
-	 width:80px;
-} */
-
 .outer{
       width:1200px;
       height:650px;
@@ -42,7 +25,7 @@
   .detail td {
       text-align:center;
       width:1000px;
-      border:1px solid black;
+      border:1px solid #ddd;
    } 
    #titleImgArea {
       width:500px;
@@ -52,13 +35,7 @@
    #contentArea {
       height:30px;
    }
-  
-   
 </style>
-
-
-
-
 </head>
 <body>
 <%@ include file="/views/common/navigation.jsp" %>
@@ -71,20 +48,19 @@
 	      <table class="detail" align="center">
 	     
 	         <tr>
-	         	<td colspan="1"><input type="hidden" value=<%= b.getbTitle() %> name="bid">제목</td>
-	            <!-- <td width="50">제목</td> -->
-	            <td colspan="10"><label><%= b.getbTitle() %></label></td>
+	         	<td style="display:none;" ><input type="hidden" value=<%= b.getbTitle() %> name="bid">제목</td>
+	            <td colspan="10"><h3><%= b.getbTitle() %></h3></td>
 	         </tr>
 	         <tr>
-	            
+	            <td style="display:none;"></td>
 	            <td>조회수</td>
 	            <td><label><%=b.getbCount() %></label></td>
 	            <td>작성일</td>
 	            <td><label><%=b.getModifyDate() %></label></td>
 	         </tr>
 	         <tr>
-	            <td>내용</td>
-	            <td colspan="5" height="400px"><label><%=b.getbContent() %></label></td>
+	            <td style="display:none;">내용</td>
+	            <td colspan="5" height="400px"><label style="font-size:2em;"><%=b.getbContent() %></label></td>
 	         </tr>
 	         
 	      </table>
@@ -92,7 +68,7 @@
    </div>
 			
 			<div class ="newWriting" align="center">
-         <button onclick="location.href='<%=request.getContextPath()%>/selectFaqTotalList.do'">목록</button> 
+         <button style="background-color:hsla(9, 100%, 64%, 0.6); color:#32435F; font-weight:bold; border:none;" type="button" class="btn btn-primary btn-lg" onclick="location.href='<%=request.getContextPath()%>/selectFaqTotalList.do'">목록</button> 
       </div>   
 			
 	<script>
