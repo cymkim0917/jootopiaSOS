@@ -171,7 +171,7 @@ public class BoardDao {
    public int updateCount(Connection con, int getbId) {
       PreparedStatement pstmt = null;
       int result = 0;
-      String query = prop.getProperty("noticeUpdateCount");
+      String query = prop.getProperty("updateCount");
       
       try {
          pstmt = con.prepareStatement(query);

@@ -134,10 +134,25 @@
 						
 						<input type="hidden" name="bid" value="<%= list.get(i).getbId() %>"/>
 						</td>
-						<td><a href="<%= request.getContextPath() %>/selectQaA.do?num=<%=list.get(i).getbId() %>"><%= list.get(i).getbTitle() %></a></td>
+						<% int num = list.get(i).getbType();  
+							switch(num){
+							case 3: %>
+						<td><a href="<%= request.getContextPath() %>/selectQaA.do?num=<%=list.get(i).getbId() %>"><%= list.get(i).getbTitle() %></a></td>	
+							<% break; 
+							case 1: %>
+								<td><a href="<%= request.getContextPath() %>/SelectOneFaqTotalList.do?num=<%=list.get(i).getbId() %>"><%= list.get(i).getbTitle() %></a></td>
+							<% break; case 2: %>
+							<td><a href="<%= request.getContextPath() %>/selectNoticeOne.do?num=<%=list.get(i).getbNo() %>"><%= list.get(i).getbTitle() %></a></td>
+							<%  break; case 4: %>
+							<td><a href="<%= request.getContextPath() %>/selectOneReview.do?num=<%=list.get(i).getbId() %>"><%= list.get(i).getbTitle() %></a></td>
+							<% break; case 5: %>
+							<td><a href="#"><%= list.get(i).getbTitle() %></a></td>
+							
+							<% break;} %>
+
 						<td><label for=""><%= list.get(i).getbDate() %></label></td>
 						<td><label for=""><%= list.get(i).getbCount() %></label><td>
-							<% int num = list.get(i).getbType();
+							<% 
 							   String bType = "";
 							
 								switch(num){
