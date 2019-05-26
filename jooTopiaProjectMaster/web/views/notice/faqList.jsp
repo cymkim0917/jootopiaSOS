@@ -188,13 +188,6 @@
 		  </table>
 		</div>
 		<br>
-		<div class="checkboxgroup">
-			<input type="checkbox" name="chk_info" value="title" checked="checked">제목
-			<input type="checkbox" name="chk_info" value="content">내용
-			<input type="text">&nbsp;
-			<button class="snip1535" onclick="location.href='<%=request.getContextPath()%>/views/notice/faqList.jsp'">검색</button>
-		</div>
-		
 		<script>
 			 function faqList (fCategory){
 					console.log(fCategory);
@@ -253,8 +246,6 @@
 			 } 
 			 $(".table td").click(function() {
 				 var num = $("#bid").val();
-				 
-				 console.log("채채 : " + num);
 				 location.href="<%=request.getContextPath()%>/SelectOneFaqTotalList.do?num="+num;
 			 });
 			
@@ -264,3 +255,12 @@
 <%@ include file="/views/common/footer.jsp" %>
 </body>
 </html>
+
+
+
+
+
+
+
+
+

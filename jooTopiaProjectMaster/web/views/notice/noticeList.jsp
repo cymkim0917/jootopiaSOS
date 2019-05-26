@@ -126,24 +126,6 @@ table th{
       </div>  
 		<br>
 		<br>
-		<div class="checkboxgroup">
-			<input type="checkbox" name="chk_info" value="title" checked="checked">제목
-			<input type="checkbox" name="chk_info" value="content">내용
-			<input type="text">&nbsp;
-			<button class="snip1535" onclick="location.href='<%=request.getContextPath()%>/views/notice/noticeList.jsp'">검색</button>
-		</div>
-		
-		<div class="paging" align="center">
-		<ul class="pagination">
-			<li><a href="#">이전</a></li>
-			<li><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">4</a></li>
-			<li><a href="#">5</a></li>
-			<li><a href="#">다음</a></li>
-		</ul>
-		</div>
 		
 		 <script>
 		 $(".table td").click(function() {
