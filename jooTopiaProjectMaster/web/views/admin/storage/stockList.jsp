@@ -94,7 +94,7 @@
 			</table>		
 			</div>
 			
-			<div class="paging" align="center">
+			 <div class="paging" align="center">
 		<ul class="pagination">
 			<li><a href="<%=request.getContextPath()%>/selectAdminStock.do?currentPage=<%=currentPage-1%>">이전</a></li>
 			<li><a href="<%=request.getContextPath()%>/selectAdminStock.do?currentPage=1">1</a></li>
@@ -106,7 +106,7 @@
 		</ul>
 		</div>
 			
-				<%-- <div class="pagingArea" align="center">
+				 <%-- <div class="pagingArea" align="center">
          <button
             onclick="location.href='<%= request.getContextPath() %>/selectAdminStock.do?currentPage=1'"><<
             </button>
@@ -139,18 +139,10 @@
          <button
             onclick="location.href='<%= request.getContextPath() %>/selectAdminStock.do?currentPage=<%= maxPage %>'">
             >></button>
-      </div> --%>
+      </div>  --%>
 	
 	
-	<!-- <div align="center">
-		<ul class="pagination">
-			<li><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">4</a></li>
-			<li><a href="#">5</a></li>
-		</ul>
-	</div> -->
+	
 	</div>
 	
    

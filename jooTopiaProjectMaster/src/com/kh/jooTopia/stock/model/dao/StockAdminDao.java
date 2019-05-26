@@ -52,7 +52,7 @@ public class StockAdminDao {
 				s.setName(rset.getString("NAME"));
 				s.setpId(rset.getInt("PID"));
 				s.sethId(rset.getInt("HID"));
-				s.setlBarcode(rset.getInt("LBARCODE"));
+				s.setlBarcode(rset.getString("LBARCODE"));
 				s.sethDate(rset.getDate("HDATE"));							
 				
 				list.add(s);
@@ -129,7 +129,7 @@ public class StockAdminDao {
 				s.setName(rset.getString("NAME"));
 				//s.setPoId(rset.getInt("POID"));
 				//s.setdId(rset.getInt("DID"));
-				s.setlBarcode(rset.getInt("LBARCODE"));
+				s.setlBarcode(rset.getString("LBARCODE"));
 				//s.setpContent(rset.getString("PCONTENT"));
 				s.sethDate(rset.getDate("HDATE"));
 				

@@ -31,7 +31,7 @@ public class InsertAdminHeapServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//int pcdId = Integer.parseInt(request.getParameter("pcdId"));
-		int lBarcode = Integer.parseInt(request.getParameter("lbarcode"));
+		String lBarcode = request.getParameter("lbarcode");
 		int pId = Integer.parseInt(request.getParameter("pId"));
 		
 		HeapAdmin h = new HeapAdmin();
