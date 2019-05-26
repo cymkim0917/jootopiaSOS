@@ -42,7 +42,7 @@ table th, td {
 		<hr>
 		
 		<br>
-		<br>
+		
 		<div class="selectListArea">
 			<form action="" method="post">
 				<table id="selectList" class="selectList" border="1">

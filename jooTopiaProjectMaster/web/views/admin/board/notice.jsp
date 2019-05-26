@@ -37,6 +37,9 @@
 			text-align:center;
 			width:100%;
 		}
+		#searchTd{
+			width:35% !important;
+		}
 </style>
 <title>JooTopia</title>
 </head>
@@ -49,10 +52,10 @@
 		<hr>
       	<div class="searchArea">
 			<form id="searchForm" action="<%=request.getContextPath() %>/searchAdminNotice.do" method="post" >
-			<table id="searchBox"  border="1" align="center">
-				<tr><th colspan="3" style="background: rgb(224, 224, 224); height: 35px;">　</th></tr>
+			<table id="searchBox"  border="1" align="center" >
+				<tr><th colspan="3" style="background: rgb(209, 220, 222); height: 35px;">　</th></tr>
 				<tr>
-					<td colspan="2">
+					<td colspan="2" id="searchTd">
 						&nbsp;<input type="radio" name="nType" value="All"><label>전체</label>
 						&nbsp;<input type="radio" name="nType" value="공지사항"><label>공지사항</label>
 						&nbsp;<input type="radio" name="nType" value="이벤트"><label>이벤트</label>
@@ -138,11 +141,11 @@
       </div>
    </section>
    <script>
-  	 /* $(function(){
+  	  $(function(){
 		$("#noticeList td").mouseenter(function(){
-			$(this).parent().css({"background":"darkgray","cursor":"pointer"});
+			$(this).parent().css({"background":"rgb(242, 242, 242)","cursor":"pointer"});
 		}).mouseout(function(){
-			$(this).parent().css({"background":"white"}); */
+			$(this).parent().css({"background":"white"}); 
 			
 		}).click(function(){
 			var tr = $(this).parent();

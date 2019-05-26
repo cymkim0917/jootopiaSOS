@@ -68,7 +68,7 @@
        <div class="searchArea">
        		<form action="<%=request.getContextPath() %>/searchAdminDeleteM.do" method="post" >
 			<table id="searchBox"  border="1" align="center">
-				<tr><th colspan="4" style="background: rgb(224, 224, 224); height: 35px;">　</th></tr>
+				<tr><th colspan="4" style="background: rgb(209, 220, 222); height: 35px;">　</th></tr>
 				<tr>
 					<td>아이디</td>
 					<td colspan="3">

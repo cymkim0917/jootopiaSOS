@@ -38,7 +38,7 @@ table th, td {
 		<h3 class="title">상품등록 목록</h3>
 		<hr>
 		<br>
-		<br>
+		
 		
 		<div class="selectListArea">
 			<table id="selectList" class="selectList" >

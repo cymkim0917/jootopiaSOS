@@ -39,7 +39,7 @@ table th, td {
 		<div class="col-sm-10">
 		<h3 class="title">상품 목록</h3>
 	    <hr>
-		<br>
+		
 		<form action="<%=request.getContextPath()%>/searchAdminProduct.do">
 		<div class="searchArea">
 			<table id="searchBox"  border="1" align="center">

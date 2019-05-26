@@ -1,4 +1,4 @@
-`<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.jooTopia.member.model.vo.*, java.util.*, com.kh.jooTopia.board.model.vo.*"%>
 <%
 	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");
@@ -39,9 +39,11 @@
     <div class="col-sm-10">
     <h3 class="title">회원관리</h3>
 	<hr>
+	<br />
 		<div>
 			<form action="<%=request.getContextPath() %>/searchAdminMember.do" method="post">
 			<table id="searchBox" border="1">
+			<tr><th colspan="5" style="background: rgb(209, 220, 222); height: 35px;">　</th></tr>
 				  <tr>
 				    <td width="15%"><label class="titleName">아이디</label></td>
 				    <td><input type="text" width="100%" name="sUserId"></td>
@@ -138,7 +140,7 @@
 			
 		});
 		
-	});
+
    </script>
       
       
