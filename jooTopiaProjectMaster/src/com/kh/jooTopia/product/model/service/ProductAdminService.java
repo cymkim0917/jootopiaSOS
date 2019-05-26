@@ -246,7 +246,6 @@ public class ProductAdminService {
 		int resultP = new ProductAdminDao().insertAdminProductReg(con, p);
 		
 		if(resultP > 0) {
-			
 			for (int i = 0; i < fileList.size(); i++) {
 				fileList.get(i).setpNo(p.getpId());				
 			}
@@ -274,6 +273,16 @@ public class ProductAdminService {
 		
 		
 		return result;
+	}
+
+	public int selectBuyPrice(int pId) {
+		Connection con = getConnection();
+		
+		int buyPrice = new ProductAdminDao().selectBuyPrice(con, pId);
+		
+		close(con);
+		
+		return buyPrice;
 	}
 
 }

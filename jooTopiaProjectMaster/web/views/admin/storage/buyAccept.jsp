@@ -251,7 +251,7 @@
 								</tr>
 								<tr>
 									<td><label>거리 / 용달비용</label></td>
-									<td><%=hmap.get("appDistance")%> / <%=hmap.get("dPrice")%></td>
+									<td><%=hmap.get("appDistance")%> / <span id="dPrice"></span></td>
 								</tr>
 								<tr>
 									<td><label>매입금액</label></td>
@@ -354,6 +354,28 @@
 				var denyReason = $("#denyReason").val();
 				location.href="<%= request.getContextPath() %>/insertPersonDeny.do?no=<%= hmap.get("pcid") %>&denyReason=" + denyReason;
 			}
+			$(function(){
+				// 거리 계산하기 
+		        var distance = <%= hmap.get("distance") %>;
+		        var delivaryPrice;
+		        
+		        if(distance < 3){
+		        	delivaryPrice = 0;
+		        }else if(distance <= 5){
+		        	delivaryPrice = 10000;
+		        }else if(distance <= 7){
+		        	delivaryPrice = 30000;
+		        }else if(distance <= 10){
+		        	delivaryPrice = 50000;
+		        }else if(distance <= 15){
+		        	delivaryPrice = 10000000;
+		        }else{
+		        	delivaryPrice = 10000000;
+		        }
+		        
+				$("#dPrice").html(delivaryPrice);
+			})
+			
 		</script>
 	</section>
 <%@ include file="/views/common/adminFooter.jsp" %>

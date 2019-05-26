@@ -78,19 +78,19 @@ public class BuyWaitAdminDao {
 
 	public int getBuyWaitListCount(Connection con) {
 		
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		int listCount = 0;
 		ResultSet rset = null;
 		
 		String query = prop.getProperty("listCount");
 		
 		try {
-			stmt = con.createStatement();
+			pstmt = con.prepareStatement(query);
 			/*pstmt.setString(1, "매입대기중");
 			pstmt.setString(2, "매입중");
 			pstmt.setString(3, "현장거절");
 			pstmt.setString(4, "매입완료");*/
-			rset = stmt.executeQuery(query);
+			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
 				listCount = rset.getInt(1);
@@ -100,7 +100,7 @@ public class BuyWaitAdminDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			close(stmt);
+			close(pstmt);
 			close(rset);
 		}
 		
@@ -120,45 +120,28 @@ public class BuyWaitAdminDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			/*pstmt.setString(1, "매입대기중");
+			pstmt.setString(1, "매입대기중");
 			pstmt.setString(2, "매입중");
 			pstmt.setString(3, "현장거절");
-			pstmt.setString(4, "매입완료");*/
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setString(4, "매입완료");
+			pstmt.setInt(5, startRow);
+			pstmt.setInt(6, endRow);
 			
 			rset = pstmt.executeQuery();
 			
 			list = new ArrayList<BuyWaitAdmin>();
 			
-			/*while(rset.next()) {
-				BuyWaitAdmin b = new BuyWaitAdmin();
-				
-				b.setPcdId(rset.getInt("PCDID"));
-				b.setcGroup(rset.getString("CGROUP"));
-				b.setName(rset.getString("NAME"));
-				b.setApplicant(rset.getString("APPLICANT"));
-				b.setAppPhone(rset.getString("APPLICANT_PHONE"));
-				b.setStatus(rset.getString("STATUS"));
-			}*/
-			/*BuyWaitAdmin b = new BuyWaitAdmin();
-			int count = 0;*/
+			BuyWaitAdmin b = new BuyWaitAdmin();
+			int count = 0;
 			while(rset.next()) {
-				BuyWaitAdmin b = new BuyWaitAdmin();
-				/*if(rset.getInt("PCID") == b.getPcid()) {
+				if(rset.getInt("PCID") == b.getPcid()) {
 					b.setPcdId(rset.getInt("PCDID"));
 					b.setStatus(rset.getString("STATUS"));
 				} else {
 					if(count != 0) {
 						list.add(b);
-					}*/
-					/*b = new BuyWaitAdmin();*/
-				
-				if(rset.getInt("PCID") == b.getPcid()) {
-					b.setPcdId(rset.getInt("PCDID"));
-					b.setStatus(rset.getString("STATUS"));
-				}
-				
+					}
+					b = new BuyWaitAdmin();
 					b.setPcid(rset.getInt("PCID"));
 					b.setPcdId(rset.getInt("PCDID"));
 					b.setStatus(rset.getString("STATUS"));
@@ -166,14 +149,13 @@ public class BuyWaitAdminDao {
 					b.setAppPhone(rset.getString("APPLICANT_PHONE"));
 					b.setcGroup(rset.getString("CGROUP"));
 					b.setName(rset.getString("NAME"));
-					/*count++;
-				}*/
-					list.add(b);
+					b.setpBarcode(rset.getString("PBARCODE"));
+					count++;
+				}
 			}
 			
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);
