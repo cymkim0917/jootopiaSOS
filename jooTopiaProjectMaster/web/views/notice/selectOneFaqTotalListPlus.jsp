@@ -15,7 +15,7 @@
 <style>
 
 
-.containaer{
+/* .containaer{
 	margin-left:15%;
 	margin-right:150px;
 	margin-top:50px;
@@ -28,8 +28,35 @@
 .table-bordered tr th{
 	 background-color:lightgray;
 	 width:80px;
-}
+} */
+
+.outer{
+      width:1200px;
+      height:650px;
+      background:white;
+      color:black;
+      margin-left:auto;
+      margin-right:auto;
+      margin-top:50px;
+   }
+  .detail td {
+      text-align:center;
+      width:1000px;
+      border:1px solid black;
+   } 
+   #titleImgArea {
+      width:500px;
+      height:300px;
+      margin:0 auto;
+   }
+   #contentArea {
+      height:30px;
+   }
+  
+   
 </style>
+
+
 
 
 </head>
@@ -37,39 +64,36 @@
 <%@ include file="/views/common/navigation.jsp" %>
 	<section>
 	
-	<h1 align="center">FAQ TOTAL LIST PLUS</h1>
+	<h1 align="center">FAQ TOTAL LIST</h1>
 		<br>
-		<div class="containaer" align="center">
-			<table class="listArea">
-				<thead>
-					
-				</thead>
-				
-				<tbody>
-					<tr>
-						<th>제목</th>
-						<td><%= b.getbTitle() %></td>
-						<td><%=b.getModifyDate() %></td>
-						<!-- <td><input type="text" placeholder="제목을 입력하세요" name="subject" style="width:900px;"></td> -->
-					</tr>
-					
-					<tr>
-						<th>내용</th>
-						<td colspan="2" rowspan="2"><label for=""><%= b.getbContent() %></label></td>
-						
-						<!-- <td><textArea cols="10" placeholder="내용을 입력하세요" name="content" style="width:1000px; height:500px"></textArea></td> -->
-						<!-- <td height="500px">내용입니다.</td> -->
-					
-					</tr>
-					<tr>
-					</tr>
-				</tbody>
-			
-			</table>
-			</div>
+		 <div class="outer" align="center">
+		  
+		  <form action="" id="noticeForm"> 
+	      <table class="detail" align="center">
+	     
+	         <tr>
+	         	<td colspan="1"><input type="hidden" value=<%= b.getbTitle() %> name="bid">제목</td>
+	            <!-- <td width="50">제목</td> -->
+	            <td colspan="10"><label><%= b.getbTitle() %></label></td>
+	         </tr>
+	         <tr>
+	            
+	            <td>조회수</td>
+	            <td><label><%=b.getbCount() %></label></td>
+	            <td>작성일</td>
+	            <td><label><%=b.getModifyDate() %></label></td>
+	         </tr>
+	         <tr>
+	            <td>내용</td>
+	            <td colspan="5" height="400px"><label><%=b.getbContent() %></label></td>
+	         </tr>
+	         
+	      </table>
+	      
+   </div>
 			
 			<div class ="newWriting" align="center">
-         <button onclick="location.href='<%=request.getContextPath()%>/selectFaqTotalList.do'">목록</button> 
+         <button onclick="location.href='<%=request.getContextPath()%>/selectFaqTList.do'">목록</button> 
       </div>   
 			
 	<script>

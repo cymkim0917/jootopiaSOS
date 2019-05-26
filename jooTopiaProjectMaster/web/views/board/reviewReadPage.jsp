@@ -118,7 +118,7 @@
 	            <td>사진메모</td>
 	            <td colspan="6" height="200px" align="center">
 	            
-	            <input type="hidden"   value="<%= board.getbId() %>"name="bno" />
+	            	<input type="hidden"   value="<%= board.getbId() %>"name="bno" />
 	               <p id="contentArea"><%= board.getbContent() %></p>
 	            </td>
 	         </tr>
