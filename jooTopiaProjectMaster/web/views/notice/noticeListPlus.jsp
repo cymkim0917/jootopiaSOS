@@ -102,59 +102,47 @@
 	<section>
 		<h1 align="center">공지사항/이벤트</h1>
 		<br>
-		<%-- <div class="containaer" align="center">
-			<table class="listArea">
-				<tbody>
-					<tr>
-						<th>제목</th>
-						<td><%= n.getbTitle() %></td>
-						<td><%=n.getModifyDate() %></td>
-						<!-- <td><input type="text" placeholder="제목을 입력하세요" name="subject" style="width:900px;"></td> -->
-					</tr>
-					<tr>
-						<th>내용</th>
-						<ht><%=n.getbContent() %></ht>
-						<!-- <td><textArea cols="10" placeholder="내용을 입력하세요" name="content" style="width:1000px; height:500px"></textArea></td> -->
-						<!-- <td height="500px">내용입니다.</td> -->
-						<td></td>
-					</tr>
-				</tbody>
-			</table>
-			</div>
-		<div class ="newWriting" align="center">
-			<button onclick="location.href='<%=request.getContextPath()%>/selectList.do'">목록</button> 
-		</div>	
-		/////////////////////////////////
-		(신테이블) --%>
+		
 		
 		  <div class="outer">
 		  
 		  <form action="" id="noticeForm">
-	      <table class="detail" align="center">
-	     
-	         <tr>
-	         	<td><input type="hidden" value=<%= n.getbId() %> name="bid" /></td>
-	            <td width="50">제목</td>
-	            <td colspan="5"><label><%= n.getbTitle() %></label></td>
-	         </tr>
-	         <tr>
-	            
-	            <td>조회수</td>
-	            <td><label><%=n.getbCount() %></label></td>
-	            <td>작성일</td>
-	            <td><label><%=n.getModifyDate() %></label></td>
-	         </tr>
-	         <tr>
-	            <td>내용</td>
-	            <td><label><%=n.getbContent() %></label></td>
-	         </tr>
-	         
-	      </table>
+		      <table class="detail" align="center">
+		     
+		         <tr>
+		         	<td colspan="1"><input type="hidden" value=<%= n.getbId() %> name="bid">제목</td>
+		            <!-- <td width="50">제목</td> -->
+		            <td colspan="10"><label><%= n.getbTitle() %></label></td>
+		         </tr>
+		         <tr>
+		            
+		            <td>조회수</td>
+		            <td><label><%=n.getbCount() %></label></td>
+		            <td>작성일</td>
+		            <td><label><%=n.getModifyDate() %></label></td>
+		         </tr>
+		         
+		         <tr>
+		            <td>내용</td>
+			            <td>
+			            	<div id="noticeImg" align="center">
+			            		<img id="NoticeImg" src="<%=request.getContextPath()%>/images/review/<%= %>">
+				         	</div>
+				         </td>
+		           
+		            	<td colspan="5" height="400px"><label><%=n.getbContent() %></label></td>
+		         </tr>
+		         
+		         <tr>
+		         	<td>내용</td>
+		         </tr>
+		         
+		      </table>
 	      </form>
    </div>
    <br><br><br>
        <div class="notice" align="center">
-	         <button onclick="location.href='<%=request.getContextPath()%>/selectReviewTotalList.do'">목록</button>
+	         <button onclick="location.href='<%=request.getContextPath()%>/selectList.do'">목록</button>
 	         <button onclick="updateNotice();">수정</button>
 	         <button onclick="review_delete();">삭제</button>
 			      <script>

@@ -147,16 +147,9 @@ table th{
 				 console.log(num);
 				 location.href="<%=request.getContextPath()%>/selectFaqMembershipList.do?num="+num;
 				 
-				/*  $('',this).triger('click'); */
-				 
 			 });
 			
-			
-				
-				
-				
-				
-			</script> 
+	</script> 
 	
 	
 	
