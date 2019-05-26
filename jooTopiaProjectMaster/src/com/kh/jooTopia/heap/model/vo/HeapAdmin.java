@@ -21,8 +21,9 @@ public class HeapAdmin implements java.io.Serializable{
 	
 	public HeapAdmin() {}
 
-	public HeapAdmin(int pId, int hId, int rlId, int pcdId, String cGroup, String name, int poId, int dId, int lBarcode,
-			Date rlDate, Date hDate, String pContent, String pName, String changeName) {
+	public HeapAdmin(int pId, int hId, int rlId, int pcdId, String cGroup, String name, int poId, int dId,
+			String lBarcode, Date rlDate, Date hDate, String pContent, String pName, String changeName,
+			String pBarcode) {
 		super();
 		this.pId = pId;
 		this.hId = hId;
@@ -37,13 +38,6 @@ public class HeapAdmin implements java.io.Serializable{
 		this.pContent = pContent;
 		this.pName = pName;
 		this.changeName = changeName;
-	}
-
-	public String getpBarcode() {
-		return pBarcode;
-	}
-
-	public void setpBarcode(String pBarcode) {
 		this.pBarcode = pBarcode;
 	}
 
@@ -111,6 +105,13 @@ public class HeapAdmin implements java.io.Serializable{
 		this.dId = dId;
 	}
 
+	public String getlBarcode() {
+		return lBarcode;
+	}
+
+	public void setlBarcode(String lBarcode) {
+		this.lBarcode = lBarcode;
+	}
 	public Date getRlDate() {
 		return rlDate;
 	}
@@ -151,12 +152,12 @@ public class HeapAdmin implements java.io.Serializable{
 		this.changeName = changeName;
 	}
 
-	public String getlBarcode() {
-		return lBarcode;
+	public String getpBarcode() {
+		return pBarcode;
 	}
 
-	public void setlBarcode(String lBarcode) {
-		this.lBarcode = lBarcode;
+	public void setpBarcode(String pBarcode) {
+		this.pBarcode = pBarcode;
 	}
 
 	@Override
@@ -167,5 +168,6 @@ public class HeapAdmin implements java.io.Serializable{
 				+ ", pBarcode=" + pBarcode + "]";
 	}
 
+	
 
 }
