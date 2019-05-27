@@ -76,11 +76,11 @@ input[type=file]{
 					</tr>
 					<tr>
 						<td><label>브랜드</label></td>
-						<td><input type="text" class="form-control" name="brand" placeholder="Brand" value=" "></td>
+						<td><input type="text" class="form-control" name="brand" placeholder="Brand" value="kh정보가구"></td>
 					</tr>
 					<tr>
 						<td><label>모델명</label></td>
-						<td><input type="text" class="form-control" name="model" placeholder="modelName" value=" "></td>
+						<td><input type="text" class="form-control" name="model" placeholder="modelName" value="지노"></td>
 					</tr>
 					<tr>
 						<td><label>사용기간</label></td>
