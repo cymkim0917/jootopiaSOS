@@ -72,7 +72,7 @@
 						<th>대분류</th>
 						<th>중분류</th>
 						<th>상품번호</th>
-						<th>적치번호</th>
+						<!-- <th>적치번호</th> -->
 						<th>위치번호</th>
 						<th>적치일자</th>
 					</tr>
@@ -84,7 +84,7 @@
 						<td><%= s.getcGroup() %></td>
 						<td><%= s.getName() %></td>
 						<td><%= s.getpId() %></td>
-						<td><%= s.gethId() %></td>
+						<%-- <td><%= s.gethId() %></td> --%>
 						<td><%= s.getlBarcode() %></td>
 						<td><%= s.gethDate() %></td>
 						
