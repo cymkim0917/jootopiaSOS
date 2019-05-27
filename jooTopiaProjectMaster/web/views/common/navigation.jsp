@@ -162,7 +162,7 @@
 						<% }else { %>
 						<div id="loginUserForm" align="center">
 							<p style="font-weight:bold; size:30px; font-color:red;"> Welcome To JooTopia</p>
-							<p style="font-weight:bold;" id="nameArea"><%= loginUser.getUserName() %> &nbsp; </p><p>님 환영합니다 ! </p>
+							<p style="font-weight:bold;" id="nameArea"><%= loginUser.getUserName() %> &nbsp; </p><p>님 </p>
 						</div>
 						<% } %>
 					</div>
