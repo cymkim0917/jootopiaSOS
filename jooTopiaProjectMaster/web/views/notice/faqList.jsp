@@ -233,7 +233,9 @@
 						 })
 			 
 						 $("td").click(function() {
-							 var num = $("#bid").val();
+							 var tr = $(this).parent();
+								var td = tr.children();
+								var num = td.eq(0).children().val();
 							 console.log(num);
 							 location.href="<%=request.getContextPath()%>/SelectOneFaqTotalList.do?num="+num;
 						 });
@@ -245,7 +247,9 @@
 				 });
 			 } 
 			 $(".table td").click(function() {
-				 var num = $("#bid").val();
+				 	var tr = $(this).parent();
+					var td = tr.children();
+					var num = td.eq(0).children().val();
 				 location.href="<%=request.getContextPath()%>/SelectOneFaqTotalList.do?num="+num;
 			 });
 			
