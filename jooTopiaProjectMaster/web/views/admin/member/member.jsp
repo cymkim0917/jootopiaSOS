@@ -119,15 +119,12 @@
    </div>
    
    <script>
-   	$(".memberList").click(function(){
-   		location.href="detailMemberList.jsp"
-   	});
    
-   	/* $(function(){
+   	$(function(){
 		$("#memberList td").mouseenter(function(){
 			$(this).parent().css({"background":"darkgray","cursor":"pointer"});
 		}).mouseout(function(){
-			$(this).parent().css({"background":"white"}); */
+			$(this).parent().css({"background":"white"}); 
 			
 		}).click(function(){
 			var tr = $(this).parent();
@@ -139,6 +136,7 @@
 			
 			
 		});
+   	});
 		
 
    </script>

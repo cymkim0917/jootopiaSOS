@@ -65,7 +65,7 @@ public class SearchAdminMemberServlet extends HttpServlet {
 		
 		PageInfo pageInfo = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
 		
-		String sUserId = request.getParameter("UserId");
+		String sUserId = request.getParameter("sUserId");
 		String sName = request.getParameter("sName");
 		String sPhone = request.getParameter("sPhone");
 		String sDate = request.getParameter("sDate");
