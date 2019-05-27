@@ -83,7 +83,6 @@ private Properties prop = new Properties();
 			pstmt = con.prepareStatement(query);
 			
 			pstmt.setString(1, h.getlBarcode());
-			
 			pstmt.setInt(2, h.getpId());
 			
 			result = pstmt.executeUpdate();

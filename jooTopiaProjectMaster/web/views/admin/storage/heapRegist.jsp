@@ -75,7 +75,7 @@ td input{
 					<tr>
 						<td width="120">위치바코드</td>
 						<td width="500">
-						<input type="text" placeholder="위치바코드를 입력하세요" name="lbarcode" id="lPbarcode" value="">
+						<input type="text" placeholder="위치바코드를 입력하세요" name="lbarcode" id="lbarcode" value="">
 						</td>
 					</tr>										
 				</table>
@@ -99,11 +99,12 @@ td input{
 				}
 			});	
 			$("#lPbarcode").change(function(){
-				var location = $("#lPbarcode").val();
-				location.href="<%=request.getContextPath()%>/insertAdminHeap.do?no=" + <%= h.getpId() %> + "&pBarcode=" + $("#checkPBarcode").val() + "&lBarcode=" + location;
+				var location = $("#lbarcode").val();
+				location.href="<%=request.getContextPath()%>/insertAdminHeap.do?no=" + <%= h.getpId() %> + "&lBarcode=" + location;
 			})
 			$("#btnClick").click(function(){
-				location.href="<%=request.getContextPath()%>/insertAdminHeap.do?no=" + <%= h.getpId() %> + "&pBarcode=" + $("#checkPBarcode").val() + "&lBarcode=" + $("lPbarcode").val();
+				console.log($("#lbarcode").val());
+				location.href="<%=request.getContextPath()%>/insertAdminHeap.do?no=" + <%= h.getpId() %> + "&lBarcode=" + $("#lbarcode").val();
 			})
 		</script>
 	</section>
