@@ -1,13 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%--  <%
-	 import="java.util.*,com.kh.jooTopia.board.model.vo.*"
-	HashMap<String,Object> list = (HashMap<String,Object>) request.getAttribute("list");
-	ArrayList<Board> bList = (ArrayList<Board>) list.get("bList");
-	ArrayList<Member> mList = (ArrayList<Member>) list.get("mList");
-	ArrayList<Attachment> aList = (ArrayList<Attachment>) list.get("aList");
- %>  --%>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +13,6 @@
 	.outer {
 		width:1100px;
 		height:1100px;
-		background:coral;
 		color:black;
 		margin-left:auto;
 		margin-right:auto;
@@ -70,7 +62,16 @@
 	#contentImgArea2:hover, #contentImgArea3:hover {
 		cursor:pointer;
 	}
-	
+	#btn1Area{
+		margin-right:2%;
+		float:left;
+	}
+	.btnArea > button{
+	padding: 10px 20px;
+	margin-right: 20px;
+	border-radius : 5px; 
+	background-color:hsla(9, 100%, 64%, 0.6); color:#32435F; font-weight:bold; border:none;
+	}
 </style>
 </head>
 <body>
@@ -115,7 +116,7 @@
 						
 					</tbody>
 					
-				</table><tr></tr>
+				</table>
 			
 			</div>
 			
@@ -126,10 +127,10 @@
 			</div>
 			<br>
 			<div class="btnArea" align="center">
-				<button onclick="location.href='<%=request.getContextPath()%>/selectReviewTotalList.do'">취소하기</button>
-				<button onclick="location.href='<%=request.getContextPath()%>/insertReview.do'">작성하기</button>
-				
-			</div>
+	            <button onclick="location.href='<%=request.getContextPath()%>/selectReviewTotalList.do'">취소하기</button>
+	            <button onclick="location.href='<%=request.getContextPath()%>/insertReview.do'">작성하기</button>
+            
+         </div>
 		</form>
 	</div>
 	<script>
@@ -165,14 +166,6 @@
 			}
 		};
 	</script>
-	
-	<%-- <% }else {
-		request.setAttribute("msg", "잘못된 경로로 접근하셨습니다!");
-		request
-			.getRequestDispatcher("../common/errorPage.jsp")
-			.forward(request, response);
-	} %>
-	 --%>
 	</section>
 <%@ include file="/views/common/footer.jsp" %>
 </body>
