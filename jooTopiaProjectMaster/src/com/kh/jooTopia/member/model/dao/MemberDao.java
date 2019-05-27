@@ -245,6 +245,7 @@ public class MemberDao {
 			member.setAddress(rs.getString(8));
 			member.setEmail(rs.getString(9));
 			member.setJoinType(rs.getInt(10));
+			member.setAdmin_NY(rs.getString(11));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

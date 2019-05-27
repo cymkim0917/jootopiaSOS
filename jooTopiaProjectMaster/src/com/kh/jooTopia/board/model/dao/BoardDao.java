@@ -1077,5 +1077,27 @@ public HashMap<String, Object> selectOneNotice(Connection con, int num) {
 	      
 }
 
+public int updateCount2(Connection con, int num) {
+    PreparedStatement pstmt = null;
+    int result = 0;
+    String query = prop.getProperty("updateCount2");
+    
+    try {
+       pstmt = con.prepareStatement(query);
+       pstmt.setInt(1,num);
+       pstmt.setInt(2, num);
+       
+       result = pstmt.executeUpdate();
+       
+       System.out.println();
+       System.out.println("result : " + result);
+    } catch (SQLException e) {
+       e.printStackTrace();
+    }finally {
+       close(pstmt);
+    }
+    return result;
+}
+
 
 }
