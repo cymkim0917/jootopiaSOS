@@ -395,7 +395,16 @@ public class BoardService {
 
 	public HashMap<String, Object> selectOneNotice(int num) {
 		Connection con = getConnection();
-		HashMap<String, Object> noticeMap = new BoardDao().selectOneNotice(con,num);
+		HashMap<String, Object> noticeMap = null;
+		
+		int result = new BoardDao().updateCount2(con, num);
+		
+		if(result > 0) {			
+			noticeMap = new BoardDao().selectOneNotice(con,num);			
+		}else {
+			System.out.println("노티스 실패");
+		}
+		
 		
 		close(con);
 		

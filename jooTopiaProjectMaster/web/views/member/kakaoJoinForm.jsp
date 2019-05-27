@@ -107,13 +107,13 @@
                      </table>
 
 
-                     <br> <input type="submit" class="btn btn-info"> 
-                        <input type="reset" class="btn btn-info" value="Reset">
+                     <br><!--  <input type="submit" class="btn btn-info"> 
+                        <input type="reset" class="btn btn-info" value="Reset"> -->
 
                   </div>
                    <div class="modal-footer" id="btnArea">
-             		   <input type="button" class="btn btn-info" id="modifyBtn"
-                        value="Submit" onclick="checkPassword();"> <input
+             		   <input type="submit" class="btn btn-info" id="modifyBtn"
+                        value="Submit" > <input
                         type="reset" class="btn btn-info" id = "delBtn" value="Reset"><br />
                
                </div>
